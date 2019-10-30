@@ -2,30 +2,30 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="miaDS" transaction-type="JTA">
 	<jta-data-source>java:/miaDS</jta-data-source>
-	<class>mia.entities.AreaInvestigacion</class>
-	<class>mia.entities.Cuestionario</class>
-	<class>mia.entities.Curso</class>
-	<class>mia.entities.CursoModulo</class>
-	<class>mia.entities.Dimension</class>
-	<class>mia.entities.DimensionPregunta</class>
-	<class>mia.entities.Etnia</class>
-	<class>mia.entities.FichaPersonal</class>
-	<class>mia.entities.GradoEstudio</class>
-	<class>mia.entities.Modulo</class>
-	<class>mia.entities.Opcion</class>
-	<class>mia.entities.Organizacion</class>
-	<class>mia.entities.OrganizacionFichapersonal</class>
-	<class>mia.entities.PaisEstado</class>
-	<class>mia.entities.Pregunta</class>
-	<class>mia.entities.ProyectoInvestigacion</class>
-	<class>mia.entities.Religion</class>
-	<class>mia.entities.Reporte</class>
-	<class>mia.entities.Respuesta</class>
-	<class>mia.entities.Rol</class>
-	<class>mia.entities.Usuario</class>
-	<class>mia.entities.UsuarioCurso</class>
-	<class>mia.entities.UsuarioInteresArea</class>
-	<class>mia.entities.UsuarioProyecto</class>
+	<class>mia.core.model.entities.AreaInvestigacion</class>
+	<class>mia.core.model.entities.Cuestionario</class>
+	<class>mia.core.model.entities.Curso</class>
+	<class>mia.core.model.entities.CursoModulo</class>
+	<class>mia.core.model.entities.Dimension</class>
+	<class>mia.core.model.entities.DimensionPregunta</class>
+	<class>mia.core.model.entities.Etnia</class>
+	<class>mia.core.model.entities.FichaPersonal</class>
+	<class>mia.core.model.entities.GradoEstudio</class>
+	<class>mia.core.model.entities.Modulo</class>
+	<class>mia.core.model.entities.Opcion</class>
+	<class>mia.core.model.entities.Organizacion</class>
+	<class>mia.core.model.entities.OrganizacionFichapersonal</class>
+	<class>mia.core.model.entities.PaisEstado</class>
+	<class>mia.core.model.entities.Pregunta</class>
+	<class>mia.core.model.entities.ProyectoInvestigacion</class>
+	<class>mia.core.model.entities.Religion</class>
+	<class>mia.core.model.entities.Reporte</class>
+	<class>mia.core.model.entities.Respuesta</class>
+	<class>mia.core.model.entities.Rol</class>
+	<class>mia.core.model.entities.Usuario</class>
+	<class>mia.core.model.entities.UsuarioCurso</class>
+	<class>mia.core.model.entities.UsuarioInteresArea</class>
+	<class>mia.core.model.entities.UsuarioProyecto</class>
 	
 	</persistence-unit>
 </persistence>
