@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<style type="text/css">
+/** Demo **/
+.ui-outputlabel {
+	font-weight: bold;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="menu?faces-redirect=true" />
+					
+				<f:facet name="options">
+					<p:commandButton title="Datos de pregunta" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+
+	<p:dialog header="Ingresar nuevo Pregunta" widgetVar="nuevoUsuario"
+		id="nuevoUsuario" modal="true" height="150" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form1">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+
+					<p:outputLabel value="Descripción:" />
+					<p:inputText
+						value="#{beanAdministrradorCuestionario.pregunta.descripcion}" required="true"
+						requiredMessage="Ingrese la Pregunta" maxlength="250">
+					</p:inputText>
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanAdministrradorCuestionario.actionIngresarPregunta()}"
+						oncomplete="nuevoUsuario" update="@form" ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+
+
+
+			<h:form id="form2">
+				<div class="ui-fluid">
+					<p:dataTable var="e" widgetVar="tabla1"
+						value="#{beanAdministrador.usuario}" reflow="true" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+						<f:facet name="header">
+							<p:outputLabel value="Lista de Usuarios"></p:outputLabel>
+						</f:facet>
+						<p:column headerText="Id" style="width:50px">
+							<h:outputText value="#{e.idUsuario}" />
+						</p:column>
+
+						<p:column headerText="Nombres">
+							<h:outputText value="#{e.nombres}" />
+						</p:column>
+						
+						
+						<p:column headerText="Apellidos">
+							<h:outputText value="#{e.apellidos}" />
+						</p:column>
+						
+						<p:column headerText="password">
+							<h:outputText value="#{e.password}" />
+						</p:column>
+						
+						<p:column headerText="Id rol">
+							<h:outputText value="#{e.rol}" />
+						</p:column>
+						
+						<p:column headerText="Id rol">
+							<h:outputText value="#{e.rol}" />
+						</p:column>
+						
+						<p:column headerText="OPCIONES" style="width:100px;">
+							<p:commandButton icon="fa fa-pencil"
+								actionListener="#{beanAdministrradorCuestionario.actionListenerCargarPregunta(e)}"
+								onclick="PF('editarPregunta').show();" title="Editar" 
+								update="form10"></p:commandButton>	
+								
+						</p:column>
+
+
+
+					</p:dataTable>
+				</div>
+			</h:form>
+	<p:dialog header="Editar Pregunta" widgetVar="editarPregunta"
+		id="editarPregunta" modal="true" height="230" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form10">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+<p:outputLabel value="ID:" />
+					<p:inputText
+						value="#{beanAdministrradorCuestionario.preguntaE.idPregunta}" required="true" disabled="true">
+					</p:inputText>
+					<p:outputLabel value="Descripción Pregunta:" />
+					<p:inputText
+						value="#{beanAdministrradorCuestionario.preguntaE.descripcion}" required="true"
+						requiredMessage="Ingrese el Cambio de la pregunta" maxlength="100">
+					</p:inputText>
+					
+
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanAdministrradorCuestionario.actionListenerEditarPregunta()}"
+						oncomplete="nuevoUsuario" update="@form" ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+
+</body>
+</html>

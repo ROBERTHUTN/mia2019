@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<style type="text/css">
+/** Demo **/
+.ui-outputlabel {
+	font-weight: bold;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="menu?faces-redirect=true" />
+
+				<p:menuitem value="Nuevo Usuario" title="Ingresar Nuevo Usuario"
+					icon=" fa fa-user-plus " onclick="PF('nuevoUsuario').show();"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+
+	<p:dialog header="Ingresar Nuevo Usuario" widgetVar="nuevoUsuario"
+		id="nuevoUsuario" modal="true" height="355" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form1">
+			<div class="ui-fluid">
+				<p:panelGrid columns="2" layout="grid" >
+					<p:outputLabel value="Nombres"></p:outputLabel>
+					<p:inputText validatorMessage="Nombre: ingrese solo letras!"
+						value="#{beanAdministrador.usuario.nombres}" required="true"
+						requiredMessage="Ingrese los nombres" maxlength="100">
+						<f:validateRegex
+							pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+					</p:inputText>
+					<p:outputLabel value="Apellidos"></p:outputLabel>
+					<p:inputText validatorMessage="Apellido: ingrese solo letras!"
+						value="#{beanAdministrador.usuario.apellidos}" required="true"
+						requiredMessage="Ingrese los apellidos" maxlength="100">
+						<f:validateRegex
+							pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+
+					</p:inputText>
+					<p:outputLabel value="Cédula"></p:outputLabel>
+					<p:inputText value="#{beanAdministrador.usuario.ci}"
+						validatorMessage="Formato de cédula incorrecto !" required="true"
+						requiredMessage="Ingrese una identificación" maxlength="10">
+						<f:validateRegex pattern="[0-9]{10}"></f:validateRegex>
+					</p:inputText>
+					<p:outputLabel value="Correo"></p:outputLabel>
+					<p:inputText accesskey="true"
+						value="#{beanAdministrador.usuario.correo}" required="true"
+						requiredMessage="Ingrese un correo " maxlength="50"
+						validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
+						<f:validateRegex
+							pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
+					</p:inputText>
+<p:outputLabel value="Rol: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un Rol"
+						value="#{beanAdministrador.id_rol_fk}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Rol"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanAdministrador.roles}" var="r"
+							itemLabel="#{r.nombreRol}" itemValue="#{r.idRol}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Contraseña"></p:outputLabel>
+					<p:password value="#{beanAdministrador.usuario.password}"
+						feedback="true"
+						validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
+						required="true" requiredMessage="Ingrese una contraseña segura"
+						maxlength="20" promptLabel="Ingrese una contraseña segura!"
+						weakLabel="Bajo" goodLabel="Media" strongLabel="Alta">
+						<f:validateRegex
+							pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
+					</p:password>
+
+</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanAdministrador.actionListenerIngresarEtnia()}"
+						oncomplete="nuevoUsuario" update="@form" ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+
+
+
+	<h:form id="form2">
+		<div class="ui-fluid">
+
+			<p:dataTable var="r" widgetVar="tabla1"
+				value="#{beanAdministrador.usuarios}" reflow="true" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<p:outputLabel value="Lista de Usuarios"></p:outputLabel>
+				</f:facet>
+				<p:column headerText="Id" style="width:50px">
+					<h:outputText value="#{r.idUsuario}" />
+				</p:column>
+
+				<p:column headerText="Nombres">
+					<h:outputText value="#{r.nombres}" />
+				</p:column>
+				<p:column headerText="Apellidos">
+					<h:outputText value="#{r.apellidos}" />
+				</p:column>
+				<p:column headerText="Cédula" style="width:90px">
+					<h:outputText value="#{r.ci}" />
+				</p:column>
+				<p:column headerText="Correo">
+					<h:outputText value="#{r.correo}" />
+				</p:column>
+				<p:column headerText="Rol" style="width:100px">
+					<h:outputText value="#{r.rol.nombreRol}" />
+				</p:column>
+				<p:column headerText="Activo" style="width:50px">
+					<h:outputText value="#{r.activo}" />
+				</p:column>
+
+				<p:column headerText="OPCIONES" style="width:100px;">
+					<p:commandButton icon="fa fa-pencil"
+						actionListener="#{beanAdministrador.actionListenerCargarUsuario(r)}"
+						onclick="PF('editarUsuario').show();" title="Editar" update="form10"></p:commandButton>
+
+				<!-- 	<p:commandButton update="@form"
+						actionListener="#{beanAdministrador.actionListenerEliminarUsuario(r.idUsuario)}"
+						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
+						icon="fa fa-times">
+						<p:confirm header="Confirmación" message="Desea eliminar?"
+							icon="fa fa-times" />
+					</p:commandButton>
+				 -->
+
+				</p:column>
+
+
+
+			</p:dataTable>
+		</div>
+	</h:form>
+	<p:dialog header="Editar rol" widgetVar="editarUsuario" id="editarUsuario"
+		modal="true" height="400" resizable="true" responsive="true"
+		minimizable="true" maximizable="true" appendTo="@(body)">
+		<h:form id="form10">
+			<div class="ui-fluid">
+				<p:panelGrid columns="2" layout="grid" >
+					<p:outputLabel value="Nombres"></p:outputLabel>
+					<p:inputText validatorMessage="Nombre: ingrese solo letras!"
+						value="#{beanAdministrador.usuarioE.nombres}" required="true"
+						requiredMessage="Ingrese los nombres" maxlength="100">
+						<f:validateRegex
+							pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+					</p:inputText>
+					<p:outputLabel value="Apellidos"></p:outputLabel>
+					<p:inputText validatorMessage="Apellido: ingrese solo letras!"
+						value="#{beanAdministrador.usuarioE.apellidos}" required="true"
+						requiredMessage="Ingrese los apellidos" maxlength="100">
+						<f:validateRegex
+							pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+
+					</p:inputText>
+					<p:outputLabel value="Cédula"></p:outputLabel>
+					<p:inputText value="#{beanAdministrador.usuarioE.ci}"
+						validatorMessage="Formato de cédula incorrecto !" required="true"
+						requiredMessage="Ingrese una identificación" maxlength="10">
+						<f:validateRegex pattern="[0-9]{10}"></f:validateRegex>
+					</p:inputText>
+					<p:outputLabel value="Correo"></p:outputLabel>
+					<p:inputText accesskey="true"
+						value="#{beanAdministrador.usuarioE.correo}" required="true"
+						requiredMessage="Ingrese un correo " maxlength="50"
+						validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
+						<f:validateRegex
+							pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
+					</p:inputText>
+ 			<p:outputLabel value="Rol: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un Rol"
+						value="#{beanAdministrador.id_rol_fk}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Rol"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanAdministrador.roles}" var="r"
+							itemLabel="#{r.nombreRol}" itemValue="#{r.idRol}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Activo: " />					
+					<p:selectBooleanButton id="value1" value="#{ beanAdministrador.usuarioE.activo}" onLabel="Yes" offLabel="No" style="width:60px" />
+ 
+					
+					<p:outputLabel value="Contraseña"></p:outputLabel>
+					<p:password value="#{beanAdministrador.usuarioE.password}" disabled="true"
+						feedback="true"
+						validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
+						required="true" requiredMessage="Ingrese una contraseña segura"
+						maxlength="20" promptLabel="Ingrese una contraseña segura!"
+						weakLabel="Bajo" goodLabel="Media" strongLabel="Alta">
+						<f:validateRegex
+							pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
+					</p:password>
+
+
+</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanAdministrador.actionListenerEditarUsuario()}"
+						oncomplete="nuevoUsuario" update="@form" ajax="false">
+						
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	<!-- Estilos -->
+	
+
+	<title>Formulario usuarios y lista</title>
+<style type="text/css">
+    /** Demo **/
+    .ui-outputlabel {
+        font-weight: bold;
+    }
+     
+    .ui-orderlist .ui-orderlist-list {
+        height: auto;
+    }
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+ 
+<h:form>
+    <div class="ui-fluid">
+  
+    <p:panel header="FICHA REGISTRO">
+        <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+            <p:outputLabel  value="Nombres: "/>
+            
+  <p:inputText validatorMessage="Nombre: ingrese solo letras!" value="#{beanAccesos.fichaPersonal.nombres}"  required="true" requiredMessage="Ingrese los nombres" maxlength="100"  
+  ><f:validateRegex pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+  </p:inputText>
+    <p:outputLabel  value="Apellidos: "/>
+            
+  <p:inputText validatorMessage="Apellido: ingrese solo letras!" value="#{beanAccesos.fichaPersonal.apellidos}"  required="true" requiredMessage="Ingrese los apellidos" maxlength="100"  
+  ><f:validateRegex pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+  </p:inputText>
+    
+             <p:outputLabel value="Edad:"/>
+            <p:spinner  min="1" value="#{beanAccesos.fichaPersonal.edad}" max="99" required="true" requiredMessage="Ingrese su edad"/>
+  
+   
+  <p:outputLabel  value="Genero "/>
+            
+  <p:selectOneMenu  value="#{beanAccesos.fichaPersonal.genero}" required="true" requiredMessage="Seleccione el género" >
+            <f:selectItem itemLabel="Seleccione one" noSelectionOption="true" />
+            <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+            <f:selectItem itemLabel="Femenino" itemValue="femenino" />
+            <f:selectItem itemLabel="otros" itemValue="otros" />
+        </p:selectOneMenu>
+  
+    <p:outputLabel  value="Fecha Nacimiento: "/>
+  <p:calendar  value="#{beanAccesos.fichaPersonal.fechaNacimiento}"  maxdate="#{beanAccesos.fechaNacimiento}" pattern="yyyy-MMM-dd" />
+
+  
+    <p:outputLabel  value="Ciudad: "/>         
+  <p:inputText validatorMessage="Ciudad: ingrese nombre ciudad!" value="#{beanAccesos.fichaPersonal.ciudad}"  required="true" requiredMessage="Ingrese los apellidos" maxlength="100"  
+  ><f:validateRegex pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,150}"></f:validateRegex>
+  </p:inputText>
+ 
+   <p:outputLabel  value="Direccion: "/>
+            
+  <p:inputText validatorMessage="Direccion: ingrese dirección donde vive!" value="#{beanAccesos.fichaPersonal.direccion}"  required="true" requiredMessage="Ingrese los apellidos" maxlength="100"  
+  ></p:inputText>
+ 
+  <p:outputLabel  value="Teléfono: "/>
+            
+  <p:inputText validatorMessage="Teléfono: ingrese su télefon!" value="#{beanAccesos.fichaPersonal.telefono}"  required="true" requiredMessage="Ingrese los apellidos" maxlength="100"  
+  ><f:validateRegex pattern="([0][0-9]{3})[0-9]{3}[0-9]{2,14}"></f:validateRegex>
+  </p:inputText>
+
+ 
+  <p:outputLabel  value="Celular: "/>
+            
+  <p:inputText validatorMessage="Celular: ingrese su un número de celular válido!" value="#{beanAccesos.fichaPersonal.celular}"  required="true" requiredMessage="Ingrese un número de celular" maxlength="20"  
+  ><f:validateRegex pattern="([0][0-9]{3})[0-9]{3}[0-9]{3,14}"></f:validateRegex>
+  </p:inputText> 
+  
+  <p:outputLabel value="Correo"></p:outputLabel>
+  
+    <p:inputText accesskey="true"  value="#{beanAccesos.fichaPersonal.correo}" required="true" requiredMessage="Ingrese un correo " maxlength="50" validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
+     <f:validateRegex pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
+ </p:inputText>
+              
+ 
+  <p:outputLabel  value="Estado Civil "/>
+            
+  <p:selectOneMenu  value="#{beanAccesos.fichaPersonal.estadoCivil}"  required="true" requiredMessage="Seleccione un estado civil">
+            <f:selectItem itemLabel="Seleccione uno" noSelectionOption="true" />
+            <f:selectItem itemLabel="Soltero/a" itemValue="soltero/a" />
+            <f:selectItem itemLabel="Casado/a" itemValue="casado/a" />
+            <f:selectItem itemLabel="Divorciado/a" itemValue="divorciado/a" />
+            <f:selectItem itemLabel="Viudo/a" itemValue="viudo/a" />
+            <f:selectItem itemLabel="Unión Libre" itemValue="unión libre" />
+            <f:selectItem itemLabel="Separado/a" itemValue="separado/a" />
+            <f:selectItem itemLabel="otros" itemValue="otros" />
+        </p:selectOneMenu>
+  
+  <p:outputLabel  value="Grado de Instrucción "/>
+            
+  <p:selectOneMenu  value="#{beanAccesos.fichaPersonal.gradoInstruccion}" required="true" requiredMessage="Seleccione el grado de instrucción"  >
+            <f:selectItem itemLabel="Personas Analfabetas" noSelectionOption="true" />
+            <f:selectItem itemLabel="Sin estudios" itemValue="Sin estudios" />
+            <f:selectItem itemLabel="Primarios" itemValue="Primarios" />
+            <f:selectItem itemLabel="Profesionales" itemValue="Profesionales" />
+            <f:selectItem itemLabel="Secundarios" itemValue="Secundarios" />
+            <f:selectItem itemLabel="Medios-Superiores" itemValue="Medios-Superiores" />
+            <f:selectItem itemLabel="Superiores" itemValue="Superiores" />
+        </p:selectOneMenu>
+  
+             <p:outputLabel value="Número de Hijos:"/>
+            <p:spinner required="true" requiredMessage="Ingrese el número de hijos" min="0" value="#{beanAccesos.fichaPersonal.numeroHijos}" max="20"/>
+      <p:outputLabel value="Cédula:"/>
+    <p:inputText  value="#{beanAccesos.fichaPersonal.identificacionPer}" validatorMessage="Formato de cédula incorrecto !" required="true" requiredMessage="Ingrese una identificación" maxlength="10">
+  <f:validateRegex pattern="[0-9]{10}"></f:validateRegex>
+  </p:inputText>
+  
+ <p:outputLabel  value="Religión: "/>
+<p:selectOneMenu id="relig" autoWidth="100%" required="true"
+						requiredMessage="Elija una religión"
+						value="#{beanAccesos.id_religion_fk}" effect="fade" var="m"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Select One" noSelectionOption="true" />
+						<f:selectItems value="#{beanAccesos.religiones}" var="reg"
+							itemLabel="#{reg.descripcion}"
+							itemValue="#{reg.idReligion}" />
+
+					</p:selectOneMenu>
+   
+  <p:outputLabel  value="Etnia: "/>
+<p:selectOneMenu  autoWidth="100%" required="true"
+						requiredMessage="Elija una etnia"
+						value="#{beanAccesos.id_etnia_fk}" effect="fade" var="m"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Select One" noSelectionOption="true" />
+						<f:selectItems value="#{beanAccesos.etnias}" var="et"
+							itemLabel="#{et.descripcion}"
+							itemValue="#{et.idEtnia}" />
+
+					</p:selectOneMenu>
+
+  <p:outputLabel  value="Role: "/>
+<p:selectOneMenu  autoWidth="100%" required="true"
+						requiredMessage="Elija un role"
+						value="#{beanAccesos.id_rol_fk}" effect="fade" var="m"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Select One" noSelectionOption="true" />
+						<f:selectItems value="#{beanAccesos.roles}" var="et"
+							itemLabel="#{et.nombreRol}"
+							itemValue="#{et.idRol}" />
+
+					</p:selectOneMenu>
+					
+	 <h:outputText value="Realizaria voluntariado: " />
+        <p:selectBooleanButton  value="#{beanAccesos.fichaPersonal.voluntariado}" onLabel="Si" offLabel="No"  />
+ 						
+	 <h:outputText value="Trabaja: " />
+        <p:selectBooleanButton  value="#{beanAccesos.fichaPersonal.trabajo}" onLabel="Si" offLabel="No"  />
+ 				
+					
+  <p:commandButton value="INGRESAR" action="#{beanAccesos.actionIngresarFichaPersonal()}"></p:commandButton>
+            
+        </p:panelGrid>
+ </p:panel>
+
+    </div>
+</h:form>
+
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+</body>
+</html>

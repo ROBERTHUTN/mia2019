@@ -1,0 +1,63 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	<!-- Estilos -->
+	
+
+	<title>Formulario usuarios y lista</title>
+<style type="text/css">
+    /** Demo **/
+    .ui-outputlabel {
+        font-weight: bold;
+    }
+     
+    .ui-orderlist .ui-orderlist-list {
+        height: auto;
+    }
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+ 
+    <div class="ui-fluid">
+   <p:dataGrid var="car" value="#{beanAdministrradorCuestionario.cuestionarios}" columns="3" layout="grid"
+ >
+         
+        <f:facet name="header">
+            Cuestionarios
+        </f:facet>
+
+ 
+        <p:panel header="#{car.idCuestionario}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+                <h:outputText value="#{car.descripcion}" />
+			 <h:form>
+			<p:commandButton value="Evaluar Cuestionario" action="#{beanAdministrradorCuestionario.actionDimensionesbyCuestionario(car)}"></p:commandButton>        
+           </h:form>
+            </h:panelGrid>
+        
+        </p:panel>
+ 
+
+    </p:dataGrid>
+   </div>
+
+
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+</body>
+</html>

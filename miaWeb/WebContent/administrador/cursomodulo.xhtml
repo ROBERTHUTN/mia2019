@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<style type="text/css">
+/** Demo **/
+
+.ui-outputlabel {
+	font-weight: bold;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="menu?faces-redirect=true" />
+
+				<p:menuitem value="Registrar Módulo del curso" title="Ingresar Módulo del curso"
+					icon=" fa fa-plus " onclick="PF('nuevaCursoModulo').show();"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Datos del tipo de dimension" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+
+	<p:dialog header="Registre Módulo del Curso" widgetVar="nuevaCursoModulo"
+		id="nuevaCursoModulo" modal="true" height="250" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form1">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+
+					
+					<p:outputLabel value="Curso: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un Curso"
+						value="#{beanCurso.id_curso}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Curso"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanCurso.cursos}" var="reg"
+							itemLabel="#{reg.nombre}" itemValue="#{reg.idCurso}" />
+					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Módulo: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un Módulo"
+						value="#{ beanCurso.id_modulo}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione la Pregunta"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanCurso.modulos}" var="reg"
+							itemLabel="#{reg.nombre}" itemValue="#{reg.idModulo}" />
+					</p:selectOneMenu>
+					
+					
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{ beanCurso.actionListenerIngresarCursoModulo()}"
+						oncomplete="nuevaCursoModulo" update="form2" ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+
+
+
+	<h:form id="form2">
+		<div class="ui-fluid">
+
+			<p:dataTable var="e" widgetVar="tabla1"
+				value="#{beanCurso.cursomodulos}" reflow="true"
+				rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<p:outputLabel value="Lista de curso y Módulo "></p:outputLabel>
+				</f:facet>
+				<p:column headerText="Id" style="width:50px">
+					<h:outputText value="#{e.idCursoModulo}" />
+				</p:column>
+
+				<p:column headerText="Curso">
+					<h:outputText value="#{e.curso.nombre}" />
+				</p:column>
+					<p:column headerText="Módulo">
+					<h:outputText value="#{e.modulo.nombre}" />
+				</p:column>
+
+				<p:column headerText="Curso y módulo" style="width:100px;">
+					<p:commandButton icon="fa fa-peneditarcursomodulocil"
+						actionListener="#{beanCurso.actionListenerCargarCursoModulo(e)}"
+						onclick="PF('editarcursomodulo').show();" title="Editar"
+						update="form10"></p:commandButton>
+
+					<p:commandButton update="form2"
+						actionListener="#{beanCurso.actionListenerEliminarCursoModulo(e.idCursoModulo) }"
+						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
+						icon="fa fa-times">
+						<p:confirm header="Confirmación" message="Desea eliminar?"
+							icon="fa fa-times" />
+					</p:commandButton>
+
+
+				</p:column>
+
+
+
+			</p:dataTable>
+		</div>
+	</h:form> 
+
+
+	<p:dialog header="Editar Módulo del curso" widgetVar="'editarcursomodulo'"
+		id="editarcursomodulo" modal="true" height="330" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form10">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+					<p:outputLabel value="ID:" />
+					<p:inputText
+						value="#{beanCurso.cursomoduloE.idCursoModulo}"
+						required="true" disabled="true">
+					</p:inputText>
+
+		<p:outputLabel value="Curso: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un Curso"
+						value="#{beanCurso.id_curso}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Curso"
+							noSelectionOption="true"/>
+						<f:selectItems
+							value="#{ beanCurso.cursos }" var="reg"
+							itemLabel="#{reg.nombre}" itemValue="#{reg.idCurso}" />
+					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Módulos: " />
+					<p:selectOneMenu autoWidth="100%"  required="true"
+						requiredMessage="Seleccione un Módulo"
+						value="#{beanCurso.id_modulo}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione un módulo"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanCurso.modulos}" var="reg"
+							itemLabel="#{reg.nombre}" itemValue="#{reg.idModulo}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanCurso.actionListenerEditarCursoModulo()}"
+						oncomplete="nuevaCursoModulo" update="@form"  ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+</body>
+
+</html>

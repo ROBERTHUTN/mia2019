@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body style="background-color: #3b83bd;"> 
+<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="menu?faces-redirect=true" />
+					
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+
+<h3>Lista de Módulos del curso Mindfulness Into Action</h3>
+
+   <div class="ui-fluid" align="center">
+   <p:panelGrid columns="3" layout="grid">
+   
+            <p:panel id="modulo1" header="Módulo 1">
+            <h:form>
+              <p:commandLink action="modulo1?faces-redirect=true">
+                <p:graphicImage value="images/modulo.png" />
+                </p:commandLink>
+                </h:form>
+            </p:panel>
+ 		
+ 		   <p:panel id="modulo2" header="Módulo 2">
+            <h:form>
+              <p:commandLink action="modulo2?faces-redirect=true">
+                <p:graphicImage value="images/modulo.png" />
+                </p:commandLink>
+                </h:form>
+            </p:panel>
+            
+           <p:panel id="modulo3" header="Módulo 3">
+            <h:form>
+              <p:commandLink action="modulo3?faces-redirect=true">
+                <p:graphicImage value="images/modulo.png" />
+                </p:commandLink>
+                </h:form>
+            </p:panel>
+            
+ 		    <p:panel id="modulo4" header="Módulo 4">
+            <h:form>
+              <p:commandLink action="modulo4?faces-redirect=true">
+                <p:graphicImage value="images/modulo.png" />
+                </p:commandLink>
+                </h:form>
+            </p:panel>
+            
+             <p:panel id="modulo5" header="Módulo 5">
+            <h:form>
+              <p:commandLink action="modulo5?faces-redirect=true">
+                <p:graphicImage value="images/modulo.png" />
+                </p:commandLink>
+                </h:form>
+            </p:panel>
+ 
+ 
+        <div style="clear:both" />
+    </p:panelGrid>
+
+</div>
+
+</body> 
+</html>

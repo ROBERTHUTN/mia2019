@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	
+	<!-- Estilos -->
+	<link rel="stylesheet" href="administrador/css/estilos.css" />
+	<title>menu Administrador</title>
+	<style type="text/css">
+/** Demo **/
+.ui-outputlabel {
+	font-weight: bold;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="Bienvenido #{beanLogin.login.rol}"
+					title="Administrador" icon="fa fa-user-secret"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user-secret"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+	<h3>Roles del Sistema</h3>
+	<div class="ui-fluid" align="center">
+		<p:panelGrid columns="4" layout="grid">
+			<p:panel id="sports" header="Lista de Preguntas">
+				<h:form>
+					<p:commandLink action="listapreguntas?faces-redirect=true">
+						<p:graphicImage value="images/listapreguntas.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+<p:panel header="Usuarios">
+	
+				<p:commandLink action="usuario?faces-redirect=true">
+					<p:graphicImage value="images/usuarios.png" />
+				</p:commandLink>
+
+			</p:panel>
+			<p:panel header="ficha Administrador">
+
+				<p:commandLink action="fichaAdministrador?faces-redirect=true">
+					<p:graphicImage value="images/nuevouser.png" />
+				</p:commandLink>
+
+			</p:panel>
+
+			<p:panel header="Roles">
+
+				<p:commandLink action="rol?faces-redirect=true">
+					<p:graphicImage value="images/rol.png" />
+				</p:commandLink>
+			</p:panel>
+
+			<p:panel header="Etnias">
+
+				<p:commandLink action="etnia?faces-redirect=true">
+					<p:graphicImage value="images/etnias.png" />
+				</p:commandLink>
+			</p:panel>
+
+			<p:panel header="Religiones">
+
+				<p:commandLink action="religion?faces-redirect=true">
+					<p:graphicImage value="images/religion.png" />
+				</p:commandLink>
+			</p:panel>
+			<p:panel header="Dimensiones">
+
+				<p:commandLink action="dimension?faces-redirect=true">
+					<p:graphicImage value="images/dimension.png" />
+				</p:commandLink>
+			</p:panel>
+
+			<p:panel header="Curso">
+
+				<p:commandLink action="curso?faces-redirect=true">
+					<p:graphicImage value="images/curso.png" />
+				</p:commandLink>
+			</p:panel>
+
+
+			<p:panel header="Opciones de Cuestionarios">
+
+				<p:commandLink action="opcion?faces-redirect=true">
+					<p:graphicImage value="images/opciones.png" />
+				</p:commandLink>
+			</p:panel>
+			
+			<p:panel header="Dimensiones de las Preguntas">
+
+				<p:commandLink action="dimensionpregunta?faces-redirect=true">
+					<p:graphicImage value="images/dimensionpregunta.png" />
+				</p:commandLink>
+			</p:panel>
+			
+			<p:panel header="Cuestionarios">
+
+				<p:commandLink action="cuestionario?faces-redirect=true">
+					<p:graphicImage value="images/pregunta.png" />
+				</p:commandLink>
+			</p:panel>
+						
+			<p:panel header="Grado de Estudio">
+
+				<p:commandLink action="grado?faces-redirect=true">
+					<p:graphicImage value="images/gradoestudio.png" />
+				</p:commandLink>
+			</p:panel>
+							
+			<p:panel header="Organizaciones">
+				<p:commandLink action="organizacion?faces-redirect=true">
+					<p:graphicImage value="images/organizacion.png"/>
+				</p:commandLink>
+			</p:panel>					
+			
+			<p:panel header="Asignar Usuario a Proyectos">
+
+				<p:commandLink action="usuarioproyecto?faces-redirect=true">
+					<p:graphicImage value="images/userproyecto.png" />
+				</p:commandLink>
+			</p:panel>	
+			
+				<p:panel header="Registros de Cursos">
+
+				<p:commandLink action="cursoadmin?faces-redirect=true">
+					<p:graphicImage value="images/userproyecto.png" />
+				</p:commandLink>
+			</p:panel>								
+
+			<p:panel header="Registros de Módulo">
+
+				<p:commandLink action="modulo?faces-redirect=true">
+					<p:graphicImage value="images/userproyecto.png" />
+				</p:commandLink>
+			</p:panel>								
+			
+			<p:panel header="Asignar Módulo al Curso">
+
+				<p:commandLink action="cursomodulo?faces-redirect=true">
+					<p:graphicImage value="images/userproyecto.png" />
+				</p:commandLink>
+			</p:panel>
+			
+			<div style="clear: both" />
+		</p:panelGrid>
+
+	</div>
+</body>
+</html>

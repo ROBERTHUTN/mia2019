@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<style type="text/css">
+/** Demo **/
+.ui-outputlabel {
+	font-weight: bold;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="menu?faces-redirect=true" />
+					
+				<p:menuitem value="Nuevo usuario y proyecto." title="Ingresar Nuevo usuario y proyecto."
+					icon=" fa fa-plus " onclick="PF('nuevoUsuarioProyecto').show();"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+
+	<p:dialog header="Ingresar Nuevo usuario y proyecto." widgetVar="nuevoUsuarioProyecto"
+		id="nuevoUsuarioProyecto" modal="true" height="230" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form1">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+
+					
+						<p:outputLabel value="Usuario: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un usuario"
+						value="#{beanAdministrador.id_ficha_fk}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Usuario"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanInvestigador.listaFichaU}" var="u"
+							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
+					</p:selectOneMenu>
+
+			<p:outputLabel value="Proyecto: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un Proyecto"
+						value="#{beanAdministrador.id_proyecto}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione un Proyecto"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanProyectoInvestigacion.proyectoInvestigaciones}" var="p"
+							itemLabel="#{p.nombreProyecto}" itemValue="#{p.idProyectoInvestigacion}" />
+					</p:selectOneMenu>
+
+					
+					<p:outputLabel value="Organización: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione una OrganizaciOn"
+						value="#{beanAdministrador.id_organizacion}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione una organizaciOn"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanAdministrador.organizaciones}" var="o"
+							itemLabel="#{o.nombreOrganizacion}" itemValue="#{o.idOrganizacion}" />
+					</p:selectOneMenu>
+ 
+  				<p:outputLabel value="Fecha de: " />
+				<p:datePicker id="fecha_de" value="#{beanAdministrador.usuarioproyecto.fechaDe}" />
+				<p:outputLabel value="Fecha Hasta: " />
+				<p:datePicker id="fecha_hasta" value="#{beanAdministrador.usuarioproyecto.fechaHasta}" />	
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanAdministrador.actionListenerIngresarUsuarioProyecto()}"
+						oncomplete="nuevoUsuarioProyecto" update="form2" ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+
+
+
+			<h:form id="form2">
+				<div class="ui-fluid">
+
+					<p:dataTable var="r" widgetVar="tabla1"
+						value="#{beanAdministrador.usuarioproyectos}" reflow="true" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+						<f:facet name="header">
+							<p:outputLabel value="Lista de organización y usuarios"></p:outputLabel>
+						</f:facet>
+						<p:column headerText="Id" style="width:50px">
+							<h:outputText value="#{r.idUsuarioProyecto}" />
+						</p:column>
+
+						<p:column headerText="Usuario">
+							<h:outputText value="#{r.fichaPersonal.usuario.nombres} #{r.fichaPersonal.usuario.apellidos}" />
+						</p:column>
+						
+						<p:column headerText="Proyecto">
+							<h:outputText value="#{r.proyectoInvestigacion.nombreProyecto} " />
+						</p:column>
+						
+
+						<p:column headerText="Organización">
+							<h:outputText value="#{r.organizacion.nombreOrganizacion}" />
+						</p:column>
+						
+						<p:column headerText="Fecha de Inicio">
+							<h:outputText value="#{r.fechaDe}" />
+						</p:column>
+						
+						<p:column headerText="Fecha Fin">
+							<h:outputText value="#{r.fechaHasta}" />
+						</p:column>
+						
+						<p:column headerText="OPCIONES" style="width:100px;">
+							<p:commandButton icon="fa fa-pencil"
+								actionListener="#{beanAdministrador.actionListenerCargarUsuarioProyecto(r)}"
+								onclick="PF('editarArea').show();" title="Editar" 
+								update="form10"></p:commandButton>
+								
+							<p:commandButton update="@form"
+							actionListener="#{beanAdministrador.actionListenerEliminarUsuarioProyecto(r.idUsuarioProyecto)}"
+								style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
+								icon="fa fa-times">
+								
+								<p:confirm header="Confirmación" message="Desea eliminar?"
+									icon="fa fa-times" />
+							</p:commandButton>
+
+
+						</p:column>
+
+
+
+					</p:dataTable>
+				</div>
+			</h:form>
+			
+	<p:dialog header="Editar Organizacion Ficha" widgetVar="editarArea"
+		id="editarArea" modal="true" height="330" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form10">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+					<p:outputLabel value="ID:" />
+					<p:inputText
+						value="#{beanAdministrador.usuarioproyectoE.idUsuarioProyecto}" required="true" disabled="true">
+					</p:inputText>
+					
+						<p:outputLabel value="Ficha: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un usuario"
+						value="#{beanAdministrador.id_ficha_fk}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Usuario"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanInvestigador.listaFichaU}" var="u"
+							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
+					</p:selectOneMenu>
+					
+					
+					
+					<p:outputLabel value="Proyecto: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un usuario"
+						value="#{beanAdministrador.id_proyecto}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Usuario"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanProyectoInvestigacion.proyectoInvestigaciones}" var="u"
+							itemLabel="#{u.nombreProyecto} " itemValue="#{u.idProyectoInvestigacion}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Organización: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione una OrganizaciOn"
+						value="#{beanAdministrador.id_organizacion}"
+						effect="fade" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione una organizaciOn"
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanAdministrador.organizaciones}" var="o"
+							itemLabel="#{o.nombreOrganizacion}" itemValue="#{o.idOrganizacion}" />
+					</p:selectOneMenu>
+					
+				
+  				<p:outputLabel value="Fecha de: " />
+				<p:datePicker id="fecha_de" value="#{beanAdministrador.usuarioproyectoE.fechaDe}" />
+				<p:outputLabel value="Fecha Hasta: " />
+				<p:datePicker id="fecha_hasta" value="#{beanAdministrador.usuarioproyectoE.fechaHasta}" />	
+				  			
+  			
+  			
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanAdministrador.actionListenerEditarUsuarioProyecto()}"
+						oncomplete="nuevoUsuarioProyecto" update="@form" ajax="false">	 
+					</p:commandButton>
+					
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+			
+</body>
+</html>

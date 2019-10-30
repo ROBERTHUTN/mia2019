@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+<f:event listener="#{authBeanLogin.actionComprobarSessionLogin()}"
+type="preRenderView"></f:event>
+</f:metadata>
+
+<h:head>
+<title>Consmed</title>
+<link rel="icon" type="image/png" href="images/logo1.png" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" media="screen"></link>
+
+<script type="text/javascript">
+   function deshabilitaRetroceso(){
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button" //chrome
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+}
+</script>
+</h:head> 
+<body onload="deshabilitaRetroceso()" style="background-color: #3b83bd;">
+
+<div align="center">
+ <h1>Hospital</h1>
+  <h3>Pregunta de seguridad</h3>
+</div>
+
+
+<div align="center">
+
+			<p:panel header="Ingresar contraseña segura" style="width:600px"> 
+			<h:form>
+				<h:panelGrid columns="1" cellpadding="5">
+					<h:outputLabel value="Contraseña:" />
+
+					<p:password id="p1" 
+						match="p2" feedback="true" value="#{segBeanSeguridad.ad1}"
+						validatorMessage="Las contraseñas no coinciden" required="true"
+						requiredMessage="Ingrese una contraseña segura" maxlength="16"
+						promptLabel="Ingrese una contraseña segura!" weakLabel="Bajo"
+						goodLabel="Media" strongLabel="Alta">
+						<f:validateRegex
+							pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
+					</p:password>
+					<h:outputLabel value="Confirmación de contraseña:" />
+					<p:password id="p2" value="#{segBeanSeguridad.ad2}"
+						feedback="true" validatorMessage="Contraseña insegura"
+						required="true" requiredMessage="Ingrese una contraseña segura"
+						maxlength="16" promptLabel="Ingrese una contraseña segura!"
+						weakLabel="Bajo" goodLabel="Media" strongLabel="Alta">
+						<f:validateRegex
+							pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
+					</p:password>
+
+
+				</h:panelGrid>
+				<p:commandButton value="INGRESAR" id="ajax" update="@form"
+					action="#{segBeanSeguridad.actionSeguridadContraseniaUser()}"
+					style="width:188px" styleClass="ui-priority-primary" />
+				
+</h:form>
+			</p:panel>
+
+			</div>
+
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+</body>
+
+
+</html>

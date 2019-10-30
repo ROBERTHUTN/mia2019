@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body style="background-color: #3b83bd;"> 
+<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="menu?faces-redirect=true" />
+					
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+
+<h3>Lista de Módulos del curso Mindfulness Into Action</h3>
+
+   <div class="ui-fluid" align="center">
+
+<h:form id="form">
+    <p:repeat value="#{beanUserCurso.usuarioCursos}" var="usercurse">
+        <h:panelGrid columns="2" style="width:100%" >
+            <p:commandLink update=":form:usercurseDetail" oncomplete="PF('modulocurso').show()">
+                <f:setPropertyActionListener value="#{car}" target="#{dataListView.selectedCar}" />
+                 
+            </p:commandLink>
+ 
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{car.id}" style="font-weight: bold"/>
+           
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+        <hr />
+    </p:repeat>
+ 
+    <p:dialog header="Módulo Curso" widgetVar="modulocurso" modal="true" showEffect="blind" hideEffect="explode" resizable="true">
+        <p:outputPanel id="usercurseDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{no encontrado dataListView.selectedCar}" columnClasses="label,value">
+                <f:facet name="header">
+                </f:facet>
+ 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{dataListView.selectedCar.id}" />
+ 
+                <h:outputText value="Year" />
+                <h:outputText value="#{dataListView.selectedCar.year}" />
+ 
+                <h:outputText value="Color:" />
+                <h:outputText value="#{dataListView.selectedCar.color}" style="color:#{dataListView.selectedCar.color}"/>
+ 
+                <h:outputText value="Price" />
+                <h:outputText value="\$#{dataListView.selectedCar.price}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+		 
+
+   </div>
+
+</body> 
+</html>
