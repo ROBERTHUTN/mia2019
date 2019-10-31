@@ -32,15 +32,21 @@
   
   <p:dataTable  value="#{beanCurso.listaModCur }" var="a">
  		 <p:column headerText="Módulo">
-        <h:outputText value="#{a.curso}" />
+        <h:outputText value="#{a.idCursoModulo}" />
     </p:column>
+    
+     <p:column headerText="Módulo">
+        <h:outputText value="#{a.modulo.nombre}" />
+    </p:column>
+    
      <p:column headerText="Ir">
      <p:link value="#{a.modulo.direccion}"></p:link>     
     </p:column>
     
      <p:column headerText="Orden">
-     <p:link value="#{a.modulo.direccion}"></p:link>     
+     <p:link value="#{a.ordenCurso}"></p:link>     
     </p:column>
+    
     
     <p:column headerText="Finalizar">
      <p:commandButton  value="NOMBRE"></p:commandButton>  
