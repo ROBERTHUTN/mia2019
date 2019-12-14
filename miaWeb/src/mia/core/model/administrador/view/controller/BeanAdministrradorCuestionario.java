@@ -7,6 +7,8 @@ import javax.inject.Named;
 
 
 import mia.core.model.cuestionario.ManagerCuestionario;
+import mia.core.model.cuestionario.dto.CuestionarioDTO;
+import mia.core.model.cuestionario.dto.InicioDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.Dimension;
@@ -19,7 +21,7 @@ import mia.core.model.entities.Usuario;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -41,6 +43,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	private Pregunta preguntaE;
 	private DimensionPregunta dimenpreguntaE;
 
+	private List<CuestionarioDTO> cuestionarioDto =new ArrayList<>();
 //claves foraneas
 	private int id_cuestionarioopc_fk;
 	private int id_dimension_fk;
@@ -65,7 +68,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	private List<DimensionPregunta> dimensionpreguntas;
 	private List<DimensionPregunta> dimensionpreguntaID;
 	private List<PreguntaDimensionDTO> dimensionpreguntaIDDto;
-	
+	private InicioDTO inicioDTO=new InicioDTO();
 
 
 	public void setUsuarios(List<Usuario> usuarios) { 
@@ -88,6 +91,36 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 	}
 
+	public String actionListenerIniciarTest() {
+		try {
+			System.out.println("-");
+			cuestionarioDto= managerCuestionario.cargarCuestionarios(cuestionarios);
+			System.out.println("----");
+			
+			inicioDTO.setListaCuestionariosDto(cuestionarioDto);
+			return "test.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		}
+	}
+	//** Lista d e Opciones segun el cuestionario */	
+	
+	
+		public String actionDimensionesbyCuestionario(CuestionarioDTO cuest) {
+			try { 
+				dimensiones= managerCuestionario.findalDimensionbyIdcuestionario(cuest.getIdCuestionario());
+				System.out.println("dimensiones "+dimensiones.size());
+				opciones= managerCuestionario.findAllOpcionesByCuestionario(cuest.getIdCuestionario());
+				JSFUtil.crearMensajeInfo("Lista de Dimensiones de Cuestionnarios");
+				
+				return "dimensiones?faces-redirect=true";
+			} catch (Exception e) {
+				JSFUtil.crearMensajeError(e.getMessage());
+				return "";
+			}
+
+		}
 	public void actionListenerIngresarCuestionario() {
 		try {
 			managerCuestionario.ingresarCuestionario(cuestionario);
@@ -599,6 +632,22 @@ public class BeanAdministrradorCuestionario implements Serializable {
 
 	public List<Usuario> getUsuarios() {
 		return usuarios;
+	}
+
+	public List<CuestionarioDTO> getCuestionarioDto() {
+		return cuestionarioDto;
+	}
+
+	public void setCuestionarioDto(List<CuestionarioDTO> cuestionarioDto) {
+		this.cuestionarioDto = cuestionarioDto;
+	}
+
+	public InicioDTO getInicioDTO() {
+		return inicioDTO;
+	}
+
+	public void setInicioDTO(InicioDTO inicioDTO) {
+		this.inicioDTO = inicioDTO;
 	}
 	
 	

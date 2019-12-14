@@ -10,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import mia.core.model.cuestionario.dto.CuestionarioDTO;
+import mia.core.model.cuestionario.dto.DimensionDTO;
+import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.CursoModulo;
@@ -561,6 +564,48 @@ public class ManagerCuestionario {
 
 	}
 
-	
-	
+	public List<CuestionarioDTO>cargarCuestionarios(List<Cuestionario> listaCuestionarios){
+		List<CuestionarioDTO> cuestinariosDto=new ArrayList<>();
+		CuestionarioDTO cuesDto=new CuestionarioDTO();
+		for (Cuestionario cues : listaCuestionarios) {
+			cuesDto.setIdCuestionario(cues.getIdCuestionario());
+			cuesDto.setDescripcion(cues.getDescripcion());
+			cuesDto.setDimensions(cues.getDimensions());
+			cuesDto.setOpcions(cues.getOpcions());
+			System.out.println("--");
+			List<Dimension>dimensiones=findalDimensionbyIdcuestionario(cues.getIdCuestionario());
+			System.out.println("--"+dimensiones.size());
+			cuesDto.setListaDimensionesDto(cargarDimensiones(dimensiones));
+			cuestinariosDto.add(cuesDto);
+		}
+		return cuestinariosDto;
+	}
+
+public List<DimensionDTO>cargarDimensiones(List<Dimension> listaDimensiones){
+	System.out.println("---");
+	List<DimensionDTO> dimensionesDto=new ArrayList<>();
+	DimensionDTO dimenDto=new DimensionDTO();
+	for (Dimension dim: listaDimensiones) {
+		dimenDto.setCuestionario(dim.getCuestionario());
+		dimenDto.setDescripcion(dim.getDescripcion());
+		dimenDto.setDimensionPreguntas(dim.getDimensionPreguntas());
+		dimenDto.setIdDimension(dim.getIdDimension());
+		List<DimensionPregunta>dimensionesPre=findAllDimensionByIdDimension(dim.getIdDimension());
+		dimenDto.setListaDimensionesPreguntaDto(cargarDimensionesPreguntas(dimensionesPre));
+		dimensionesDto.add(dimenDto);
+	}
+	return dimensionesDto;
+}
+
+public List<DimensionPreguntaDTO>cargarDimensionesPreguntas(List<DimensionPregunta> listaDimensionesPreguntas){
+	List<DimensionPreguntaDTO> dimensionesPreDto=new ArrayList<>();
+	DimensionPreguntaDTO dimenPreDto=new DimensionPreguntaDTO();
+	for (DimensionPregunta dimPre: listaDimensionesPreguntas) {
+		dimenPreDto.setDimension(dimPre.getDimension());
+		dimenPreDto.setIdPreguntaDimension(dimPre.getIdPreguntaDimension());
+		dimenPreDto.setPregunta(dimPre.getPregunta());
+		dimensionesPreDto.add(dimenPreDto);
+	}
+	return dimensionesPreDto;
+}
 }
