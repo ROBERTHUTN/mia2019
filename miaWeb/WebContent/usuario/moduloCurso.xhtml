@@ -18,25 +18,29 @@
 					
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
-						value="#{beanLogin.login.nombres}" />
+						value="#{beanLogin.login.nombres}"/>
 					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
-						action="#{beanLogin.actionCerrarSesion()}" />
+						action="#{beanLogin.actionCerrarSesion()}"/>
 				</f:facet>
 			</p:menubar>
 		</h:form>
 	</div>
 
-
-
    <div class="ui-fluid" align="center">
   
-  <p:dataTable  value="#{beanCurso.listaModCur }" var="a">
- 		 <p:column headerText="Módulo">
+  <p:dataTable  value="#{beanUserCursoModulo.userccursomoduloIdDto}" var="a">
+ 
+ 	<p:column headerText="ID UsuarioCurso">
+        <h:outputText value="#{a.idUsuariocurso}" />
+    </p:column>
+ 		
+ 	<p:column headerText="CursoModulo">
         <h:outputText value="#{a.idCursoModulo}" />
     </p:column>
     
-     <p:column headerText="Módulo">
-        <h:outputText value="#{a.modulo.nombre}" />
+    
+     <p:column headerText="idCurso">
+        <h:outputText value="#{a.curso.idCurso}" />
     </p:column>
     
      <p:column headerText="Ir">
@@ -49,7 +53,7 @@
     
     
     <p:column headerText="Finalizar">
-     <p:commandButton  value="NOMBRE"></p:commandButton>  
+     <p:commandButton  value="Nombre"></p:commandButton>  
     </p:column>
     
    

@@ -37,12 +37,27 @@ private ManagerCuestionario managerCuestionario;
 		List<Reporte> listaReporte = q.getResultList();
 		return listaReporte;
 	}	
+	
+	
+	public List<Reporte> findResultadosTestbyUsuario(long id_user)
+	{
+		String JPQL = "SELECT r FROM Reporte r WHERE r.usuario.idUsuario=?1";
+		Query query = em.createQuery(JPQL, Reporte.class);
+		query.setParameter(1, id_user);
+		
+		@SuppressWarnings("unchecked")
+		List<Reporte> listaReporte = query.getResultList();
+		return listaReporte;
+		 
+	}
+	
+	
 	/**
 	 * Me devuelve la lista de Reportes de los usuarios Ingresados por su id de 
 	 * id de usuario.
 	 * */
 	
-	
+
 	
 	// MÃ©todo que me devuelve Reportes por id usuario
 	public Reporte findReporteByIdUsuario(long id_usuario) {
@@ -69,26 +84,56 @@ private ManagerCuestionario managerCuestionario;
 		em.persist(nreport);
 	}
 	
-	public String calcularRespuestaDimension(List<PreguntaDimensionDTO>listaDto,Dimension dimension) {
+	public String calcularRespuestaDimension(List<PreguntaDimensionDTO>listaDto,Dimension dimension)
+	{
 		String respuesta="";
 		int a=0,b=0;
-		for (PreguntaDimensionDTO dpDTO : listaDto) {
-		if (dpDTO.getValor()<=3) {
-			a++;
-		}else {
-			b++;
-		}
-		}
-		double r;
-		r=calcularPorcentaje(a, b, listaDto.size());
-		if (a>b) {
-			respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
-	return respuesta;
-		}else {
-			respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
-			return respuesta;						
+		if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 || dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 || dimension.getIdDimension()== 5)
+		{
+			for (PreguntaDimensionDTO dpDTO : listaDto) {
+				if (dpDTO.getValor()<=3) {
+					a++;
+				}else {
+					b++;
+				}
+				}
+				double r;
+				r=calcularPorcentaje(a, b, listaDto.size());
+				if (a>b) {
+					respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
+					return respuesta;
+				}else {
+					respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
+					return respuesta;						
+				}
+		
+				
+		}else if(dimension.getIdDimension() == 6) 
+		{
+			int sumEstres = 0;
+			for (PreguntaDimensionDTO dpDTO : listaDto) {
+				sumEstres= sumEstres+dpDTO.getValor();
+			}
+			System.out.println("Estres sumatoria"+sumEstres);
+			
+			int menEstres= sumEstres-16;
+			
+			if(menEstres>24)
+			{
+				respuesta= "Vulnerable al Éstres.";
+			}else if(menEstres>=40 || menEstres<=60)
+			{
+				respuesta= "Seriamente vulnerable al Éstres.";
+			}else if(menEstres>60)
+			{
+				respuesta= "Extremadamente vulnerable al Éstres.";
+			}else {
+				respuesta= "Baja vulnerabilidad al Éstres.";
+			}
+			
 		}
 		
+		return respuesta;	
 	}
 	
 	
@@ -104,6 +149,13 @@ private ManagerCuestionario managerCuestionario;
 	}
 
 	
+/*	
+	public String nivelEstresAnsiedad(int sum)
+	{
+		String respuesta="";
+		
+	 if()	
+	}*/
 	
 /**
 	public void editarDimensionPregunta(DimensionPregunta pregA, int id_fk_dimension,int id_fk_pregunta)
@@ -138,6 +190,7 @@ private ManagerCuestionario managerCuestionario;
 	 * creación del Primer Cuestionario para la facilidad de creación del 'ingreso de Reportes
 	 * 
 	 */
+	
 	
 	
 	

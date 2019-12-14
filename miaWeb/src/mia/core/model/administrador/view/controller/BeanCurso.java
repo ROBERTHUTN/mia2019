@@ -12,6 +12,7 @@ import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Modulo;
 import mia.core.model.login.view.controller.BeanLogin;
+import mia.core.model.usuario.view.controller.BeanUserCurso;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class BeanCurso implements Serializable {
 	private long id_modulo;
 	private int id_curso;
 	private long id_cursomodulo;
+	private int orden;
 	
 	private Curso curso = new Curso();
 	private Curso cursoE;
@@ -49,6 +51,9 @@ public class BeanCurso implements Serializable {
 	@Inject
 	private BeanLogin beanLogin;
 	
+	@Inject
+	private BeanUserCurso beanUserCurso;
+	
 	@PostConstruct
 	public void init() {  
 		try {
@@ -59,9 +64,6 @@ public class BeanCurso implements Serializable {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
-
-	
-	
 	
 
 	public String actionModulosByCurso(long idCurso) {
@@ -69,18 +71,20 @@ public class BeanCurso implements Serializable {
 			listaModCur= managerCurso.findAllModulosByCuros(idCurso);
 System.out.println(""+listaModCur.size());
 	    JSFUtil.crearMensajeInfo("Curso creada correctamente");
-	    return"moduloCurso?faces-redirect=true";
+	    return"usuariocurso1?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
 			return "";
 		}
-
-
 	}
+	
+	
+
 	/**
 	 * metodos crud del curso 
 	 */
+	
 	public void actionListenerIngresarCurso() {
 		try {
 			managerCurso.ingresarCurso(curso);
@@ -172,10 +176,7 @@ System.out.println(""+listaModCur.size());
 	
 	public void actionListenerIngresarCursoModulo() {
 		try {
-			System.out.println("esto es un mensaje ********"+id_modulo);
-
-			System.out.println("esto es un mensaje ********"+id_curso);
-			managerCurso.ingresarCursoModulo(id_modulo, id_curso);
+			managerCurso.ingresarCursoModulo(cursomodulo,id_modulo, id_curso, orden);
 			//cursomodulos= managerCurso.findAllCursoModuloes();
 	    JSFUtil.crearMensajeInfo("CursoModulo creada correctamente");
 		} catch (Exception e) {
@@ -193,7 +194,7 @@ System.out.println(""+listaModCur.size());
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
-	}//
+	}
 	
 	public void actionListenerCargarCursoModulo(CursoModulo moduloC) {
 		try {
@@ -390,6 +391,37 @@ System.out.println(""+listaModCur.size());
 
 	public void setListaModCur(List<CursoModulo> listaModCur) {
 		this.listaModCur = listaModCur;
+	}
+
+
+
+
+
+	public BeanUserCurso getBeanUserCurso() {
+		return beanUserCurso;
+	}
+
+
+
+
+
+	public void setBeanUserCurso(BeanUserCurso beanUserCurso) {
+		this.beanUserCurso = beanUserCurso;
+	}
+
+
+	public int getOrden() {
+		return orden;
+	}
+
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
+
+	public void setId_curso(int id_curso) {
+		this.id_curso = id_curso;
 	}
 
 	

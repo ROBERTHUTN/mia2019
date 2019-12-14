@@ -217,7 +217,7 @@ public class BeanAdministrador implements Serializable {
 					id_estado_fk, beanLogin.getLogin().getId_usuario(), id_grado_fk);
 			JSFUtil.crearMensajeInfo("Ficha creada correctamente");
 			fichaPersonal = new FichaPersonal();
-			return "index.xhtml?faces-redirect=true";
+			return "menu?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			return "";

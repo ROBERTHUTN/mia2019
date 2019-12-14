@@ -1,13 +1,10 @@
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-
-
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
@@ -50,33 +47,42 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
- 
-    <div class="ui-fluid">
-   <p:dataGrid var="car" value="#{beanAdministrradorCuestionario.cuestionarios}" columns="3" layout="grid"
- >
-         
+	<div class="ui-fluid">
+	<h:form id="form1">
+ <p:dataTable var="resp" value="#{beanReporte.reporteTest}">  
         <f:facet name="header">
-            Cuestionarios
+            Lista de Resultados de Diagnostico.
         </f:facet>
-
- 
-        <p:panel header="#{car.idCuestionario}" style="text-align:center">
-            <h:panelGrid columns="1" style="width:100%">
-                <h:outputText value="#{car.descripcion}" />
-			 <h:form>
-			<p:commandButton value="Evaluar Cuestionario" action="#{beanAdministrradorCuestionario.actionDimensionesbyCuestionario(car)}"></p:commandButton>        
-           </h:form>
-            </h:panelGrid>
         
-        </p:panel>
+  <p:column style="width:7%" headerText="ID">	 
+  <p:panelGrid columns="1" layout="grid" >
+        <p:outputLabel value="#{resp.idReporte}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
  
-
-    </p:dataGrid>
-   </div>
-
-
+  <p:column style="width:25%" headerText="TEST">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.dimension.descripcion}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+  <p:column style="width:25%" headerText="RESULTADO">	 
+  <p:panelGrid columns="1" layout="grid" >
+        <p:outputLabel value="#{resp.resultado}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 		
+  <p:column style="width:25%" headerText="FECHA">	 
+  <p:panelGrid columns="1" layout="grid" >
+        <p:outputLabel value="#{resp.fecha}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+      				
+  </p:dataTable></h:form> 
+</div>
 	<p:messages>
 		<p:autoUpdate />
 	</p:messages>
 </body>
-</html>
+</html>   
+    

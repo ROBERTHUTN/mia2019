@@ -20,6 +20,7 @@ public class CursoModulo implements Serializable {
 	@SequenceGenerator(name="CURSO_MODULO_IDCURSOMODULO_GENERATOR", sequenceName="SEQ_CURSO_MODULO", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CURSO_MODULO_IDCURSOMODULO_GENERATOR")
 	@Column(name="id_curso_modulo")
+	
 	private long idCursoModulo;
 
 	@Column(name="orden_curso")

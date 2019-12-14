@@ -1,5 +1,6 @@
 package mia.core.model.cuestionario;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.persistence.Query;
 
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Cuestionario;
+import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.DimensionPregunta;
 import mia.core.model.entities.Opcion;
@@ -232,7 +234,7 @@ public class ManagerCuestionario {
 	public Dimension findDimensionById(int id_dimen) {
 		Dimension dimen = em.find(Dimension.class, id_dimen);
 		return dimen;
-
+		
 	}
 
 	
@@ -245,7 +247,19 @@ public class ManagerCuestionario {
 		List<Dimension> lista= query.getResultList();
 		return lista;
 	}
-	
+	/*
+	public int [] idDimension (List<Dimension> listaDimension)
+	{
+		int [] idRespuesta;
+		
+		
+		for (Dimension dimension : listaDimension) {
+			
+			
+		}
+		return ;
+	}
+	*/
 	@SuppressWarnings("unchecked")
 	public boolean existeNombreDimension(String nombre, int id_cuestionario) {
 
@@ -440,10 +454,19 @@ public class ManagerCuestionario {
 				DimensionPregunta.class);
 		@SuppressWarnings("unchecked")
 		List<DimensionPregunta> listaDimensionPreguntas = q.getResultList();
-		System.out.println("LISTA "+listaDimensionPreguntas.size());
+		//System.out.println("LISTA "+listaDimensionPreguntas.size());
 		return listaDimensionPreguntas;
 	}
 	
+	public List<CursoModulo> findAllModulosByIdCurso(long id_curso){
+		Query q = em.createQuery("SELECT c FROM CursoModulo c WHERE c.curso.idCurso=" + id_curso,
+				CursoModulo.class);
+		@SuppressWarnings("unchecked")
+		List<CursoModulo> ListaCursoModulos = q.getResultList();
+		System.out.println("LISTA "+ListaCursoModulos.size());
+	
+		return ListaCursoModulos;
+	}
 	
 	public void ingresarDimensionPregunta(int id_dimen, int id_preg) throws Exception {
 		if (id_dimen == 0) {
@@ -512,7 +535,9 @@ public class ManagerCuestionario {
 		}
 		em.remove(pregN);
 	}
-	public List<PreguntaDimensionDTO>cargarListaPreguntasRespuestas(List<DimensionPregunta>listaDimenPregun){
+	
+	
+	public List<PreguntaDimensionDTO> cargarListaPreguntasRespuestas(List<DimensionPregunta>listaDimenPregun){
 		
 		List<PreguntaDimensionDTO> listaDto= new ArrayList<PreguntaDimensionDTO>();
 		for (DimensionPregunta dimenPre : listaDimenPregun) {
@@ -529,6 +554,7 @@ public class ManagerCuestionario {
 		return listaDto;
 	}
 
+	
 	public DimensionPregunta findDimensionPreguntaById(long id_dimension_pregunta) {
 		DimensionPregunta dimensionPregunta = em.find(DimensionPregunta.class, id_dimension_pregunta);
 		return dimensionPregunta;

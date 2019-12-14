@@ -46,7 +46,7 @@ public String actionLogin() {
 			System.out.println("Contrasenia que ingresa "+contrasenia);
 			login = managerLogin.comprobarCredenciales(correo, contrasenia);
 			if (!login.isActivo()) {
-				JSFUtil.crearMensajeError("Cuenta inactiva cont√°ctese con el administrador");
+				JSFUtil.crearMensajeError("Cuenta inactiva cont·ctese con el administrador");
 				return"";
 			}
 			System.out.println("Rol; "+login.getRol());

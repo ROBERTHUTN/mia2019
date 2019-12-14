@@ -48,8 +48,7 @@ private UsuarioCurso usuarioFinalizado;
 		@PostConstruct
 		public void init() {  
 			try {
-				
-				usuarioCursos= managerUserCurso.findAllUsuarioCursoes();
+				usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
 				
 			} catch (Exception e) {
 				JSFUtil.crearMensajeError(e.getMessage());
@@ -60,10 +59,8 @@ private UsuarioCurso usuarioFinalizado;
 		
 		public void actionListenerIngresarUsuarioCurso() {
 			try {
-				System.out.println("INGRESAS managerUserCurso.ingresarUsua");
-				managerUserCurso.ingresarUsuarioCurso(usuarioCurso, login.getLogin().getId_usuario(), id_curso_fk);
-				System.out.println("SALES managerUserCurso.ingresarUsua");
-				usuarioCursos= managerUserCurso.findAllUsuarioCursoes();
+				managerUserCurso.ingresarUsuarioCurso(login.getLogin().getId_usuario(), id_curso_fk);
+				usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
 				JSFUtil.crearMensajeInfo("creada correctamente");
 			} catch (Exception e) {
 				JSFUtil.crearMensajeError(e.getMessage());
@@ -103,7 +100,7 @@ private UsuarioCurso usuarioFinalizado;
 			}
 
 		}
- 
+ /**
 		public void actionListenerEditarAvanceUsurioCurso() {
 			try {
 				managerUserCurso.editarAvanceCurso(usuarioCursoE);
@@ -113,7 +110,8 @@ private UsuarioCurso usuarioFinalizado;
 				JSFUtil.crearMensajeError(e.getMessage());
 			}
 
-		}
+		}*/
+		
   
 		/**
 		 * 
@@ -123,7 +121,7 @@ private UsuarioCurso usuarioFinalizado;
 		 */
 		public String redirectCursoModulo(UsuarioCurso usuarioCurso) {
 			  try {
-				managerUserCurso.ingresoCursoUser(usuarioCurso);
+			managerUserCurso.ingresarUsuarioCurso(login.getLogin().getId_usuario(), id_curso_fk);
 				List<CursoModulo> lista=managerCurso.findAllModulosByCuros(usuarioCurso.getCurso().getIdCurso());
 				usuarioFinalizado=usuarioCurso;
 				beanCurso.setListaModCur(lista);

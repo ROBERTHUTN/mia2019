@@ -53,13 +53,5 @@ public class BeanUserCuestionario implements Serializable {
 		}
 	}
 	
-	
-	
-	
-	
-
-	
-		
-
 } 
  

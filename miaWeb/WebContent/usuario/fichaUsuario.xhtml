@@ -40,10 +40,10 @@
 				<p:menuitem value="Nuevo Religion" title="Ingresar Nuevo Religion"
 					icon=" fa fa-plus " onclick="PF('nuevoReligion').show();"></p:menuitem>
 				<f:facet name="options">
-					<p:commandButton title="Datos de usuario" icon="fa fa-user"
-						value="#{authBeanLogin.login.nombres}" />
+					<p:commandButton title="Datos de usuario" icon="fa fa-user-secret"
+						value="#{beanLogin.login.nombres}" />
 					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
-						action="#{authBeanLogin.actionCerrarSesion()}" />
+						action="#{beanLogin.actionCerrarSesion()}" />
 				</f:facet>
 			</p:menubar>
 		</h:form>
@@ -129,14 +129,14 @@
         </p:selectOneMenu>
   
   <p:outputLabel  value="Grado de Instrucción "/>
-              <p:outputLabel  value="Grado: "/>
+            
 	<p:selectOneMenu  autoWidth="100%" required="true"
 						requiredMessage="Elija un grado"
-						value="#{beanUsuario.id_grado_fk}" effect="fade" var="m"
+						value="#{beanAdministrador.id_grado_fk}" effect="fade" var="m"
 						filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Select One" noSelectionOption="true" />
 						<f:selectItems value="#{beanUsuario.grados}" var="et"
-							itemLabel="#{et.nombreGrado}"
+							itemLabel="#{et.nombreGrado} #{et.idGrado}"
 							itemValue="#{et.idGrado}" />
 
 					</p:selectOneMenu>

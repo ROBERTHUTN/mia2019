@@ -1,5 +1,6 @@
 package mia.core.model.respuesta.view.controller;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import mia.core.model.reporte.ManagerReporte;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 @Named
@@ -29,9 +31,9 @@ public class BeanReporte implements Serializable {
 	private Date fechaRealizacion;
 
 	
-	private int id_user_fk;
+	private long id_user_fk;
 	private int id_dimen_fk;
-	private int id_repor_fk;
+	private long id_repor_fk;
 	private String respuesta;
 	@Inject
 	private BeanLogin login;
@@ -44,15 +46,21 @@ public class BeanReporte implements Serializable {
 	@EJB
 	private ManagerAdministrador managerAdministrador; 
 	
-
-	public void actionIngresarReporte() {
+	private List<Reporte> reporteTest;
+	
+	@PostConstruct
+	public void init() {
+		reporteTest= managerReporte.findResultadosTestbyUsuario(login.getLogin().getId_usuario());
+	}
+	
+	
+		public void actionIngresarReporte() {
 		try {
 			List<PreguntaDimensionDTO>lista=cuestionario.getDimensionpreguntaIDDto();
 			Dimension dimension=cuestionario.getDimensionR();
 			respuesta=managerReporte.calcularRespuestaDimension(lista, dimension);
 			fechaRealizacion= managerAdministrador.fechaActual();
-			managerReporte.ingresarReporte(respuesta, dimension.getIdDimension(),fechaRealizacion,login.getLogin().getId_usuario());
-			
+			managerReporte.ingresarReporte(respuesta, dimension.getIdDimension(),fechaRealizacion,login.getLogin().getId_usuario());			
 			JSFUtil.crearMensajeInfo("Reporte creada correctamente");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -83,25 +91,12 @@ public class BeanReporte implements Serializable {
 	public void setRepor(Reporte repor) {
 		this.repor = repor;
 	}
-	public int getId_user_fk() {
-		return id_user_fk;
-	}
-	public void setId_user_fk(int id_user_fk) {
-		this.id_user_fk = id_user_fk;
-	}
 	public int getId_dimen_fk() {
 		return id_dimen_fk;
 	}
 	public void setId_dimen_fk(int id_dimen_fk) {
 		this.id_dimen_fk = id_dimen_fk;
 	}
-	public int getId_repor_fk() {
-		return id_repor_fk;
-	}
-	public void setId_repor_fk(int id_repor_fk) {
-		this.id_repor_fk = id_repor_fk;
-	}
-
 
 
 	public String getRespuesta() {
@@ -138,6 +133,46 @@ public class BeanReporte implements Serializable {
 		this.cuestionario = cuestionario;
 	}
 	
+	
+	public List<Reporte> getReporteTest() {
+		return reporteTest;
+	}
+
+
+
+	public void setReporteTest(List<Reporte> reporteTest) {
+		this.reporteTest = reporteTest;
+	}
+	
+
+	public long getId_user_fk() {
+		return id_user_fk;
+	}
+
+
+
+	public void setId_user_fk(long id_user_fk) {
+		this.id_user_fk = id_user_fk;
+	}
+
+
+
+	public long getId_repor_fk() {
+		return id_repor_fk;
+	}
+
+
+	public void setId_repor_fk(long id_repor_fk) {
+		this.id_repor_fk = id_repor_fk;
+	}
+
+
+
+
+
+
+
+
 	
 	
 	

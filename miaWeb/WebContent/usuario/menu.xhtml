@@ -63,7 +63,7 @@ type="preRenderView"></f:event>
    <style type="text/css">
     .value {
         font-weight: bold;
-    }
+           }
 </style>
  
  
@@ -77,13 +77,13 @@ type="preRenderView"></f:event>
  
         <p:panel header="#{car.curso.nombre}" style="text-align:center">
             <h:panelGrid columns="1" style="width:100%">
-             ,,   <p:graphicImage /> 
- <p:commandButton value="CONTESTAR" action="#{beanCurso.actionModulosByCurso(car.curso.idCurso)}"></p:commandButton>
+               <p:graphicImage /> 
+ 	    <p:commandButton value="CONTESTAR" action="#{beanUserCursoModulo.actionCursoModulosbyUserCurso(car)}"></p:commandButton>
                 
  
             </h:panelGrid>
         </p:panel>
- 
+
     </p:dataGrid>
     </h:form>
    <p:panelGrid columns="3" layout="grid">
@@ -112,14 +112,28 @@ type="preRenderView"></f:event>
                 </h:form>
             </p:panel>
             
-             <p:panel id="avance" header="Avance de curso">
+         
+         <p:panel id="userCurso" header="Cursos">
                 <h:form>
-              <p:commandLink action="finmodulo?faces-redirect=true">
+              <p:commandLink action="moduloCurso?faces-redirect=true">
+                <p:graphicImage value="images/curso.png" />
+                </p:commandLink>
+                </h:form>
+            </p:panel>
+            
+             <p:panel id="resultado" header="Resultado Diagnostico">
+                <h:form>
+              <p:commandLink  action="resultadoTest?faces-redirect=true" >
                 <p:graphicImage value="images/curso.png" />
                 </p:commandLink>
                 </h:form>
             </p:panel>
  
+ 			       
+ 
+ 			
+ 
+ 			
         <div style="clear:both" />
     </p:panelGrid>
 

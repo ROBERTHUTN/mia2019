@@ -72,11 +72,10 @@ type="preRenderView"></f:event>
 							itemLabel="#{reg.nombre}" itemValue="#{reg.idCurso}" />
 					</p:selectOneMenu>
 					
-					
 					<p:outputLabel value="Módulo: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione un Módulo"
-						value="#{ beanCurso.id_modulo}"
+						value="#{beanCurso.id_modulo}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione la Pregunta"
 							noSelectionOption="true" />
@@ -86,17 +85,18 @@ type="preRenderView"></f:event>
 					</p:selectOneMenu>
 					
 					
+					<p:outputLabel value="Orden: " />
+					<p:inputNumber value="#{beanCurso.orden}" minValue="0" maxValue="20" ></p:inputNumber>
+					
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
-						actionListener="#{ beanCurso.actionListenerIngresarCursoModulo()}"
+						actionListener="#{beanCurso.actionListenerIngresarCursoModulo( )}"
 						oncomplete="nuevaCursoModulo" update="form2" ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
-
-
 				</p:panelGrid>
 			</div>
 		</h:form>
@@ -123,8 +123,13 @@ type="preRenderView"></f:event>
 				<p:column headerText="Curso">
 					<h:outputText value="#{e.curso.nombre}" />
 				</p:column>
-					<p:column headerText="Módulo">
+				
+				<p:column headerText="Módulo">
 					<h:outputText value="#{e.modulo.nombre}" />
+				</p:column>
+				
+					<p:column headerText="Orden ">
+					<h:outputText value="#{e.ordenCurso}" />
 				</p:column>
 
 				<p:column headerText="Curso y módulo" style="width:100px;">

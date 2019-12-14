@@ -90,7 +90,6 @@ public class BeanAdministrradorCuestionario implements Serializable {
 
 	public void actionListenerIngresarCuestionario() {
 		try {
-			System.out.println("cues"+cuestionario.getDescripcion());
 			managerCuestionario.ingresarCuestionario(cuestionario);
 			cuestionarios = managerCuestionario.findAllCuestionarioes();
 			JSFUtil.crearMensajeInfo("Cuestionario creada correctamente");
@@ -341,8 +340,8 @@ public class BeanAdministrradorCuestionario implements Serializable {
 			dimensionR=dimensionC;
 			dimensionpreguntaID= managerCuestionario.findAllDimensionByIdDimension(dimensionC.getIdDimension());
 			dimensionpreguntaIDDto=managerCuestionario.cargarListaPreguntasRespuestas(dimensionpreguntaID);
-			JSFUtil.crearMensajeInfo("lista de Preguntas por Dimension  ");
-			System.out.println("lista"+dimensionpreguntas.size());
+			JSFUtil.crearMensajeInfo("lista de Preguntas por Dimension");
+		
 			return "prediagnostico?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -384,8 +383,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	public String actionDimensionesbyCuestionario(Cuestionario cuest) {
 		try { 
 			dimensiones= managerCuestionario.findalDimensionbyIdcuestionario(cuest.getIdCuestionario());
-			System.out.println("dimensiones "+dimensiones.size());
-			opciones= managerCuestionario.findAllOpcionesByCuestionario(cuest.getIdCuestionario());
+		opciones= managerCuestionario.findAllOpcionesByCuestionario(cuest.getIdCuestionario());
 			JSFUtil.crearMensajeInfo("Lista de Dimensiones de Cuestionnarios");
 			
 			return "dimensiones?faces-redirect=true";
@@ -395,7 +393,26 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 
 	}
-
+/*
+	public String ActionDimensionPreguntabyCuestionario(Cuestionario cuest)
+	{
+		try {
+			dimensiones= managerCuestionario.findalDimensionbyIdcuestionario(cuest.getIdCuestionario());	
+			int [] dimensiones;
+			opciones= managerCuestionario.findAllOpcionesByCuestionario(cuest.getIdCuestionario());
+			JSFUtil.crearMensajeInfo("Lista de Preguntas por Cuestionnario.");
+			
+			//return "prediagnostico?faces-redirect=true";
+			
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		}
+		
+	}
+	
+	*/
+	
 	public Cuestionario getCuestionario() {
 		return cuestionario;
 	}

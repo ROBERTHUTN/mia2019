@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	<!-- Estilos -->
+	<title>Formulario Lista de Módulos de cursos</title>
+<style type="text/css">
+    /** Demo **/
+    .ui-outputlabel {
+        font-weight: bold;
+    }
+     
+    .ui-orderlist .ui-orderlist-list {
+        height: auto;
+    }
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<div class="ui-fluid">
+	<h:form>
+ <p:dataTable var="usermodulo" value="#{beanUserCursoModulo.userccursomoduloIdDto}">
+ <p:column headerText="ID Usuario Curso">
+        <h:outputText value="#{usermodulo.idUsuariocurso}" />
+ </p:column>
+ <p:column headerText="Módulo">
+        <h:outputText value="#{usermodulo.modulo}" />
+ </p:column>
+    
+ <p:column headerText="Orden">
+        <h:outputText value="#{usermodulo.ordenCurso}" />
+ </p:column>
+           		
+         			
+ </p:dataTable>
+    <p:commandButton value="GUARDAR" action="#{beanReporte.actionIngresarReporte()}" ></p:commandButton>
+    </h:form> 
+</div>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+</body>
+</html>

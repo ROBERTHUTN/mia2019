@@ -16,7 +16,7 @@
 	
 
 	<title>Formulario usuarios y lista</title>
-<style type="text/css">
+	<style type="text/css">
     /** Demo **/
     .ui-outputlabel {
         font-weight: bold;
@@ -28,13 +28,31 @@
 </style>
 </h:head>
 <body style="background-color: #3b83bd;" >
+<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="menu?faces-redirect=true" />
+					
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
 
     <div class="ui-fluid">
-   <p:dataGrid var="car" value="#{beanAdministrradorCuestionario.dimensiones}" columns="4" layout="grid"
-        >
+   <p:dataGrid var="car" value="#{beanAdministrradorCuestionario.dimensiones}" columns="4" layout="grid" >
          
         <f:facet name="header">
             Dimensiones
@@ -50,7 +68,6 @@
            </h:form>
             </h:panelGrid>
         </p:panel>
- 
     </p:dataGrid>
    </div>
 
@@ -58,8 +75,5 @@
 		<p:autoUpdate />
 	</p:messages>
 	
-	
-
-
 </body>
 </html>

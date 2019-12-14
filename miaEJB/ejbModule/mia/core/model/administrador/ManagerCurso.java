@@ -1,8 +1,6 @@
 package mia.core.model.administrador;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.lang.*;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -10,21 +8,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
-import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
-import mia.core.model.entities.Dimension;
-import mia.core.model.entities.DimensionPregunta;
 import mia.core.model.entities.Modulo;
-import mia.core.model.entities.Opcion;
-import mia.core.model.entities.Pregunta;
-
-import mia.core.model.entities.Reporte;
-import mia.core.model.entities.UsuarioCurso;
 
 /**
  * Session Bean implementation class ManagerCuestionario
+ */
+/**
+ * @author MIA
+ *
  */
 @Stateless
 @LocalBean
@@ -40,7 +33,7 @@ public class ManagerCurso {
 	}
 	
 	/***
-	 * m�todos de  curso
+	 * metodos de  curso
 	 */
 
 	public List<Curso> findAllCursoes() {
@@ -132,9 +125,7 @@ public class ManagerCurso {
 		if (cursoN == null) {
 			throw new Exception("Error al cargar el cuestionario.");
 		}
-
 		em.remove(cursoN);
-
 	}
 
 	/***
@@ -236,6 +227,8 @@ public class ManagerCurso {
 		return curso;
 	}
 
+	
+	
 	@SuppressWarnings("unchecked")
 	public boolean existeCursoModulo(Integer curso) {
 		String JPQL = "SELECT c FROM CursoModulo c WHERE c.idCurso=?1";
@@ -249,7 +242,8 @@ public class ManagerCurso {
 			return true;
 	}
 
-	public void ingresarCursoModulo( long id_modulo, int id_curso)throws Exception {
+	public void ingresarCursoModulo( CursoModulo curso,long id_modulo, int id_curso, int orden)throws Exception {
+		
 		if (id_modulo == 0 && id_curso == 0) {
 			throw new Exception("No ha ingresado datos para el usuario y curso.");
 		}
@@ -258,14 +252,15 @@ public class ManagerCurso {
 		if (existeCurso) {
 			throw new Exception("Ya existe el Curso.");
 		}**/
-	System.out.print(id_modulo);
 
-	System.out.print(id_curso);
 		Modulo modulo= findModuloById(id_modulo);
-		Curso curso=findCursoById(id_curso);
+		
+		Curso curso_id=findCursoById(id_curso);
 		CursoModulo ncursomodulo = new CursoModulo();
-		ncursomodulo.setCurso(curso);
+		ncursomodulo.setOrdenCurso(curso.getOrdenCurso());
+		ncursomodulo.setCurso(curso_id);
 		ncursomodulo.setModulo(modulo);
+		ncursomodulo.setOrdenCurso(orden);
 		em.persist(ncursomodulo);
 
 	}

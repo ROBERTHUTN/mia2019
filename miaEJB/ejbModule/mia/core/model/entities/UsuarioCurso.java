@@ -76,5 +76,7 @@ public class UsuarioCurso implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	
 
 }
