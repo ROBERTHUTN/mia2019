@@ -965,6 +965,49 @@ public class ManagerAdministrador {
 
 	}
 
+	/*metodos de la tabla resultados*/
+
+	public List<Respuesta> findAllRespuestaes() {
+
+		Query q = em.createQuery("SELECT r FROM Respuesta r", Respuesta.class);
+		@SuppressWarnings("unchecked")
+		List<Respuesta> listaRespuestas = q.getResultList();
+		return listaRespuestas;
+	}
+	
+	public Respuesta findRespuestaById(long id_user) {
+		Respuesta respuesta = em.find(Respuesta.class, id_user);
+		return respuesta;
+	}
+/*
+	@SuppressWarnings("unchecked")
+	public boolean existeNombreRespuesta(String nombre) {
+
+		String JPQL = "SELECT m FROM Respuesta m WHERE m.nombre=?1";
+		Query query = em.createQuery(JPQL, Respuesta.class);
+		query.setParameter(1, nombre);
+		List<Respuesta> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+*/
+	public void ingresarRespuesta(long id_user, String resp, Date fecha)throws Exception {
+		
+		Respuesta nrespuesta = new Respuesta();
+		Usuario user = findUsuarioById(id_user);
+		nrespuesta.setUsuario(user);
+		nrespuesta.setPreguntaRespuesta(resp);
+		nrespuesta.setFecha(fecha);
+		em.persist(nrespuesta);
+
+	}
+
+
+
+
 
 	
 	

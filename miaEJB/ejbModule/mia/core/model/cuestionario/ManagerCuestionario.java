@@ -247,19 +247,7 @@ public class ManagerCuestionario {
 		List<Dimension> lista= query.getResultList();
 		return lista;
 	}
-	/*
-	public int [] idDimension (List<Dimension> listaDimension)
-	{
-		int [] idRespuesta;
-		
-		
-		for (Dimension dimension : listaDimension) {
-			
-			
-		}
-		return ;
-	}
-	*/
+	
 	@SuppressWarnings("unchecked")
 	public boolean existeNombreDimension(String nombre, int id_cuestionario) {
 
@@ -532,6 +520,7 @@ public class ManagerCuestionario {
 		em.remove(pregN);
 	}
 	
+	/*metodos de DTO*/
 	
 	public List<PreguntaDimensionDTO> cargarListaPreguntasRespuestas(List<DimensionPregunta>listaDimenPregun){
 		
@@ -605,4 +594,29 @@ public List<DimensionPreguntaDTO>cargarDimensionesPreguntas(List<DimensionPregun
 	}
 	return dimensionesPreDto;
 }
+
+public String resultadoTest(List<DimensionDTO> listaDimensionesDto) {
+	if (listaDimensionesDto.isEmpty()) {
+	
+	}else {
+		String respuesta="";
+		for (DimensionDTO dimensionDTO : listaDimensionesDto) {
+			respuesta=respuesta+dimensionDTO.getCuestionario().getIdCuestionario();
+			System.out.println("resp="+dimensionDTO.getCuestionario().getIdCuestionario());
+			respuesta=respuesta+ dimensionDTO.getIdDimension();
+			for (DimensionPreguntaDTO dimP : dimensionDTO.getListaDimensionesPreguntaDto()) {
+				respuesta=respuesta+dimP.getPregunta().getIdPregunta()+",";
+				System.out.println("preg="+dimP.getPregunta().getIdPregunta());
+				respuesta=respuesta+dimP.getValor()+"/";
+				System.out.println("resp="+dimP.getValor());
+				
+			}
+			
+		}
+		return respuesta;
+	}
+	
+	return "";
+}
+
 }

@@ -3,10 +3,12 @@ package mia.core.model.administrador.view.controller;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
+import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.cuestionario.ManagerCuestionario;
 import mia.core.model.cuestionario.dto.CuestionarioDTO;
 import mia.core.model.cuestionario.dto.DimensionDTO;
@@ -20,10 +22,12 @@ import mia.core.model.entities.Opcion;
 import mia.core.model.entities.Pregunta;
 
 import mia.core.model.entities.Usuario;
+import mia.core.model.login.view.controller.BeanLogin;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -36,6 +40,10 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	private boolean adelante;
 	private boolean finalizarTest;
 	private int contador;
+	
+	// respuesta
+	private String respuesta="";
+	private Date fechaRealizacion;
 	
 //FICHA_
 	private Cuestionario cuestionario = new Cuestionario();
@@ -73,11 +81,12 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	private List<PreguntaDimensionDTO> dimensionpreguntaIDDto;
 	private InicioDTO inicioDTO=new InicioDTO();
 
-
-	public void setUsuarios(List<Usuario> usuarios) { 
-		this.usuarios = usuarios;
-	}
-
+	@EJB
+	private ManagerAdministrador managerAdministrador;
+	
+	@Inject
+	private BeanLogin login;
+	
 	private List<Usuario> usuarios;
 
 	@PostConstruct
@@ -91,6 +100,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 			opciones = managerCuestionario.findAllOpciones();
 			preguntas = managerCuestionario.findAllPreguntaes();
 			dimensionpreguntas= managerCuestionario.findAllDimensionPreguntaes();
+			fechaRealizacion= managerAdministrador.fechaActual();
 			
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -101,9 +111,9 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		listaDimensionesDto.set(contador, listaDimensionActualDto.get(0));
 		contador--;
 		estadoActualContador(contador);
-		System.out.println("contadorA:"+contador);
+		
 		dimensionActDto=listaDimensionesDto.get(contador);
-		System.out.println("dimensionActDtoN: "+dimensionActDto.getDescripcion());
+		
 		listaDimensionActualDto=new ArrayList<>();
 		listaDimensionActualDto.add(dimensionActDto);
 	}
@@ -111,9 +121,9 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		listaDimensionesDto.set(contador, listaDimensionActualDto.get(0));
 		contador++;
 		estadoActualContador(contador);
-		System.out.println("contadorS:"+contador);
+		
 		dimensionActDto=listaDimensionesDto.get(contador);
-		System.out.println("dimensionActDtoN: "+dimensionActDto.getDescripcion());
+		
 		listaDimensionActualDto=new ArrayList<>();
 		listaDimensionActualDto.add(dimensionActDto);
 		
@@ -134,43 +144,40 @@ public class BeanAdministrradorCuestionario implements Serializable {
 			atras=false;
 			adelante=false;
 			finalizarTest=false;
-			System.out.print("LISTA VACÍA");
+		
 		}else {
 			if (contadorC==0&&contadorC==(listaDimensionesDto.size()-1)) {
 				adelante=false;
 				atras=false;
 				finalizarTest=true;
-				System.out.print("(contadorC==0&&contadorC==(listaDimensionesDto.size()-1)");
 			}else {
 				if (contadorC>0&&contadorC<(listaDimensionesDto.size()-1)) {
 					adelante=true;
 					atras=true;	
 					finalizarTest=false;
-					System.out.print("contadorC>0&&contadorC<(listaDimensionesDto.size()-1)");
-				}else {
+						}else {
 					if (contadorC==(listaDimensionesDto.size()-1)) {
 						adelante=false;
 						atras=true;
 						finalizarTest=true;
-						System.out.print("(contadorC==(listaDimensionesDto.size()-1)");
-						
+					
 					}else {
 						adelante=true;
 						atras=false;
-						System.out.println("ULTIMO");
+						
 					}
 				}
 			}
 		
 		}
-		System.out.println("ADELANTE: "+adelante+" ATRÁS: "+atras);
+		
 	}
 	
 		public String actionDimensionesbyCuestionario(CuestionarioDTO cuest) {
 			try { 
 				if (cuest.getListaDimensionesDto().isEmpty()) {
 					JSFUtil.crearMensajeError("El cuestionario "+cuest.getDescripcion()+" no tiene módulos disponibles");
-	return "";
+					return "";
 				}else {
 				listaDimensionesDto=cuest.getListaDimensionesDto();
 				dimensionActDto=listaDimensionesDto.get(0);
@@ -179,7 +186,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 				contador=0;
 				estadoActualContador(contador);
 							
-				System.out.println("lita"+listaDimensionesDto.size());
+			
 			JSFUtil.crearMensajeInfo("Lista de Dimensiones de Cuestionnarios");
 				
 				return "prediagnostico?faces-redirect=true";
@@ -495,6 +502,21 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 
 	}
+	
+	public String actionRetornarbyCuestiono()
+	{
+		try { 
+			System.out.println("tamano="+listaDimensionesDto.size());
+			respuesta=managerCuestionario.resultadoTest(listaDimensionesDto);
+			
+			managerAdministrador.ingresarRespuesta(login.getLogin().getId_usuario(), respuesta, fechaRealizacion);
+			return "test?faces-redirect=true";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		return "";
+		}
+		
+	}
 /*
 	public String ActionDimensionPreguntabyCuestionario(Cuestionario cuest)
 	{
@@ -800,6 +822,20 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	public void setFinalizarTest(boolean finalizarTest) {
 		this.finalizarTest = finalizarTest;
 	}
+	
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) { 
+		this.usuarios = usuarios;
+	}
+
+	
 	
 	
 }
