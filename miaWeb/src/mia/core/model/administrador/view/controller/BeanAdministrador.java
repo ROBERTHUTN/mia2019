@@ -6,6 +6,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import mia.core.model.administrador.ManagerAdministrador;
+import mia.core.model.entities.AreaInvestigacion;
 import mia.core.model.entities.Etnia;
 import mia.core.model.entities.FichaPersonal;
 import mia.core.model.entities.GradoEstudio;
@@ -48,6 +49,8 @@ public class BeanAdministrador implements Serializable {
 	private Organizacion organizacioE;
 	private UsuarioProyecto usuarioproyectoE;
 	private Usuario usuarioE;
+	private AreaInvestigacion areaE;
+	
 //claves foraneas
 	private Date fechaNacimiento;
 	private Date fechaMinimaNacimiento;
@@ -82,7 +85,8 @@ public class BeanAdministrador implements Serializable {
 	private List<GradoEstudio> grados;
 	private List<Organizacion> organizaciones;
 	private List<UsuarioProyecto> usuarioproyectos;
-
+	private List<AreaInvestigacion> areas;
+	
 	@EJB
 	private ManagerUsuario managerUsuario;
 
@@ -788,7 +792,17 @@ public class BeanAdministrador implements Serializable {
 		Fecha_hasta = fecha_hasta;
 	}
 
-	
+
+
+	public List<AreaInvestigacion> getAreas() {
+		return areas;
+	}
+
+	public void setAreas(List<AreaInvestigacion> areas) {
+		this.areas = areas;
+	}
+
+
 	
 	
 }

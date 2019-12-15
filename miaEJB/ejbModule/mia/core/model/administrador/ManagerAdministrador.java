@@ -10,9 +10,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import mia.core.model.entities.AreaInvestigacion;
 import mia.core.model.entities.Etnia;
 import mia.core.model.entities.FichaPersonal;
 import mia.core.model.entities.GradoEstudio;
+import mia.core.model.entities.Modulo;
 import mia.core.model.entities.Organizacion;
 import mia.core.model.entities.OrganizacionFichapersonal;
 import mia.core.model.entities.PaisEstado;
@@ -888,6 +891,81 @@ public class ManagerAdministrador {
 		em.remove(usuarioproyectoN);
 	}
 	
+	/**
+	 * metodos de AreaInvestigacion
+	 */
+  
+	public List<AreaInvestigacion> findAllAreaInvestigaciones() {
+
+		Query q = em.createQuery("SELECT a FROM AreaInvestigacion a", AreaInvestigacion.class);
+		@SuppressWarnings("unchecked")
+		List<AreaInvestigacion> listaAreaInvestigacions = q.getResultList();
+		return listaAreaInvestigacions;
+	}
+	
+	public AreaInvestigacion findAreaInvestigacionById(int id_AreaInvestigacion) {
+		AreaInvestigacion areainvestigacion = em.find(AreaInvestigacion.class, id_AreaInvestigacion);
+		return areainvestigacion;
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean existeNombreAreaInvestigacion(String nombre) {
+
+		String JPQL = "SELECT a FROM AreaInvestigacion a WHERE a.nombreInvestigacion=?1";
+		Query query = em.createQuery(JPQL, AreaInvestigacion.class);
+		query.setParameter(1, nombre);
+		List<AreaInvestigacion> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+
+	public void ingresarAreaInvestigacion(AreaInvestigacion areaInvestigacion )throws Exception {
+		if (areaInvestigacion == null) {
+			throw new Exception("No ha ingresado datos en el AreaInvestigacion");
+		}
+		boolean existeNombreAreaInvestigacion = existeNombreAreaInvestigacion(areaInvestigacion.getNombreInvestigacion());
+			if (existeNombreAreaInvestigacion) {
+				throw new Exception("Ya existe el AreaInvestigacion con el nombre " + areaInvestigacion.getNombreInvestigacion());
+			}
+			
+		AreaInvestigacion narea = new AreaInvestigacion();
+		narea.setNombreInvestigacion(areaInvestigacion.getNombreInvestigacion());
+		narea.setDescripcionInvestigacion(areaInvestigacion.getDescripcionInvestigacion());
+		em.persist(narea);
+
+	}
+
+	public void editarAreaInvestigacion(AreaInvestigacion areaInvestigacionA) throws Exception {
+		AreaInvestigacion areaInvestigacionN = findAreaInvestigacionById(areaInvestigacionA.getAreaId());
+		if (areaInvestigacionN == null) {
+			throw new Exception("Error al cargar el AreaInvestigacion");
+		}
+		if (!areaInvestigacionA.getNombreInvestigacion().equals(areaInvestigacionN.getNombreInvestigacion())) {
+			boolean existeNombreAreaInvestigacion = existeNombreAreaInvestigacion(areaInvestigacionA.getNombreInvestigacion());
+			if (existeNombreAreaInvestigacion) {
+				throw new Exception("Ya existe el AreaInvestigacion con el nombre " + areaInvestigacionA.getDescripcionInvestigacion());
+			}
+		}
+		areaInvestigacionN.setNombreInvestigacion(areaInvestigacionA.getNombreInvestigacion());
+		areaInvestigacionN.setDescripcionInvestigacion(areaInvestigacionA.getDescripcionInvestigacion());
+	
+		em.merge(areaInvestigacionN);
+	}
+
+	public void eliminarAreaInvestigacion(int id_AreaInvestigacion) throws Exception {
+		AreaInvestigacion areaInvestigacionN = findAreaInvestigacionById(id_AreaInvestigacion);
+		if (areaInvestigacionN == null) {
+			throw new Exception("Error al cargar el área de investigación");
+		}
+
+		em.remove(areaInvestigacionN);
+
+	}
+
+
 	
 	
 	

@@ -26,6 +26,8 @@ public class ManagerReporte {
 	private ManagerAdministrador managerAdministrador;
 @EJB
 private ManagerCuestionario managerCuestionario;
+
+
 	public ManagerReporte() {
 	}
 
@@ -147,6 +149,7 @@ private ManagerCuestionario managerCuestionario;
 		return r;
 		}
 	}
+
 
 	
 /*	
