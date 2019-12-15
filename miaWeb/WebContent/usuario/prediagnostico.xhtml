@@ -51,11 +51,10 @@
 		<p:autoUpdate />
 	</p:growl>
 	<div class="ui-fluid">
-	<h:form>
- <p:dataTable var="a" value="#{beanAdministrradorCuestionario.listaDimensionesDto}"
+	<h:form id="form1">
+ <p:dataTable var="a" value="#{beanAdministrradorCuestionario.listaDimensionActualDto}"
  rows="1" emptyMessage="No se han asignado módulos al cuestionario"
-                 paginator="true"
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                
                  rowsPerPageTemplate="1"
  >
          
@@ -64,8 +63,23 @@
         </f:facet>
         <p:column>	
           <p:panel header="#{a.descripcion}">
-          <p></p><br></br><br></br><br></br>
-        <form>
+<br></br> 
+           
+                  <form>
+        <p:panelGrid columns="4" layout="grid">
+           <p:commandButton value="Atrás" rendered="#{beanAdministrradorCuestionario.atras}"
+              actionListener="#{beanAdministrradorCuestionario.regresarAtras()}" style="margin-right:5px;alight:left" icon="fa fa-arrow-left" update="form1"/>
+           <p:commandButton value="Atrás" rendered="#{!beanAdministrradorCuestionario.atras}"
+              disabled="true" style="margin-right:5px;alight:left" icon="fa fa-arrow-left" />
+   
+      <p:outputLabel></p:outputLabel>
+            <p:outputLabel></p:outputLabel>
+            
+        <p:commandButton rendered="#{beanAdministrradorCuestionario.adelante}" update="form1" value="Siguiente" actionListener="#{beanAdministrradorCuestionario.regresarSiguiente()}" style="margin-right:5px;" icon="fa fa-arrow-right" />
+    <p:commandButton rendered="#{!beanAdministrradorCuestionario.adelante}" disabled="true" value="Siguiente"  style="margin-right:5px;" icon="fa fa-arrow-right" />
+ 
+ </p:panelGrid>
+ <br></br>
         <p:repeat var="car" value="#{a.listaDimensionesPreguntaDto}">
          
                 <p:messages />
@@ -76,16 +90,33 @@
             itemValue="#{opc.valor}">
              </f:selectItems>
         </p:selectOneRadio>
+       
  </p:panelGrid>
           
 </p:repeat>
+ <p></p><br></br>
+      <p:panelGrid columns="4" layout="grid">
+           <p:commandButton value="Atrás" rendered="#{beanAdministrradorCuestionario.atras}"
+              actionListener="#{beanAdministrradorCuestionario.regresarAtras()}" style="margin-right:5px;alight:left" icon="fa fa-arrow-left" update="form1"/>
+           <p:commandButton value="Atrás" rendered="#{!beanAdministrradorCuestionario.atras}"
+              disabled="true" style="margin-right:5px;alight:left" icon="fa fa-arrow-left" />
+   
+      <p:outputLabel></p:outputLabel>
+            <p:outputLabel></p:outputLabel>
+            
+        <p:commandButton rendered="#{beanAdministrradorCuestionario.adelante}" update="form1" value="Siguiente" actionListener="#{beanAdministrradorCuestionario.regresarSiguiente()}" style="margin-right:5px;" icon="fa fa-arrow-right" />
+    <p:commandButton rendered="#{!beanAdministrradorCuestionario.adelante}" disabled="true" value="Siguiente"  style="margin-right:5px;" icon="fa fa-arrow-right" />
+ 
+ </p:panelGrid>
+     <p:commandButton value="Finalizar Test" rendered="#{beanAdministrradorCuestionario.finalizarTest}"
+              actionListener="#{beanAdministrradorCuestionario.regresarAtras()}" style="margin-right:5px;alight:left" icon="fa fa-arrow-left" update="form1"/>
+         
  </form>
  </p:panel>
  </p:column>
     </p:dataTable>
   </h:form> 
-</div>
-	<p:messages>
+</div>	<p:messages>
 		<p:autoUpdate />
 	</p:messages>
 </body>
