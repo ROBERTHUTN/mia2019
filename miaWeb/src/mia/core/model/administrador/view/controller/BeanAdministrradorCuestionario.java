@@ -5,9 +5,11 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import org.primefaces.event.FlowEvent;
 
 import mia.core.model.cuestionario.ManagerCuestionario;
 import mia.core.model.cuestionario.dto.CuestionarioDTO;
+import mia.core.model.cuestionario.dto.DimensionDTO;
 import mia.core.model.cuestionario.dto.InicioDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Cuestionario;
@@ -42,8 +44,9 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	private Opcion opcionE;
 	private Pregunta preguntaE;
 	private DimensionPregunta dimenpreguntaE;
-
+	private boolean skip;
 	private List<CuestionarioDTO> cuestionarioDto =new ArrayList<>();
+	private List<DimensionDTO> listaDimensionesDto=new ArrayList<>();
 //claves foraneas
 	private int id_cuestionarioopc_fk;
 	private int id_dimension_fk;
@@ -80,7 +83,10 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
+	
 			cuestionarios = managerCuestionario.findAllCuestionarioes();
+			cuestionarioDto= managerCuestionario.cargarCuestionarios(cuestionarios);
+			inicioDTO.setListaCuestionariosDto(cuestionarioDto);
 			dimensiones = managerCuestionario.findAllDimensiones();
 			opciones = managerCuestionario.findAllOpciones();
 			preguntas = managerCuestionario.findAllPreguntaes();
@@ -93,11 +99,8 @@ public class BeanAdministrradorCuestionario implements Serializable {
 
 	public String actionListenerIniciarTest() {
 		try {
-			System.out.println("-");
 			cuestionarioDto= managerCuestionario.cargarCuestionarios(cuestionarios);
-			System.out.println("----");
-			
-			inicioDTO.setListaCuestionariosDto(cuestionarioDto);
+		inicioDTO.setListaCuestionariosDto(cuestionarioDto);
 			return "test.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -109,12 +112,14 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	
 		public String actionDimensionesbyCuestionario(CuestionarioDTO cuest) {
 			try { 
-				dimensiones= managerCuestionario.findalDimensionbyIdcuestionario(cuest.getIdCuestionario());
-				System.out.println("dimensiones "+dimensiones.size());
-				opciones= managerCuestionario.findAllOpcionesByCuestionario(cuest.getIdCuestionario());
-				JSFUtil.crearMensajeInfo("Lista de Dimensiones de Cuestionnarios");
+				listaDimensionesDto=cuest.getListaDimensionesDto();
+				System.out.println("lita"+listaDimensionesDto.size());
+				for (DimensionDTO l : listaDimensionesDto) {
+					System.out.println("lita"+l.getDescripcion());
+				}
+			JSFUtil.crearMensajeInfo("Lista de Dimensiones de Cuestionnarios");
 				
-				return "dimensiones?faces-redirect=true";
+				return "prediagnostico?faces-redirect=true";
 			} catch (Exception e) {
 				JSFUtil.crearMensajeError(e.getMessage());
 				return "";
@@ -445,6 +450,16 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	}
 	
 	*/
+	//
+	 public String onFlowProcess(FlowEvent event) {
+	        if(skip) {
+	            skip = false;   //reset in case user goes back
+	            return "confirm";
+	        }
+	        else {
+	            return event.getNewStep();
+	        }
+	    }
 	
 	public Cuestionario getCuestionario() {
 		return cuestionario;
@@ -648,6 +663,22 @@ public class BeanAdministrradorCuestionario implements Serializable {
 
 	public void setInicioDTO(InicioDTO inicioDTO) {
 		this.inicioDTO = inicioDTO;
+	}
+
+	public List<DimensionDTO> getListaDimensionesDto() {
+		return listaDimensionesDto;
+	}
+
+	public void setListaDimensionesDto(List<DimensionDTO> listaDimensionesDto) {
+		this.listaDimensionesDto = listaDimensionesDto;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 	
 	

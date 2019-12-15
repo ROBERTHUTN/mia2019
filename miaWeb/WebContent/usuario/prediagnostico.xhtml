@@ -52,33 +52,38 @@
 	</p:growl>
 	<div class="ui-fluid">
 	<h:form>
- <p:dataTable var="car" value="#{beanAdministrradorCuestionario.dimensionpreguntaIDDto}">
+ <p:dataTable var="a" value="#{beanAdministrradorCuestionario.listaDimensionesDto}"
+ rows="1" emptyMessage="No se han asignado módulos al cuestionario"
+                 paginator="true"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="1"
+ >
          
         <f:facet name="header">
-            Lista de preguntas
+            MÓDULOS DEL CUESTIONARIO
         </f:facet>
         <p:column>	
-         <p:wizard flowListener="#{userWizard.onFlowProcess}">
-        <p:tab id="personal" title="Personal">
-            <p:panel header="Personal Details">
+          <p:panel header="#{a.descripcion}">
+          <p></p><br></br><br></br><br></br>
+        <form>
+        <p:repeat var="car" value="#{a.listaDimensionesPreguntaDto}">
+         
                 <p:messages />
                <p:panelGrid columns="1" layout="grid">
         <p:outputLabel value="#{car.pregunta.descripcion}?"></p:outputLabel>
-        <p:selectOneRadio id="console" value="#{car.valor}" unselectable="true" required="true">
-            <f:selectItems value="#{beanAdministrradorCuestionario.opciones}" var="opc" itemLabel="#{opc.opcDescripcion}"
+        <p:selectOneRadio id="console" value="#{car.valor}" unselectable="true" required="true" requiredMessage="Seleccione la opción">
+            <f:selectItems value="#{car.listaOpciones}" var="opc" itemLabel="#{opc.opcDescripcion}"
             itemValue="#{opc.valor}">
              </f:selectItems>
         </p:selectOneRadio>
  </p:panelGrid>
-            </p:panel>
-        </p:tab>
-        </p:wizard>
-       
-  
+          
+</p:repeat>
+ </form>
+ </p:panel>
  </p:column>
     </p:dataTable>
-    <p:commandButton value="GUARDAR" action="#{beanReporte.actionIngresarReporte()}" ></p:commandButton>
-    </h:form> 
+  </h:form> 
 </div>
 	<p:messages>
 		<p:autoUpdate />
