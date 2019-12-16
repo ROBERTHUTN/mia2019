@@ -508,8 +508,10 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		try { 
 			System.out.println("tamano="+listaDimensionesDto.size());
 			respuesta=managerCuestionario.resultadoTest(listaDimensionesDto);
-			
 			managerAdministrador.ingresarRespuesta(login.getLogin().getId_usuario(), respuesta, fechaRealizacion);
+			respuesta="";
+			listaDimensionesDto=new ArrayList<>();
+			listaDimensionActualDto=new ArrayList<>();
 			return "test?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());

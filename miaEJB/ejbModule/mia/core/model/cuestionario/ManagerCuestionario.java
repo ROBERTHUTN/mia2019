@@ -595,15 +595,16 @@ public List<DimensionPreguntaDTO>cargarDimensionesPreguntas(List<DimensionPregun
 	return dimensionesPreDto;
 }
 
-public String resultadoTest(List<DimensionDTO> listaDimensionesDto) {
+public String resultadoTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
 	if (listaDimensionesDto.isEmpty()) {
-	
+		throw new Exception("Error lista vacía");
 	}else {
 		String respuesta="";
 		for (DimensionDTO dimensionDTO : listaDimensionesDto) {
-			respuesta=respuesta+dimensionDTO.getCuestionario().getIdCuestionario();
-			System.out.println("resp="+dimensionDTO.getCuestionario().getIdCuestionario());
-			respuesta=respuesta+ dimensionDTO.getIdDimension();
+			respuesta=respuesta+dimensionDTO.getCuestionario().getIdCuestionario()+"-";
+			System.out.println("idCues="+dimensionDTO.getCuestionario().getIdCuestionario());
+			respuesta=respuesta+ dimensionDTO.getIdDimension()+"|";
+			System.out.println("idDim="+dimensionDTO.getIdDimension());
 			for (DimensionPreguntaDTO dimP : dimensionDTO.getListaDimensionesPreguntaDto()) {
 				respuesta=respuesta+dimP.getPregunta().getIdPregunta()+",";
 				System.out.println("preg="+dimP.getPregunta().getIdPregunta());
@@ -615,8 +616,6 @@ public String resultadoTest(List<DimensionDTO> listaDimensionesDto) {
 		}
 		return respuesta;
 	}
-	
-	return "";
 }
 
 }
