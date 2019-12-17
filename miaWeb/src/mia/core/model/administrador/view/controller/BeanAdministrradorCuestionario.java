@@ -23,6 +23,7 @@ import mia.core.model.entities.Pregunta;
 
 import mia.core.model.entities.Usuario;
 import mia.core.model.login.view.controller.BeanLogin;
+import mia.core.model.reporte.ManagerReporte;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
@@ -43,6 +44,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	
 	// respuesta
 	private String respuesta="";
+	private String respuestaReporte="";
 	private Date fechaRealizacion;
 	
 //FICHA_
@@ -84,11 +86,12 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	@EJB
 	private ManagerAdministrador managerAdministrador;
 	
+	@EJB
+	private ManagerReporte managerReporte;
 	@Inject
 	private BeanLogin login;
 	
 	private List<Usuario> usuarios;
-
 	@PostConstruct
 	public void init() {
 		try {
@@ -176,7 +179,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		public String actionDimensionesbyCuestionario(CuestionarioDTO cuest) {
 			try { 
 				if (cuest.getListaDimensionesDto().isEmpty()) {
-					JSFUtil.crearMensajeError("El cuestionario "+cuest.getDescripcion()+" no tiene mÃ³dulos disponibles");
+					JSFUtil.crearMensajeError("El cuestionario "+cuest.getDescripcion()+" no tiene módulos disponibles");
 					return "";
 				}else {
 				listaDimensionesDto=cuest.getListaDimensionesDto();
@@ -506,10 +509,12 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	public String actionRetornarbyCuestiono()
 	{
 		try { 
+			
 			System.out.println("tamano="+listaDimensionesDto.size());
 			respuesta=managerCuestionario.resultadoTest(listaDimensionesDto);
 			managerAdministrador.ingresarRespuesta(login.getLogin().getId_usuario(), respuesta, fechaRealizacion);
-			respuesta="";
+			
+			respuesta="";	
 			listaDimensionesDto=new ArrayList<>();
 			listaDimensionActualDto=new ArrayList<>();
 			return "test?faces-redirect=true";
@@ -519,6 +524,9 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 		
 	}
+	
+	
+	
 /*
 	public String ActionDimensionPreguntabyCuestionario(Cuestionario cuest)
 	{

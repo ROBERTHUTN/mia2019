@@ -8,6 +8,8 @@ import javax.inject.Named;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.administrador.view.controller.BeanAdministrradorCuestionario;
+import mia.core.model.cuestionario.dto.DimensionDTO;
+import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.Reporte;

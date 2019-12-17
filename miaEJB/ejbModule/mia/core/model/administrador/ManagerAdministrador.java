@@ -11,7 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.AreaInvestigacion;
+import mia.core.model.entities.Dimension;
 import mia.core.model.entities.Etnia;
 import mia.core.model.entities.FichaPersonal;
 import mia.core.model.entities.GradoEstudio;
@@ -1004,6 +1006,9 @@ public class ManagerAdministrador {
 		em.persist(nrespuesta);
 
 	}
+
+	
+	// metodos de reporte
 
 
 

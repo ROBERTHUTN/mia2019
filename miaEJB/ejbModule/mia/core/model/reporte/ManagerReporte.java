@@ -31,7 +31,7 @@ private ManagerCuestionario managerCuestionario;
 	public ManagerReporte() {
 	}
 
-	// Metodo que me devuelve la Lista de ROLES
+	// Metodo que me devuelve los reportes
 	public List<Reporte> findAllReporte() {
 
 		Query q = em.createQuery("SELECT r FROM Reporte r", Reporte.class);

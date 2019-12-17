@@ -2,14 +2,19 @@ package mia.core.model.cuestionario;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.sun.xml.internal.ws.message.stream.StreamAttachment;
+
+import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.cuestionario.dto.CuestionarioDTO;
 import mia.core.model.cuestionario.dto.DimensionDTO;
 import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
@@ -22,6 +27,7 @@ import mia.core.model.entities.Opcion;
 import mia.core.model.entities.Pregunta;
 
 import mia.core.model.entities.Reporte;
+import mia.core.model.entities.Usuario;
 
 /**
  * Session Bean implementation class ManagerCuestionario
@@ -29,11 +35,13 @@ import mia.core.model.entities.Reporte;
 @Stateless
 @LocalBean
 public class ManagerCuestionario {
-	
-
 
 	@PersistenceContext(unitName = "miaDS")
 	private EntityManager em;
+	@EJB
+	private ManagerAdministrador managerAdministrador;
+	@EJB
+	private ManagerCuestionario managerCuestionario;
 
 	public ManagerCuestionario() {
 
@@ -50,9 +58,11 @@ public class ManagerCuestionario {
 		List<Opcion> listaOpcions = q.getResultList();
 		return listaOpcions;
 	}
+
 	public List<Opcion> findAllOpcionesByCuestionario(int id_cuestionario) {
 
-		Query q = em.createQuery("SELECT o FROM Opcion o where o.cuestionario.idCuestionario="+id_cuestionario, Opcion.class);
+		Query q = em.createQuery("SELECT o FROM Opcion o where o.cuestionario.idCuestionario=" + id_cuestionario,
+				Opcion.class);
 		@SuppressWarnings("unchecked")
 		List<Opcion> listaOpcions = q.getResultList();
 		return listaOpcions;
@@ -101,7 +111,7 @@ public class ManagerCuestionario {
 		Opcion nopcio = new Opcion();
 		nopcio.setOpcDescripcion(opcio.getOpcDescripcion());
 		nopcio.setValor(opcio.getValor());
-		
+
 		nopcio.setCuestionario(cuest);
 		em.persist(nopcio);
 
@@ -118,7 +128,7 @@ public class ManagerCuestionario {
 				throw new Exception("Ya existe el cuestionario con el nombre " + opcioA.getOpcDescripcion());
 			}
 		}
-		Cuestionario cuest= findCuestionarioById(id_cuestionario);
+		Cuestionario cuest = findCuestionarioById(id_cuestionario);
 		cuestN.setOpcDescripcion(opcioA.getOpcDescripcion());
 		cuestN.setValor(opcioA.getValor());
 		cuestN.setCuestionario(cuest);
@@ -234,20 +244,19 @@ public class ManagerCuestionario {
 	public Dimension findDimensionById(int id_dimen) {
 		Dimension dimen = em.find(Dimension.class, id_dimen);
 		return dimen;
-		
+
 	}
 
-	
-	public List<Dimension> findalDimensionbyIdcuestionario( int id_cuestionario) {
+	public List<Dimension> findalDimensionbyIdcuestionario(int id_cuestionario) {
 
 		String JPQL = "SELECT d FROM Dimension d WHERE d.cuestionario.idCuestionario=?1";
 		Query query = em.createQuery(JPQL, Dimension.class);
 		query.setParameter(1, id_cuestionario);
 		@SuppressWarnings("unchecked")
-		List<Dimension> lista= query.getResultList();
+		List<Dimension> lista = query.getResultList();
 		return lista;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public boolean existeNombreDimension(String nombre, int id_cuestionario) {
 
@@ -262,7 +271,7 @@ public class ManagerCuestionario {
 		} else
 			return true;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public boolean existeDimensionenPre(int id_dimen) {
 		String JPQL = "SELECT d FROM DimensionPregunta d WHERE d.dimension.idDimension=" + id_dimen;
@@ -295,7 +304,7 @@ public class ManagerCuestionario {
 		if (existeDimension) {
 			throw new Exception("El tipo de cuestionario " + dimen.getDescripcion() + " ya existe");
 		}
-		
+
 		Cuestionario cuest = findCuestionarioById(id_cuestionario);
 		Dimension ndimen = new Dimension();
 		ndimen.setDescripcion(dimen.getDescripcion());
@@ -310,7 +319,7 @@ public class ManagerCuestionario {
 		}
 		if (!dimenN.getDescripcion().equals(dimenN.getDescripcion())
 				|| id_cuestionario != dimenA.getCuestionario().getIdCuestionario()) {
-		boolean existeNombreDimension = existeNombreDimension(dimenA.getDescripcion(), id_cuestionario);
+			boolean existeNombreDimension = existeNombreDimension(dimenA.getDescripcion(), id_cuestionario);
 			if (existeNombreDimension) {
 				throw new Exception("Ya existe la dimension con el nombre " + dimenA.getDescripcion());
 			}
@@ -391,10 +400,9 @@ public class ManagerCuestionario {
 		}
 		Pregunta npreg = new Pregunta();
 		npreg.setDescripcion(preg.getDescripcion());
-		
+
 		em.persist(npreg);
 	}
-	
 
 	public void editarPregunta(Pregunta pregA) throws Exception {
 		Pregunta pregN = findPreguntaById(pregA.getIdPregunta());
@@ -434,24 +442,23 @@ public class ManagerCuestionario {
 		List<DimensionPregunta> listaDimensionPreguntas = q.getResultList();
 		return listaDimensionPreguntas;
 	}
- 
+
 	public List<DimensionPregunta> findAllDimensionByIdDimension(int id_dimen) {
-   Query q = em.createQuery("SELECT d FROM DimensionPregunta d WHERE d.dimension.idDimension=" + id_dimen,
+		Query q = em.createQuery("SELECT d FROM DimensionPregunta d WHERE d.dimension.idDimension=" + id_dimen,
 				DimensionPregunta.class);
 		@SuppressWarnings("unchecked")
 		List<DimensionPregunta> listaDimensionPreguntas = q.getResultList();
-	return listaDimensionPreguntas;
+		return listaDimensionPreguntas;
 	}
-	
-	public List<CursoModulo> findAllModulosByIdCurso(long id_curso){
-		Query q = em.createQuery("SELECT c FROM CursoModulo c WHERE c.curso.idCurso=" + id_curso,
-				CursoModulo.class);
+
+	public List<CursoModulo> findAllModulosByIdCurso(long id_curso) {
+		Query q = em.createQuery("SELECT c FROM CursoModulo c WHERE c.curso.idCurso=" + id_curso, CursoModulo.class);
 		@SuppressWarnings("unchecked")
 		List<CursoModulo> ListaCursoModulos = q.getResultList();
-	
+
 		return ListaCursoModulos;
 	}
-	
+
 	public void ingresarDimensionPregunta(int id_dimen, int id_preg) throws Exception {
 		if (id_dimen == 0) {
 			throw new Exception("Seleccione la dimension");
@@ -461,8 +468,8 @@ public class ManagerCuestionario {
 		}
 		Dimension dimen = findDimensionById(id_dimen);
 		Pregunta pregun = findPreguntaById(id_preg);
-		boolean dimensionPregunta=existeDimensionPregunta(id_dimen,id_preg);
-		if(dimensionPregunta) {
+		boolean dimensionPregunta = existeDimensionPregunta(id_dimen, id_preg);
+		if (dimensionPregunta) {
 			throw new Exception("Ya existe el cuestionario con la pregunta " + pregun.getDescripcion()
 					+ " y dimension: " + dimen.getDescripcion());
 		}
@@ -474,7 +481,7 @@ public class ManagerCuestionario {
 		em.persist(ndimpreg);
 	}
 
-	public void editarDimensionPregunta(DimensionPregunta pregA, int id_fk_dimension,int id_fk_pregunta)
+	public void editarDimensionPregunta(DimensionPregunta pregA, int id_fk_dimension, int id_fk_pregunta)
 			throws Exception {
 		DimensionPregunta pregN = findDimensionPreguntaById(pregA.getIdPreguntaDimension());
 		if (pregN == null) {
@@ -519,103 +526,266 @@ public class ManagerCuestionario {
 		}
 		em.remove(pregN);
 	}
-	
-	/*metodos de DTO*/
-	
-	public List<PreguntaDimensionDTO> cargarListaPreguntasRespuestas(List<DimensionPregunta>listaDimenPregun){
-		
-		List<PreguntaDimensionDTO> listaDto= new ArrayList<PreguntaDimensionDTO>();
+
+	/* metodos de DTO */
+
+	public List<PreguntaDimensionDTO> cargarListaPreguntasRespuestas(List<DimensionPregunta> listaDimenPregun) {
+
+		List<PreguntaDimensionDTO> listaDto = new ArrayList<PreguntaDimensionDTO>();
 		for (DimensionPregunta dimenPre : listaDimenPregun) {
-			PreguntaDimensionDTO obj=new PreguntaDimensionDTO();
+			PreguntaDimensionDTO obj = new PreguntaDimensionDTO();
 			obj.setDimension(dimenPre.getDimension());
 			obj.setIdPreguntaDimension(dimenPre.getIdPreguntaDimension());
 			obj.setPregunta(dimenPre.getPregunta());
-			
+
 			listaDto.add(obj);
 		}
 		for (PreguntaDimensionDTO preguntaDimensionDTO : listaDto) {
-		System.out.println(preguntaDimensionDTO.getPregunta().getDescripcion());
+			System.out.println(preguntaDimensionDTO.getPregunta().getDescripcion());
 		}
 		return listaDto;
 	}
 
-	
 	public DimensionPregunta findDimensionPreguntaById(long id_dimension_pregunta) {
 		DimensionPregunta dimensionPregunta = em.find(DimensionPregunta.class, id_dimension_pregunta);
 		return dimensionPregunta;
 
 	}
 
-	public List<CuestionarioDTO>cargarCuestionarios(List<Cuestionario> listaCuestionarios){
-		List<CuestionarioDTO> cuestinariosDto=new ArrayList<>();
-		
+	public List<CuestionarioDTO> cargarCuestionarios(List<Cuestionario> listaCuestionarios) {
+		List<CuestionarioDTO> cuestinariosDto = new ArrayList<>();
+
 		for (Cuestionario cues : listaCuestionarios) {
-			CuestionarioDTO cuesDto=new CuestionarioDTO();
+			CuestionarioDTO cuesDto = new CuestionarioDTO();
 			cuesDto.setIdCuestionario(cues.getIdCuestionario());
 			cuesDto.setDescripcion(cues.getDescripcion());
 			cuesDto.setDimensions(cues.getDimensions());
 			cuesDto.setOpcions(cues.getOpcions());
-			
-			List<Dimension>dimensiones=findalDimensionbyIdcuestionario(cues.getIdCuestionario());
+
+			List<Dimension> dimensiones = findalDimensionbyIdcuestionario(cues.getIdCuestionario());
 			cuesDto.setListaDimensionesDto(cargarDimensiones(dimensiones));
 			cuestinariosDto.add(cuesDto);
 		}
 		return cuestinariosDto;
 	}
 
-public List<DimensionDTO>cargarDimensiones(List<Dimension> listaDimensiones){
-List<DimensionDTO> dimensionesDto=new ArrayList<>();
+	public List<DimensionDTO> cargarDimensiones(List<Dimension> listaDimensiones) {
+		List<DimensionDTO> dimensionesDto = new ArrayList<>();
 
-	for (Dimension dim: listaDimensiones) {
-		DimensionDTO dimenDto=new DimensionDTO();
-		dimenDto.setCuestionario(dim.getCuestionario());
-		dimenDto.setDescripcion(dim.getDescripcion());
-		dimenDto.setDimensionPreguntas(dim.getDimensionPreguntas());
-		dimenDto.setIdDimension(dim.getIdDimension());
-		List<DimensionPregunta>dimensionesPre=findAllDimensionByIdDimension(dim.getIdDimension());
-		dimenDto.setListaDimensionesPreguntaDto(cargarDimensionesPreguntas(dimensionesPre));
-		dimensionesDto.add(dimenDto);
-	}
-	return dimensionesDto;
-}
-
-public List<DimensionPreguntaDTO>cargarDimensionesPreguntas(List<DimensionPregunta> listaDimensionesPreguntas){
-	List<DimensionPreguntaDTO> dimensionesPreDto=new ArrayList<>();
-	
-	for (DimensionPregunta dimPre: listaDimensionesPreguntas) {
-		DimensionPreguntaDTO dimenPreDto=new DimensionPreguntaDTO();
-		dimenPreDto.setDimension(dimPre.getDimension());
-		dimenPreDto.setIdPreguntaDimension(dimPre.getIdPreguntaDimension());
-		dimenPreDto.setPregunta(dimPre.getPregunta());
-		List<Opcion>opcionesByCuestionario=findAllOpcionesByCuestionario(dimPre.getDimension().getCuestionario().getIdCuestionario());
-		dimenPreDto.setListaOpciones(opcionesByCuestionario);
-		dimensionesPreDto.add(dimenPreDto);
-		
-	}
-	return dimensionesPreDto;
-}
-
-public String resultadoTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
-	if (listaDimensionesDto.isEmpty()) {
-		throw new Exception("Error lista vacÃ­a");
-	}else {
-		String respuesta="";
-		for (DimensionDTO dimensionDTO : listaDimensionesDto) {
-			respuesta=respuesta+dimensionDTO.getCuestionario().getIdCuestionario()+"-";
-			System.out.println("idCues="+dimensionDTO.getCuestionario().getIdCuestionario());
-			respuesta=respuesta+ dimensionDTO.getIdDimension()+"|";
-			System.out.println("idDim="+dimensionDTO.getIdDimension());
-			for (DimensionPreguntaDTO dimP : dimensionDTO.getListaDimensionesPreguntaDto()) {
-				respuesta=respuesta+dimP.getPregunta().getIdPregunta()+",";
-				System.out.println("preg="+dimP.getPregunta().getIdPregunta());
-				respuesta=respuesta+dimP.getValor()+"/";
-				System.out.println("resp="+dimP.getValor());
-				
-			}
-			
+		for (Dimension dim : listaDimensiones) {
+			DimensionDTO dimenDto = new DimensionDTO();
+			dimenDto.setCuestionario(dim.getCuestionario());
+			dimenDto.setDescripcion(dim.getDescripcion());
+			dimenDto.setDimensionPreguntas(dim.getDimensionPreguntas());
+			dimenDto.setIdDimension(dim.getIdDimension());
+			List<DimensionPregunta> dimensionesPre = findAllDimensionByIdDimension(dim.getIdDimension());
+			dimenDto.setListaDimensionesPreguntaDto(cargarDimensionesPreguntas(dimensionesPre));
+			dimensionesDto.add(dimenDto);
 		}
-		return respuesta;
+		return dimensionesDto;
 	}
-}
+
+	public List<DimensionPreguntaDTO> cargarDimensionesPreguntas(List<DimensionPregunta> listaDimensionesPreguntas) {
+		List<DimensionPreguntaDTO> dimensionesPreDto = new ArrayList<>();
+
+		for (DimensionPregunta dimPre : listaDimensionesPreguntas) {
+			DimensionPreguntaDTO dimenPreDto = new DimensionPreguntaDTO();
+			dimenPreDto.setDimension(dimPre.getDimension());
+			dimenPreDto.setIdPreguntaDimension(dimPre.getIdPreguntaDimension());
+			dimenPreDto.setPregunta(dimPre.getPregunta());
+			List<Opcion> opcionesByCuestionario = findAllOpcionesByCuestionario(
+					dimPre.getDimension().getCuestionario().getIdCuestionario());
+			dimenPreDto.setListaOpciones(opcionesByCuestionario);
+			dimensionesPreDto.add(dimenPreDto);
+
+		}
+		return dimensionesPreDto;
+	}
+
+	public String resultadoTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
+		if (listaDimensionesDto.isEmpty()) {
+			throw new Exception("Error lista vacía");
+		} else {
+			String respuesta = "";
+			System.out.println("Dimensiones"+listaDimensionesDto.size());
+			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
+				respuesta = respuesta + dimensionDTO.getCuestionario().getIdCuestionario() + "-";
+				System.out.println("idCues=" + dimensionDTO.getCuestionario().getIdCuestionario());
+				respuesta = respuesta + dimensionDTO.getIdDimension() + "|";
+				System.out.println("idDim=" + dimensionDTO.getIdDimension());
+
+				System.out.println("este es el tamano de" + dimensionDTO.getDescripcion() + "#"
+						+ dimensionDTO.getListaDimensionesPreguntaDto().size());
+
+				for (DimensionPreguntaDTO dimP : dimensionDTO.getListaDimensionesPreguntaDto()) {
+
+					respuesta = respuesta + dimP.getPregunta().getIdPregunta() + ",";
+					System.out.println("preg=" + dimP.getPregunta().getIdPregunta());
+					respuesta = respuesta + dimP.getValor() + "/";
+					System.out.println("resp=" + dimP.getValor());
+
+				}
+
+			}
+			return respuesta;
+		}
+	}
+
+// Metodo que me devuelve los reportes
+	public List<Reporte> findAllReporte() {
+
+		Query q = em.createQuery("SELECT r FROM Reporte r", Reporte.class);
+		@SuppressWarnings("unchecked")
+		List<Reporte> listaReporte = q.getResultList();
+		return listaReporte;
+	}
+
+	public List<Reporte> findResultadosTestbyUsuario(long id_user) {
+		String JPQL = "SELECT r FROM Reporte r WHERE r.usuario.idUsuario=?1";
+		Query query = em.createQuery(JPQL, Reporte.class);
+		query.setParameter(1, id_user);
+
+		@SuppressWarnings("unchecked")
+		List<Reporte> listaReporte = query.getResultList();
+		return listaReporte;
+
+	}
+
+	/**
+	 * Me devuelve la lista de Reportes de los usuarios Ingresados por su id de id
+	 * de usuario.
+	 */
+
+// MÃ©todo que me devuelve Reportes por id usuario
+	public Reporte findReporteByIdUsuario(long id_usuario) {
+		String JPQL = "SELECT r FROM Reporte r WHERE r.usuario.idUsuario=?1";
+		Query query = em.createQuery(JPQL, Reporte.class);
+		query.setParameter(1, id_usuario);
+		Reporte Reporte;
+		Reporte = (Reporte) query.getSingleResult();
+		return Reporte;
+	}
+
+	public void ingresarReporte(String respuesta, int id_dimension, Date fecha_realizacion, long id_usuario)
+			throws Exception {
+
+		Reporte nreport = new Reporte();
+
+		Usuario user = managerAdministrador.findUsuarioById(id_usuario);
+		Dimension dime = managerCuestionario.findDimensionById(id_dimension);
+		nreport.setResultado(respuesta);
+		nreport.setDimension(dime);
+		nreport.setFecha(fecha_realizacion);
+		nreport.setUsuario(user);
+		em.persist(nreport);
+	}
+
+	public String reporteTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
+		if (listaDimensionesDto.isEmpty()) {
+			throw new Exception("Error lista vacía");
+		} else {
+			String respuesta = "";
+			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
+				
+				respuesta = respuesta + dimensionDTO.getCuestionario().getIdCuestionario() + "-";
+				respuesta = respuesta + dimensionDTO.getIdDimension() + "|";
+				for (DimensionPreguntaDTO dimP : dimensionDTO.getListaDimensionesPreguntaDto()) {
+					respuesta = respuesta + dimP.getPregunta().getIdPregunta() + ",";
+					System.out.println("preg=" + dimP.getPregunta().getIdPregunta());
+					respuesta = respuesta + dimP.getValor() + "/";
+					System.out.println("resp=" + dimP.getValor());
+
+				}
+
+			}
+			return respuesta;
+		}
+	}
+
+	/*
+	 * 
+	 * public String calcularRespuestaCuestionario(List<DimensionDTO>
+	 * listaDimensionesDto) { String respuesta=""; int a=0,b=0;
+	 * 
+	 * String [] modulosResp= new String [listaDimensionesDto.size()];
+	 * 
+	 * if (listaDimensionesDto.isEmpty()) { throw new
+	 * Exception("Error lista vacía"); }else { for (DimensionDTO dimensionDTO :
+	 * listaDimensionesDto) {
+	 * if(dimensionDTO.getCuestionario().getIdCuestionario()==1) { for
+	 * (DimensionPreguntaDTO dimPDto: dimensionDTO.getListaDimensionesPreguntaDto()
+	 * ) {
+	 * 
+	 * if(dimPDto.getValor()<=3) { a++; }else { b++; }
+	 * 
+	 * } } }
+	 * 
+	 * }
+	 * 
+	 * if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 ||
+	 * dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 ||
+	 * dimension.getIdDimension()== 5) { for (PreguntaDimensionDTO dpDTO : listaDto)
+	 * { if (dpDTO.getValor()<=3) { a++; }else { b++; } } double r;
+	 * r=calcularPorcentaje(a, b, listaDto.size()); if (a>b) {
+	 * respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()
+	 * +" con el porcentaje de "+r+"%"; return respuesta; }else {
+	 * respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()
+	 * +" con el porcentaje de "+r+"%"; return respuesta; }
+	 * 
+	 * 
+	 * }else if(dimension.getIdDimension() == 6) { int sumEstres = 0; for
+	 * (PreguntaDimensionDTO dpDTO : listaDto) { sumEstres=
+	 * sumEstres+dpDTO.getValor(); }
+	 * System.out.println("Estres sumatoria"+sumEstres);
+	 * 
+	 * int menEstres= sumEstres-16;
+	 * 
+	 * if(menEstres>24) { respuesta= "Vulnerable al Éstres."; }else if(menEstres>=40
+	 * || menEstres<=60) { respuesta= "Seriamente vulnerable al Éstres."; }else
+	 * if(menEstres>60) { respuesta= "Extremadamente vulnerable al Éstres."; }else {
+	 * respuesta= "Baja vulnerabilidad al Éstres."; }
+	 * 
+	 * }
+	 * 
+	 * return respuesta; }
+	 * 
+	 * 
+	 * 
+	 * public String
+	 * calcularRespuestaDimension(List<PreguntaDimensionDTO>listaDto,Dimension
+	 * dimension) { String respuesta=""; int a=0,b=0;
+	 * if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 ||
+	 * dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 ||
+	 * dimension.getIdDimension()== 5) { for (PreguntaDimensionDTO dpDTO : listaDto)
+	 * { if (dpDTO.getValor()<=3) { a++; }else { b++; } } double r;
+	 * r=calcularPorcentaje(a, b, listaDto.size()); if (a>b) {
+	 * respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()
+	 * +" con el porcentaje de "+r+"%"; return respuesta; }else {
+	 * respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()
+	 * +" con el porcentaje de "+r+"%"; return respuesta; }
+	 * 
+	 * 
+	 * }else if(dimension.getIdDimension() == 6) { int sumEstres = 0; for
+	 * (PreguntaDimensionDTO dpDTO : listaDto) { sumEstres=
+	 * sumEstres+dpDTO.getValor(); }
+	 * System.out.println("Estres sumatoria"+sumEstres);
+	 * 
+	 * int menEstres= sumEstres-16;
+	 * 
+	 * if(menEstres>24) { respuesta= "Vulnerable al Éstres."; }else if(menEstres>=40
+	 * || menEstres<=60) { respuesta= "Seriamente vulnerable al Éstres."; }else
+	 * if(menEstres>60) { respuesta= "Extremadamente vulnerable al Éstres."; }else {
+	 * respuesta= "Baja vulnerabilidad al Éstres."; }
+	 * 
+	 * }
+	 * 
+	 * return respuesta; }
+	 * 
+	 * 
+	 * public double calcularPorcentaje(int a,int b,int tamanio) { double r; if
+	 * (a>b) { r=(a*100)/tamanio; return r; }else { r=(b*100)/tamanio; return r; } }
+	 * 
+	 * 
+	 */
 
 }
