@@ -510,10 +510,13 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	{
 		try { 
 			
-			System.out.println("tamano="+listaDimensionesDto.size());
+			System.out.println("tamano="+ listaDimensionesDto.size());
+		//	respuestaReporte= managerCuestionario.calcularRespuestaCuestionario(listaDimensionesDto);
+			
 			respuesta=managerCuestionario.resultadoTest(listaDimensionesDto);
 			managerAdministrador.ingresarRespuesta(login.getLogin().getId_usuario(), respuesta, fechaRealizacion);
 			
+		//	managerCuestionario.ingresarReporte(respuestaReporte,fechaRealizacion, login.getLogin().getId_usuario());
 			respuesta="";	
 			listaDimensionesDto=new ArrayList<>();
 			listaDimensionActualDto=new ArrayList<>();

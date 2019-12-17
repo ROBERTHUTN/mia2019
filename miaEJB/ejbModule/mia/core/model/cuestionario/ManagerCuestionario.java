@@ -607,7 +607,7 @@ public class ManagerCuestionario {
 			throw new Exception("Error lista vacía");
 		} else {
 			String respuesta = "";
-			System.out.println("Dimensiones"+listaDimensionesDto.size());
+			System.out.println("Dimensiones" + listaDimensionesDto.size());
 			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
 				respuesta = respuesta + dimensionDTO.getCuestionario().getIdCuestionario() + "-";
 				System.out.println("idCues=" + dimensionDTO.getCuestionario().getIdCuestionario());
@@ -665,12 +665,13 @@ public class ManagerCuestionario {
 		Reporte = (Reporte) query.getSingleResult();
 		return Reporte;
 	}
-
-	public void ingresarReporte(String respuesta, int id_dimension, Date fecha_realizacion, long id_usuario)
+/*
+	public void ingresarReporte(String dimensiones ,String respuesta, Date fecha_realizacion, long id_usuario)
 			throws Exception {
 
 		Reporte nreport = new Reporte();
-
+			
+		
 		Usuario user = managerAdministrador.findUsuarioById(id_usuario);
 		Dimension dime = managerCuestionario.findDimensionById(id_dimension);
 		nreport.setResultado(respuesta);
@@ -679,16 +680,16 @@ public class ManagerCuestionario {
 		nreport.setUsuario(user);
 		em.persist(nreport);
 	}
-
+*/
 	public String reporteTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
 		if (listaDimensionesDto.isEmpty()) {
 			throw new Exception("Error lista vacía");
 		} else {
 			String respuesta = "";
 			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
-				
-				respuesta = respuesta + dimensionDTO.getCuestionario().getIdCuestionario() + "-";
-				respuesta = respuesta + dimensionDTO.getIdDimension() + "|";
+
+				respuesta = respuesta +"|"+ dimensionDTO.getCuestionario().getIdCuestionario() + "-";
+				respuesta = respuesta +"|"+ dimensionDTO.getIdDimension() + "|";
 				for (DimensionPreguntaDTO dimP : dimensionDTO.getListaDimensionesPreguntaDto()) {
 					respuesta = respuesta + dimP.getPregunta().getIdPregunta() + ",";
 					System.out.println("preg=" + dimP.getPregunta().getIdPregunta());
@@ -702,90 +703,76 @@ public class ManagerCuestionario {
 		}
 	}
 
-	/*
-	 * 
-	 * public String calcularRespuestaCuestionario(List<DimensionDTO>
-	 * listaDimensionesDto) { String respuesta=""; int a=0,b=0;
-	 * 
-	 * String [] modulosResp= new String [listaDimensionesDto.size()];
-	 * 
-	 * if (listaDimensionesDto.isEmpty()) { throw new
-	 * Exception("Error lista vacía"); }else { for (DimensionDTO dimensionDTO :
-	 * listaDimensionesDto) {
-	 * if(dimensionDTO.getCuestionario().getIdCuestionario()==1) { for
-	 * (DimensionPreguntaDTO dimPDto: dimensionDTO.getListaDimensionesPreguntaDto()
-	 * ) {
-	 * 
-	 * if(dimPDto.getValor()<=3) { a++; }else { b++; }
-	 * 
-	 * } } }
-	 * 
-	 * }
-	 * 
-	 * if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 ||
-	 * dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 ||
-	 * dimension.getIdDimension()== 5) { for (PreguntaDimensionDTO dpDTO : listaDto)
-	 * { if (dpDTO.getValor()<=3) { a++; }else { b++; } } double r;
-	 * r=calcularPorcentaje(a, b, listaDto.size()); if (a>b) {
-	 * respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()
-	 * +" con el porcentaje de "+r+"%"; return respuesta; }else {
-	 * respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()
-	 * +" con el porcentaje de "+r+"%"; return respuesta; }
-	 * 
-	 * 
-	 * }else if(dimension.getIdDimension() == 6) { int sumEstres = 0; for
-	 * (PreguntaDimensionDTO dpDTO : listaDto) { sumEstres=
-	 * sumEstres+dpDTO.getValor(); }
-	 * System.out.println("Estres sumatoria"+sumEstres);
-	 * 
-	 * int menEstres= sumEstres-16;
-	 * 
-	 * if(menEstres>24) { respuesta= "Vulnerable al Éstres."; }else if(menEstres>=40
-	 * || menEstres<=60) { respuesta= "Seriamente vulnerable al Éstres."; }else
-	 * if(menEstres>60) { respuesta= "Extremadamente vulnerable al Éstres."; }else {
-	 * respuesta= "Baja vulnerabilidad al Éstres."; }
-	 * 
-	 * }
-	 * 
-	 * return respuesta; }
-	 * 
-	 * 
-	 * 
-	 * public String
-	 * calcularRespuestaDimension(List<PreguntaDimensionDTO>listaDto,Dimension
-	 * dimension) { String respuesta=""; int a=0,b=0;
-	 * if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 ||
-	 * dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 ||
-	 * dimension.getIdDimension()== 5) { for (PreguntaDimensionDTO dpDTO : listaDto)
-	 * { if (dpDTO.getValor()<=3) { a++; }else { b++; } } double r;
-	 * r=calcularPorcentaje(a, b, listaDto.size()); if (a>b) {
-	 * respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()
-	 * +" con el porcentaje de "+r+"%"; return respuesta; }else {
-	 * respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()
-	 * +" con el porcentaje de "+r+"%"; return respuesta; }
-	 * 
-	 * 
-	 * }else if(dimension.getIdDimension() == 6) { int sumEstres = 0; for
-	 * (PreguntaDimensionDTO dpDTO : listaDto) { sumEstres=
-	 * sumEstres+dpDTO.getValor(); }
-	 * System.out.println("Estres sumatoria"+sumEstres);
-	 * 
-	 * int menEstres= sumEstres-16;
-	 * 
-	 * if(menEstres>24) { respuesta= "Vulnerable al Éstres."; }else if(menEstres>=40
-	 * || menEstres<=60) { respuesta= "Seriamente vulnerable al Éstres."; }else
-	 * if(menEstres>60) { respuesta= "Extremadamente vulnerable al Éstres."; }else {
-	 * respuesta= "Baja vulnerabilidad al Éstres."; }
-	 * 
-	 * }
-	 * 
-	 * return respuesta; }
-	 * 
-	 * 
-	 * public double calcularPorcentaje(int a,int b,int tamanio) { double r; if
-	 * (a>b) { r=(a*100)/tamanio; return r; }else { r=(b*100)/tamanio; return r; } }
-	 * 
-	 * 
-	 */
+	public String  calcularRespuestaCuestionario(List<DimensionDTO> listaDimensionesDto) throws Exception {
+		String respuesta = "";
+		int a = 0, b = 0;
 
+		String[] modulosResp = new String[listaDimensionesDto.size()];
+
+		if (listaDimensionesDto.isEmpty()) {
+			throw new Exception("Error lista vacía");
+		} else {
+			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
+				if (dimensionDTO.getCuestionario().getIdCuestionario() == 1) {
+					for (DimensionPreguntaDTO dimPDto : dimensionDTO.getListaDimensionesPreguntaDto()) {
+
+						if (dimPDto.getValor() <= 3) {
+							a++;
+						} else {
+							b++;
+						}
+					}
+					double r;
+					r = calcularPorcentaje(a, b, dimensionDTO.getListaDimensionesPreguntaDto().size());
+					if (a > b) {
+						respuesta = "Tiene bajo grado de capacidad en: " + dimensionDTO.getDescripcion()
+								+ " con el porcentaje de " + r + "%";
+						return respuesta;
+					} else {
+						respuesta = "Tiene alto grado de capacidad en: " + dimensionDTO.getDescripcion()
+								+ " con el porcentaje de " + r + "%";
+						return respuesta;
+					}
+				}else if (dimensionDTO.getCuestionario().getIdCuestionario() == 2 ) {
+					int sumEstres = 0;
+					for (DimensionPreguntaDTO dimPDto : dimensionDTO.getListaDimensionesPreguntaDto()) {
+						sumEstres= sumEstres+dimPDto.getValor();
+					}
+					System.out.println("Estres sumatoria"+sumEstres);
+					
+					int menEstres= sumEstres-16;
+					
+					if(menEstres>24)
+					{
+						respuesta= "Vulnerable al Éstres.";
+					}else if(menEstres>=40 || menEstres<=60)
+					{
+						respuesta= "Seriamente vulnerable al Éstres.";
+					}else if(menEstres>60)
+					{
+						respuesta= "Extremadamente vulnerable al Éstres.";
+					}else {
+						respuesta= "Baja vulnerabilidad al Éstres.";
+					}
+				}else  if (dimensionDTO.getCuestionario().getIdCuestionario() == 3 ) {
+					return respuesta= "respuesta se guardo";
+				}
+			}
+		}
+
+		return "";
+	}
+
+	public double calcularPorcentaje(int a, int b, int tamanio) {
+		double r;
+		if (a > b) {
+			r = (a * 100) / tamanio;
+			return r;
+		} else {
+			r = (b * 100) / tamanio;
+			return r;
+		}
+	}
+
+	
 }
