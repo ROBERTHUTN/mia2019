@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.administrador.view.controller.BeanAdministrradorCuestionario;
+import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.Reporte;
@@ -38,10 +39,10 @@ public class BeanUserCuestionario implements Serializable {
 	@EJB
 	private ManagerAdministrador managerAdministrador; 
 	
-
+/*
 	public void actionIngresarReporte() {
 		try {
-			List<PreguntaDimensionDTO>lista=cuestionario.getDimensionpreguntaIDDto();
+			List<DimensionPreguntaDTO>lista=cuestionario.get
 			Dimension dimension=cuestionario.getDimensionR();
 			respuesta=managerReporte.calcularRespuestaDimension(lista, dimension);
 			fechaRealizacion= managerAdministrador.fechaActual();
@@ -52,6 +53,6 @@ public class BeanUserCuestionario implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+*/	
 } 
  

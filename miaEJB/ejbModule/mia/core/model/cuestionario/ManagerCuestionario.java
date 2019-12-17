@@ -604,7 +604,7 @@ public class ManagerCuestionario {
 
 	public String resultadoTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
 		if (listaDimensionesDto.isEmpty()) {
-			throw new Exception("Error lista vacía");
+			throw new Exception("Error lista vacï¿½a");
 		} else {
 			String respuesta = "";
 			System.out.println("Dimensiones" + listaDimensionesDto.size());
@@ -665,8 +665,7 @@ public class ManagerCuestionario {
 		Reporte = (Reporte) query.getSingleResult();
 		return Reporte;
 	}
-/*
-	public void ingresarReporte(String dimensiones ,String respuesta, Date fecha_realizacion, long id_usuario)
+	public void ingresarReporte(int  id_dimension ,String respuesta, Date fecha_realizacion, long id_usuario)
 			throws Exception {
 
 		Reporte nreport = new Reporte();
@@ -680,10 +679,9 @@ public class ManagerCuestionario {
 		nreport.setUsuario(user);
 		em.persist(nreport);
 	}
-*/
 	public String reporteTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
 		if (listaDimensionesDto.isEmpty()) {
-			throw new Exception("Error lista vacía");
+			throw new Exception("Error lista vacï¿½a");
 		} else {
 			String respuesta = "";
 			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
@@ -710,7 +708,7 @@ public class ManagerCuestionario {
 		String[] modulosResp = new String[listaDimensionesDto.size()];
 
 		if (listaDimensionesDto.isEmpty()) {
-			throw new Exception("Error lista vacía");
+			throw new Exception("Error lista vacï¿½a");
 		} else {
 			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
 				if (dimensionDTO.getCuestionario().getIdCuestionario() == 1) {
@@ -744,15 +742,15 @@ public class ManagerCuestionario {
 					
 					if(menEstres>24)
 					{
-						respuesta= "Vulnerable al Éstres.";
+						respuesta= "Vulnerable al ï¿½stres.";
 					}else if(menEstres>=40 || menEstres<=60)
 					{
-						respuesta= "Seriamente vulnerable al Éstres.";
+						respuesta= "Seriamente vulnerable al ï¿½stres.";
 					}else if(menEstres>60)
 					{
-						respuesta= "Extremadamente vulnerable al Éstres.";
+						respuesta= "Extremadamente vulnerable al ï¿½stres.";
 					}else {
-						respuesta= "Baja vulnerabilidad al Éstres.";
+						respuesta= "Baja vulnerabilidad al ï¿½stres.";
 					}
 				}else  if (dimensionDTO.getCuestionario().getIdCuestionario() == 3 ) {
 					return respuesta= "respuesta se guardo";

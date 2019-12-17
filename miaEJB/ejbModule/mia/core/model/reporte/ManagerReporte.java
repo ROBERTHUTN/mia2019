@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.cuestionario.ManagerCuestionario;
+import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.Reporte;
@@ -86,13 +87,13 @@ private ManagerCuestionario managerCuestionario;
 		em.persist(nreport);
 	}
 	
-	public String calcularRespuestaDimension(List<PreguntaDimensionDTO>listaDto,Dimension dimension)
+	public String calcularRespuestaDimension(List<DimensionPreguntaDTO>listaDto,Dimension dimension)
 	{
 		String respuesta="";
 		int a=0,b=0;
 		if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 || dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 || dimension.getIdDimension()== 5)
 		{
-			for (PreguntaDimensionDTO dpDTO : listaDto) {
+			for (DimensionPreguntaDTO dpDTO : listaDto) {
 				if (dpDTO.getValor()<=3) {
 					a++;
 				}else {
@@ -113,7 +114,7 @@ private ManagerCuestionario managerCuestionario;
 		}else if(dimension.getIdDimension() == 6) 
 		{
 			int sumEstres = 0;
-			for (PreguntaDimensionDTO dpDTO : listaDto) {
+			for (DimensionPreguntaDTO dpDTO : listaDto) {
 				sumEstres= sumEstres+dpDTO.getValor();
 			}
 			System.out.println("Estres sumatoria"+sumEstres);
@@ -122,15 +123,15 @@ private ManagerCuestionario managerCuestionario;
 			
 			if(menEstres>24)
 			{
-				respuesta= "Vulnerable al Éstres.";
+				respuesta= "Vulnerable al ï¿½stres.";
 			}else if(menEstres>=40 || menEstres<=60)
 			{
-				respuesta= "Seriamente vulnerable al Éstres.";
+				respuesta= "Seriamente vulnerable al estres.";
 			}else if(menEstres>60)
 			{
-				respuesta= "Extremadamente vulnerable al Éstres.";
+				respuesta= "Extremadamente vulnerable al estres.";
 			}else {
-				respuesta= "Baja vulnerabilidad al Éstres.";
+				respuesta= "Baja vulnerabilidad al estres.";
 			}
 			
 		}
@@ -190,7 +191,7 @@ private ManagerCuestionario managerCuestionario;
 */
 	/***
 	 * Tres tipos de Cuestionarios A evaluar en la plataforma 
-	 * creación del Primer Cuestionario para la facilidad de creación del 'ingreso de Reportes
+	 * creaciï¿½n del Primer Cuestionario para la facilidad de creaciï¿½n del 'ingreso de Reportes
 	 * 
 	 */
 	

@@ -54,7 +54,7 @@ public class BeanReporte implements Serializable {
 	public void init() {
 		reporteTest= managerReporte.findResultadosTestbyUsuario(login.getLogin().getId_usuario());
 	}
-	
+	/*
 	
 		public void actionIngresarReporte() {
 		try {
@@ -71,7 +71,7 @@ public class BeanReporte implements Serializable {
 	}
 	
 	
-	
+	*/
 
 	
 	

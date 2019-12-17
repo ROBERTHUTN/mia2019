@@ -23,5 +23,8 @@ public class JSFUtil {
 		msg.setSummary(mensaje);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+	public static void crearMensajeFastFinal() {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+	}
 	
 }

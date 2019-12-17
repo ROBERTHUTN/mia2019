@@ -12,6 +12,7 @@ import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.cuestionario.ManagerCuestionario;
 import mia.core.model.cuestionario.dto.CuestionarioDTO;
 import mia.core.model.cuestionario.dto.DimensionDTO;
+import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.InicioDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Cuestionario;
@@ -179,7 +180,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		public String actionDimensionesbyCuestionario(CuestionarioDTO cuest) {
 			try { 
 				if (cuest.getListaDimensionesDto().isEmpty()) {
-					JSFUtil.crearMensajeError("El cuestionario "+cuest.getDescripcion()+" no tiene módulos disponibles");
+					JSFUtil.crearMensajeError("El cuestionario "+cuest.getDescripcion()+" no tiene mï¿½dulos disponibles");
 					return "";
 				}else {
 				listaDimensionesDto=cuest.getListaDimensionesDto();
@@ -511,15 +512,23 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		try { 
 			
 			System.out.println("tamano="+ listaDimensionesDto.size());
-		//	respuestaReporte= managerCuestionario.calcularRespuestaCuestionario(listaDimensionesDto);
+	
 			
 			respuesta=managerCuestionario.resultadoTest(listaDimensionesDto);
 			managerAdministrador.ingresarRespuesta(login.getLogin().getId_usuario(), respuesta, fechaRealizacion);
-			
-		//	managerCuestionario.ingresarReporte(respuestaReporte,fechaRealizacion, login.getLogin().getId_usuario());
+			for (DimensionDTO dDto : listaDimensionesDto) {
+				respuestaReporte=managerReporte.calcularRespuestaDimension(dDto.getListaDimensionesPreguntaDto(), dDto);	
+				managerCuestionario.ingresarReporte(dDto.getIdDimension(), respuestaReporte, fechaRealizacion, login.getLogin().getId_usuario());
+				
+			}
+			DimensionDTO di=listaDimensionesDto.get(0);
+			JSFUtil.crearMensajeInfo("Cuestionario "+di.getCuestionario().getDescripcion()+" "+di.getCuestionario().getIdCuestionario()+""+" "
+					+ " ha sido realizado correctamente");
+			JSFUtil.crearMensajeFastFinal();
 			respuesta="";	
 			listaDimensionesDto=new ArrayList<>();
 			listaDimensionActualDto=new ArrayList<>();
+
 			return "test?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
