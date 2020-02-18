@@ -18,12 +18,8 @@
     </h3>
     
  <p:graphicImage value="resources/images/utn.png" style="width:90px"></p:graphicImage>
-  <p:panelGrid columns="2" cellpadding="5" >
-   <h1>MIA</h1>   
-  
-  </p:panelGrid>
  
- 
+
   </div>
   <br></br>
     <br></br>
@@ -52,13 +48,10 @@
 <br></br>
     <br></br>
   <p></p>
- <div class="imgcontainer">
-    <p:graphicImage  value="resources/images/utn.png" style="width:90px"></p:graphicImage>
-  </div>
+ 
   <p></p>
 </div>
  <h:form>
- 
  
 
   <div class="container">
@@ -68,25 +61,12 @@
   <div class="container" align="center" style="background-color:#f1f1f1">
   
     <span><a href="restablecerContrasenia.xhtml"><u>Olvidé mi contraseña</u></a></span>
-    <br></br>    <br></br>    <br></br>
+     <br></br>
     <span><a href="registrarUsuario.xhtml"><u>REGISTRARSE</u></a></span>
   </div>
   </div>
 </h:form>
-          <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-    <f:facet name="default">
-    </f:facet>
-      <f:facet name="start">
-        <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
-    </f:facet>
- 
-    
-</p:ajaxStatus>
-<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-             
-<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-    <p:graphicImage value="resources/images/carga.gif" />
-</p:dialog>
+         
 <p:outputLabel ></p:outputLabel>
 	<p:growl>
 		<p:autoUpdate />
