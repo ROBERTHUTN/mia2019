@@ -28,47 +28,51 @@
 
   <div class="group">
 
-  <p:inputText validatorMessage="Nombre: ingrese solo letras!" value="#{beanLogin.registroUsuario.nombres}" required="true" requiredMessage="Ingrese los nombres" maxlength="100"  
+  <p:inputText id="nombre" validatorMessage="Nombre: ingrese solo letras!" value="#{beanLogin.registroUsuario.nombres}" required="true" requiredMessage="Ingrese sus nombres" maxlength="100"  
   ><f:validateRegex pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
   </p:inputText>
- 
+ <p:message for="nombre"></p:message>
     <p:outputLabel value="Nombres" ></p:outputLabel>
   </div>
   <div class="group">
 
-  <p:inputText validatorMessage="Apellido: ingrese solo letras!" value="#{beanLogin.registroUsuario.apellidos}" required="true" requiredMessage="Ingrese los apellidos" maxlength="100">
+  <p:inputText id="apellido" validatorMessage="Apellido: ingrese solo letras!" value="#{beanLogin.registroUsuario.apellidos}" required="true" requiredMessage="Ingrese sus apellidos" maxlength="100">
   <f:validateRegex pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
-  
   </p:inputText>
-    <p:outputLabel value="Apellidos"></p:outputLabel>
+ <p:message for="apellido"></p:message>
+  <p:outputLabel value="Apellidos"></p:outputLabel>
   </div>
     <div class="group">
 
-  <p:inputText  value="#{beanLogin.registroUsuario.ci}" validatorMessage="Formato de cédula incorrecto !" required="true" requiredMessage="Ingrese una identificación" maxlength="10">
+  <p:inputText id="cedula"  value="#{beanLogin.registroUsuario.ci}" validatorMessage="Formato de cédula incorrecto !" required="true" requiredMessage="Ingrese una identificación" maxlength="10">
   <f:validateRegex pattern="[0-9]{10}"></f:validateRegex>
   </p:inputText>
+  <p:message for="cedula"></p:message>
     <p:outputLabel value="Cédula"></p:outputLabel>
   </div>
     <div class="group">
 
-  <p:inputText accesskey="true"  value="#{beanLogin.registroUsuario.correo}" required="true" requiredMessage="Ingrese un correo " maxlength="50" validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
+  <p:inputText id="correo" accesskey="true"  value="#{beanLogin.registroUsuario.correo}" required="true" requiredMessage="Ingrese un correo " maxlength="50" validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
      <f:validateRegex pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
  </p:inputText>
+ <p:message for="correo"></p:message>
     <p:outputLabel value="Correo"></p:outputLabel>
   </div>
    
        <div class="group">
 
-  <p:password value="#{beanLogin.registroUsuario.password}" feedback="true" validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
+  <p:password id="pass" value="#{beanLogin.registroUsuario.password}" feedback="true" validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
 required="true" requiredMessage="Ingrese una contraseña segura" maxlength="20"
   promptLabel="Ingrese una contraseña segura!" weakLabel="Bajo"
    goodLabel="Media" strongLabel="Alta"  >
  <f:validateRegex pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
   </p:password>
+  <p:message for="pass"></p:message>
 
       <p:outputLabel value="Contraseña"></p:outputLabel>
   </div>
-<p:commandButton styleClass="button buttonBlue" value="Registrarse" action="#{beanLogin.actionregistrarUsuario()}"> </p:commandButton>
+  
+<p:commandButton ajax="true" styleClass="button buttonBlue" value="Registrarse" action="#{beanLogin.actionregistrarUsuario()}" validateClient="true"> </p:commandButton>
   
 </h:form>
 	<p:growl>
