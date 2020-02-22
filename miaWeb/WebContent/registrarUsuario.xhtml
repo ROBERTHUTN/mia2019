@@ -21,18 +21,25 @@
 		 -->
 	<title>Mia Registro de Usuarios</title>
 </h:head>
-<body>
+<body bgcolor="#3b83bd" >
 
 	<div align="center">
 		<h1>MIA</h1>
 	</div>
+	
+<p:breadCrumb>
+    <p:menuitem value="Categories" url="login.xhtml" />
+    <p:menuitem value="Registro Usuario" url="#" />
+</p:breadCrumb>
+  <p:breadCrumb model="{#Men}">
+  </p:breadCrumb>
 	
 	<h:form>
 	 <div class="ui-fluid">
 		<p:panel id="panel" header="Registro Usuario"
 			style="margin-bottom:10px;">
 			
-			<p:panelGrid columns="2" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="customPanelGrid" contentStyleClass="ui-fluid">
+			<p:panelGrid columns="3" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="customPanelGrid" contentStyleClass="ui-fluid">
 				<p:outputLabel for="@next" value="Nombres:"></p:outputLabel>
 				<p:inputText id="nombre"
 					validatorMessage="Nombre: ingrese solo letras!"

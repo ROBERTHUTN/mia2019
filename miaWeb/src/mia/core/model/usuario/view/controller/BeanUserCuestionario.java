@@ -7,18 +7,13 @@ import javax.inject.Named;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.administrador.view.controller.BeanAdministrradorCuestionario;
-import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
-import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
-import mia.core.model.entities.Dimension;
-import mia.core.model.entities.Reporte;
-import mia.core.model.entities.Usuario;
+
 import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.reporte.ManagerReporte;
-import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
 @Named
 @ViewScoped
 public class BeanUserCuestionario implements Serializable {
