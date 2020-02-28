@@ -29,9 +29,7 @@ type="preRenderView"></f:event>
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />
-
+	
 				<p:menuitem value="Nueva Registro Curso" title="Registrarse en un curso"
 					icon=" fa fa-plus " onclick="PF('nuevaUserCurso').show();"></p:menuitem>
 				<f:facet name="options">
@@ -43,6 +41,14 @@ type="preRenderView"></f:event>
 			</p:menubar>
 		</h:form>
 	</div>
+	<div id="migajas" class="p-grid"  >
+	<p:breadCrumb>
+    <p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+    <p:menuitem value="Registro Curso" url="/miaWeb/faces/usuario/inscripcioncurso.xhtml" />
+	
+	</p:breadCrumb>
+ 	</div>
+	
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
@@ -67,7 +73,7 @@ type="preRenderView"></f:event>
 					</p:inputText>
 					
 					<p:outputLabel value="curso: " />
-					<p:selectOneMenu autoWidth="100%" required="true"
+					<p:selectOneMenu id="curso" autoWidth="100%" required="true"
 						requiredMessage="Seleccione un curso"
 						value="#{beanUserCurso.id_curso_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
@@ -77,6 +83,9 @@ type="preRenderView"></f:event>
 							value="#{beanCurso.cursos}" var="reg"
 							itemLabel="#{reg.nombre}" itemValue="#{reg.idCurso}" />
 					</p:selectOneMenu>
+					<p:message for="curso"></p:message>
+					
+					
 					<!-- 
 					<p:outputLabel value="modulo]: " />
 					<p:inputText autoWidth="100%" required="true"
@@ -98,8 +107,9 @@ type="preRenderView"></f:event>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
+						ajax="false" validateClient="true"
 						actionListener="#{beanUserCurso.actionListenerIngresarUsuarioCurso()}"
-						oncomplete="nuevaUserCurso" update="form2" ajax="false">
+						oncomplete="nuevaUserCurso" update="form2" >
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />

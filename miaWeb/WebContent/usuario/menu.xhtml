@@ -17,16 +17,15 @@ type="preRenderView"></f:event>
 	<!-- Estilos -->
 
 	<title>MIA</title>
-<style type="text/css">
-    /** Demo **/
-    .ui-outputlabel {
-        font-weight: bold;
-    }
-     
-    .ui-orderlist .ui-orderlist-list {
-        height: auto;
-    }
-</style>
+	<f:facet name="middle">
+		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+		<h:outputStylesheet name="css/styles.css" />
+	</f:facet>
+	<f:facet name="last">
+		<h:outputScript name="bootstrap/js/bootstrap.js" />
+		<h:outputScript name="js/styles.js" />
+		<h:outputScript name="js/validator.js" />
+	</f:facet>
 </h:head>
 <body style="background-color: #3b83bd;"> 
 <div id="menu">
@@ -50,14 +49,17 @@ type="preRenderView"></f:event>
 			</p:menubar>
 		</h:form>
 	</div>
+	<div id="migajas" class="p-grid"  >
+	<p:breadCrumb>
+    <p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+	</p:breadCrumb>
+ </div>
 <p:growl>
 		<p:autoUpdate />
 	</p:growl>
 	<p:messages>
 		<p:autoUpdate />
 	</p:messages>
-
-<h3>Lista de Opciones de Usuario</h3>
 
    <div class="ui-fluid" align="center">
    <style type="text/css">
@@ -137,7 +139,13 @@ type="preRenderView"></f:event>
                 </h:form>
             </p:panel>
  			       
- 
+             <p:panel id="pruebas" header="Pruebas ">
+                <h:form>	
+              <p:commandLink  action="usurariocurso?faces-redirect=true" >
+                <p:graphicImage value="images/curso.png" />
+                </p:commandLink>
+                </h:form>
+            </p:panel>
  			
  
  			

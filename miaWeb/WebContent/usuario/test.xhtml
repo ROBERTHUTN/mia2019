@@ -34,9 +34,7 @@
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />
-					
+				
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
 						value="#{beanLogin.login.nombres}" />
@@ -47,6 +45,15 @@
 		</h:form>
 	</div>
 
+<div id="migajas" class="p-grid"  >
+	<p:breadCrumb>
+    <p:menuitem value="Categories" url="/miaWeb/faces/usuario/menu.xhtml" />
+    <p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+ 
+    <p:menuitem value="Pruebas" url="/miaWeb/faces/usuario/test.xhtml" />
+	</p:breadCrumb>
+	
+	</div>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>

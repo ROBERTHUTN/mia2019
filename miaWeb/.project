@@ -3,6 +3,7 @@
 	<name>miaWeb</name>
 	<comment></comment>
 	<projects>
+		<project>miaEJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
