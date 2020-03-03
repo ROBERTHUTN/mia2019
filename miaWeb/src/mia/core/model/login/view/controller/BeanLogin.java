@@ -36,6 +36,8 @@ try {
 	JSFUtil.crearMensajeError(e.getMessage());
 	e.printStackTrace();
 	return"";
+}finally {
+	JSFUtil.crearMensajeFastFinal();
 }
 	
 }

@@ -34,7 +34,7 @@
 	 <div class="ui-fluid">
 		<p:panel id="panel" header="Registro Usuario"
 			style="margin-bottom:10px;">
-			
+
 			<p:panelGrid columns="3" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="customPanelGrid" contentStyleClass="ui-fluid">
 				<p:outputLabel for="@next" value="Nombres:"></p:outputLabel>
 				<p:inputText id="nombre"
@@ -96,10 +96,16 @@
 				value="Registrarse" action="#{beanLogin.actionregistrarUsuario()}"
 				validateClient="true">
 			</p:commandButton>
-
+	
 		</p:panel>
 		</div>
 	</h:form>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
 
 </body>
 </html>
