@@ -47,6 +47,8 @@ public class BeanUserCursoModulo implements Serializable {
 	
 	@EJB 
 	private ManagerCurso managerCurso;
+	
+
 
 	private List<CursoModulo> cursomoduloID;	
 	private List<UsuarioCurso> usuariocursoID;
