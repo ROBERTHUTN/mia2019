@@ -31,6 +31,7 @@ public String  actionregistrarUsuario() {
 try {
 	registroUsuario.setPassword(Seguridad.encriptar(registroUsuario.getPassword()));
 	login=managerLogin.registroUsuario(registroUsuario);
+	JSFUtil.crearMensajeInfo("Se ha realizado el registro con éxito");
 	return"usuario/fichaUsuario?faces-redirect=true";
 } catch (Exception e) {
 	JSFUtil.crearMensajeError(e.getMessage());
