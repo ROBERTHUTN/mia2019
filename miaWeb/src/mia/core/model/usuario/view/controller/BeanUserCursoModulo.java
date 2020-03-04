@@ -34,7 +34,10 @@ public class BeanUserCursoModulo implements Serializable {
 	private Curso curso= new Curso();
 	private Modulo modulo= new Modulo();
 	private Usuario usuario= new Usuario();
-	
+	private String direccion;
+	private String nombre;
+	private String paramet;
+
 	private String moduloRealizado;
 	
 	@Inject
@@ -186,6 +189,42 @@ public class BeanUserCursoModulo implements Serializable {
 	public void setUsuariocursoCar(UsuarioCurso usuariocursoCar) {
 		this.usuariocursoCar = usuariocursoCar;
 	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
+
+
+	public String getParamet() {
+		return paramet;
+	}
+
+
+	public void setParamet(String paramet) {
+		this.paramet = paramet;
+	}
+
+
+
 
 
 	private List<UserCursoModuloDTO> userccursomoduloIdDto;

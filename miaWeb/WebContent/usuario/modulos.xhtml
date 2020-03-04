@@ -85,11 +85,17 @@
 				</p:column>
 				
 				<p:column style="width:25%">
+			<h:commandButton 
+			 action="#ClaseBinding.accionDelBoton}">
+     <f:param name="nombreParametro" value="0"/>
+</h:commandButton>
 					<p:linkButton outcome="modulo1" value="Módulo #{car.ordenCurso}"
 						style="margin-right:20px;">
-						<f:param name="moduloName" value="#{car.modulo.descripcion}" />
+						<f:param name="paramet" value="10" />
 					</p:linkButton>
+				
 				</p:column>
+
 
 			<!-- 	<p:column style="width:5%">
 					<p:panelGrid columns="1" layout="grid">
