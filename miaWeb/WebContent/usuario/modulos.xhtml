@@ -85,15 +85,12 @@
 				</p:column>
 				
 				<p:column style="width:25%">
-			<h:commandButton 
-			 action="#ClaseBinding.accionDelBoton}">
-     <f:param name="nombreParametro" value="0"/>
-</h:commandButton>
+				<h:form>
 					<p:linkButton outcome="modulo1" value="Módulo #{car.ordenCurso}"
 						style="margin-right:20px;">
-						<f:param name="paramet" value="10" />
+						<f:param name="moduloRealizado" value="#{car.modulo.direccion}" />
 					</p:linkButton>
-				
+					</h:form>
 				</p:column>
 
 

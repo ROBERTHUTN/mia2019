@@ -36,7 +36,6 @@ public class BeanUserCursoModulo implements Serializable {
 	private Usuario usuario= new Usuario();
 	private String direccion;
 	private String nombre;
-	private String paramet;
 
 	private String moduloRealizado;
 	
@@ -208,19 +207,6 @@ public class BeanUserCursoModulo implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-
-
-
-
-	public String getParamet() {
-		return paramet;
-	}
-
-
-	public void setParamet(String paramet) {
-		this.paramet = paramet;
 	}
 
 

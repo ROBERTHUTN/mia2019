@@ -38,10 +38,13 @@
 	</p:growl>
 
 <p:outputLabel></p:outputLabel>
+<f:metadata>
+    <f:viewParam name="moduloRealizado" value="#{beanUserCursoModulo.moduloRealizado}" />
+</f:metadata>
 
-<p>You've been redirected to this bookmarkable page with button.
-        ViewParameter you've passed is <strong><p:link value="#{beanUserCursoModulo.paramet}"></p:link> </strong>
-        </p>
+      
+<iframe src="#{beanUserCursoModulo.moduloRealizado} " width="1000" height="1000"  >
+</iframe>
 </body> 
 
 </html>
