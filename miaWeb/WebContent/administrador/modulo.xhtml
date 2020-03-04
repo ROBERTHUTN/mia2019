@@ -48,7 +48,7 @@
 
 
 	<p:dialog header="Ingresar Nuevo Módulo" widgetVar="nuevoModulo"
-		id="nuevoModulo" modal="true" height="230" resizable="true"
+		id="nuevoModulo" modal="true" height="500" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		
@@ -56,25 +56,30 @@
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
 					<p:outputLabel value="Nombre:" />
-					<p:inputText
+					<p:inputText id="nombre"
 						value="#{beanCurso.modulo.nombre}" required="true"
+						validatorMessage="Nombre: ingrese solo letras!"
 						requiredMessage="Ingrese el Nombre del Curso" maxlength="100">
+						<f:validateRegex
+						pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
 					</p:inputText>
+					<p:message for="nombre" ></p:message>
 					
 					<p:outputLabel value="Descripción:" />
-					<p:inputTextarea maxlength="500" value="#{beanCurso.modulo.descripcion}" required="true"
+					<p:inputTextarea id="descripcion" maxlength="500" value="#{beanCurso.modulo.descripcion}" required="true"
 						requiredMessage="Ingrese la descripción del rol">				
 				   </p:inputTextarea>
-
+				   <p:message for="descripcion"></p:message>
+				 
 					<p:outputLabel value="Enlace:" />
-					<p:inputText value="#{beanCurso.modulo.direccion}"  ></p:inputText>
-					
+					<p:inputText id="enlace" value="#{beanCurso.modulo.direccion}" required="true" requiredMessage="Ingrese el Enlace del Curso" ></p:inputText>
+					<p:message for="enlace"></p:message>
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
-					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+					<p:commandButton ajax="true" validateClient="true" value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						actionListener="#{beanCurso.actionListenerIngresarModulo()}"
-						oncomplete="nuevoModulo" update="form2" ajax="false">
+						oncomplete="nuevoModulo" update="form2" >
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />

@@ -63,15 +63,17 @@ public class BeanUserCursoModulo implements Serializable {
 	}
 	
 	
-	public void actionIngresarCambio(UserCursoModuloDTO userCursoDto) {
+	public String actionIngresarCambio(UserCursoModuloDTO userCursoDto) {
 		try {
 			managerUserCurso.editarAvanceCurso( userCursoDto);
 			userccursomoduloIdDto= managerUserCurso.cargarListaUserCurso(usuariocursoCar);
 			System.out.println("usuariocursoCar;"+usuariocursoCar.getIdUsuariocurso());
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
+			return "modulos?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
+			return "";
 		}
 	}
 
