@@ -19,15 +19,13 @@
 }
 </style>
 </h:head>
-<body style="background-color: #3b83bd;" >
+<body style="background-color: #3b83bd;">
 	<div id="menu">
 		<h:form>
 			<p:menubar>
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />					
 				<p:menuitem value="Nueva Pregunta" title="Ingresar Nuevo Pregunta"
 					icon=" fa fa-plus " onclick="PF('nuevoPregunta').show();"></p:menuitem>
 				<f:facet name="options">
@@ -39,13 +37,17 @@
 			</p:menubar>
 		</h:form>
 	</div>
+
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Preguntas" url="/miaWeb/faces/administrador/listapreguntas.xhtml" />
+		</p:breadCrumb>
+	</div>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<p:messages>
-		<p:autoUpdate />
-	</p:messages>
-
 
 	<p:dialog header="Ingresar nuevo Pregunta" widgetVar="nuevoPregunta"
 		id="nuevoPregunta" modal="true" height="150" resizable="true"
@@ -56,16 +58,19 @@
 				<p:panelGrid columns="1" layout="grid">
 
 					<p:outputLabel value="Descripción:" />
-					<p:inputText
-						value="#{beanAdministrradorCuestionario.pregunta.descripcion}" required="true"
+					<p:inputText id="descripcion"
+						value="#{beanAdministrradorCuestionario.pregunta.descripcion}"
+						required="true"
+						validatorMessage="Descripción: Ingrese la Pregunta"
 						requiredMessage="Ingrese la Pregunta" maxlength="250">
 					</p:inputText>
+					<p:message for="descripcion"></p:message>
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
-						style="width:100%"
+						style="width:100%" ajax="true" validateClient="true"
 						actionListener="#{beanAdministrradorCuestionario.actionListenerIngresarPregunta()}"
-						oncomplete="nuevoPregunta" update="@form" ajax="false">
+						oncomplete="nuevoPregunta" update="@form">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
@@ -77,62 +82,67 @@
 
 
 
-			<h:form id="form2">
-				<div class="ui-fluid">
-					<p:dataTable var="e" widgetVar="tabla1"
-						value="#{beanAdministrradorCuestionario.preguntas}" reflow="true" rows="10"
-						paginator="true"
-						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15">
-						<f:facet name="header">
-							<p:outputLabel value="Lista de Preguntas de Cuestionario MIA"></p:outputLabel>
-						</f:facet>
-						<p:column headerText="Id" style="width:50px">
-							<h:outputText value="#{e.idPregunta}" />
-						</p:column>
+	<h:form id="form2">
+		<div class="ui-fluid">
+			<p:dataTable var="e" widgetVar="tabla1"
+				value="#{beanAdministrradorCuestionario.preguntas}" reflow="true"
+				rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<p:outputLabel value="Lista de Preguntas de Cuestionario MIA"></p:outputLabel>
+				</f:facet>
+				<p:column headerText="Id" style="width:50px">
+					<h:outputText value="#{e.idPregunta}" />
+				</p:column>
 
-						<p:column headerText="Descripcióm">
-							<h:outputText value="#{e.descripcion}" />
-						</p:column>
-						
-						
-						<p:column headerText="OPCIONES" style="width:100px;">
-							<p:commandButton icon="fa fa-pencil"
-								actionListener="#{beanAdministrradorCuestionario.actionListenerCargarPregunta(e)}"
-								onclick="PF('editarPregunta').show();" title="Editar" 
-								update="form10"></p:commandButton>	
-								
-						</p:column>
+				<p:column headerText="Descripción">
+					<h:outputText value="#{e.descripcion}" />
+				</p:column>
 
 
+				<p:column headerText="OPCIONES" style="width:100px;">
+					<p:commandButton icon="fa fa-pencil"
+						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarPregunta(e)}"
+						onclick="PF('editarPregunta').show();" title="Editar"
+						update="form10"></p:commandButton>
 
-					</p:dataTable>
-				</div>
-			</h:form>
+				</p:column>
+
+
+
+			</p:dataTable>
+		</div>
+	</h:form>
 	<p:dialog header="Editar Pregunta" widgetVar="editarPregunta"
-		id="editarPregunta" modal="true" height="230" resizable="true"
+		id="editarPregunta" modal="true" height="500" width="500s" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		<h:form id="form10">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
-<p:outputLabel value="ID:" />
-					<p:inputText
-						value="#{beanAdministrradorCuestionario.preguntaE.idPregunta}" required="true" disabled="true">
+					<p:outputLabel value="ID:" />
+					<p:inputText 
+						value="#{beanAdministrradorCuestionario.preguntaE.idPregunta}"
+						required="true" disabled="true">
 					</p:inputText>
 					<p:outputLabel value="Descripción Pregunta:" />
-					<p:inputText
-						value="#{beanAdministrradorCuestionario.preguntaE.descripcion}" required="true"
-						requiredMessage="Ingrese el Cambio de la pregunta" maxlength="100">
+					<p:inputText id="pregunta"
+						validatorMessage="Ingrese una pregunta."
+						value="#{beanAdministrradorCuestionario.preguntaE.descripcion}"
+						required="true" requiredMessage="Ingrese el Cambio de la pregunta"
+						maxlength="100">
 					</p:inputText>
-					
+	<p:message for="pregunta"></p:message>
 
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
-					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+					<p:commandButton
+					 value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
+						ajax="true" validateClient="true"
 						actionListener="#{beanAdministrradorCuestionario.actionListenerEditarPregunta()}"
-						oncomplete="nuevoPregunta" update="@form" ajax="false">
+						oncomplete="nuevoPregunta" update="@form" >
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
@@ -140,13 +150,18 @@
 			</div>
 		</h:form>
 	</p:dialog>
-	
+
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 		<p:commandButton value="Sí" type="button"
 			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
 		<p:commandButton value="No" type="button"
 			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
 	</p:confirmDialog>
-
+<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
 </body>
 </html>

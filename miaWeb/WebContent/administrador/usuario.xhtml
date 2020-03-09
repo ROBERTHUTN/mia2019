@@ -25,9 +25,7 @@
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />
-
+			
 				<p:menuitem value="Nuevo Usuario" title="Ingresar Nuevo Usuario"
 					icon=" fa fa-user-plus " onclick="PF('nuevoUsuario').show();"></p:menuitem>
 				<f:facet name="options">
@@ -39,64 +37,75 @@
 			</p:menubar>
 		</h:form>
 	</div>
+		
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Usuario" url="/miaWeb/faces/administrador/usuario.xhtml" />
+		</p:breadCrumb>
+	</div>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<p:messages>
-		<p:autoUpdate />
-	</p:messages>
+
 
 
 	<p:dialog header="Ingresar Nuevo Usuario" widgetVar="nuevoUsuario"
-		id="nuevoUsuario" modal="true" height="355" resizable="true"
+		id="nuevoUsuario" modal="true" height="500" width="500" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		<h:form id="form1">
 			<div class="ui-fluid">
-				<p:panelGrid columns="2" layout="grid" >
-					<p:outputLabel value="Nombres"></p:outputLabel>
-					<p:inputText validatorMessage="Nombre: ingrese solo letras!"
+				<p:panelGrid columns="1" layout="grid">
+					<p:outputLabel for="nombre" value="Nombres"></p:outputLabel>
+					<p:inputText id="nombre" validatorMessage="Nombre: ingrese solo letras!"
 						value="#{beanAdministrador.usuario.nombres}" required="true"
 						requiredMessage="Ingrese los nombres" maxlength="100">
 						<f:validateRegex
 							pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
 					</p:inputText>
+					<p:message for="nombre"></p:message>
+					
 					<p:outputLabel value="Apellidos"></p:outputLabel>
-					<p:inputText validatorMessage="Apellido: ingrese solo letras!"
+					<p:inputText id="apellido"
+						validatorMessage="Apellido: ingrese solo letras!"
 						value="#{beanAdministrador.usuario.apellidos}" required="true"
 						requiredMessage="Ingrese los apellidos" maxlength="100">
 						<f:validateRegex
 							pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
-
 					</p:inputText>
+					<p:message for="apellido"></p:message>
 					<p:outputLabel value="Cédula"></p:outputLabel>
-					<p:inputText value="#{beanAdministrador.usuario.ci}"
+					<p:inputText id="cedula" value="#{beanAdministrador.usuario.ci}"
 						validatorMessage="Formato de cédula incorrecto !" required="true"
 						requiredMessage="Ingrese una identificación" maxlength="10">
 						<f:validateRegex pattern="[0-9]{10}"></f:validateRegex>
 					</p:inputText>
+					<p:message for="cedula"></p:message>
 					<p:outputLabel value="Correo"></p:outputLabel>
-					<p:inputText accesskey="true"
+					<p:inputText id="correo" accesskey="true"
 						value="#{beanAdministrador.usuario.correo}" required="true"
 						requiredMessage="Ingrese un correo " maxlength="50"
 						validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
 						<f:validateRegex
 							pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
 					</p:inputText>
-<p:outputLabel value="Rol: " />
-					<p:selectOneMenu autoWidth="100%" required="true"
+					<p:message for="correo"></p:message>
+					<p:outputLabel value="Rol: " />
+					<p:selectOneMenu id="rol" autoWidth="100%" required="true"
 						requiredMessage="Seleccione un Rol"
-						value="#{beanAdministrador.id_rol_fk}"
-						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Rol"
-							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanAdministrador.roles}" var="r"
+						value="#{beanAdministrador.id_rol_fk}" effect="fade" filter="true"
+						filterMatchMode="startsWith">
+
+						<f:selectItem itemLabel="Seleccione Rol" noSelectionOption="true" />
+						<f:selectItems value="#{beanAdministrador.roles}" var="r"
 							itemLabel="#{r.nombreRol}" itemValue="#{r.idRol}" />
 					</p:selectOneMenu>
+					<p:message for="rol"></p:message>
 					<p:outputLabel value="Contraseña"></p:outputLabel>
-					<p:password value="#{beanAdministrador.usuario.password}"
-						feedback="true"
+					<p:password id="contrasena"
+						value="#{beanAdministrador.usuario.password}" feedback="true"
 						validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
 						required="true" requiredMessage="Ingrese una contraseña segura"
 						maxlength="20" promptLabel="Ingrese una contraseña segura!"
@@ -104,13 +113,14 @@
 						<f:validateRegex
 							pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
 					</p:password>
+					<p:message for="contrasena"></p:message>
 
-</p:panelGrid>
+				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
-						style="width:100%"
+						style="width:100%" ajax="true" validateClient="true"
 						actionListener="#{beanAdministrador.actionListenerIngresarEtnia()}"
-						oncomplete="nuevoUsuario" update="@form" ajax="false">
+						oncomplete="nuevoUsuario" update="@form">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
@@ -159,9 +169,10 @@
 				<p:column headerText="OPCIONES" style="width:100px;">
 					<p:commandButton icon="fa fa-pencil"
 						actionListener="#{beanAdministrador.actionListenerCargarUsuario(r)}"
-						onclick="PF('editarUsuario').show();" title="Editar" update="form10"></p:commandButton>
+						onclick="PF('editarUsuario').show();" title="Editar"
+						update="form10"></p:commandButton>
 
-				<!-- 	<p:commandButton update="@form"
+					<!-- 	<p:commandButton update="@form"
 						actionListener="#{beanAdministrador.actionListenerEliminarUsuario(r.idUsuario)}"
 						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
 						icon="fa fa-times">
@@ -177,12 +188,14 @@
 			</p:dataTable>
 		</div>
 	</h:form>
-	<p:dialog header="Editar rol" widgetVar="editarUsuario" id="editarUsuario"
-		modal="true" height="400" resizable="true" responsive="true"
-		minimizable="true" maximizable="true" appendTo="@(body)">
+	
+	<p:dialog header="Editar rol" widgetVar="editarUsuario"
+		id="editarUsuario" modal="true" height="400" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
 		<h:form id="form10">
 			<div class="ui-fluid">
-				<p:panelGrid columns="2" layout="grid" >
+				<p:panelGrid columns="2" layout="grid">
 					<p:outputLabel value="Nombres"></p:outputLabel>
 					<p:inputText validatorMessage="Nombre: ingrese solo letras!"
 						value="#{beanAdministrador.usuarioE.nombres}" required="true"
@@ -212,25 +225,25 @@
 						<f:validateRegex
 							pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
 					</p:inputText>
- 			<p:outputLabel value="Rol: " />
+					<p:outputLabel value="Rol: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione un Rol"
-						value="#{beanAdministrador.id_rol_fk}"
-						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Rol"
-							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanAdministrador.roles}" var="r"
+						value="#{beanAdministrador.id_rol_fk}" effect="fade" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione Rol" noSelectionOption="true" />
+						<f:selectItems value="#{beanAdministrador.roles}" var="r"
 							itemLabel="#{r.nombreRol}" itemValue="#{r.idRol}" />
 					</p:selectOneMenu>
-					
-					<p:outputLabel value="Activo: " />					
-					<p:selectBooleanButton id="value1" value="#{ beanAdministrador.usuarioE.activo}" onLabel="Yes" offLabel="No" style="width:60px" />
- 
-					
+
+					<p:outputLabel value="Activo: " />
+					<p:selectBooleanButton id="value1"
+						value="#{ beanAdministrador.usuarioE.activo}" onLabel="Yes"
+						offLabel="No" style="width:60px" />
+
+
 					<p:outputLabel value="Contraseña"></p:outputLabel>
-					<p:password value="#{beanAdministrador.usuarioE.password}" disabled="true"
-						feedback="true"
+					<p:password value="#{beanAdministrador.usuarioE.password}"
+						disabled="true" feedback="true"
 						validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
 						required="true" requiredMessage="Ingrese una contraseña segura"
 						maxlength="20" promptLabel="Ingrese una contraseña segura!"
@@ -240,13 +253,13 @@
 					</p:password>
 
 
-</p:panelGrid>
+				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						actionListener="#{beanAdministrador.actionListenerEditarUsuario()}"
 						oncomplete="nuevoUsuario" update="@form" ajax="false">
-						
+
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
@@ -261,6 +274,12 @@
 		<p:commandButton value="No" type="button"
 			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
 	</p:confirmDialog>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
 
 </body>
 </html>
