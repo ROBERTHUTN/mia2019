@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head></h:head>
+
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="curso?faces-redirect=true" />
+
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+
+	<h:form>
+
+		<p:growl id="growl" sticky="true" showDetail="true" />
+
+		<p:wizard flowListener="#{userWizard.onFlowProcess}">
+			<p:tab id="personal" title="Parte 1">
+				<p:panel header="Parte uno IE">
+					<p:messages />
+
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+						<p:outputLabel for="uno"
+							value="1.Identifica cambios fisiológicos en su cuerpo al instante." />
+						<p:selectOneRadio id="uno" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="dos"
+							value="2.	Se relaja en situaciones de presión." />
+						<p:selectOneRadio id="dos" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="tres"
+							value="3. Puede actuar de modo productivo cuando se enfada" />
+						<p:selectOneRadio id="tres" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cuatro"
+							value="4.	Actúa de modo productivo cuando se siente ansioso" />
+						<p:selectOneRadio id="cuatro" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cinco"
+							value="5. Cuando está enfadado puede tranquilizarse rápido" />
+						<p:selectOneRadio id="cinco" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="seis"
+							value="6. Puede asociar diferentes estados físicos con las emociones que tiene." />
+						<p:selectOneRadio id="seis" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="siete"
+							value="7.Controlo mis estados emocionales usando mi diálogo interior" />
+						<p:selectOneRadio id="siete" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="ocho"
+							value="8. Puedo comunicar mis sentimientos fácilmente" />
+						<p:selectOneRadio id="ocho" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="nueve"
+							value="9. Tengo sentimientos negativos sin angustiarme." />
+						<p:selectOneRadio id="nueve" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="diez"
+							value="10. Mantengo la calma cuando soy parte  del enfado de otros." />
+						<p:selectOneRadio id="diez" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="address" title="Address">
+				<p:panel header="Address Details">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+						<p:outputLabel for="once" value="" />
+						<p:selectOneRadio id="once" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="doce" value="" />
+						<p:selectOneRadio id="doce" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+						<p:outputLabel for="trece" value="" />
+						<p:selectOneRadio id="trece" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for=" catorce" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="quince" value="" />
+						<p:selectOneRadio id="quince" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="dieciseis" value="" />
+						<p:selectOneRadio id="dieciseis" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+						<p:outputLabel for="diecisiete" value="" />
+						<p:selectOneRadio id="diecisiete" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="dieciocho" value="" />
+						<p:selectOneRadio id="dieciocho" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="diecinueve" value="" />
+						<p:selectOneRadio id="diecinueve" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="veinte" value="" />
+						<p:selectOneRadio id="veinte" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="contact" title="Contact">
+				<p:panel header="Contact Information">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+
+						<p:outputLabel for="veintiuno" value="" />
+						<p:selectOneRadio id="veintiuno" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="veintidos" value="" />
+						<p:selectOneRadio id="veintidos" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+						<p:outputLabel for="veintitres" value="" />
+						<p:selectOneRadio id="veintitres" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="veinticuatro" value="" />
+						<p:selectOneRadio id="veinticuatro" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="veinticinco" value="" />
+						<p:selectOneRadio id="veinticinco" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="veintiseis" value="" />
+						<p:selectOneRadio id="veintiseis" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+						<p:outputLabel for="veintisiete" value="" />
+						<p:selectOneRadio id="veintisiete" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="veintiocho" value="" />
+						<p:selectOneRadio id="veintiocho" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="veintinueve" value="" />
+						<p:selectOneRadio id="veintinueve" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="treinta" value="" />
+						<p:selectOneRadio id="treinta" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="" title="">
+				<p:panel header="Contact Information">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="" title="">
+				<p:panel header="Contact Information">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+											<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="" value="" />
+						<p:selectOneRadio id="" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="confirm" title="Confirmation">
+				<p:panel header="Confirmation">
+					<h:panelGrid id="confirmation" columns="3"
+						columnClasses="grid,grid,grid">
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Firstname: " />
+							<h:outputText value="#{userWizard.user.firstname}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Lastname: " />
+							<h:outputText value="#{userWizard.user.lastname}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Age: " />
+							<h:outputText value="#{userWizard.user.age}"
+								styleClass="outputLabel" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Street: " />
+							<h:outputText value="#{userWizard.user.street}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Postal: " />
+							<h:outputText value="#{userWizard.user.postalCode}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="City: " />
+							<h:outputText value="#{userWizard.user.city}"
+								styleClass="outputLabel" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Email: " />
+							<h:outputText value="#{userWizard.user.email}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Phone " />
+							<h:outputText value="#{userWizard.user.phone}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Info: " />
+							<h:outputText value="#{userWizard.user.info}"
+								styleClass="outputLabel" />
+
+							<h:outputText />
+							<h:outputText />
+						</h:panelGrid>
+					</h:panelGrid>
+
+					<p:commandButton value="Submit" action="#{userWizard.save}"
+						update="growl" process="@this" />
+				</p:panel>
+			</p:tab>
+		</p:wizard>
+
+	</h:form>
+
+
+</body>
+</html>

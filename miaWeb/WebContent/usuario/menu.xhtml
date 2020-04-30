@@ -1,15 +1,16 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
-type="preRenderView"></f:event>
+	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
-<link rel="icon" type="image/png" href="images/logo1.png" />
+	<link rel="icon" type="image/png" href="images/logo1.png" />
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
@@ -27,20 +28,20 @@ type="preRenderView"></f:event>
 		<h:outputScript name="js/validator.js" />
 	</f:facet>
 </h:head>
-<body style="background-color: #3b83bd;"> 
-<div id="menu">
+<body style="background-color: #3b83bd;">
+	<div id="menu">
 		<h:form>
 			<p:menubar>
 				<p:menuitem>
-					<p:graphicImage value="images/logo1.png" ></p:graphicImage>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-					<p:menuitem value="Bienvenido #{beanLogin.login.rol}" title="Usuario" icon="fa fa-user-secret"
-					></p:menuitem>
-						
+				<p:menuitem value="Bienvenido #{beanLogin.login.rol}"
+					title="Usuario" icon="fa fa-user-secret"></p:menuitem>
+
 				<p:menuitem value="Editar Usuario" title="Editar Nuevo Usuario"
 					icon=" fa fa-plus " onclick="PF('editarUsuario').show();"></p:menuitem>
-				
-			<f:facet name="options">
+
+				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user-secret"
 						value="#{beanLogin.login.nombres}" />
 					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
@@ -49,109 +50,108 @@ type="preRenderView"></f:event>
 			</p:menubar>
 		</h:form>
 	</div>
-	<div id="migajas" class="p-grid"  >
-	<p:breadCrumb>
-    <p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
-	</p:breadCrumb>
- </div>
-<p:growl>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+		</p:breadCrumb>
+	</div>
+	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
 	<p:messages>
 		<p:autoUpdate />
 	</p:messages>
 
-   <div class="ui-fluid" align="center">
-   <style type="text/css">
-    .value {
-        font-weight: bold;
-           }
+	<div class="ui-fluid" align="center">
+		<style type="text/css">
+.value {
+	font-weight: bold;
+}
 </style>
- 
- 
-<h:form >
-    <p:dataGrid var="car" value="#{beanUserCurso.usuarioCursos}" columns="3" layout="grid"
-         id="cars" >
-         
-        <f:facet name="header">
+
+
+		<h:form>
+			<p:dataGrid var="car" value="#{beanUserCurso.usuarioCursos}"
+				columns="3" layout="grid" id="cars">
+
+				<f:facet name="header">
             Cursos Inscrito
         </f:facet>
- 
-        <p:panel header="#{car.curso.nombre}" style="text-align:center">
-            <h:panelGrid columns="1" style="width:100%">
-               <p:graphicImage /> 
- 	    <p:commandButton value="CONTESTAR" action="#{beanUserCursoModulo.actionCursoModulosbyUserCurso(car)}"></p:commandButton>
-                
- 
-            </h:panelGrid>
-        </p:panel>
 
-    </p:dataGrid>
-    </h:form>
-   <p:panelGrid columns="3" layout="grid">
-   
-  <p:panel  header="Iniciar Test">
-                <h:form>
-              <p:commandLink action="test?faces-redirect=true">
-                <p:graphicImage value="images/pregunta.png" />
-                </p:commandLink>
-                </h:form>
-            </p:panel>
- 
-            <p:panel id="weather" header="Curso de Metodología">
-                <h:form>
-              <p:commandLink action="curso?faces-redirect=true">
-                <p:graphicImage value="images/curso.png" />
-                </p:commandLink>
-                </h:form>
-            </p:panel>
- 
- 		 <p:panel id="inscripcion" header="Inscripción Curso">
-                <h:form>
-              <p:commandLink action="inscripcioncurso?faces-redirect=true">
-                <p:graphicImage value="images/curso.png" />
-                </p:commandLink>
-                </h:form>
-            </p:panel>
-            
-         
-         <p:panel id="userCurso" header="Cursos">
-                <h:form>
-              <p:commandLink action="moduloCurso?faces-redirect=true">
-                <p:graphicImage value="images/curso.png" />
-                </p:commandLink>
-                </h:form>
-            </p:panel>
-            
-             <p:panel id="resultado" header="Resultado Diagnostico">
-                <h:form>
-              <p:commandLink  action="resultadoTest?faces-redirect=true" >
-                <p:graphicImage value="images/curso.png" />
-                </p:commandLink>
-                </h:form>
-            </p:panel>
- 
-             <p:panel id="resulta" header="Client VAlidation">
-                <h:form>	
-              <p:commandLink  action="modulo5?faces-redirect=true" >
-                <p:graphicImage value="images/curso.png" />
-                </p:commandLink>
-                </h:form>
-            </p:panel>
- 			       
-             <p:panel id="pruebas" header="Pruebas ">
-                <h:form>	
-              <p:commandLink  action="usurariocurso?faces-redirect=true" >
-                <p:graphicImage value="images/curso.png" />
-                </p:commandLink>
-                </h:form>
-            </p:panel>
- 			
- 
- 			
-        <div style="clear:both" />
-    </p:panelGrid>
+				<p:panel header="#{car.curso.nombre}" style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage />
+						<p:commandButton value="CONTESTAR"
+							action="#{beanUserCursoModulo.actionCursoModulosbyUserCurso(car)}"></p:commandButton>
 
-</div>
-</body> 
+
+					</h:panelGrid>
+				</p:panel>
+
+			</p:dataGrid>
+		</h:form>
+		<p:panelGrid columns="3" layout="grid">
+
+			<p:panel header="Iniciar Test">
+				<h:form>
+					<p:commandLink action="test?faces-redirect=true">
+						<p:graphicImage value="images/pregunta.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+			<p:panel id="weather" header="Curso de Metodología">
+				<h:form>
+					<p:commandLink action="curso?faces-redirect=true">
+						<p:graphicImage value="images/curso.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+			<p:panel id="inscripcion" header="Inscripción Curso">
+				<h:form>
+					<p:commandLink action="inscripcioncurso?faces-redirect=true">
+						<p:graphicImage value="images/curso.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+
+			<p:panel id="userCurso" header="Cursos">
+				<h:form>
+					<p:commandLink action="moduloCurso?faces-redirect=true">
+						<p:graphicImage value="images/curso.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+			<p:panel id="resultado" header="Resultado Diagnostico">
+				<h:form>
+					<p:commandLink action="resultadoTest?faces-redirect=true">
+						<p:graphicImage value="images/curso.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+			<p:panel id="resulta" header="Client VAlidation">
+				<h:form>
+					<p:commandLink action="modulo5?faces-redirect=true">
+						<p:graphicImage value="images/curso.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+			<p:panel id="pruebas" header="Pruebas ">
+				<h:form>
+					<p:commandLink action="inteligenciaEmocional?faces-redirect=true">
+						<p:graphicImage value="images/curso.png" />
+					</p:commandLink>
+				</h:form>
+			</p:panel>
+
+			<div style="clear: both" />
+		</p:panelGrid>
+
+	</div>
+</body>
 </html>
