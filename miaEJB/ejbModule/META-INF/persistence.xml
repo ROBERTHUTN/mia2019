@@ -19,7 +19,6 @@
 	<class>mia.core.model.entities.Pregunta</class>
 	<class>mia.core.model.entities.ProyectoInvestigacion</class>
 	<class>mia.core.model.entities.Religion</class>
-	<class>mia.core.model.entities.Reporte</class>
 	<class>mia.core.model.entities.Respuesta</class>
 	<class>mia.core.model.entities.Rol</class>
 	<class>mia.core.model.entities.Usuario</class>

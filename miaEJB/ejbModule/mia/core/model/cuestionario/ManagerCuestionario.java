@@ -1,6 +1,7 @@
 package mia.core.model.cuestionario;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -665,7 +666,7 @@ public class ManagerCuestionario {
 		Reporte = (Reporte) query.getSingleResult();
 		return Reporte;
 	}
-	public void ingresarReporte(int  id_dimension ,String respuesta, Date fecha_realizacion, long id_usuario)
+	public void ingresarReporte(int  id_dimension ,String respuesta,double valor, Date fecha_realizacion, long id_usuario)
 			throws Exception {
 
 		Reporte nreport = new Reporte();
@@ -674,6 +675,8 @@ public class ManagerCuestionario {
 		Usuario user = managerAdministrador.findUsuarioById(id_usuario);
 		Dimension dime = managerCuestionario.findDimensionById(id_dimension);
 		nreport.setResultado(respuesta);
+		BigDecimal a=new BigDecimal(valor);
+		nreport.setPorcentaje(a);
 		nreport.setDimension(dime);
 		nreport.setFecha(fecha_realizacion);
 		nreport.setUsuario(user);
@@ -708,7 +711,7 @@ public class ManagerCuestionario {
 		String[] modulosResp = new String[listaDimensionesDto.size()];
 
 		if (listaDimensionesDto.isEmpty()) {
-			throw new Exception("Error lista vacï¿½a");
+			throw new Exception("Error lista vacía");
 		} else {
 			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
 				if (dimensionDTO.getCuestionario().getIdCuestionario() == 1) {
@@ -742,7 +745,7 @@ public class ManagerCuestionario {
 					
 					if(menEstres>24)
 					{
-						respuesta= "Vulnerable al ï¿½stres.";
+						respuesta= "Vulnerable al estrés.";
 					}else if(menEstres>=40 || menEstres<=60)
 					{
 						respuesta= "Seriamente vulnerable al ï¿½stres.";
