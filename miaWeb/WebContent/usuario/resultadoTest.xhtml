@@ -81,7 +81,10 @@
 	<h:form id="form1">
 	 <p:panel>
   <p:panelGrid>
-  <p:barChart  model="#{beanReporte.mixedModelEjecValidProy}" style="width: 100%; height: 500px;"/>
+  <p:growl id="growl" showDetail="true" />
+  <p:barChart  model="#{beanReporte.mixedModelEjecValidProy}" style="width: 100%; height: 500px;">
+  <p:ajax event="itemSelect" listener="#{beanReporte.itemSelect}" update="growl"/>
+    </p:barChart>
   </p:panelGrid>
   </p:panel>
  <p:dataTable var="resp" value="#{beanReporte.reporteTest}">  

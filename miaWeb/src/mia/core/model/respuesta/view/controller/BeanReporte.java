@@ -6,6 +6,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.charts.bar.BarChartModel;
 
 import mia.core.model.administrador.ManagerAdministrador;
@@ -84,6 +85,11 @@ public class BeanReporte implements Serializable {
 		  
 		  
 	  }
+	  
+	  public void itemSelect(ItemSelectEvent event) {
+		  reporteTest.get(event.getItemIndex()).getDimension();
+JSFUtil.crearMensajeInfo(reporteTest.get(event.getItemIndex()).getResultado()+""); 
+	    }
 	/*
 	
 		public void actionIngresarReporte() {

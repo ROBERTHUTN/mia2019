@@ -51,6 +51,7 @@ private BarChartModel mixedModelEjecValidProy;
 
 		for (Reporte rep: reporteUsuario) {
 			bgColor.add("rgb(26,255, 26)");// verde
+			//para cambiar de color se le aplica ubn ifelse
 			
                   }
 		dataSet.setBorderColor(bgColor);
