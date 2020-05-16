@@ -47,8 +47,46 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
+	
+	<h:form>
+    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+ 
+    <p:panel header="Seleccione una fecha" style="margin-bottom:10px;">
+        <h:panelGrid columns="5" cellpadding="5">
+            <p:outputLabel for="anio" value="Año: " />
+            <p:selectOneMenu id="anio" value="#{beanReporte.anio}" style="width:150px">
+                <p:ajax listener="#{beanReporte.seleccionarMes}" update="mes" />
+                <f:selectItem itemLabel="Seleccione año" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{beanReporte.listaanios}" />
+            </p:selectOneMenu>
+ 
+            <p:outputLabel for="mes" value="Mes: " />
+            <p:selectOneMenu id="mes"  style="width:150px" value="#{beanReporte.mes}">
+                <f:selectItem itemLabel="Seleccione mes" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{beanReporte.listaMeses}" />
+            </p:selectOneMenu>
+                    <p:commandButton value="Consultar" update="form1" actionListener="#{beanReporte.reportebyMesAndAnio()}" icon="pi pi-check" />
+  
+        </h:panelGrid>
+ 
+       
+ 
+  </p:panel>
+  
+ 
+</h:form>
+	
+	
 	<div class="ui-fluid">
 	<h:form id="form1">
+	 <p:panel>
+  <p:panelGrid>
+  <p:growl id="growl" showDetail="true" />
+  <p:barChart  model="#{beanReporte.mixedModelEjecValidProy}" style="width: 100%; height: 500px;">
+  <p:ajax event="itemSelect" listener="#{beanReporte.itemSelect}" update="growl"/>
+    </p:barChart>
+  </p:panelGrid>
+  </p:panel>
  <p:dataTable var="resp" value="#{beanReporte.reporteTest}">  
         <f:facet name="header">
             Lista de Resultados de Diagnostico.
@@ -71,6 +109,11 @@
         <p:outputLabel value="#{resp.resultado}"></p:outputLabel>
  </p:panelGrid>
  </p:column>
+  <p:column style="width:25%" headerText="PORCENTAJE">	 
+  <p:panelGrid columns="1" layout="grid" >
+        <p:outputLabel value="#{resp.porcentaje}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
  		
   <p:column style="width:25%" headerText="FECHA">	 
   <p:panelGrid columns="1" layout="grid" >
@@ -78,8 +121,10 @@
  </p:panelGrid>
  </p:column>
       				
-  </p:dataTable></h:form> 
+  </p:dataTable>
+  </h:form> 
 </div>
+
 	<p:messages>
 		<p:autoUpdate />
 	</p:messages>

@@ -45,7 +45,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	
 	// respuesta
 	private String respuesta="";
-	private String respuestaReporte="";
+	private String [] respuestaReporte;
 	private Date fechaRealizacion;
 	
 //FICHA_
@@ -518,7 +518,12 @@ public class BeanAdministrradorCuestionario implements Serializable {
 			managerAdministrador.ingresarRespuesta(login.getLogin().getId_usuario(), respuesta, fechaRealizacion);
 			for (DimensionDTO dDto : listaDimensionesDto) {
 				respuestaReporte=managerReporte.calcularRespuestaDimension(dDto.getListaDimensionesPreguntaDto(), dDto);	
-				managerCuestionario.ingresarReporte(dDto.getIdDimension(), respuestaReporte, fechaRealizacion, login.getLogin().getId_usuario());
+				String respuesta=respuestaReporte[0];
+				double valor=0.0;
+				if (respuestaReporte[1].length()!=0) {
+				valor=Double.parseDouble(respuestaReporte[1]);
+				}
+				managerCuestionario.ingresarReporte(dDto.getIdDimension(), respuesta,valor, fechaRealizacion, login.getLogin().getId_usuario());
 				
 			}
 			DimensionDTO di=listaDimensionesDto.get(0);
@@ -855,6 +860,14 @@ public class BeanAdministrradorCuestionario implements Serializable {
 
 	public void setUsuarios(List<Usuario> usuarios) { 
 		this.usuarios = usuarios;
+	}
+
+	public String[] getRespuestaReporte() {
+		return respuestaReporte;
+	}
+
+	public void setRespuestaReporte(String[] respuestaReporte) {
+		this.respuestaReporte = respuestaReporte;
 	}
 
 	
