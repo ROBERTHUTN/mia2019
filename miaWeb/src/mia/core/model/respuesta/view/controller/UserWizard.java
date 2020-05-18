@@ -23,6 +23,12 @@ public class UserWizard implements Serializable {
 
 	    private User user = new User();
 	     
+	    
+	    private String [] respuesta = new String[44];
+
+
+	    
+	    
 	    private boolean skip;
 	     
 	    public User getUser() {

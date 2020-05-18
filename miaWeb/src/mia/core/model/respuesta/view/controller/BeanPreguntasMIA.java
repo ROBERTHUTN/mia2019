@@ -24,55 +24,7 @@ public class BeanPreguntasMIA implements Serializable {
 	private int asesoriaEmocional;
 	
 	
-
-    String [] inteligenciaEmocional= {
-    		" Al momento, identifico cambios fisiológicos en mi cuerpo",
-    		" Me relajo en situaciones de presión",
-    		" Puedo actuar de modo productivo cuando me enfado",
-    		" Si me siento ansioso actúo de modo productivo",
-    		" Cuando estoy enfadado me tranquilizo rápido",
-    		" Asocio mis diferentes estados físicos con mis emociones",
-    		" Controlo mis estados emocionales a través de mi diálogo interior",
-    		"Puedo comunicar mis sentimientos fácilmente",
-    		"Tengo sentimientos negativos, sin angustiarme",
-    		"Mantengo la calma cuando soy parte  del enfado de otros",
-    		"Generalmente sé cuándo tengo pensamientos negativos",
-    		" Casi siempre sé cuándo mi discurso interior es positivo",
-    		" En general, sé cuando empiezo a enfadarme",
-    		" Muchas veces sé cómo interpretar los acontecimientos",
-    		" Usualmente conozco qué sentimientos tengo",
-    		" Considero que me comunico adecuadamente con los demás",
-    		" Puedo identificar la información que puede influir sobre mis interpretaciones",
-    		" Identifico fácilmente mis cambios de humor",
-    		" Conozco cuando debo ponerme a la defensiva",
-    		" Medito el impacto de mi comportamiento sobre los demás",
-    		" Cuando no me he comunicado bien, me doy cuenta",
-    		" Puedo ponerme proseguir cuando desee",
-    		" Me recupero rápido después de una situación problemática",
-    		" Completo tareas difíciles dentro del tiempo previsto",
-    		" Puedo generar  energía positiva cuando realizo un trabajo poco interesante",
-    		" Soy Capaz de abandonar o cambiar hábitos inútiles",
-    		" Puedo desarrollar pautas de conducta más productivas",
-    		" Cumplo con mi palabra",
-    		"Resuelvo conflictos con facilidad",
-    		" Logro acuerdos con los demás con facilidad",
-    		" Puedo mediar en los conflictos con los demás",
-    		" Utilizo técnicas de comunicación eficaces",
-    		" Expreso lo que siento en un grupo",
-    		" Soy capaz de influir sobre los demás de forma directa o indirecta",
-    		"Fomento la confianza con los demás",
-    		"Construyo grupos de apoyo",
-    		"Hago que los demás se sientan bien",
-    		" Determino con facilidad  los sentimientos de los demás",
-    		" Me doy cuenta de la angustia de los demás",
-    		" Ayudo a los demás a controlar sus emociones",
-    		" Trato de comprender a los demás",
-    		" Entablo conversaciones íntimas con otras personas",
-    		" Soy capaz de ayudar al grupo a controlar sus emociones",
-    		" Soy capaz de detectar incongruencias entre las emociones o sentimientos de los demás y sus conductas."
-
-    };
-    
+	        
     String [] nivelEstres = {
     		"Al  menos cuatro noches a la semana duermo de siete a ocho horas.",
     		"En 50 kilómetros a la redonda poseo por lo menos una familia en que pueda confiar.",

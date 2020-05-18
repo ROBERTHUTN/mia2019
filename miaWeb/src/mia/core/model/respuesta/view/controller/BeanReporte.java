@@ -63,7 +63,8 @@ public class BeanReporte implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
-		reporteTest= managerReporte.findResultadosTestbyUsuario(login.getLogin().getId_usuario());
+		reporteTest= new ArrayList<>();
+		System.out.println("Si entra "+reporteTest.size());
 		listaanios= managerReporte.findResultadosTestbyUsuarioByAnio(login.getLogin().getId_usuario());
 		mixedModelEjecValidProy=beanReporteEsta.createMixedModelEjecProyVal(reporteTest);
 		} catch (Exception e) {
