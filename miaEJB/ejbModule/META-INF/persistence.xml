@@ -25,5 +25,6 @@
 	<class>mia.core.model.entities.UsuarioCurso</class>
 	<class>mia.core.model.entities.UsuarioInteresArea</class>
 	<class>mia.core.model.entities.UsuarioProyecto</class>
+	<class>mia.core.model.entities.RestablecerContrasenia</class>
 	</persistence-unit>
 </persistence>

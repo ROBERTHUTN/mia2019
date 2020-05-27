@@ -13,5 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="libseg/commons-codec-1.12.jar"/>
+	<classpathentry kind="lib" path="libseg/javax.mail.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

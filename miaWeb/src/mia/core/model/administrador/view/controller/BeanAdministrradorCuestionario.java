@@ -115,9 +115,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		listaDimensionesDto.set(contador, listaDimensionActualDto.get(0));
 		contador--;
 		estadoActualContador(contador);
-		
 		dimensionActDto=listaDimensionesDto.get(contador);
-		
 		listaDimensionActualDto=new ArrayList<>();
 		listaDimensionActualDto.add(dimensionActDto);
 	}

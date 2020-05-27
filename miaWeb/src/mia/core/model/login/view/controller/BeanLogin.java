@@ -25,7 +25,7 @@ public class BeanLogin implements Serializable {
 	private String contrasenia;
 	private Login login;
 	private Usuario registroUsuario=new Usuario();
-private boolean activoLogin;
+    private boolean activoLogin;
 
 public String  actionregistrarUsuario() {
 try {
