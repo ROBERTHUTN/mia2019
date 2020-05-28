@@ -68,10 +68,12 @@ public void guardarNuevaContrasenia() {
 		try {
 		restablecer = managerRestablecer.existeUsuario(correoU);
 		//3 intentos
-		boolean intentos=managerRestablecer.intentosRestablecerContrasenia(correoU);
-		if (intentos) {
-		JSFUtil.crearMensajeError("Ha excedido el número de intentos, inténtelo de nuevo más tarde");	
-		}else {
+		
+	//	boolean intentos=managerRestablecer.intentosRestablecerContrasenia(correoU);
+	
+	//	if (intentos) {
+	//	JSFUtil.crearMensajeError("Ha excedido el número de intentos, inténtelo de nuevo más tarde");	
+	//	}else {
 		if (restablecer) {
 			usuarioR = true;
 			activar=true;
@@ -85,7 +87,7 @@ public void guardarNuevaContrasenia() {
 		} else {
 			JSFUtil.crearMensajeError("Credencial incorrecta.");
 		}
-		}
+	//	}
 		
 		} catch (Exception e) {
 		JSFUtil.crearMensajeError(e.getMessage());
@@ -115,6 +117,7 @@ public void guardarNuevaContrasenia() {
 			usuarioR = true;
 			activar=true;
 		String codigo=managerRestablecer.GenerarPalabra();
+		System.out.println("codigo; "+codigo);
 			codigo=Seguridad.encriptar(codigo);
 			RestablecerContrasenia cont=managerRestablecer.RestablecerContrasenia(correoU, codigo);
 			codigoC=cont.getCodigo();

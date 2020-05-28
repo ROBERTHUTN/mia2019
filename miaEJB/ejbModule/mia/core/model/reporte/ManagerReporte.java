@@ -185,6 +185,77 @@ private ManagerCuestionario managerCuestionario;
 		
 		return respuestaT;	
 	}
+/**	
+	public int[] respuestasIE(User user) {
+		
+	}*/
+	
+	public String [] calcularRespuestaDimension2( List<DimensionPreguntaDTO>listaDto,Dimension dimension)
+	{
+ String respuestaT[]=new String[2];
+		String respuesta="";
+		int a=0,b=0;
+		if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 || dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 || dimension.getIdDimension()== 5)
+		{
+			for (DimensionPreguntaDTO dpDTO : listaDto) {
+				if (dpDTO.getValor()<=3) {
+					a++;
+				}else {
+					b++;
+				}
+				}
+				double r;
+				r=calcularPorcentaje(a, b, listaDto.size());
+				if (a>b) {
+					respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
+					respuestaT[0]=respuesta;
+					respuestaT[1]=r+"";
+					return respuestaT;
+				}else {
+					respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
+					respuestaT[0]=respuesta;
+					respuestaT[1]=r+"";
+					return respuestaT;					
+				}
+		
+				
+		}else if(dimension.getIdDimension() == 6) 
+		{
+			int sumEstres = 0;
+			for (DimensionPreguntaDTO dpDTO : listaDto) {
+				sumEstres= sumEstres+dpDTO.getValor();
+			}
+			System.out.println("Estres sumatoria"+sumEstres);
+			
+			int menEstres= sumEstres-16;
+			
+			if(menEstres>24)
+			{
+				respuesta= "Vulnerable al �stres.";
+				respuestaT[0]=respuesta;
+				respuestaT[1]= menEstres+"";
+			}else if(menEstres>=40 || menEstres<=60)
+			{
+				respuesta= "Seriamente vulnerable al estres.";
+				respuestaT[0]=respuesta;
+				respuestaT[1]= menEstres+"";
+			}else if(menEstres>60)
+			{
+				respuesta= "Extremadamente vulnerable al estres.";
+				respuestaT[0]=respuesta;
+				respuestaT[1]= menEstres+"";
+			}else {
+				respuesta= "Baja vulnerabilidad al estres.";
+				respuestaT[0]=respuesta;
+				respuestaT[1]= menEstres+"";
+			}
+			
+		}
+		
+		return respuestaT;	
+	}
+	
+	
 	
 	
 	public double calcularPorcentaje(int a,int b,int tamanio) {
