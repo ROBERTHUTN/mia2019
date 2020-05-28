@@ -102,11 +102,11 @@ public class ManagerRestablecerContrasenia {
     
 	public String GenerarPalabra(){
         String palabra = ""; 
-        int caracteres = (int)(Math.random()+2); 
+        int caracteres = (int)(Math.random()+4); 
         for (int i=0; i<caracteres; i++){ 
         int codigoAscii = (int)Math.floor(Math.random()*(122 -
         97)+97); 
-        System.out.println(codigoAscii);
+       
         palabra = palabra + (char)codigoAscii; 
         } 
         return palabra; 

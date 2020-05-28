@@ -79,6 +79,7 @@ public void guardarNuevaContrasenia() {
 			activar=true;
 			inicioA=true;
 			String codigo=managerRestablecer.GenerarPalabra();
+			System.out.println(": "+codigo);
 			codigo=Seguridad.encriptar(codigo);
 			
 			RestablecerContrasenia cont=managerRestablecer.RestablecerContrasenia(correoU, codigo);
