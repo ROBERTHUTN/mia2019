@@ -80,7 +80,7 @@ public class ManagerRestablecerContrasenia {
     	
     }
     
-    public RestablecerContrasenia RestablecerContrasenia(String correo, String codigo) throws Exception {
+    public RestablecerContrasenia restablecerContrasenia(String correo, String codigo) throws Exception {
     	boolean a=ModelUtil.isEmpty(codigo);
     	boolean b=ModelUtil.isEmpty(correo);
     	if (a) {
@@ -108,6 +108,7 @@ public class ManagerRestablecerContrasenia {
         97)+97); 
        
         palabra = palabra + (char)codigoAscii; 
+        System.out.println(": "+palabra);
         } 
         return palabra; 
     }

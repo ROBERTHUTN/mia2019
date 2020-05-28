@@ -8,6 +8,7 @@ import com.sun.xml.internal.fastinfoset.algorithm.IntEncodingAlgorithm;
 
 import mia.core.model.entities.RestablecerContrasenia;
 import mia.core.model.login.ManagerRestablecerContrasenia;
+import mia.core.model.mail.ManagerMail;
 import mia.core.model.util.ModelUtil;
 import mia.modulos.view.util.JSFUtil;
 import java.io.Serializable;
@@ -19,8 +20,12 @@ public class BeanRestablecerContrasenia implements Serializable {
 
 	@EJB
 	ManagerRestablecerContrasenia managerRestablecer;
+	@EJB
+	ManagerMail managerMail;
+	
 	private boolean restablecer;
 	private boolean usuarioR;
+	private boolean inicio;
 	private String correoU;
 	private String codigoVerificacion;
 	private String password5;
@@ -51,6 +56,7 @@ public void guardarNuevaContrasenia() {
 		if (iguales) {
 			managerRestablecer.guardarNuevaContrasenia(correoU, Seguridad.encriptar(password5));
 			limpiarCredenciales();
+			inicio=true;
 			JSFUtil.crearMensajeInfo("Contraseña actualizada correctamente");
 		}else {
 			password4="";
@@ -63,6 +69,9 @@ public void guardarNuevaContrasenia() {
 		e.printStackTrace();
 	}
 	
+}
+public String regresarInicio() {
+	return"login.xhtml?faces-redirect=true";
 }
 	public void comprobarCorreo() {
 		try {
@@ -80,10 +89,13 @@ public void guardarNuevaContrasenia() {
 			inicioA=true;
 			String codigo=managerRestablecer.GenerarPalabra();
 			System.out.println(": "+codigo);
+		String cod=codigo;
 			codigo=Seguridad.encriptar(codigo);
 			
-			RestablecerContrasenia cont=managerRestablecer.RestablecerContrasenia(correoU, codigo);
+			RestablecerContrasenia cont=managerRestablecer.restablecerContrasenia(correoU, codigo);
 			codigoC=cont.getCodigo();
+			boolean enviarCorreo=managerMail.enviarMensajesElectronicos("Restablecer contraseña", "Su código de confirmación es: "+cod, correoU);
+		
 			JSFUtil.crearMensajeInfo("Revise su código de confirmación en su correo electrónico");
 		} else {
 			JSFUtil.crearMensajeError("Credencial incorrecta.");
@@ -120,7 +132,7 @@ public void guardarNuevaContrasenia() {
 		String codigo=managerRestablecer.GenerarPalabra();
 		System.out.println("codigo; "+codigo);
 			codigo=Seguridad.encriptar(codigo);
-			RestablecerContrasenia cont=managerRestablecer.RestablecerContrasenia(correoU, codigo);
+			RestablecerContrasenia cont=managerRestablecer.restablecerContrasenia(correoU, codigo);
 			codigoC=cont.getCodigo();
 			
 			JSFUtil.crearMensajeInfo("Revise su código de confirmación en su correo electrónico");
@@ -217,6 +229,12 @@ public void guardarNuevaContrasenia() {
 	}
 	public void setPassword4(String password4) {
 		this.password4 = password4;
+	}
+	public boolean isInicio() {
+		return inicio;
+	}
+	public void setInicio(boolean inicio) {
+		this.inicio = inicio;
 	} 
 	
 	

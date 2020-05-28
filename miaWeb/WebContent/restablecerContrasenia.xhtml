@@ -110,6 +110,13 @@
 				 actionListener="#{beanRestablecerContrasenia.guardarNuevaContrasenia()}"/>
 	
 			</p:panel>
+			<p:panel header="MIA Institute" style="width:400px"
+				rendered="#{beanRestablecerContrasenia.inicio}">
+				
+
+	<p:commandButton  value="Inicio" icon="fa fa-home" update="form1" rendered="#{beanRestablecerContrasenia.inicio}"
+				 action="#{beanRestablecerContrasenia.regresarInicio()}"/>
+			</p:panel>
 			
 		</h:form>
 
