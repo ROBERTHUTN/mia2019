@@ -187,7 +187,7 @@ private ManagerCuestionario managerCuestionario;
 	}
 /**	
 	public int[] respuestasIE(User user) {
-		
+	g	
 	}*/
 	
 	public String [] calcularRespuestaDimension2( List<DimensionPreguntaDTO>listaDto,Dimension dimension)
