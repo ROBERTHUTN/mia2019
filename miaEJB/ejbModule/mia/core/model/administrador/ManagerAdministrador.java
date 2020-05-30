@@ -299,12 +299,12 @@ public class ManagerAdministrador {
 		boolean correoE = existeCorreoUsuario(usuario.getCorreo());
 		if (correoE) {
 
-			throw new Exception("Error ya existe un usario registrado con ese correo electrÃ³nico");
+			throw new Exception("Error ya existe un usario registrado con ese correo electrónico");
 		}
 
 		boolean ceula = existeCedulaUsuario(usuario.getCi());
 		if (ceula) {
-			throw new Exception("Error ya existe un usario registrado con ese nÃºmero de cÃ©dula");
+			throw new Exception("Error ya existe un usario registrado con ese número de cédula");
 		}
 
 		Rol rol = findRolById(id_rol);
@@ -322,7 +322,7 @@ public class ManagerAdministrador {
 
 	public void ingresarPais(PaisEstado paisEstado, int id_padre_pais) throws Exception {
 		if (paisEstado == null) {
-			throw new Exception("No ha ingresado datos en el PaÃ­s");
+			throw new Exception("No ha ingresado datos en el País");
 		}
 
 		if (id_padre_pais == 0) {
@@ -331,7 +331,7 @@ public class ManagerAdministrador {
 		boolean paisE = existePais(paisEstado.getNombre());
 		if (paisE) {
 
-			throw new Exception("Error ya existe un paÃ­s o estado registrado con ese nombre");
+			throw new Exception("Error ya existe un País o estado registrado con ese nombre");
 		}
 
 		PaisEstado paisEstad = new PaisEstado();

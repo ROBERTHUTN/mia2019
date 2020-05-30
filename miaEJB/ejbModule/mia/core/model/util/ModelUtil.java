@@ -12,6 +12,8 @@ public class ModelUtil {
 		return false;
 	}
 	public static boolean IgualesString(String cadena,String cadena2){
+		
+		System.out.println("//"+cadena+" /n"+cadena2 );
 		if (cadena.equals(cadena2)) 
 			return true;
 		else
