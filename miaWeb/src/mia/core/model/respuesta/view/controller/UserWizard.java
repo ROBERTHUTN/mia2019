@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
+import mia.core.model.reporte.ManagerReporte;
 import mia.core.model.reporte.User;
 
 import java.io.Serializable;
@@ -20,11 +21,13 @@ public class UserWizard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
+	@EJB
+	private ManagerReporte managerReporte; 
+	
 	    private User user = new User();
 	     
 	    
-	    private String [] respuesta = new String[44];
+	    
 
 
 	    
@@ -40,10 +43,12 @@ public class UserWizard implements Serializable {
 	    }
 	     
 	    public void save() {        
+	    	managerReporte.respuestasIE(user);
+	    	System.out.println(" entra");
+	    	managerReporte.ingresarIEEL(user);
 	    	
 	    	
-	    	
-	        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstname());
+	        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getUno());
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 	    }
 	     

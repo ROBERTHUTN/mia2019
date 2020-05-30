@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head></h:head>
+
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+					action="curso?faces-redirect=true" />
+
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+
+	<h:form>
+
+		<p:growl id="growl" sticky="true" showDetail="true" />
+
+		<p:wizard flowListener="#{userWizard.onFlowProcess}">
+			<p:tab id="IE1" title="Parte 1">
+				<p:panel
+					header="Por favor en  cada frase, de la puntuación que crea es la más cercana, a su realidad.
+				 Teniendo en cuenta que 1 es menos y 7 más. Antes de responder hay que pensar en situaciones reales en las 
+				 que se ha usado dicha capacidad.">
+					<p:messages />
+
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+						<p:outputLabel for="uno"
+							value="1.Identifica cambios fisiológicos en su cuerpo al instante." />
+						<p:selectOneRadio id="uno" value="#{userWizard.user.uno}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="dos"
+							value="2.	Se relaja en situaciones de presión." />
+						<p:selectOneRadio id="dos" value="#{userWizard.user.dos}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="tres"
+							value="3. Puede actuar de modo productivo cuando se enfada" />
+						<p:selectOneRadio id="tres" value="#{userWizard.user.tres}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cuatro"
+							value="4.	Actúa de modo productivo cuando se siente ansioso" />
+						<p:selectOneRadio id="cuatro" value="#{userWizard.user.cuatro}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cinco"
+							value="5. Cuando está enfadado puede tranquilizarse rápido" />
+						<p:selectOneRadio id="cinco" value="#{userWizard.user.cinco}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="seis"
+							value="6. Puede asociar diferentes estados físicos con las emociones que tiene." />
+						<p:selectOneRadio id="seis" value="#{userWizard.user.seis}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="siete"
+							value="7.Controlo mis estados emocionales usando mi diálogo interior" />
+						<p:selectOneRadio id="siete" value="#{userWizard.user.siete}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="ocho"
+							value="8. Puedo comunicar mis sentimientos fácilmente" />
+						<p:selectOneRadio id="ocho" value="#{userWizard.user.ocho}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="nueve"
+							value="9. Tengo sentimientos negativos sin angustiarme." />
+						<p:selectOneRadio id="nueve" value="#{userWizard.user.nueve}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="diez"
+							value="10. Mantengo la calma cuando soy parte  del enfado de otros." />
+						<p:selectOneRadio id="diez" value="#{userWizard.user.diez}"
+							required="true" unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+						</p:selectOneRadio>
+
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="confirm" title="Confirmation">
+				<p:panel header="Confirmation">
+				
+				
+
+				</p:panel>
+
+				<p:commandButton value="Submit" action="#{userWizard.save()}"
+					update="growl" process="@this"/>
+
+			</p:tab>
+		</p:wizard>
+
+	</h:form>
+
+
+</body>
+</html>

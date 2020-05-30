@@ -1,6 +1,7 @@
 package mia.core.model.reporte;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -162,7 +163,7 @@ private ManagerCuestionario managerCuestionario;
 			
 			if(menEstres>24)
 			{
-				respuesta= "Vulnerable al �stres.";
+				respuesta= "Vulnerable al estres.";
 				respuestaT[0]=respuesta;
 				respuestaT[1]= menEstres+"";
 			}else if(menEstres>=40 || menEstres<=60)
@@ -185,10 +186,213 @@ private ManagerCuestionario managerCuestionario;
 		
 		return respuestaT;	
 	}
-/**	
+
+	private int[] res = new int[45];
+	
+	
 	public int[] respuestasIE(User user) {
-	g	
-	}*/
+		res[0]= user.getUno();
+    	res[1]= user.getDos();
+    	res[2]= user.getTres();
+    	res[3]= user.getCuatro();
+    	res[4]= user.getCinco();
+    	res[5]= user.getSeis();
+    	res[6]= user.getSiete();
+    	res[7]= user.getOcho();
+    	res[8]= user.getNueve();
+    	res[9]= user.getDiez();
+    	res[10]= user.getOnce();
+    	res[11]= user.getDoce();
+    	res[12]= user.getTrece();
+    	res[13]= user.getCatorce();
+    	res[14]= user.getQuince();
+    	res[15]= user.getDiesiceis();
+    	res[16]= user.getDiecisiete();
+    	res[17]= user.getDieciocho();
+    	res[18]= user.getDiecinueve();
+    	res[19]= user.getVeinte();
+    	res[20]= user.getVeintiuno();
+    	res[21]= user.getVeintidos();
+    	res[22]= user.getVeintitres();
+    	res[23]= user.getVeinticuatro();
+    	res[24]= user.getVeinticinco();
+    	res[25]= user.getVeintiseis();
+    	res[26]= user.getVeintisiete();
+    	res[27]= user.getVeintiocho();
+    	res[28]= user.getVeintinueve();
+    	res[29]= user.getTreinta();
+    	res[30]= user.getTreintayuno();
+    	res[31]= user.getTreintaydos();
+    	res[32]= user.getTreintaytres();
+    	res[33]= user.getTreintaycuatro();
+    	res[34]= user.getTreintaycinco();
+    	res[35]= user.getTreintayseis();
+    	res[36]= user.getTreintaysiete();
+    	res[37]= user.getTreintayocho();
+    	res[38]= user.getTreintaynueve();
+    	res[39]= user.getCuarenta();
+    	res[40]= user.getCuarentayuno();
+    	res[41]= user.getCuarentaydos();
+    	res[42]= user.getCuarentaytres();
+    	res[43]= user.getCuarentaycuatro();
+    	res[44]= user.getCuarentaycinco();
+    	
+    	/**System.out.println(res.length);
+    	
+    	for (int i = 0; i < res.length; i++) {
+			System.out.println(i+"MR:"+res[i]);
+		}
+    	*/
+    	return res;
+
+	}
+	
+	private int autoConciencia[] = {0,5,10,11,12,13,14,16,17,18,19,20};
+	private int autoMotivacion[]= {6,21,22,24,25,26,27};
+	private int controlEmociones[]= {0,1,2,3,4,6,8,9,12,26};
+	private int interPersonal[]= {7,9,15,18,19,28,29,30,31,32,33,34,35,36,37,38,41,42,43,44};
+	private int asesoriaEmocional[]= {7,9,15,17,33,34,36,37,38,39,40,43,44};
+
+	
+	public void ingresarIEEL(User user) {
+		
+		
+		double porcentajeAE=0.0;
+		
+		int [] trabajarIE= res;
+		
+		// respuesta Asesoria Emocional
+		int bajoAE=0;
+		int altoAE=0;
+		
+		for (int i = 0; i < asesoriaEmocional.length; i++) {
+		
+			System.out.println(i+""+"AC"+ ""+trabajarIE[asesoriaEmocional[i]]);	
+			if(trabajarIE[asesoriaEmocional[i]]<=3)
+			{
+				bajoAE++;
+			}else {
+				altoAE++;
+			}
+			
+		}
+			porcentajeAE= calcularPorcentaje(bajoAE, altoAE, asesoriaEmocional.length);
+	
+			if (bajoAE>altoAE) {
+				System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeAE+"%");
+				
+			}else {
+				System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeAE+"%");
+			}
+			
+		
+			double porcentajeIP=0.0;
+			// respuesta Inter Personal
+			int bajoIP=0;
+			int altoIP=0;
+			
+			for (int i = 0; i < interPersonal.length; i++) {
+			
+				System.out.println(i+""+"IP"+ ""+trabajarIE[interPersonal[i]]);	
+				if(trabajarIE[interPersonal[i]]<=3)
+				{
+					bajoIP++;
+				}else {
+					altoIP++;
+				}
+				
+			}
+				porcentajeIP= calcularPorcentaje(bajoIP, altoIP, interPersonal.length);
+		
+				if (bajoIP>altoIP) {
+					System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeIP+"%");
+					
+				}else {
+					System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeIP+"%");
+				}
+				
+				double porcentajeCE=0.0;
+				
+				// respuesta control Emocional
+				int bajoCE=0;
+				int altoCE=0;
+				
+				for (int i = 0; i < controlEmociones.length; i++) {
+				
+					System.out.println(i+""+"CE"+ ""+trabajarIE[controlEmociones[i]]);	
+					if(trabajarIE[controlEmociones[i]]<=3)
+					{
+						bajoCE++;
+					}else {
+						altoCE++;
+					}
+					
+				}
+					porcentajeCE= calcularPorcentaje(bajoCE, altoCE, controlEmociones.length);
+			
+					if (bajoCE>altoCE) {
+						System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeCE+"%");
+						
+					}else {
+						System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeCE+"%");
+					}
+					
+				
+					double porcentajeAM=0.0;
+				
+					// respuesta autoMotivacion
+					int bajoAM=0;
+					int altoAM=0;
+					
+					for (int i = 0; i < autoMotivacion.length; i++) {
+					
+						System.out.println(i+""+"AM"+ ""+trabajarIE[autoMotivacion[i]]);	
+						if(trabajarIE[autoMotivacion[i]]<=3)
+						{
+							bajoAM++;
+						}else {
+							altoAM++;
+						}
+						
+					}
+						porcentajeAM= calcularPorcentaje(bajoAM, altoAM, autoMotivacion.length);
+				
+						if (bajoAM>altoAM) {
+							System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeAM+"%");
+							
+						}else {
+							System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeAM+"%");
+						}
+						
+						double porcentajeAC=0.0; 
+						// respuesta autoConciencia
+						int bajoAC=0;
+						int altoAC=0;
+						
+						for (int i = 0; i < autoConciencia.length; i++) {
+						
+							System.out.println(i+""+"AC"+ ""+trabajarIE[autoConciencia[i]]);	
+							if(trabajarIE[autoConciencia[i]]<=3)
+							{
+								bajoAC++;
+							}else {
+								altoAC++;
+							}
+							
+						}
+							porcentajeAC= calcularPorcentaje(bajoAC, altoAC, autoConciencia.length);
+					
+							if (bajoAC>altoAC) {
+								System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeAC+"%");
+								
+							}else {
+								System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeAC+"%");
+							}
+	}
+	
+	
+	
+	
 	
 	public String [] calcularRespuestaDimension2( List<DimensionPreguntaDTO>listaDto,Dimension dimension)
 	{
@@ -267,6 +471,54 @@ private ManagerCuestionario managerCuestionario;
 			r=(b*100)/tamanio;
 		return r;
 		}
+	}
+
+	public int[] getRes() {
+		return res;
+	}
+
+	public void setRes(int[] res) {
+		this.res = res;
+	}
+
+	public int[] getAutoConciencia() {
+		return autoConciencia;
+	}
+
+	public void setAutoConciencia(int[] autoConciencia) {
+		this.autoConciencia = autoConciencia;
+	}
+
+	public int[] getAutoMotivacion() {
+		return autoMotivacion;
+	}
+
+	public void setAutoMotivacion(int[] autoMotivacion) {
+		this.autoMotivacion = autoMotivacion;
+	}
+
+	public int[] getControlEmociones() {
+		return controlEmociones;
+	}
+
+	public void setControlEmociones(int[] controlEmociones) {
+		this.controlEmociones = controlEmociones;
+	}
+
+	public int[] getInterPersonal() {
+		return interPersonal;
+	}
+
+	public void setInterPersonal(int[] interPersonal) {
+		this.interPersonal = interPersonal;
+	}
+
+	public int[] getAsesoriaEmocional() {
+		return asesoriaEmocional;
+	}
+
+	public void setAsesoriaEmocional(int[] asesoriaEmocional) {
+		this.asesoriaEmocional = asesoriaEmocional;
 	}
 
 

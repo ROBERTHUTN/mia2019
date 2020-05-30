@@ -8,511 +8,330 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class User implements Serializable {
-	  private String firstname;
-	     
-	    private String lastname;
-	     
-	    private Integer age;
-	     
-	    private String street;
-	     
-	    private String city;
-	     
-	    private String postalCode;
-	     
-	    private String info;
-	     
-	    private String email;
-	     
-	    private String phone;
-	    
-	    
-	    
-	    
-	    private String uno; 
-	    private String dos;
-	    private String tres;
-	    private String cuatro;
-	    private String cinco;
-	    private String seis;
-	    private String siete;
-	    private String ocho;
-	    private String nueve;
-	    private String diez;
-	    private String once;
-	    private String doce;
-	    private String trece;
-	    private String catorce;
-	    private String quince;
-	    private String diesiceis;
-	    private String diecisiete;
-	    private String dieciocho;
-	    private String diecinueve;
-	    private String veinte;
-	    private String veintiuno;
-	    private String veintidos;
-	    private String veintitres;
-	    private String veinticuatro;
-	    private String veinticinco;
-	    private String veintiseis;
-	    private String veintisiete;
-	    private String veintiocho;
-	    private String veintinueve;
-	    private String treinta;
-	    private String treintayuno;
-	    private String treintaydos;
-	    private String treintaytres;
-	    private String treintaycuatro;
-	    private String treintaycinco;
-	    private String treintayseis;
-	    private String treintaysiete;
-	    private String treintayocho;
-	    private String treintaynueve;
-	    private String cuarenta;
-	    private String cuarentayuno;
-	    private String cuarentaydos;
-	    private String cuarentaytres;
-	    private String cuarentaycuatro;
-	    private String cuarentaycinco;
-
-	    
-	    
-	    
-	    /////esto devo borrar
-	    
 	 
-	    public String getUno() {
+	    
+	    
+	    private int uno; 
+	    private int dos;
+	    private int tres;
+	    private int cuatro;
+	    private int cinco;
+	    private int seis;
+	    private int siete;
+	    private int ocho;
+	    private int nueve;
+	    private int diez;
+	    private int once;
+	    private int doce;
+	    private int trece;
+	    private int catorce;
+	    private int quince;
+	    private int diesiceis;
+	    private int diecisiete;
+	    private int dieciocho;
+	    private int diecinueve;
+	    private int veinte;
+	    private int veintiuno;
+	    private int veintidos;
+	    private int veintitres;
+	    private int veinticuatro;
+	    private int veinticinco;
+	    private int veintiseis;
+	    private int veintisiete;
+	    private int veintiocho;
+	    private int veintinueve;
+	    private int treinta;
+	    private int treintayuno;
+	    private int treintaydos;
+	    private int treintaytres;
+	    private int treintaycuatro;
+	    private int treintaycinco;
+	    private int treintayseis;
+	    private int treintaysiete;
+	    private int treintayocho;
+	    private int treintaynueve;
+	    private int cuarenta;
+	    private int cuarentayuno;
+	    private int cuarentaydos;
+	    private int cuarentaytres;
+	    private int cuarentaycuatro;
+	    private int cuarentaycinco;
+		public int getUno() {
 			return uno;
 		}
-
-		public void setUno(String uno) {
+		public void setUno(int uno) {
 			this.uno = uno;
 		}
-
-		public String getDos() {
+		public int getDos() {
 			return dos;
 		}
-
-		public void setDos(String dos) {
+		public void setDos(int dos) {
 			this.dos = dos;
 		}
-
-		public String getTres() {
+		public int getTres() {
 			return tres;
 		}
-
-		public void setTres(String tres) {
+		public void setTres(int tres) {
 			this.tres = tres;
 		}
-
-		public String getCuatro() {
+		public int getCuatro() {
 			return cuatro;
 		}
-
-		public void setCuatro(String cuatro) {
+		public void setCuatro(int cuatro) {
 			this.cuatro = cuatro;
 		}
-
-		public String getCinco() {
+		public int getCinco() {
 			return cinco;
 		}
-
-		public void setCinco(String cinco) {
+		public void setCinco(int cinco) {
 			this.cinco = cinco;
 		}
-
-		public String getSeis() {
+		public int getSeis() {
 			return seis;
 		}
-
-		public void setSeis(String seis) {
+		public void setSeis(int seis) {
 			this.seis = seis;
 		}
-
-		public String getSiete() {
+		public int getSiete() {
 			return siete;
 		}
-
-		public void setSiete(String siete) {
+		public void setSiete(int siete) {
 			this.siete = siete;
 		}
-
-		public String getOcho() {
+		public int getOcho() {
 			return ocho;
 		}
-
-		public void setOcho(String ocho) {
+		public void setOcho(int ocho) {
 			this.ocho = ocho;
 		}
-
-		public String getNueve() {
+		public int getNueve() {
 			return nueve;
 		}
-
-		public void setNueve(String nueve) {
+		public void setNueve(int nueve) {
 			this.nueve = nueve;
 		}
-
-		public String getDiez() {
+		public int getDiez() {
 			return diez;
 		}
-
-		public void setDiez(String diez) {
+		public void setDiez(int diez) {
 			this.diez = diez;
 		}
-
-		public String getOnce() {
+		public int getOnce() {
 			return once;
 		}
-
-		public void setOnce(String once) {
+		public void setOnce(int once) {
 			this.once = once;
 		}
-
-		public String getDoce() {
+		public int getDoce() {
 			return doce;
 		}
-
-		public void setDoce(String doce) {
+		public void setDoce(int doce) {
 			this.doce = doce;
 		}
-
-		public String getTrece() {
+		public int getTrece() {
 			return trece;
 		}
-
-		public void setTrece(String trece) {
+		public void setTrece(int trece) {
 			this.trece = trece;
 		}
-
-		public String getCatorce() {
+		public int getCatorce() {
 			return catorce;
 		}
-
-		public void setCatorce(String catorce) {
+		public void setCatorce(int catorce) {
 			this.catorce = catorce;
 		}
-
-		public String getQuince() {
+		public int getQuince() {
 			return quince;
 		}
-
-		public void setQuince(String quince) {
+		public void setQuince(int quince) {
 			this.quince = quince;
 		}
-
-		public String getDiesiceis() {
+		public int getDiesiceis() {
 			return diesiceis;
 		}
-
-		public void setDiesiceis(String diesiceis) {
+		public void setDiesiceis(int diesiceis) {
 			this.diesiceis = diesiceis;
 		}
-
-		public String getDiecisiete() {
+		public int getDiecisiete() {
 			return diecisiete;
 		}
-
-		public void setDiecisiete(String diecisiete) {
+		public void setDiecisiete(int diecisiete) {
 			this.diecisiete = diecisiete;
 		}
-
-		public String getDieciocho() {
+		public int getDieciocho() {
 			return dieciocho;
 		}
-
-		public void setDieciocho(String dieciocho) {
+		public void setDieciocho(int dieciocho) {
 			this.dieciocho = dieciocho;
 		}
-
-		public String getDiecinueve() {
+		public int getDiecinueve() {
 			return diecinueve;
 		}
-
-		public void setDiecinueve(String diecinueve) {
+		public void setDiecinueve(int diecinueve) {
 			this.diecinueve = diecinueve;
 		}
-
-		public String getVeinte() {
+		public int getVeinte() {
 			return veinte;
 		}
-
-		public void setVeinte(String veinte) {
+		public void setVeinte(int veinte) {
 			this.veinte = veinte;
 		}
-
-		public String getVeintiuno() {
+		public int getVeintiuno() {
 			return veintiuno;
 		}
-
-		public void setVeintiuno(String veintiuno) {
+		public void setVeintiuno(int veintiuno) {
 			this.veintiuno = veintiuno;
 		}
-
-		public String getVeintidos() {
+		public int getVeintidos() {
 			return veintidos;
 		}
-
-		public void setVeintidos(String veintidos) {
+		public void setVeintidos(int veintidos) {
 			this.veintidos = veintidos;
 		}
-
-		public String getVeintitres() {
+		public int getVeintitres() {
 			return veintitres;
 		}
-
-		public void setVeintitres(String veintitres) {
+		public void setVeintitres(int veintitres) {
 			this.veintitres = veintitres;
 		}
-
-		public String getVeinticuatro() {
+		public int getVeinticuatro() {
 			return veinticuatro;
 		}
-
-		public void setVeinticuatro(String veinticuatro) {
+		public void setVeinticuatro(int veinticuatro) {
 			this.veinticuatro = veinticuatro;
 		}
-
-		public String getVeinticinco() {
+		public int getVeinticinco() {
 			return veinticinco;
 		}
-
-		public void setVeinticinco(String veinticinco) {
+		public void setVeinticinco(int veinticinco) {
 			this.veinticinco = veinticinco;
 		}
-
-		public String getVeintiseis() {
+		public int getVeintiseis() {
 			return veintiseis;
 		}
-
-		public void setVeintiseis(String veintiseis) {
+		public void setVeintiseis(int veintiseis) {
 			this.veintiseis = veintiseis;
 		}
-
-		public String getVeintisiete() {
+		public int getVeintisiete() {
 			return veintisiete;
 		}
-
-		public void setVeintisiete(String veintisiete) {
+		public void setVeintisiete(int veintisiete) {
 			this.veintisiete = veintisiete;
 		}
-
-		public String getVeintiocho() {
+		public int getVeintiocho() {
 			return veintiocho;
 		}
-
-		public void setVeintiocho(String veintiocho) {
+		public void setVeintiocho(int veintiocho) {
 			this.veintiocho = veintiocho;
 		}
-
-		public String getVeintinueve() {
+		public int getVeintinueve() {
 			return veintinueve;
 		}
-
-		public void setVeintinueve(String veintinueve) {
+		public void setVeintinueve(int veintinueve) {
 			this.veintinueve = veintinueve;
 		}
-
-		public String getTreinta() {
+		public int getTreinta() {
 			return treinta;
 		}
-
-		public void setTreinta(String treinta) {
+		public void setTreinta(int treinta) {
 			this.treinta = treinta;
 		}
-
-		public String getTreintayuno() {
+		public int getTreintayuno() {
 			return treintayuno;
 		}
-
-		public void setTreintayuno(String treintayuno) {
+		public void setTreintayuno(int treintayuno) {
 			this.treintayuno = treintayuno;
 		}
-
-		public String getTreintaydos() {
+		public int getTreintaydos() {
 			return treintaydos;
 		}
-
-		public void setTreintaydos(String treintaydos) {
+		public void setTreintaydos(int treintaydos) {
 			this.treintaydos = treintaydos;
 		}
-
-		public String getTreintaytres() {
+		public int getTreintaytres() {
 			return treintaytres;
 		}
-
-		public void setTreintaytres(String treintaytres) {
+		public void setTreintaytres(int treintaytres) {
 			this.treintaytres = treintaytres;
 		}
-
-		public String getTreintaycuatro() {
+		public int getTreintaycuatro() {
 			return treintaycuatro;
 		}
-
-		public void setTreintaycuatro(String treintaycuatro) {
+		public void setTreintaycuatro(int treintaycuatro) {
 			this.treintaycuatro = treintaycuatro;
 		}
-
-		public String getTreintaycinco() {
+		public int getTreintaycinco() {
 			return treintaycinco;
 		}
-
-		public void setTreintaycinco(String treintaycinco) {
+		public void setTreintaycinco(int treintaycinco) {
 			this.treintaycinco = treintaycinco;
 		}
-
-		public String getTreintayseis() {
+		public int getTreintayseis() {
 			return treintayseis;
 		}
-
-		public void setTreintayseis(String treintayseis) {
+		public void setTreintayseis(int treintayseis) {
 			this.treintayseis = treintayseis;
 		}
-
-		public String getTreintaysiete() {
+		public int getTreintaysiete() {
 			return treintaysiete;
 		}
-
-		public void setTreintaysiete(String treintaysiete) {
+		public void setTreintaysiete(int treintaysiete) {
 			this.treintaysiete = treintaysiete;
 		}
-
-		public String getTreintayocho() {
+		public int getTreintayocho() {
 			return treintayocho;
 		}
-
-		public void setTreintayocho(String treintayocho) {
+		public void setTreintayocho(int treintayocho) {
 			this.treintayocho = treintayocho;
 		}
-
-		public String getTreintaynueve() {
+		public int getTreintaynueve() {
 			return treintaynueve;
 		}
-
-		public void setTreintaynueve(String treintaynueve) {
+		public void setTreintaynueve(int treintaynueve) {
 			this.treintaynueve = treintaynueve;
 		}
-
-		public String getCuarenta() {
+		public int getCuarenta() {
 			return cuarenta;
 		}
-
-		public void setCuarenta(String cuarenta) {
+		public void setCuarenta(int cuarenta) {
 			this.cuarenta = cuarenta;
 		}
-
-		public String getCuarentayuno() {
+		public int getCuarentayuno() {
 			return cuarentayuno;
 		}
-
-		public void setCuarentayuno(String cuarentayuno) {
+		public void setCuarentayuno(int cuarentayuno) {
 			this.cuarentayuno = cuarentayuno;
 		}
-
-		public String getCuarentaydos() {
+		public int getCuarentaydos() {
 			return cuarentaydos;
 		}
-
-		public void setCuarentaydos(String cuarentaydos) {
+		public void setCuarentaydos(int cuarentaydos) {
 			this.cuarentaydos = cuarentaydos;
 		}
-
-		public String getCuarentaytres() {
+		public int getCuarentaytres() {
 			return cuarentaytres;
 		}
-
-		public void setCuarentaytres(String cuarentaytres) {
+		public void setCuarentaytres(int cuarentaytres) {
 			this.cuarentaytres = cuarentaytres;
 		}
-
-		public String getCuarentaycuatro() {
+		public int getCuarentaycuatro() {
 			return cuarentaycuatro;
 		}
-
-		public void setCuarentaycuatro(String cuarentaycuatro) {
+		public void setCuarentaycuatro(int cuarentaycuatro) {
 			this.cuarentaycuatro = cuarentaycuatro;
 		}
-
-		public String getCuarentaycinco() {
+		public int getCuarentaycinco() {
 			return cuarentaycinco;
 		}
-
-		public void setCuarentaycinco(String cuarentaycinco) {
+		public void setCuarentaycinco(int cuarentaycinco) {
 			this.cuarentaycinco = cuarentaycinco;
 		}
 
+	    
+	
+	    
+	 
 		
 		
-		// borrar estas lineas
-		public String getFirstname() {
-	        return firstname;
-	    }
-	 
-	    public void setFirstname(String firstname) {
-	        this.firstname = firstname;
-	    }
-	 
-	    public String getLastname() {
-	        return lastname;
-	    }
-	 
-	    public void setLastname(String lastname) {
-	        this.lastname = lastname;
-	    }
-	 
-	    public Integer getAge() {
-	        return age;
-	    }
-	 
-	    public void setAge(Integer age) {
-	        this.age = age;
-	    }
-	 
-	    public String getStreet() {
-	        return street;
-	    }
-	 
-	    public void setStreet(String street) {
-	        this.street = street;
-	    }
-	 
-	    public String getCity() {
-	        return city;
-	    }
-	 
-	    public void setCity(String city) {
-	        this.city = city;
-	    }
-	 
-	    public String getPostalCode() {
-	        return postalCode;
-	    }
-	 
-	    public void setPostalCode(String postalCode) {
-	        this.postalCode = postalCode;
-	    }
-	 
-	    public String getInfo() {
-	        return info;
-	    }
-	 
-	    public void setInfo(String info) {
-	        this.info = info;
-	    }
-	     
-	    public String getEmail() {
-	        return email;
-	    }
-	 
-	    public void setEmail(String email) {
-	        this.email = email;
-	    }
-	 
-	    public String getPhone() {
-	        return phone;
-	    }
-	 
-	    public void setPhone(String phone) {
-	        this.phone = phone;
-	    }
+		
 }
