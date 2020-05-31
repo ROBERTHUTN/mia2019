@@ -92,7 +92,7 @@ public void onCarDrop(DragDropEvent event) {
 	
 	DimensionBateriaDto2 prePact=listaDimensionRespuestaActual.get(contador);
 	List<BateriaDto>listapreguntas=prePact.getListaPreguntas();
-	List<BateriaDto>listarespuestas=prePact.getListaPreguntas();
+	List<BateriaDto>listarespuestas=prePact.getListaRespuestas();
 	BateriaDto bat= (BateriaDto)event.getData();
 	System.out.println(": "+bat.getPregunta());
 	listarespuestas.add(bat);
