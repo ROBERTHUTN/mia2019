@@ -35,7 +35,7 @@ public class BeanRestablecerContrasenia implements Serializable {
 	private String codigoC;
 	private String verificarCodigo;
 	private boolean activarContrasenia;
-	
+	private long id_restablecer;
 
 public void limpiarCredenciales() {
 	activar=false;
@@ -49,6 +49,7 @@ public void limpiarCredenciales() {
 	password4="";
 	codigoC="";
 	verificarCodigo="";
+	id_restablecer=0;
 }
 public void guardarNuevaContrasenia() {
 	try {
@@ -76,13 +77,12 @@ public String regresarInicio() {
 	public void comprobarCorreo() {
 		try {
 		restablecer = managerRestablecer.existeUsuario(correoU);
-		//3 intentos
-		
-	//	boolean intentos=managerRestablecer.intentosRestablecerContrasenia(correoU);
+	//3 intentos
+		boolean intentos=managerRestablecer.intentosRestablecerContrasenia(correoU);
 	
-	//	if (intentos) {
-	//	JSFUtil.crearMensajeError("Ha excedido el número de intentos, inténtelo de nuevo más tarde");	
-	//	}else {
+	if (intentos) {
+	JSFUtil.crearMensajeError("Ha excedido el número de intentos permitidos (3), inténtelo de nuevo más tarde");	
+		}else {
 		if (restablecer) {
 			usuarioR = true;
 			activar=true;
@@ -94,13 +94,14 @@ public String regresarInicio() {
 			
 			RestablecerContrasenia cont=managerRestablecer.restablecerContrasenia(correoU, codigo);
 			codigoC=cont.getCodigo();
+			id_restablecer=cont.getIdRestablecer();
 			boolean enviarCorreo=managerMail.enviarMensajesElectronicos("Restablecer contraseña", "Su código de confirmación es: "+cod, correoU);
-		
+		    
 			JSFUtil.crearMensajeInfo("Revise su código de confirmación en su correo electrónico");
 		} else {
 			JSFUtil.crearMensajeError("Credencial incorrecta.");
 		}
-	//	}
+	}
 		
 		} catch (Exception e) {
 		JSFUtil.crearMensajeError(e.getMessage());
@@ -113,6 +114,7 @@ public String regresarInicio() {
 		if (codigoCorrecto) {
 			activarContrasenia=true;
 		activar=false;
+		managerRestablecer.descativarRestablecer(id_restablecer);
 	JSFUtil.crearMensajeInfo("Código correcto");
 		} else {
 			JSFUtil.crearMensajeError("Código incorrecto.");
@@ -134,7 +136,7 @@ public String regresarInicio() {
 			codigo=Seguridad.encriptar(codigo);
 			RestablecerContrasenia cont=managerRestablecer.restablecerContrasenia(correoU, codigo);
 			codigoC=cont.getCodigo();
-			
+			id_restablecer=cont.getIdRestablecer();
 			JSFUtil.crearMensajeInfo("Revise su código de confirmación en su correo electrónico");
 		} else {
 			JSFUtil.crearMensajeError("Credencial incorrecta.");
@@ -235,7 +237,14 @@ public String regresarInicio() {
 	}
 	public void setInicio(boolean inicio) {
 		this.inicio = inicio;
-	} 
+	}
+	public long getId_restablecer() {
+		return id_restablecer;
+	}
+	public void setId_restablecer(long id_restablecer) {
+		this.id_restablecer = id_restablecer;
+	}
+
 	
 	
 }

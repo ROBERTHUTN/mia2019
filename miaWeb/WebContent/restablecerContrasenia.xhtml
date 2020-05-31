@@ -50,14 +50,30 @@
 
 					<div align="center">
 
+<p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+    <f:facet name="default">
+       
+    </f:facet>
+     
+    <f:facet name="start">
+        <p:graphicImage name="/images/carga.gif" />
+    </f:facet>
+ 
+    <f:facet name="complete">
 
-						<p:commandButton value="VERIFICAR" id="ajax"
+    </f:facet>
+</p:ajaxStatus>
+ 
+<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+             
+<p:dialog widgetVar="statusDialog" modal="true" header="Enviando correo electrónico" draggable="false" closable="false" resizable="false" showHeader="false">
+    <p:graphicImage name="/images/carga.gif" />
+</p:dialog>
+	<p:commandButton value="VERIFICAR" id="ajax"
 							actionListener="#{beanRestablecerContrasenia.comprobarCorreo()}"
 							style="width:188px" styleClass="ui-priority-primary"
 							validateClient="true" update="form1" />
-					</div>
-
-
+					</div> 
 				</h:panelGrid>
 			</p:panel>
 			<p:panel header="Restablecer contraseña 2" style="width:400px"

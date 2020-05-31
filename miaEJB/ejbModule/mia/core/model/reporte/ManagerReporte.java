@@ -81,10 +81,6 @@ private ManagerCuestionario managerCuestionario;
 				    + " and year(r.fecha)="+anio +
 				    "  order by month(r.fecha) desc", Integer.class)
 				.getResultList();
-	for (Integer string : listaMeses) {
-		System.out.println("MESES: "+string.toString());
-	}
-		
 		return listaMeses;
 	}
 	

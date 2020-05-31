@@ -6,15 +6,15 @@ public class pruebas {
 		// TODO Auto-generated method stub
 		
 		BeanPreguntasMIA beanPreguntasMIA= new BeanPreguntasMIA();
-		
-		String[] estres = beanPreguntasMIA.nivelEstres;
+		/*
+		//String[] estres = beanPreguntasMIA.nivelEstres;
 		int i=0;
 		for (String string : estres) {
 			
 			System.out.print(i+" "+string+" \n");
 		i++;
 		}
-
+*/
 	}
 
 }
