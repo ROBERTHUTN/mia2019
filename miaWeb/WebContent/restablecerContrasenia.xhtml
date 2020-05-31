@@ -6,11 +6,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<f:facet name="last">
-		<f:facet name="last">
-			<h:outputScript name="js/nuevo.js" />
-		</f:facet>
-	</f:facet>
+<link rel="icon" type="image/png" href="usuario/images/logo1.png" />
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 </h:head>
 
 <body>
@@ -32,7 +30,7 @@
 			<p></p>
 			<p></p>
 
-			<p:panel header="Restablecer contraseña 1" style="width:400px"
+			<p:panel header="Restablecer contraseña " style="width:400px"
 				rendered="#{!beanRestablecerContrasenia.inicioA}">
 				<h:panelGrid columns="3" cellpadding="5">
 
@@ -69,7 +67,7 @@
 <p:dialog widgetVar="statusDialog" modal="true" header="Enviando correo electrónico" draggable="false" closable="false" resizable="false" showHeader="false">
     <p:graphicImage name="/images/carga.gif" />
 </p:dialog>
-	<p:commandButton value="VERIFICAR" id="ajax"
+	<p:commandButton value="VERIFICAR" id="ajax" icon="fa fa-send"
 							actionListener="#{beanRestablecerContrasenia.comprobarCorreo()}"
 							style="width:188px" styleClass="ui-priority-primary"
 							validateClient="true" update="form1" />
@@ -93,7 +91,7 @@
 					<div align="center">
 
 
-						<p:commandButton value="Verificar Código" icon="fa fa-confirm"
+						<p:commandButton value="Verificar Código" icon="fa fa-check"
 							actionListener="#{beanRestablecerContrasenia.enviarCodigo()}"
 							style="width:188px" update="form1"
 							styleClass="ui-priority-primary" />
@@ -101,7 +99,7 @@
 
 				</h:panelGrid>
 			</p:panel>  
-			<p:panel header="Restablecer contraseña 3" style="width:400px"
+			<p:panel header="Restablecer contraseña " style="width:400px"
 				rendered="#{beanRestablecerContrasenia.activarContrasenia}">
 				<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
 					<h:outputLabel  value="Contraseña 1: *" />
