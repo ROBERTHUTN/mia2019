@@ -42,10 +42,8 @@ public void atras() {
 public void siguiente() {
 	System.out.println("-"+contador);
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
-	System.out.println("1");
 	contador++;
 	estadoActualContador(contador);
-	System.out.println("2");
 	dimensionActDto=new DimensionBateriaDto2();
 	dimensionActDto=listaDimensionRespuesta.get(contador);
 	if (dimensionActDto.getNombre().length()==0) {
@@ -93,18 +91,14 @@ public void estadoActualContador(int contadorC) {
 }
 public void onCarDrop(DragDropEvent event) {
 	try {
-		System.out.println("onCarDrop(DragDropEvent event): "+contador);
-		System.out.println("listaDimensionRespuestaActual: "+listaDimensionRespuestaActual.size());
 	DimensionBateriaDto2 prePact=listaDimensionRespuestaActual.get(0);
 	List<BateriaDto>listapreguntas=prePact.getListaPreguntas();
 	List<BateriaDto>listarespuestas=prePact.getListaRespuestas();
 	BateriaDto bat= (BateriaDto)event.getData();
-	System.out.println(": "+bat.getPregunta());
 	listarespuestas.add(bat);
 	listapreguntas.remove(bat);
-	listaDimensionRespuestaActual.get(contador).setListaPreguntas(listapreguntas);
-	System.out.println(listarespuestas.size());
-	listaDimensionRespuestaActual.get(contador).setListaRespuestas(listarespuestas);
+	listaDimensionRespuestaActual.get(0).setListaPreguntas(listapreguntas);
+	listaDimensionRespuestaActual.get(0).setListaRespuestas(listarespuestas);
 
 } catch (Exception e) {
 JSFUtil.crearMensajeError(e.getMessage());
@@ -114,15 +108,9 @@ JSFUtil.crearMensajeError(e.getMessage());
 public String PreguntasByDimension() {
 	try {
 		listaDimensionRespuesta=managerBateria.inicializarPreguntasPadres();
-		System.out.println("1:"+listaDimensionRespuesta.size());
 		listaDimensionRespuestaActual=new ArrayList<DimensionBateriaDto2>();
 		listaDimensionRespuestaActual.add(listaDimensionRespuesta.get(0));
-		System.out.println(":- "+listaDimensionRespuestaActual.get(0).getNombre());
-		System.out.println(": "+listaDimensionRespuestaActual.get(0).getListaPreguntas().size());
-		
-		for (DimensionBateriaDto2 p : listaDimensionRespuesta) {
-			System.out.println(p.getNombre());
-		}
+	
 		contador = 0;
 			estadoActualContador(contador);
 
@@ -133,6 +121,8 @@ public String PreguntasByDimension() {
 	} catch (Exception e) {
 		JSFUtil.crearMensajeError(e.getMessage());
 		return "";
+	}finally {
+		JSFUtil.crearMensajeFastFinal();
 	}
 
 }
