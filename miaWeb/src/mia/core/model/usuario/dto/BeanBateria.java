@@ -2,15 +2,12 @@ package mia.core.model.usuario.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.event.DragDropEvent;
 
-import mia.core.model.cuestionario.dto.Car;
 import mia.modulos.view.util.JSFUtil;
 import java.io.Serializable;
 
@@ -43,12 +40,18 @@ public void atras() {
 	listaDimensionRespuestaActual.add(dimensionActDto);
 }
 public void siguiente() {
+	System.out.println("-"+contador);
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
+	System.out.println("1");
 	contador++;
 	estadoActualContador(contador);
-	
+	System.out.println("2");
+	dimensionActDto=new DimensionBateriaDto2();
 	dimensionActDto=listaDimensionRespuesta.get(contador);
-	
+	if (dimensionActDto.getNombre().length()==0) {
+		System.out.println("3");
+	}
+
 	listaDimensionRespuestaActual=new ArrayList<>();
 	listaDimensionRespuestaActual.add(dimensionActDto);
 	
@@ -89,8 +92,10 @@ public void estadoActualContador(int contadorC) {
 	
 }
 public void onCarDrop(DragDropEvent event) {
-	
-	DimensionBateriaDto2 prePact=listaDimensionRespuestaActual.get(contador);
+	try {
+		System.out.println("onCarDrop(DragDropEvent event): "+contador);
+		System.out.println("listaDimensionRespuestaActual: "+listaDimensionRespuestaActual.size());
+	DimensionBateriaDto2 prePact=listaDimensionRespuestaActual.get(0);
 	List<BateriaDto>listapreguntas=prePact.getListaPreguntas();
 	List<BateriaDto>listarespuestas=prePact.getListaRespuestas();
 	BateriaDto bat= (BateriaDto)event.getData();
@@ -100,6 +105,11 @@ public void onCarDrop(DragDropEvent event) {
 	listaDimensionRespuestaActual.get(contador).setListaPreguntas(listapreguntas);
 	System.out.println(listarespuestas.size());
 	listaDimensionRespuestaActual.get(contador).setListaRespuestas(listarespuestas);
+
+} catch (Exception e) {
+JSFUtil.crearMensajeError(e.getMessage());
+
+}
 }
 public String PreguntasByDimension() {
 	try {
@@ -110,13 +120,10 @@ public String PreguntasByDimension() {
 		System.out.println(":- "+listaDimensionRespuestaActual.get(0).getNombre());
 		System.out.println(": "+listaDimensionRespuestaActual.get(0).getListaPreguntas().size());
 		
-		for (BateriaDto p : listaDimensionRespuestaActual.get(0).getListaPreguntas()) {
-			System.out.println(p.getPregunta());
+		for (DimensionBateriaDto2 p : listaDimensionRespuesta) {
+			System.out.println(p.getNombre());
 		}
-		bateriasPreguntas =listaDimensionRespuesta.get(0).getListaPreguntas();
-		System.out.println("3");
 		contador = 0;
-		System.out.println("4");
 			estadoActualContador(contador);
 
 			JSFUtil.crearMensajeInfo("Responder las siguientes preguntas");

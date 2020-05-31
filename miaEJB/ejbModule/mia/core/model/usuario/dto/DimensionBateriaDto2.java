@@ -16,6 +16,10 @@ public class DimensionBateriaDto2 {
 		this.listaRespuestas = listaRespuestas;
 	}
 	
+	public DimensionBateriaDto2() {
+
+	}
+
 	public int getId_dimension_pregunta() {
 		return id_dimension_pregunta;
 	}
