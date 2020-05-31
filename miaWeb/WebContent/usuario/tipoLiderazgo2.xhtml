@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head></h:head>
+<div id="menu">
+	<h:form>
+		<p:menubar>
+			<p:menuitem>
+				<p:graphicImage value="images/logo1.png"></p:graphicImage>
+			</p:menuitem>
+			<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
+				action="curso?faces-redirect=true" />
+
+			<f:facet name="options">
+				<p:commandButton title="Datos de usuario" icon="fa fa-user"
+					value="#{beanLogin.login.nombres}" />
+				<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+					action="#{beanLogin.actionCerrarSesion()}" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+</div>
+<body style="background-color: #3b83bd;">
+<script type="text/javascript">
+    function handleDrop(event, ui) {
+        var droppedCar = ui.draggable;
+ 
+        droppedCar.fadeOut('fast');
+    }
+</script>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<div class="ui-fluid">
+		<h:form id="form1">
+			<p:dataTable var="a"
+				value="#{beanBateria.listaDimensionRespuestaActual}" rows="1"
+				emptyMessage="No se han cargado las preguntas"
+				rowsPerPageTemplate="1">
+
+				<p:column>
+					<p:panel header="#{a.nombre}">
+						<br></br>
+
+						<form>
+							<p:panelGrid columns="4" layout="grid">
+								<p:commandButton value="Atrás" rendered="#{beanBateria.atras}"
+									actionListener="#{beanBateria.atras()}"
+									style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
+									update="form1" />
+								<p:commandButton value="Atrás" rendered="#{!beanBateria.atras}"
+									disabled="true" style="margin-right:5px;alight:left"
+									icon="fa fa-arrow-left" />
+
+								<p:outputLabel></p:outputLabel>
+								<p:outputLabel></p:outputLabel>
+
+								<p:commandButton rendered="#{beanBateria.adelante}"
+									update="form1" value="Siguiente"
+									actionListener="#{beanBateria.siguiente()}"
+									style="margin-right:5px;" icon="fa fa-arrow-right" />
+								<p:commandButton rendered="#{!beanBateria.adelante}"
+									disabled="true" value="Siguiente" style="margin-right:5px;"
+									icon="fa fa-arrow-right" />
+
+							</p:panelGrid>
+							<br></br>
+
+							<p:fieldset id="preguntasField" legend="preguntas">
+								<p:dataGrid id="preguntas" var="car"
+									value="#{a.listaPreguntas}" columns="4">
+									<p:panel id="pnl" header="#{car.pregunta}" style="text-align:center">
+										<h:panelGrid columns="1" style="width:100%">
+											<p:graphicImage value="images/pregunta.png" />
+										</h:panelGrid>
+									</p:panel>
+
+									<p:draggable for="pnl" revert="true"
+										handle=".ui-panel-titlebar" stack=".ui-panel" />
+								</p:dataGrid>
+							</p:fieldset>
+							
+							<!--  ///////////////////////////////
+							
+							-->
+							<p:fieldset id="seleccionar" legend="Sleccionar preguntas" style="margin-top:20px">
+        <p:outputPanel id="dropArea">
+            <h:outputText value="!!!Arrastre aquí!!!" rendered="#{empty a.listaRespuestas}" style="font-size:24px;" />
+            <p:dataTable id="selectedCarsTable" var="r" value="#{a.listaRespuestas}" rendered="#{not empty a.listaRespuestas}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{r.literal}" />
+                </p:column>
+ 
+                <p:column headerText="Year">
+                    <h:outputText value="#{r.pregunta}" />
+                </p:column>
+ 
+                <p:column headerText="Brand">
+                    <h:outputText value="#{r.literal}" />
+                </p:column>
+ 
+            </p:dataTable>
+        </p:outputPanel>
+    </p:fieldset>
+    
+    <p:droppable for="seleccionar" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="preguntas" onDrop="handleDrop">
+        <p:ajax listener="#{beanBateria.onCarDrop}" update="form1" />
+    </p:droppable>
+						<!--  ///////////////////////////////
+							
+							-->		
+							<p:messages />
+							<p></p>
+							<br></br>
+							<p:panelGrid columns="4" layout="grid">
+								<p:commandButton value="Atrás" rendered="#{beanBateria.atras}"
+									actionListener="#{beanBateria.atras()}"
+									style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
+									update="form1" />
+								<p:commandButton value="Atrás" rendered="#{!beanBateria.atras}"
+									disabled="true" style="margin-right:5px;alight:left"
+									icon="fa fa-arrow-left" />
+
+								<p:outputLabel></p:outputLabel>
+								<p:outputLabel></p:outputLabel>
+
+								<p:commandButton rendered="#{beanBateria.adelante}"
+									update="form1" value="Siguiente"
+									actionListener="#{beanBateria.siguiente()}"
+									style="margin-right:5px;" icon="fa fa-arrow-right" />
+								<p:commandButton rendered="#{!beanBateria.adelante}"
+									disabled="true" value="Siguiente" style="margin-right:5px;"
+									icon="fa fa-arrow-right" />
+
+							</p:panelGrid>
+							<p:commandButton value="Finalizar Test"
+								rendered="#{beanBateria.finalizarTest}"
+								style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
+								update="form1" />
+						</form>
+					</p:panel>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+
+</body>
+</html>
