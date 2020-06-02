@@ -13,42 +13,56 @@ import org.primefaces.event.FlowEvent;
 import mia.core.model.reporte.ManagerReporte;
 import mia.core.model.reporte.User;
 
+import java.util.List;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Named
 @ViewScoped
-public class DropdownView implements Serializable {
+public class RequestBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB
-	private ManagerReporte managerReporte; 
-	
-	    private User user = new User();
-	     
-	    
-	    
+	public List<String> getList() {
+        return list;
+    }
 
+    public void setList(java.util.List<String> list) {
+        this.list = list;
+        System.out.println("Values set: " + list);
+    }
 
+    private List<String> list;
+    
+    private boolean skip;
+       
+    
+    @PostConstruct
+    private void init() {
+        list = new ArrayList<String>() {
+            {
+                add("one");
+                add("two");
+                add("three");
+            }
+        };
+    }
+            
+    
+    public void listener() {
+        System.out.println("Listener called!");
+    }
 	    
-	    
-	    private boolean skip;
-	     
-	    public User getUser() {
-	        return user;
-	    }
-	 
-	    public void setUser(User user) {
-	        this.user = user;
-	    }
-	     
+	  
 	    public void save() {        
-	    	managerReporte.respuestasIE(user);
+	    	//managerReporte.respuestasIE(user);
 	    	System.out.println(" entra");
-	    	managerReporte.ingresarIEEL(user);
+	    //	managerReporte.ingresarIEEL(user);
 	    	
 	    	
-	        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getUno());
+	        FacesMessage msg = new FacesMessage("Successful", "Welcome :" );
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 	    }
 	     
@@ -70,6 +84,9 @@ public class DropdownView implements Serializable {
 	            return event.getNewStep();
 	        }
 	    }
+	    
+	    
+	    
 	}
 
 	

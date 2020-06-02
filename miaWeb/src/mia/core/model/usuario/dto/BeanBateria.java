@@ -27,11 +27,18 @@ private boolean atras;
 private boolean adelante;	
 private boolean finalizarTest;
 private int contador;
+int cont=1;
 	@EJB
 	BateriaServiceDto managerBateria;
 	
+private String tlCentroGravedad;
+private String tlLogicaEmergente;
+private String tlLogicaretroceso;
+
+	
 	
 public void atras() {
+	//listaDimensionRespuesta
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
 	contador--;
 	estadoActualContador(contador);
@@ -39,9 +46,16 @@ public void atras() {
 	listaDimensionRespuestaActual=new ArrayList<>();
 	listaDimensionRespuestaActual.add(dimensionActDto);
 }
-public void siguiente() {
-	System.out.println("-"+contador);
+public String siguiente() {
+	try {
+	DimensionBateriaDto2 prePact=listaDimensionRespuestaActual.get(0);
+	List<BateriaDto>listapreguntas=prePact.getListaPreguntas();
+	List<BateriaDto>listarespuestas=prePact.getListaRespuestas();
+System.out.println(""+listapreguntas.size());
+System.out.println(""+listarespuestas.size());
+	if(listapreguntas.size()==0 && listarespuestas.size()==7) {
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
+	finalizarTest(listaDimensionRespuesta);
 	contador++;
 	estadoActualContador(contador);
 	dimensionActDto=new DimensionBateriaDto2();
@@ -49,11 +63,35 @@ public void siguiente() {
 	if (dimensionActDto.getNombre().length()==0) {
 		System.out.println("3");
 	}
-
+	if(cont!=1)
+	{
+		cont=1;
+	}
+ 
 	listaDimensionRespuestaActual=new ArrayList<>();
 	listaDimensionRespuestaActual.add(dimensionActDto);
-	
+	}else {
+		JSFUtil.crearMensajeError("Conteste todas las preguntas");
+	}
+	} catch (Exception e) {
+		JSFUtil.crearMensajeError(e.getMessage());
+
+		}
+	return "";
 }
+
+public void finalizarTest(List<DimensionBateriaDto2> respuesta ) {
+	
+	System.out.println(" cantidad de datos"+ respuesta.size());
+	
+	for (DimensionBateriaDto2 d : respuesta) {
+		System.out.println("Literal; "+d.getNombre());
+		for (BateriaDto  r: d.getListaRespuestas()) {
+			System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion());
+		}
+	}
+}
+
 
 public void estadoActualContador(int contadorC) {
 	if (listaDimensionRespuesta.isEmpty()) {
@@ -89,12 +127,15 @@ public void estadoActualContador(int contadorC) {
 
 	
 }
+
+
 public void onCarDrop(DragDropEvent event) {
 	try {
 	DimensionBateriaDto2 prePact=listaDimensionRespuestaActual.get(0);
 	List<BateriaDto>listapreguntas=prePact.getListaPreguntas();
 	List<BateriaDto>listarespuestas=prePact.getListaRespuestas();
 	BateriaDto bat= (BateriaDto)event.getData();
+	bat.setPosicion(cont++);
 	listarespuestas.add(bat);
 	listapreguntas.remove(bat);
 	listaDimensionRespuestaActual.get(0).setListaPreguntas(listapreguntas);
@@ -187,7 +228,7 @@ public String PreguntasByDimension() {
 	}
 
 	public void setFinalizarTest(boolean finalizarTest) {
-		this.finalizarTest = finalizarTest;
+	
 	}
 
 	public int getContador() {
