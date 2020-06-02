@@ -55,7 +55,7 @@ System.out.println(""+listapreguntas.size());
 System.out.println(""+listarespuestas.size());
 	if(listapreguntas.size()==0 && listarespuestas.size()==7) {
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
-	finalizarTest(listaDimensionRespuesta);
+	//finalizarTest(listaDimensionRespuesta);
 	contador++;
 	estadoActualContador(contador);
 	dimensionActDto=new DimensionBateriaDto2();
@@ -84,12 +84,70 @@ public void finalizarTest(List<DimensionBateriaDto2> respuesta ) {
 	
 	System.out.println(" cantidad de datos"+ respuesta.size());
 	
+	int [][] posTl = new int[6][5];
 	for (DimensionBateriaDto2 d : respuesta) {
 		System.out.println("Literal; "+d.getNombre());//literal
 		for (BateriaDto  r: d.getListaRespuestas()) {
-			System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion());
+			System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion()+" "+ r.getLiteral());
+		
+		posTl [0][0]= r.getLiteral()=="a7"?r.getPosicion():0;
+		posTl [1][0]= r.getLiteral()=="a5"?r.getPosicion():0;
+		posTl [2][0]= r.getLiteral()=="a2"?r.getPosicion():0;
+		posTl [3][0]= r.getLiteral()=="a6"?r.getPosicion():0;
+		posTl [4][0]= r.getLiteral()=="a1"?r.getPosicion():0;
+		posTl [5][0]= r.getLiteral()=="a3"?r.getPosicion():0;
+		posTl [6][0]= r.getLiteral()=="a4"?r.getPosicion():0;
+		
+		posTl [0][1]= r.getLiteral()=="b2"?r.getPosicion():0;
+		posTl [1][1]= r.getLiteral()=="b1"?r.getPosicion():0;
+		posTl [2][1]= r.getLiteral()=="b7"?r.getPosicion():0;
+		posTl [3][1]= r.getLiteral()=="b4"?r.getPosicion():0;
+		posTl [4][1]= r.getLiteral()=="b6"?r.getPosicion():0;
+		posTl [5][1]= r.getLiteral()=="b5"?r.getPosicion():0;
+		posTl [6][1]= r.getLiteral()=="b3"?r.getPosicion():0;
+		
+		posTl [0][2]= r.getLiteral()=="c1"?r.getPosicion():0;
+		posTl [1][2]= r.getLiteral()=="c3"?r.getPosicion():0;
+		posTl [2][2]= r.getLiteral()=="c4"?r.getPosicion():0;
+		posTl [3][2]= r.getLiteral()=="c6"?r.getPosicion():0;
+		posTl [4][2]= r.getLiteral()=="c5"?r.getPosicion():0;
+		posTl [5][2]= r.getLiteral()=="c7"?r.getPosicion():0;
+		posTl [6][2]= r.getLiteral()=="c2"?r.getPosicion():0;
+		
+		posTl [0][3]= r.getLiteral()=="d5"?r.getPosicion():0;
+		posTl [1][3]= r.getLiteral()=="d3"?r.getPosicion():0;
+		posTl [2][3]= r.getLiteral()=="d1"?r.getPosicion():0;
+		posTl [3][3]= r.getLiteral()=="d4"?r.getPosicion():0;
+		posTl [4][3]= r.getLiteral()=="d6"?r.getPosicion():0;
+		posTl [5][3]= r.getLiteral()=="d7"?r.getPosicion():0;
+		posTl [6][3]= r.getLiteral()=="d2"?r.getPosicion():0;
+		
+		posTl [0][4]= r.getLiteral()=="e1"?r.getPosicion():0;
+		posTl [1][4]= r.getLiteral()=="e4"?r.getPosicion():0;
+		posTl [2][4]= r.getLiteral()=="e5"?r.getPosicion():0;
+		posTl [3][4]= r.getLiteral()=="e3"?r.getPosicion():0;
+		posTl [4][4]= r.getLiteral()=="e6"?r.getPosicion():0;
+		posTl [5][4]= r.getLiteral()=="e7"?r.getPosicion():0;
+		posTl [6][4]= r.getLiteral()=="e2"?r.getPosicion():0;
+		
+		posTl [0][5]= r.getLiteral()=="f2"?r.getPosicion():0;
+		posTl [1][5]= r.getLiteral()=="f1"?r.getPosicion():0;
+		posTl [2][5]= r.getLiteral()=="f5"?r.getPosicion():0;
+		posTl [3][5]= r.getLiteral()=="f6"?r.getPosicion():0;
+		posTl [4][5]= r.getLiteral()=="f3"?r.getPosicion():0;
+		posTl [5][5]= r.getLiteral()=="f7"?r.getPosicion():0;
+		posTl [6][5]= r.getLiteral()=="f4"?r.getPosicion():0;
+		
 		}
 	}
+	
+    for(int i = 0; i < posTl.length; i++){
+    	for(int j = 0; j < posTl[i].length; j++){
+    		System.out.print(posTl[i][j] + " ");	// Imprime elemento
+    	}
+    	System.out.println();	// Imprime salto de línea
+    }
+	
 }
 
 
