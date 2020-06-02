@@ -85,12 +85,14 @@ public void finalizarTest(List<DimensionBateriaDto2> respuesta ) {
 	System.out.println(" cantidad de datos"+ respuesta.size());
 	
 	for (DimensionBateriaDto2 d : respuesta) {
-		System.out.println("Literal; "+d.getNombre());
+		System.out.println("Literal; "+d.getNombre());//literal
 		for (BateriaDto  r: d.getListaRespuestas()) {
 			System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion());
 		}
 	}
 }
+
+
 
 
 public void estadoActualContador(int contadorC) {
