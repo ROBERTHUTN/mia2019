@@ -55,7 +55,7 @@ System.out.println(""+listapreguntas.size());
 System.out.println(""+listarespuestas.size());
 	if(listapreguntas.size()==0 && listarespuestas.size()==7) {
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
-	//finalizarTest(listaDimensionRespuesta);
+	finalizarTest(listaDimensionRespuesta);
 	contador++;
 	estadoActualContador(contador);
 	dimensionActDto=new DimensionBateriaDto2();
@@ -80,6 +80,10 @@ System.out.println(""+listarespuestas.size());
 	return "";
 }
 
+
+public void finalizarTest() {
+	
+}
 public void finalizarTest(List<DimensionBateriaDto2> respuesta ) {
 	
 	System.out.println(" cantidad de datos"+ respuesta.size());
