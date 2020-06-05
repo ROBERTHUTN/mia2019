@@ -32,9 +32,9 @@ public class BeanCurso implements Serializable {
 	private Curso curso = new Curso();
 	private Curso cursoE;
 	private Modulo modulo = new Modulo();
-	private Modulo moduloE;
+	private Modulo moduloE= new Modulo();
 	private CursoModulo cursomodulo= new CursoModulo();
-	private CursoModulo cursomoduloE;
+	private CursoModulo cursomoduloE=new CursoModulo();
 	
 	@EJB
 	private ManagerCurso managerCurso;
@@ -87,6 +87,7 @@ System.out.println(""+listaModCur.size());
 	
 	public void actionListenerIngresarCurso() {
 		try {
+			cursomodulos= managerCurso.findAllCursoModuloes();
 			managerCurso.ingresarCurso(curso);
 	    cursos= managerCurso.findAllCursoes();
 	    JSFUtil.crearMensajeInfo("Curso creada correctamente");
@@ -177,7 +178,7 @@ System.out.println(""+listaModCur.size());
 	public void actionListenerIngresarCursoModulo() {
 		try {
 			managerCurso.ingresarCursoModulo(cursomodulo,id_modulo, id_curso, orden);
-			//cursomodulos= managerCurso.findAllCursoModuloes();
+			cursomodulos= managerCurso.findAllCursoModuloes();
 	    JSFUtil.crearMensajeInfo("CursoModulo creada correctamente");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -198,7 +199,11 @@ System.out.println(""+listaModCur.size());
 	
 	public void actionListenerCargarCursoModulo(CursoModulo moduloC) {
 		try {
-			cursomoduloE = moduloC;
+			System.out.println("ID: "+moduloC.getIdCursoModulo());
+			System.out.println("ID: "+moduloC.getIdCursoModulo());
+			cursomoduloE=moduloC ;
+			id_curso=moduloC.getCurso().getIdCurso();
+			id_modulo=moduloC.getModulo().getIdModulo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
@@ -206,7 +211,7 @@ System.out.println(""+listaModCur.size());
 	}
 	public void actionListenerEditarCursoModulo() {
 		try {
-			managerCurso.editarCursoModulo(cursomodulo);
+			managerCurso.editarCursoModulo(cursomoduloE,id_curso,id_modulo);
 			JSFUtil.crearMensajeInfo("CursoModulo editado correctamente");
 		} catch (Exception e) {
 			cursomodulos = managerCurso.findAllCursoModuloes();

@@ -230,7 +230,7 @@ public class ManagerCurso {
 	
 	
 	@SuppressWarnings("unchecked")
-	public boolean existeCursoModulo(Integer curso) {
+	public boolean existeCursoModulo(int curso) {
 		String JPQL = "SELECT c FROM CursoModulo c WHERE c.idCurso=?1";
 		Query query = em.createQuery(JPQL, CursoModulo.class);
 		query.setParameter(1, curso);
@@ -265,10 +265,10 @@ public class ManagerCurso {
 
 	}
 
-	public void editarCursoModulo(CursoModulo cursomoduloA) throws Exception {
+	public void editarCursoModulo(CursoModulo cursomoduloA,int id_curso,long id_modulo) throws Exception {
 		CursoModulo cursomoduloN = findCursoModuloById(cursomoduloA.getIdCursoModulo());
 		if (cursomoduloN == null) {
-			throw new Exception("Error al cargar el Curso y Modulo  a editar");
+			throw new Exception("Error al cargar el Curso y Módulo  a editar");
 		}
 		
 			boolean existeNombreCursoModulo = existeCursoModulo(cursomoduloA.getCurso().getIdCurso());

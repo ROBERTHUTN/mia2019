@@ -25,10 +25,8 @@
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />
 					
-				<p:menuitem value="Nuevo Religion" title="Ingresar Nuevo Religion"
+				<p:menuitem value="Nueva Religión" title="Ingresar Nueva Religion"
 					icon=" fa fa-plus " onclick="PF('nuevoReligion').show();"></p:menuitem>
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -38,6 +36,13 @@
 				</f:facet>
 			</p:menubar>
 		</h:form>
+	</div>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Religión" url="/miaWeb/faces/administrador/usuario.xhtml" />
+		</p:breadCrumb>
 	</div>
 	<p:growl>
 		<p:autoUpdate />
@@ -110,14 +115,10 @@
 									icon="fa fa-times" />
 							</p:commandButton>
 
-						<p:commandButton icon="fa fa-pencil"
-								actionListener="#{beanAdministrador.actionListenerCargarReligion(r)}"
-								onclick="PF('editarReligion').show();" title="Editar" 
-								update="form10"></p:commandButton>
-						</p:column>
+					
 
 
-
+</p:column>
 					</p:dataTable>
 				</div>
 			</h:form>
