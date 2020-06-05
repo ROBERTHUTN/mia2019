@@ -34,8 +34,6 @@
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />
 					
 				<p:menuitem value="Nuevo Religion" title="Ingresar Nuevo Religion"
 					icon=" fa fa-plus " onclick="PF('nuevoReligion').show();"></p:menuitem>
@@ -47,6 +45,13 @@
 				</f:facet>
 			</p:menubar>
 		</h:form>
+	</div>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Ficha Administrador" url="/miaWeb/faces/administrador/fichaAdministrador.xhtml" />
+		</p:breadCrumb>
 	</div>
 	<p:growl>
 		<p:autoUpdate />

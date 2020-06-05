@@ -57,7 +57,7 @@
 		appendTo="@(body)">
 		<h:form id="form1">
 			<div class="ui-fluid">
-				<p:panelGrid columns="1" layout="grid">
+				<p:panelGrid columns="2" layout="grid">
 					<p:outputLabel for="nombre" value="Nombres"></p:outputLabel>
 					<p:inputText id="nombre" validatorMessage="Nombre: ingrese solo letras!"
 						value="#{beanAdministrador.usuario.nombres}" required="true"
@@ -172,14 +172,14 @@
 						onclick="PF('editarUsuario').show();" title="Editar"
 						update="form10"></p:commandButton>
 
-					<!-- 	<p:commandButton update="@form"
+				<p:commandButton update="@form"
 						actionListener="#{beanAdministrador.actionListenerEliminarUsuario(r.idUsuario)}"
 						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
 						icon="fa fa-times">
 						<p:confirm header="Confirmación" message="Desea eliminar?"
 							icon="fa fa-times" />
 					</p:commandButton>
-				 -->
+		
 
 				</p:column>
 

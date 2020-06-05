@@ -98,16 +98,27 @@ public class BeanAdministrador implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
+			System.out.println("ENTRA");
 			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+			System.out.println("1");
 			fechaNacimiento = managerAdministrador.fechaActual();
+			System.out.println("2");
 			fechaMinimaNacimiento = managerAdministrador.fechadeNacimiento();
+			System.out.println("3");
 			roles = managerAdministrador.findAllRoles();
+			System.out.println("4");
 			etnias = managerAdministrador.findAllEtnia();
+			System.out.println("5");
 			religiones = managerAdministrador.findAllReligion();
+			System.out.println("6");
 			paises = managerAdministrador.findOnlyPais();
+			System.out.println("17");
 			usuarios = managerAdministrador.findAllUsuario();
+			System.out.println("18");
 			grados = managerUsuario.findAllGrado();
+			System.out.println("19");
 			organizaciones = managerAdministrador.findAllOrganizaciones();
+			System.out.println("20");
 			usuarioproyectos = managerAdministrador.findAllUsuarioProyectoes();
 
 		} catch (Exception e) {
@@ -162,7 +173,7 @@ public class BeanAdministrador implements Serializable {
 		try {
 			managerAdministrador.eliminarReligion(id_religion);
 			religiones = managerAdministrador.findAllReligion();
-			JSFUtil.crearMensajeInfo("ReligiÃ³n eliminado correctamente");
+			JSFUtil.crearMensajeInfo("Religión eliminado correctamente");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
@@ -297,7 +308,7 @@ public class BeanAdministrador implements Serializable {
 	public void actionListenerEditarReligion() {
 		try {
 			managerAdministrador.editarReligion(religionE);
-			JSFUtil.crearMensajeInfo("ReligiÃ³n editada correctamente");
+			JSFUtil.crearMensajeInfo("Religión editada correctamente");
 		} catch (Exception e) {
 			religiones = managerAdministrador.findAllReligion();
 			JSFUtil.crearMensajeError(e.getMessage());

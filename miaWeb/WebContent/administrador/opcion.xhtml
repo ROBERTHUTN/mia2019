@@ -28,9 +28,6 @@
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />
-
 				<p:menuitem value="Nueva Opción" title="Ingresar Nueva Opción"
 					icon=" fa fa-plus " onclick="PF('nuevaOpcion').show();"></p:menuitem>
 				<f:facet name="options">
@@ -41,6 +38,13 @@
 				</f:facet>
 			</p:menubar>
 		</h:form>
+	</div>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Opción" url="/miaWeb/faces/administrador/opcion.xhtml" />
+		</p:breadCrumb>
 	</div>
 	<p:growl>
 		<p:autoUpdate />

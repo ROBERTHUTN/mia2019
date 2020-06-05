@@ -28,8 +28,6 @@ type="preRenderView"></f:event>
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="menu?faces-redirect=true" />
 
 				<p:menuitem value="Nueva Dimension" title="Ingresar Nueva Dimension"
 					icon=" fa fa-plus " onclick="PF('nuevaDimension').show();"></p:menuitem>
@@ -41,6 +39,13 @@ type="preRenderView"></f:event>
 				</f:facet>
 			</p:menubar>
 		</h:form>
+	</div>
+		<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Dimensión" url="/miaWeb/faces/administrador/dimension.xhtml" />
+		</p:breadCrumb>
 	</div>
 	<p:growl>
 		<p:autoUpdate />
