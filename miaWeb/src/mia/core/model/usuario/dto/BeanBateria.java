@@ -55,7 +55,7 @@ System.out.println(""+listapreguntas.size());
 System.out.println(""+listarespuestas.size());
 	if(listapreguntas.size()==0 && listarespuestas.size()==7) {
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
-	finalizarTest(listaDimensionRespuesta);
+	//finalizarTest(listaDimensionRespuesta);
 	contador++;
 	estadoActualContador(contador);
 	dimensionActDto=new DimensionBateriaDto2();
@@ -93,7 +93,57 @@ public void finalizarTest(List<DimensionBateriaDto2> respuesta ) {
 		System.out.println("Literal; "+d.getNombre());//literal
 		for (BateriaDto  r: d.getListaRespuestas()) {
 			System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion()+" "+ r.getLiteral());
-		
+			
+			if(r.getLiteral()=="a7"||r.getLiteral()=="b2"||r.getLiteral()=="c1"||r.getLiteral()=="d5"||r.getLiteral()=="e1"||r.getLiteral()=="f2")
+			{
+				int o=0;
+				int []oportunista= new int[6];
+				oportunista[o]=r.getPosicion();
+				o++;
+			}
+			if(r.getLiteral()=="a5"||r.getLiteral()=="b1"||r.getLiteral()=="c3"||r.getLiteral()=="d3"||r.getLiteral()=="e4"||r.getLiteral()=="f1")
+			{
+				int o=0;
+				int []diplomatico= new int[6];
+				diplomatico[o]=r.getPosicion();
+				o++;
+			}
+			if(r.getLiteral()=="a2"||r.getLiteral()=="b7"||r.getLiteral()=="c4"||r.getLiteral()=="d1"||r.getLiteral()=="e5"||r.getLiteral()=="f5")
+			{
+				int o=0;
+				int []experto= new int[6];
+				experto[o]=r.getPosicion();
+				o++;
+			}
+			if(r.getLiteral()=="a6"||r.getLiteral()=="b4"||r.getLiteral()=="c6"||r.getLiteral()=="d4"||r.getLiteral()=="e3"||r.getLiteral()=="f6")
+			{
+				int o=0;
+				int []redefiniendo= new int[6];
+				redefiniendo[o]=r.getPosicion();
+				o++;
+			}
+			if(r.getLiteral()=="a1"||r.getLiteral()=="b6"||r.getLiteral()=="c5"||r.getLiteral()=="d6"||r.getLiteral()=="e6"||r.getLiteral()=="f3")
+			{
+				int o=0;
+				int []transformador= new int[6];
+				transformador[o]=r.getPosicion();
+				o++;
+			}
+			if(r.getLiteral()=="a3"||r.getLiteral()=="b5"||r.getLiteral()=="c7"||r.getLiteral()=="d7"||r.getLiteral()=="e7"||r.getLiteral()=="f7")
+			{
+				int o=0;
+				int []alquimico= new int[6];
+				alquimico[o]=r.getPosicion();
+				o++;
+			}
+			if(r.getLiteral()=="a4"||r.getLiteral()=="b3"||r.getLiteral()=="c2"||r.getLiteral()=="d2"||r.getLiteral()=="e2"||r.getLiteral()=="f4")
+			{
+				int o=0;
+				int []impulsivo= new int[6];
+				impulsivo[o]=r.getPosicion();
+				o++;
+			}
+		/**
 		posTl [0][0]= r.getLiteral()=="a7"?r.getPosicion():0;
 		posTl [1][0]= r.getLiteral()=="a5"?r.getPosicion():0;
 		posTl [2][0]= r.getLiteral()=="a2"?r.getPosicion():0;
@@ -141,7 +191,7 @@ public void finalizarTest(List<DimensionBateriaDto2> respuesta ) {
 		posTl [4][5]= r.getLiteral()=="f3"?r.getPosicion():0;
 		posTl [5][5]= r.getLiteral()=="f7"?r.getPosicion():0;
 		posTl [6][5]= r.getLiteral()=="f4"?r.getPosicion():0;
-		
+		*/
 		}
 	}
 	
