@@ -35,7 +35,7 @@ public class BateriaServiceDto {
 						listaPadre.add(new DimensionBateriaDto2(5, "e)	Las personas me describen", baterias,inicializarResp));
 						
 				}else {
-					listaPadre.add(new DimensionBateriaDto2(5, "f)	Visualizo el horizonte de trabajo", baterias,inicializarResp));
+					listaPadre.add(new DimensionBateriaDto2(6, "f)	Visualizo el horizonte de trabajo", baterias,inicializarResp));
 				}
 		}
 				}
