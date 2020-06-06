@@ -108,6 +108,8 @@ public class ManagerCurso {
 		if (cursoN == null) {
 			throw new Exception("Error al cargar el Curso");
 		}
+		
+		
 		if (!cursoA.getNombre().equals(cursoN.getNombre())) {
 			boolean existeNombreCurso = existeNombreCurso(cursoA.getNombre());
 			if (existeNombreCurso) {
@@ -241,17 +243,39 @@ public class ManagerCurso {
 		} else
 			return true;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public boolean existeCursoModulo(int curso, long modulo) {
+		String JPQL = "SELECT c FROM CursoModulo c WHERE c.curso.idCurso=?1 and c.modulo.idModulo=?2";
+		Query query = em.createQuery(JPQL, CursoModulo.class);
+		query.setParameter(1, curso);
+		query.setParameter(2, modulo);
+		List<CursoModulo> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
 
 	public void ingresarCursoModulo( CursoModulo curso,long id_modulo, int id_curso, int orden)throws Exception {
 		
 		if (id_modulo == 0 && id_curso == 0) {
 			throw new Exception("No ha ingresado datos para el usuario y curso.");
 		}
+		
+		boolean existeNombreCursoModulo = existeCursoModulo(curso.getCurso().getIdCurso(), curso.getModulo().getIdModulo());
+		
+		if (existeNombreCursoModulo) {
+				throw new Exception("Ya existe un Curso con el módulo asignado.");	
+		}
+		
 		/**
 		boolean existeCurso = existeCursoModulo(id_curso);
 		if (existeCurso) {
 			throw new Exception("Ya existe el Curso.");
-		}**/
+		}*/
 
 		Modulo modulo= findModuloById(id_modulo);
 		
@@ -271,11 +295,13 @@ public class ManagerCurso {
 			throw new Exception("Error al cargar el Curso y Módulo  a editar");
 		}
 		
-			boolean existeNombreCursoModulo = existeCursoModulo(cursomoduloA.getCurso().getIdCurso());
-			if (existeNombreCursoModulo) {
-				throw new Exception("Ya existe el modulo con el Curso ");
+		boolean existeNombreCursoModulo = existeCursoModulo(cursomoduloA.getCurso().getIdCurso(), cursomoduloA.getModulo().getIdModulo());
+		
+		if (existeNombreCursoModulo) {
+				throw new Exception("Ya existe un Curso con el módulo asignado.");
 			
 		}
+		
 		cursomoduloN.setCurso(cursomoduloA.getCurso());
 		cursomoduloN.setModulo(cursomoduloA.getModulo());
 		em.merge(cursomoduloN);
