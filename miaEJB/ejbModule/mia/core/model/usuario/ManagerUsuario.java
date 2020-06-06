@@ -147,9 +147,35 @@ public class ManagerUsuario {
 		} else
 			return true;
 	}
+	@SuppressWarnings("unchecked")
+	public boolean existeGradoEnFichaPersonal(int id_grado) {
+
+		String JPQL = "SELECT f FROM FichaPersonal f WHERE f.gradoEstudio.idGrado=?1";
+		Query query = em.createQuery(JPQL, FichaPersonal.class);
+		query.setParameter(1, id_grado);
+		List<FichaPersonal> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
 
 	@SuppressWarnings("unchecked")
-	public boolean existeNombreGrado(int id_grado) {
+	public boolean existeNombreGrado(String nombreGrado) {
+
+		String JPQL = "SELECT g FROM GradoEstudio g WHERE g.nombreGrado=?1";
+		Query query = em.createQuery(JPQL, GradoEstudio.class);
+		query.setParameter(1, nombreGrado);
+		List<GradoEstudio> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+	@SuppressWarnings("unchecked")
+	public boolean existeGrado(int id_grado) {
 
 		String JPQL = "SELECT g FROM GradoEstudio g WHERE g.descripcion=?1";
 		Query query = em.createQuery(JPQL, GradoEstudio.class);
@@ -331,7 +357,7 @@ public class ManagerUsuario {
 			throw new Exception("No ha ingresado datos en la ficha");
 		}
 		if (id_religion == 0) {
-			throw new Exception("Error al seleccionar la religiï¿½n");
+			throw new Exception("Error al seleccionar la religión");
 		}
 		if (id_etnia == 0) {
 			throw new Exception("Error al seleccionar la etnia");
@@ -448,7 +474,7 @@ public class ManagerUsuario {
 			throw new Exception("Error al cargar el grado");
 		}
 		if (!gradoA.getNombreGrado().equals(gradoN.getNombreGrado())) {
-			boolean existeNombreGrado = existeNombreGrado(gradoA.getIdGrado());
+			boolean existeNombreGrado = existeNombreGrado(gradoA.getNombreGrado());
 			if (existeNombreGrado) {
 				throw new Exception("Ya existe el grado con el nombre " + gradoA.getNombreGrado());
 			}
@@ -461,12 +487,12 @@ public class ManagerUsuario {
 	public void editarReligion(Religion relA) throws Exception {
 		Religion relN = findReligionById(relA.getIdReligion());
 		if (relN == null) {
-			throw new Exception("Error al cargar la religiï¿½n");
+			throw new Exception("Error al cargar la religión");
 		}
 		if (!relA.getDescripcion().equals(relN.getDescripcion())) {
 			boolean existeNombreReligion = existeNombreReligion(relA.getDescripcion());
 			if (existeNombreReligion) {
-				throw new Exception("Ya existe la religiÃ³n con el nombre " + relA.getDescripcion());
+				throw new Exception("Ya existe la religión con el nombre " + relA.getDescripcion());
 			}
 		}
 
@@ -509,7 +535,7 @@ public class ManagerUsuario {
 		}
 		boolean existeRolUsuario = existeRolenUsuario(id_rol);
 		if (existeRolUsuario) {
-			throw new Exception("El rol estï¿½ siendo utilizada en la tabla usuario");
+			throw new Exception("El rol está siendo utilizada en la tabla usuario");
 		}
 		em.remove(rolN);
 	}
@@ -519,21 +545,23 @@ public class ManagerUsuario {
 		if (gradoN == null) {
 			throw new Exception("Error al cargar el grado");
 		}
-		boolean existeGrado = existeNombreGrado(id_grado);
-		if (existeGrado) {
-			throw new Exception("El grado estï¿½ siendo utilizada por un usuario.");
-		}
+		boolean gradoEnFichaP=existeGradoEnFichaPersonal(id_grado);
+	if (gradoEnFichaP) {
+		throw new Exception("El grado no puede ser eliminado está siendo utilizado en la ficha personal no puede ser eliminado. !");
+	}else{
+	
 		em.remove(gradoN);
+	}
 	}
 
 	public void eliminarReligion(int id_religion) throws Exception {
 		Religion reliN = findReligionById(id_religion);
 		if (reliN == null) {
-			throw new Exception("Error al cargar la religiÃ³n");
+			throw new Exception("Error al cargar la religión");
 		}
 		boolean existeReligionFicha = existeReligionenFichaRegistro(id_religion);
 		if (existeReligionFicha) {
-			throw new Exception("La religiÃ³n estÃ¡ siendo utilizada en la tabla ficha de registro");
+			throw new Exception("La religión está siendo utilizada en la tabla ficha de registro");
 		}
 		em.remove(reliN);
 	}

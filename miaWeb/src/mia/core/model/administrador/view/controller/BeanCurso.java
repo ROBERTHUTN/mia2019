@@ -118,7 +118,7 @@ System.out.println(""+listaModCur.size());
 	}
 	public void actionListenerEditarCurso() {
 		try {
-			managerCurso.editarCurso(curso);
+			managerCurso.editarCurso(cursoE);
 			JSFUtil.crearMensajeInfo("Curso editado correctamente");
 		} catch (Exception e) {
 			cursos = managerCurso.findAllCursoes();
@@ -162,7 +162,7 @@ System.out.println(""+listaModCur.size());
 	}
 	public void actionListenerEditarModulo() {
 		try {
-			managerCurso.editarModulo(modulo);
+			managerCurso.editarModulo(moduloE);
 			JSFUtil.crearMensajeInfo("Modulo editado correctamente");
 		} catch (Exception e) {
 			modulos = managerCurso.findAllModuloes();
@@ -177,7 +177,7 @@ System.out.println(""+listaModCur.size());
 	
 	public void actionListenerIngresarCursoModulo() {
 		try {
-			managerCurso.ingresarCursoModulo(cursomodulo,id_modulo, id_curso, orden);
+			managerCurso.ingresarCursoModulo(id_modulo, id_curso, orden);
 			cursomodulos= managerCurso.findAllCursoModuloes();
 	    JSFUtil.crearMensajeInfo("CursoModulo creada correctamente");
 		} catch (Exception e) {

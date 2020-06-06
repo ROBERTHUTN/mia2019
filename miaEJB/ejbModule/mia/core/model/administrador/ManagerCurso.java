@@ -259,13 +259,13 @@ public class ManagerCurso {
 			return true;
 	}
 
-	public void ingresarCursoModulo( CursoModulo curso,long id_modulo, int id_curso, int orden)throws Exception {
+	public void ingresarCursoModulo( long id_modulo, int id_curso, int orden)throws Exception {
 		
 		if (id_modulo == 0 && id_curso == 0) {
 			throw new Exception("No ha ingresado datos para el usuario y curso.");
 		}
 		
-		boolean existeNombreCursoModulo = existeCursoModulo(curso.getCurso().getIdCurso(), curso.getModulo().getIdModulo());
+		boolean existeNombreCursoModulo = existeCursoModulo(id_curso,id_modulo);
 		
 		if (existeNombreCursoModulo) {
 				throw new Exception("Ya existe un Curso con el módulo asignado.");	
@@ -281,7 +281,6 @@ public class ManagerCurso {
 		
 		Curso curso_id=findCursoById(id_curso);
 		CursoModulo ncursomodulo = new CursoModulo();
-		ncursomodulo.setOrdenCurso(curso.getOrdenCurso());
 		ncursomodulo.setCurso(curso_id);
 		ncursomodulo.setModulo(modulo);
 		ncursomodulo.setOrdenCurso(orden);

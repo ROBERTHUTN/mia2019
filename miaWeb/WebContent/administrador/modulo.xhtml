@@ -81,10 +81,10 @@
 					<p:message for="enlace"></p:message>
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
-					<p:commandButton ajax="true" validateClient="true" value="INGRESAR" icon="fa fa-arrow-circle-right"
+					<p:commandButton  validateClient="true" value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						actionListener="#{beanCurso.actionListenerIngresarModulo()}"
-						oncomplete="nuevoModulo" update="form2" >
+						oncomplete="nuevoModulo" update="form2" ajax="false" >
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
@@ -129,7 +129,7 @@
 								update="form10"></p:commandButton>
 								
 							<p:commandButton update="@form"
-							actionListener="#{beanCurso.actionListenerEliminarModulo( r.idModulo)}"
+							actionListener="#{beanCurso.actionListenerEliminarModulo(r.idModulo)}"
 								style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
 								icon="fa fa-times">
 								<p:confirm header="Confirmación" message="Desea eliminar?"
@@ -144,7 +144,7 @@
 					</p:dataTable>
 				</div>
 			</h:form>
-	<p:dialog header="Editar curso" widgetVar="editarModulo"
+	<p:dialog header="Editar módulo" widgetVar="editarModulo"
 		id="editarModulo" modal="true" height="330" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
@@ -168,13 +168,13 @@
 						requiredMessage="Ingrese la descripción del curso" maxlength="500">
 					</p:inputTextarea>					
 
-					<p:outputLabel value="Número Módulos:" />
-					<p:spinner value="#{beanCurso.moduloE.direccion}" required="true"> </p:spinner>
+					<p:outputLabel value="Enlace:" />
+					<p:inputText value="#{beanCurso.moduloE.direccion}" required="true" maxlength="299"> </p:inputText>
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
-						actionListener="#{beanCurso.actionListenerEditarCurso()}"
+						actionListener="#{beanCurso.actionListenerEditarModulo()}"
 						oncomplete="nuevoModulo" update="@form" ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
