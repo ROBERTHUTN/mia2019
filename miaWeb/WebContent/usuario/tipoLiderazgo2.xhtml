@@ -38,8 +38,21 @@
 		<p:autoUpdate />
 	</p:growl>
 	<div class="ui-fluid">
-		<h:form id="form1">
-			<p:repeat var="a"
+	<h:form  id="form1">
+	<p:spacer></p:spacer>
+	
+	<p:panel rendered="#{!beanBateria.iniciarTest}">
+        <p:panelGrid  columns="2" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+        <h:outputText value="jssjsjsjsjs" />
+          <h:outputText
+                        value="El cuestionario consta de 16 ítems, con una escala de 5 alternativas de respuestas para cada uno. La escala está confeccionada teniendo en cuenta la frecuencia de aparición de la propuesta en cada sujeto (siempre, casi siempre, frecuentemente, casi nunca, nunca)." />
+              
+     </p:panelGrid>
+     <center> <p:commandButton value="Iniciar Test" actionListener="#{beanBateria.iniciarCuestionario()}" update="@form"></p:commandButton></center>
+     </p:panel>
+
+		
+			<p:repeat var="a" rendered="#{beanBateria.iniciarTest}"
 				value="#{beanBateria.listaDimensionRespuestaActual}"
 				emptyMessage="No se han cargado las preguntas"
 				>
@@ -48,7 +61,7 @@
 					<p:panel header="Teniendo en cuenta que 1 es siempre y 7 nunca. arrastre la opción a donde dice arrastre aquí." >
 						<br></br>
 
-						<form>
+						
 							
 							<p:fieldset id="preguntasField" legend="#{a.nombre	}">
 								<p:dataGrid id="preguntas" var="car"
@@ -71,7 +84,7 @@
         <p:outputPanel id="dropArea">
             <h:outputText value="!!!Arrastre aquí!!!" rendered="#{empty a.listaRespuestas}" style="font-size:24px;" />
             <p:dataTable id="selectedCarsTable" var="r" value="#{a.listaRespuestas}" rendered="#{not empty a.listaRespuestas}">
-                <p:column headerText="Calificacion" width="15">
+                <p:column headerText="Calificacion" width="75">
                     <h:outputText value="#{r.posicion}" />
                 </p:column>
  
@@ -79,7 +92,7 @@
                     <h:outputText value="#{r.pregunta}" />
                 </p:column>
  
-                <p:column headerText="Literal">
+                <p:column headerText="Literal" width="75">
                     <h:outputText value="#{r.literal}" />
                 </p:column>
  
@@ -118,14 +131,15 @@
 
 							</p:panelGrid>
 							<p:commandButton value="Finalizar Test"
-								rendered="#{beanBateria.finalizarTest()}"
+								rendered="#{beanBateria.finalizarTest}" actionListener="#{beanBateria.finalizarTest()}"
 								style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
 								update="form1" />
-						</form>
+						
 					</p:panel>
 				</p:column>
 		</p:repeat>
-		</h:form>
+		     </h:form>
+
 	</div>
 
 </body>

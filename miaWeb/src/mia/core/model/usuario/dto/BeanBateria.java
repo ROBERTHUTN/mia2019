@@ -27,6 +27,7 @@ private boolean atras;
 private boolean adelante;	
 private boolean finalizarTest;
 private int contador;
+private boolean iniciarTest;
 int cont=1;
 	@EJB
 	BateriaServiceDto managerBateria;
@@ -35,7 +36,10 @@ private String tlCentroGravedad;
 private String tlLogicaEmergente;
 private String tlLogicaretroceso;
 
-	
+	public void iniciarCuestionario() {
+		iniciarTest=true;
+		System.out.println(""+iniciarTest);
+	}
 	
 public void atras() {
 	//listaDimensionRespuesta
@@ -56,7 +60,7 @@ System.out.println(""+listapreguntas.size());
 System.out.println(""+listarespuestas.size());
 	if(listapreguntas.size()==0 && listarespuestas.size()==7) {
 	listaDimensionRespuesta.set(contador, listaDimensionRespuestaActual.get(0));
-	//finalizarTest(listaDimensionRespuesta);
+	
 	contador++;
 	estadoActualContador(contador);
 	dimensionActDto=new DimensionBateriaDto2();
@@ -70,7 +74,7 @@ System.out.println(""+listarespuestas.size());
 	}
 	listaDimensionRespuestaActual=new ArrayList<>();
 	listaDimensionRespuestaActual.add(dimensionActDto);
-	//finalizarTest(listaDimensionRespuestaActual);
+	
 	}else {
 		JSFUtil.crearMensajeError("Conteste todas las preguntas");
 	}
@@ -83,8 +87,8 @@ System.out.println(""+listarespuestas.size());
 
 
 
-public void finalizarTest( ) {
-	
+public void finalizarTest() {
+
 	//System.out.println(" cantidad de datos"+ respuesta.size());
 	
 
@@ -98,7 +102,7 @@ public void finalizarTest( ) {
 	
 	
 	
-	for (DimensionBateriaDto2 d : listaDimensionRespuestaActual) {
+	for (DimensionBateriaDto2 d : listaDimensionRespuesta) {
 		System.out.println("Literal; "+d.getNombre());//literal
 		for (BateriaDto  r: d.getListaRespuestas()) {
 			System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion()+" "+ r.getLiteral());
@@ -152,6 +156,7 @@ public void finalizarTest( ) {
 	for (int i : impulsivo) {
 		System.out.println("Variables Impul"+impulsivo[i]);
 	}
+	
 }
 
 
@@ -204,7 +209,6 @@ public void onCarDrop(DragDropEvent event) {
 	listapreguntas.remove(bat);
 	listaDimensionRespuestaActual.get(0).setListaPreguntas(listapreguntas);
 	listaDimensionRespuestaActual.get(0).setListaRespuestas(listarespuestas);
-	//finalizarTest(listaDimensionRespuestaActual);
 } catch (Exception e) {
 JSFUtil.crearMensajeError(e.getMessage());
 
@@ -212,6 +216,7 @@ JSFUtil.crearMensajeError(e.getMessage());
 }
 public String PreguntasByDimension() {
 	try {
+		iniciarTest=false;
 		listaDimensionRespuesta=managerBateria.inicializarPreguntasPadres();
 		listaDimensionRespuestaActual=new ArrayList<DimensionBateriaDto2>();
 		listaDimensionRespuestaActual.add(listaDimensionRespuesta.get(0));
@@ -309,6 +314,12 @@ public String PreguntasByDimension() {
 
 	public void setListaDimensionRespuestaActual(List<DimensionBateriaDto2> listaDimensionRespuestaActual) {
 		this.listaDimensionRespuestaActual = listaDimensionRespuestaActual;
+	}
+	public boolean isIniciarTest() {
+		return iniciarTest;
+	}
+	public void setIniciarTest(boolean iniciarTest) {
+		this.iniciarTest = iniciarTest;
 	}
 	
 	
