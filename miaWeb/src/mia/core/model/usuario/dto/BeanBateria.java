@@ -100,66 +100,81 @@ public void finalizarTest() {
 	int []alquimico= new int[6];
 	int []impulsivo= new int[6];
 	
-	
+	int o=0, di=0,e=0,re=0,t=0,a=0,i=0;
 	
 	for (DimensionBateriaDto2 d : listaDimensionRespuesta) {
 		System.out.println("Literal; "+d.getNombre());//literal
 		for (BateriaDto  r: d.getListaRespuestas()) {
-			System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion()+" "+ r.getLiteral());
+		//	System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion; "+r.getPosicion()+" "+ r.getLiteral());
 			
 			if(r.getLiteral()=="a7"||r.getLiteral()=="b2"||r.getLiteral()=="c1"||r.getLiteral()=="d5"||r.getLiteral()=="e1"||r.getLiteral()=="f2")
 			{
-				int o=0;
+				
 				oportunista[o]=r.getPosicion();
 				o++;
-			}
+				System.out.println("entra"+o);
+				
+			
+				
+			}else{
 			if(r.getLiteral()=="a5"||r.getLiteral()=="b1"||r.getLiteral()=="c3"||r.getLiteral()=="d3"||r.getLiteral()=="e4"||r.getLiteral()=="f1")
 			{
-				int o=0;
-				diplomatico[o]=r.getPosicion();
-				o++;
-			}
+				
+				diplomatico[di]=r.getPosicion();
+				di++;
+				continue;
+			}else {
 			if(r.getLiteral()=="a2"||r.getLiteral()=="b7"||r.getLiteral()=="c4"||r.getLiteral()=="d1"||r.getLiteral()=="e5"||r.getLiteral()=="f5")
 			{
-				int o=0;
-				experto[o]=r.getPosicion();
-				o++;
-			}
+				experto[e]=r.getPosicion();
+				e++;
+				continue;
+			}else {
 			if(r.getLiteral()=="a6"||r.getLiteral()=="b4"||r.getLiteral()=="c6"||r.getLiteral()=="d4"||r.getLiteral()=="e3"||r.getLiteral()=="f6")
 			{
-				int o=0;
-				redefiniendo[o]=r.getPosicion();
-				o++;
-			}
+				redefiniendo[re]=r.getPosicion();
+				re++;
+				continue;
+			}else {
 			if(r.getLiteral()=="a1"||r.getLiteral()=="b6"||r.getLiteral()=="c5"||r.getLiteral()=="d6"||r.getLiteral()=="e6"||r.getLiteral()=="f3")
 			{
-				int o=0;
-				transformador[o]=r.getPosicion();
-				o++;
-			}
+				
+				transformador[t]=r.getPosicion();
+				t++;
+				continue;
+			}else {
 			if(r.getLiteral()=="a3"||r.getLiteral()=="b5"||r.getLiteral()=="c7"||r.getLiteral()=="d7"||r.getLiteral()=="e7"||r.getLiteral()=="f7")
 			{
-				int o=0;
-				alquimico[o]=r.getPosicion();
-				o++;
+				
+				alquimico[a]=r.getPosicion();
+				a++;
+				continue;
+			}else {
+				//a4, b3, c2,d2,e2,f4
+				impulsivo[i]=r.getPosicion();
+				System.out.println("impulsivo[i] "+i+" valor; "+r.getPosicion());
+				i++;
 			}
-			if(r.getLiteral()=="a4"||r.getLiteral()=="b3"||r.getLiteral()=="c2"||r.getLiteral()=="d2"||r.getLiteral()=="e2"||r.getLiteral()=="f4")
-			{
-				int o=0;
-				impulsivo[o]=r.getPosicion();
-				o++;
 			}
+			}
+			}
+			}
+		}
 			
 		}
 	}
 	
-	for (int i : impulsivo) {
-		System.out.println("Variables Impul"+impulsivo[i]);
-	}
+for (int j = 0; j < impulsivo.length; j++) {
+	System.out.println("posV; "+j+"cali;"+impulsivo[j]);
+
+}
 	
 }
 
-
+public void TipoLiderazgo(int[] oportunista ,int[] diplomatico, int[] experto, int[] redefiniendo,int[] transformador,int[]  alquimista, int[] impulsivo ) {
+	
+	
+}
 
 
 public void estadoActualContador(int contadorC) {
