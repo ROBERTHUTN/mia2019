@@ -134,7 +134,13 @@
 
 	<h:form id="form2">
 		<div class="ui-fluid">
-
+<h:form>
+	<div align="right">
+	<br/>
+	
+		<p:commandButton value="Reporte" icon="pi pi-print" ajax="false" action="#{beanAdministrador.actionReporte()}"/>
+	</div>
+</h:form>
 			<p:dataTable var="r" widgetVar="tabla1"
 				value="#{beanAdministrador.usuarios}" reflow="true" rows="10"
 				paginator="true"
