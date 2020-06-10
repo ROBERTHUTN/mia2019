@@ -118,35 +118,35 @@ public class BateriaServiceDto {
 		}else {
 			if(posicion==4){
 				listaPreguntas.add(new BateriaDto("Colaborativo",
-						"d1", 0, "d"));
+						"e1", 0, "e"));
 				listaPreguntas.add(new BateriaDto("Impulsivo y dominante",
-						"d2", 0, "d"));
+						"e2", 0, "e"));
 				listaPreguntas.add(new BateriaDto("Con humor hostil y  manipulador ",
-						"d3", 0, "d"));
+						"e3", 0, "e"));
 				listaPreguntas.add(new BateriaDto("Pacificador de conflictos tanto internos como externos",
-						"d4", 0, "d"));
+						"e4", 0, "e"));
 				listaPreguntas.add(new BateriaDto("Perfeccionista",
-						"d5", 0, "d"));
+						"e5", 0, "e"));
 				listaPreguntas.add(new BateriaDto("Consciente de mis virtudes y defectos",
-						"d6", 0, "d"));
+						"e6", 0, "e"));
 				listaPreguntas.add(new BateriaDto("Analítico, metafórico ",
-						"d7", 0, "d"));	
+						"e7", 0, "e"));	
 				return listaPreguntas;
 		}else {
-			listaPreguntas.add(new BateriaDto("Colaborativo",
-					"e1", 0, "e"));
-			listaPreguntas.add(new BateriaDto("Impulsivo y dominante",
-					"e2", 0, "e"));
-			listaPreguntas.add(new BateriaDto("Con humor hostil y  manipulador ",
-					"e3", 0, "e"));
-			listaPreguntas.add(new BateriaDto("Pacificador de conflictos tanto internos como externos",
-					"e4", 0, "e"));
-			listaPreguntas.add(new BateriaDto("Perfeccionista",
-					"e5", 0, "e"));
-			listaPreguntas.add(new BateriaDto("Consciente de mis virtudes y defectos",
-					"e6", 0, "e"));
-			listaPreguntas.add(new BateriaDto("Analítico, metafórico ",
-					"e7", 0, "e"));	
+			listaPreguntas.add(new BateriaDto("Según el contexto actual y su  historia.",
+					"f1", 0, "f"));
+			listaPreguntas.add(new BateriaDto("Valorando la inmediatez",
+					"f2", 0, "f"));
+			listaPreguntas.add(new BateriaDto("De manera temporal estratégica",
+					"f3", 0, "f"));
+			listaPreguntas.add(new BateriaDto("Sin planificación ",
+					"f4", 0, "f"));
+			listaPreguntas.add(new BateriaDto("Según el contexto y la contingencia.",
+					"f5", 0, "f"));
+			listaPreguntas.add(new BateriaDto("Por el momento histórico particular.",
+					"f6", 0, "f"));
+			listaPreguntas.add(new BateriaDto("Y al  tiempo y los acontecimientos como algo simbólico. ",
+					"f7", 0, "f"));	
 		}
 			
 		}
