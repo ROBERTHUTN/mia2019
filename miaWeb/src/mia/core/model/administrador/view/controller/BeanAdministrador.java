@@ -2,9 +2,12 @@ package mia.core.model.administrador.view.controller;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.entities.AreaInvestigacion;
 import mia.core.model.entities.Etnia;
@@ -17,14 +20,20 @@ import mia.core.model.entities.Rol;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioProyecto;
 import mia.core.model.login.view.controller.BeanLogin;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import mia.core.model.usuario.ManagerUsuario;
 import mia.modulos.view.util.JSFUtil;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.List;
-
+import java.util.HashMap;
 @Named
 @ViewScoped
 public class BeanAdministrador implements Serializable {
@@ -115,7 +124,6 @@ public class BeanAdministrador implements Serializable {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
-
 	public void actionListenerIngresarReligion() {
 		try {
 			managerAdministrador.ingresarReligion(religion);
@@ -445,7 +453,33 @@ public class BeanAdministrador implements Serializable {
 		}
 
 	}
-
+	public String actionReporte(){
+		Map<String,Object> parametros=new HashMap<String,Object>();
+		/*parametros.put("p_titulo_principal",p_titulo_principal);
+		parametros.put("p_titulo",p_titulo);*/
+		FacesContext context=FacesContext.getCurrentInstance();
+		ServletContext servletContext=(ServletContext)context.getExternalContext().getContext();
+		String ruta=servletContext.getRealPath("administrador/reporte/miaDS.jasper");
+		System.out.println(ruta);
+		HttpServletResponse response=(HttpServletResponse)context.getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment;filename=miaDS.pdf");
+		response.setContentType("application/pdf");
+		try {
+		Class.forName("org.postgresql.Driver");
+		Connection connection = null;
+		connection = DriverManager.getConnection(
+		 "jdbc:postgresql://localhost:5432/mia","postgres", "Dosmenosuno0");
+		JasperPrint impresion=JasperFillManager.fillReport(ruta, parametros,connection);
+		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+		context.getApplication().getStateManager().saveView(context);
+		System.out.println("reporte generado.");
+		context.responseComplete();
+		} catch (Exception e) {
+		JSFUtil.crearMensajeError(e.getMessage());
+		e.printStackTrace();
+		}
+		return "";
+		}
 	public void actionListenerCargarUsuarioProyecto(UsuarioProyecto usuarioproyectoC) {
 		try {
 			usuarioproyectoE = usuarioproyectoC;

@@ -133,8 +133,18 @@
 
 
 	<h:form id="form2">
-		<div class="ui-fluid">
+		
+<div id="contenido" class="container-fluid col-lg-11" style="margin-top: 30px; ">		
+<h:form>
+	<div align="right">
+	<br/>
 
+		<p:commandButton value="Reporte" icon="pi pi-print" ajax="false" action="#{beanAdministrador.actionReporte()}" style="background-color:gray ; border: #CAE1E8;"/>
+
+	<p:spacer></p:spacer>
+	</div>
+</h:form>
+</div>
 			<p:dataTable var="r" widgetVar="tabla1"
 				value="#{beanAdministrador.usuarios}" reflow="true" rows="10"
 				paginator="true"
@@ -186,7 +196,7 @@
 
 
 			</p:dataTable>
-		</div>
+	
 	</h:form>
 	
 	<p:dialog header="Editar rol" widgetVar="editarUsuario"

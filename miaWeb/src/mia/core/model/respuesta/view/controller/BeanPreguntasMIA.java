@@ -3,9 +3,6 @@ package mia.core.model.respuesta.view.controller;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.apache.commons.collections.map.StaticBucketMap;
-
-import java.awt.List;
 import java.io.Serializable;
 
 @Named
