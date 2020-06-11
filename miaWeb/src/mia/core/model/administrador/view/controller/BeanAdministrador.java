@@ -468,7 +468,7 @@ public class BeanAdministrador implements Serializable {
 		Class.forName("org.postgresql.Driver");
 		Connection connection = null;
 		connection = DriverManager.getConnection(
-		 "jdbc:postgresql://localhost:5432/mia","postgres", "Dosmenosuno0");
+		 "jdbc:postgresql://localhost:5432/mia","postgres", "root");
 		JasperPrint impresion=JasperFillManager.fillReport(ruta, parametros,connection);
 		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
 		context.getApplication().getStateManager().saveView(context);

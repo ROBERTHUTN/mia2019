@@ -18,7 +18,7 @@ public class BateriaDto {
 	public void setPregunta(String pregunta) {
 		this.pregunta = pregunta;
 	}
-	public String getLiteral() {
+	public String getLiteral() { 
 		return literal;
 	}
 	public void setLiteral(String literal) {
