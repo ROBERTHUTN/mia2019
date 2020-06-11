@@ -91,16 +91,16 @@ order by r.id_rol]]>
 				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="53843014-cb7f-4232-a7ed-f328517c4aeb"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="80e95792-d7c6-4264-b85b-64a0a7b40696">
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="80e95792-d7c6-4264-b85b-64a0a7b40696">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8aff82d-74fb-4d72-a651-0036d8f67b6d"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[id_usuario]]></text>
+				<text><![CDATA[Id usuario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ae47adc6-a72a-4f6a-8601-b769aa4e6b89">
+				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ae47adc6-a72a-4f6a-8601-b769aa4e6b89">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b1b02e3-c4d0-4eba-9173-2035d4e57564"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -109,7 +109,7 @@ order by r.id_rol]]>
 				<text><![CDATA[Nombres]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="31119a2f-5ccf-4768-a21d-19e7b285aa3e">
+				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="31119a2f-5ccf-4768-a21d-19e7b285aa3e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="696fe61b-3544-48d5-80ef-45c66ec81af5"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -118,7 +118,7 @@ order by r.id_rol]]>
 				<text><![CDATA[Apellidos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ee7d64a6-e9d1-492f-9cc1-876ed07ef57e">
+				<reportElement mode="Opaque" x="333" y="1" width="222" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ee7d64a6-e9d1-492f-9cc1-876ed07ef57e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="91b16a63-41b1-4d7b-89b6-6920bb8b83b7"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -134,7 +134,7 @@ order by r.id_rol]]>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="cba2fef1-14d1-4218-8f17-bce825fa071c"/>
 			</line>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="222" y="0" width="111" height="20" uuid="c67d3d4b-fd02-415e-8178-e0117f9146b5">
+				<reportElement x="110" y="2" width="111" height="20" uuid="c67d3d4b-fd02-415e-8178-e0117f9146b5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b1b02e3-c4d0-4eba-9173-2035d4e57564"/>
 				</reportElement>
 				<textElement>
@@ -143,7 +143,7 @@ order by r.id_rol]]>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="333" y="0" width="111" height="20" uuid="70760980-5e1e-48ea-b5c6-1331bc80f049">
+				<reportElement x="222" y="2" width="111" height="20" uuid="70760980-5e1e-48ea-b5c6-1331bc80f049">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="696fe61b-3544-48d5-80ef-45c66ec81af5"/>
 				</reportElement>
 				<textElement>
@@ -152,7 +152,7 @@ order by r.id_rol]]>
 				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="444" y="0" width="111" height="20" uuid="482ffa5b-ed25-45f5-a0de-b281c1b31b34">
+				<reportElement x="333" y="-1" width="222" height="20" uuid="482ffa5b-ed25-45f5-a0de-b281c1b31b34">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="91b16a63-41b1-4d7b-89b6-6920bb8b83b7"/>
 				</reportElement>
 				<textElement>
@@ -161,7 +161,7 @@ order by r.id_rol]]>
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="120" y="4" width="111" height="20" uuid="8fc40e82-01b0-41f5-b09c-a05dde1a1cfb">
+				<reportElement x="0" y="0" width="111" height="20" uuid="8fc40e82-01b0-41f5-b09c-a05dde1a1cfb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8aff82d-74fb-4d72-a651-0036d8f67b6d"/>
 				</reportElement>
 				<textElement>
