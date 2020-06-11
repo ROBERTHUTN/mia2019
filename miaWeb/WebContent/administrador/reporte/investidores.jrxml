@@ -38,18 +38,11 @@ order by r.id_rol]]>
 		<groupExpression><![CDATA[$F{id_rol}]]></groupExpression>
 		<groupHeader>
 			<band height="37">
-				<textField>
-					<reportElement mode="Opaque" x="10" y="0" width="110" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="2ac98f6f-549f-4f7a-b496-1e777665b502"/>
-					<textElement>
-						<font size="24" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{id_rol}]]></textFieldExpression>
-				</textField>
 				<line>
 					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="97479b12-ce1d-4101-a6b2-594fd3180914"/>
 				</line>
 				<textField>
-					<reportElement mode="Opaque" x="122" y="0" width="322" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="3a14ee6a-5a47-4392-ad1c-9a103d833d1f"/>
+					<reportElement mode="Opaque" x="111" y="0" width="444" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="3a14ee6a-5a47-4392-ad1c-9a103d833d1f"/>
 					<textElement>
 						<font size="24" isBold="true"/>
 					</textElement>
@@ -69,19 +62,23 @@ order by r.id_rol]]>
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="0fb5b903-c9bc-4b68-a8b8-547ed0ccd3bc"/>
 				<staticText>
-					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="cc98392c-cb8a-440b-b1cf-fa2e0861f051"/>
+					<reportElement x="221" y="7" width="319" height="43" forecolor="#FFFFFF" uuid="cc98392c-cb8a-440b-b1cf-fa2e0861f051"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[TITLE]]></text>
+					<text><![CDATA[MIAInstitute]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="872a5e78-ac95-4a75-a928-fd8b0ed03f27"/>
+					<reportElement x="150" y="50" width="344" height="49" forecolor="#FFFFFF" uuid="872a5e78-ac95-4a75-a928-fd8b0ed03f27"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Add a description here]]></text>
+					<text><![CDATA[La metodología MIA afecta los modelos mentales y facilita la creación de una organizaciones inteligentes.]]></text>
 				</staticText>
+				<image>
+					<reportElement x="9" y="4" width="91" height="82" uuid="d43a614b-b064-430f-9bb2-811920fe1a99"/>
+					<imageExpression><![CDATA["C:/Users/empin/git/mia2019/miaWeb/WebContent/administrador/images/logoMIA.png"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>
@@ -109,7 +106,7 @@ order by r.id_rol]]>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[nombres]]></text>
+				<text><![CDATA[Nombres]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="31119a2f-5ccf-4768-a21d-19e7b285aa3e">
@@ -118,7 +115,7 @@ order by r.id_rol]]>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[apellidos]]></text>
+				<text><![CDATA[Apellidos]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ee7d64a6-e9d1-492f-9cc1-876ed07ef57e">
@@ -127,7 +124,7 @@ order by r.id_rol]]>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[correo]]></text>
+				<text><![CDATA[Correo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -178,7 +175,7 @@ order by r.id_rol]]>
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="17">
+		<band height="50">
 			<textField>
 				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="311072b0-2214-47e2-b596-90f0a8975ce5"/>
 				<textElement textAlignment="Right"/>
@@ -192,6 +189,11 @@ order by r.id_rol]]>
 				<reportElement x="0" y="4" width="100" height="13" uuid="1b3e3585-b9a8-4930-867d-aed9b0579a95"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="112" y="7" width="240" height="43" uuid="80a49e02-4433-4354-9525-9b6ed1739217"/>
+				<text><![CDATA[Twitter: Mia_ecuador , Facebook: MIA Ecuador,  Whatssap: +593981685417
+Gmail: miaecuador2017@gmail.com]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

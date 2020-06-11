@@ -480,6 +480,36 @@ public class BeanAdministrador implements Serializable {
 		}
 		return "";
 		}
+	
+	public String actionReporteInvestigacion(){
+		Map<String,Object> parametros=new HashMap<String,Object>();
+		/*parametros.put("p_titulo_principal",p_titulo_principal);
+		parametros.put("p_titulo",p_titulo);*/
+		FacesContext context=FacesContext.getCurrentInstance();
+		ServletContext servletContext=(ServletContext)context.getExternalContext().getContext();
+		String ruta=servletContext.getRealPath("administrador/reporte/investidores.jasper");
+		System.out.println(ruta);
+		HttpServletResponse response=(HttpServletResponse)context.getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment;filename=Lista_Investigadores.pdf");
+		response.setContentType("application/pdf");
+		try {
+		Class.forName("org.postgresql.Driver");
+		Connection connection = null;
+		connection = DriverManager.getConnection(
+		 "jdbc:postgresql://localhost:5432/mia","postgres", "root");
+		JasperPrint impresion=JasperFillManager.fillReport(ruta, parametros,connection);
+		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+		context.getApplication().getStateManager().saveView(context);
+		System.out.println("reporte generado.");
+		context.responseComplete();
+		} catch (Exception e) {
+		JSFUtil.crearMensajeError(e.getMessage());
+		e.printStackTrace();
+		}
+		return "";
+		}
+	
+	
 	public void actionListenerCargarUsuarioProyecto(UsuarioProyecto usuarioproyectoC) {
 		try {
 			usuarioproyectoE = usuarioproyectoC;
