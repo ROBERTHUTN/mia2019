@@ -186,11 +186,11 @@
 
 
 					<p:outputLabel value="Fecha Nacimiento: " />
-					<p:calendar id="fechaNacimiento" required="true" requiredMessage="Ingrese la fecha de naciemiento"
+					
+						<p:datePicker id="fechaNacimiento"  yearNavigator="true" yearRange="#{beanUsuario.fechaRango}" 
+						monthNavigator="true" showIcon="true" required="true" requiredMessage="Ingrese la fecha de naciemiento"
 						value="#{beanUsuario.fichaPersonalE.fechaNacimiento}"
-						maxdate="#{beanUsuario.fechaNacimiento}"
-						pattern="yyyy-MMM-dd" />
-						<p:datePicker yearNavigator="true" yearRange="1900:2000" monthNavigator="true" showIcon="true"></p:datePicker>
+						maxdate="#{beanUsuario.fechaNacimiento}"></p:datePicker>
 						<p:message for="fechaNacimiento"></p:message>
 					<p:outputLabel value="Teléfono: " />
 				

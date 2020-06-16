@@ -20,6 +20,7 @@ import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class BeanUsuario implements Serializable {
 	private List<Usuario> usuarioes;
 	private List<PaisEstado> paises;
 	private List<GradoEstudio> grados;
+	private String fechaRango;
 	
 	@EJB
 	private ManagerUsuario managerUsuario;
@@ -78,7 +80,13 @@ public class BeanUsuario implements Serializable {
 	public void init() {
 		try {
 			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-
+            Date c=new Date();
+			Calendar t=Calendar.getInstance();
+			int a=t.get(Calendar.YEAR);
+			int b=a-100;
+			fechaRango=""+b+":"+a;
+			System.out.println(fechaRango);
+            
 			fechaNacimiento = managerAdministrador.fechaActual();
 			
 			fechaMinimaNacimiento = managerAdministrador.fechadeNacimiento();
@@ -577,6 +585,12 @@ public class BeanUsuario implements Serializable {
 
 	public void setGrados(List<GradoEstudio> grados) {
 		this.grados = grados;
+	}
+	public String getFechaRango() {
+		return fechaRango;
+	}
+	public void setFechaRango(String fechaRango) {
+		this.fechaRango = fechaRango;
 	}	
 	
 
