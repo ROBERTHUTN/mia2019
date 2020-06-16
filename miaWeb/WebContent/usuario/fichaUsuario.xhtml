@@ -186,10 +186,11 @@
 
 
 					<p:outputLabel value="Fecha Nacimiento: " />
-					<p:calendar id="fechaNacimiento" required="true" requiredMessage="Ingrese la fecha de naciemiento"
+				
+					<p:calendar required="true" requiredMessage="Ingrese la fecha de naciemiento"
 						value="#{beanAdministrador.fichaPersonal.fechaNacimiento}"
-						maxdate="#{beanAdministrador.fechaNacimiento}"
-						pattern="yyyy-MMM-dd" />
+						maxdate="#{beanAdministrador.fechaNacimiento}" yearRange="c-100:c+10"
+						 navigator="true"   id="fechaNacimiento"/>
 						<p:message for="fechaNacimiento"></p:message>
 					<p:outputLabel value="Teléfono: " />
 				
