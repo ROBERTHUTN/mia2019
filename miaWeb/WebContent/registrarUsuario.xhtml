@@ -12,7 +12,7 @@
 
 
 	<!-- Estilos -->
-<!--	<link rel="stylesheet" href="administrador/css/estilos.css" />
+	<!--	<link rel="stylesheet" href="administrador/css/estilos.css" />
 	 <link rel="stylesheet"
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -21,83 +21,89 @@
 		 -->
 	<title>Mia Registro de Usuarios</title>
 </h:head>
-<body bgcolor="#3b83bd" >
+<body bgcolor="#3b83bd">
 
 	<div align="center">
 		<h1>MIA</h1>
 	</div>
-	
-    <p:menuitem value="Categories" url="login.xhtml" />
-    <p:menuitem value="Registro Usuario" url="#" />
+
+	<p:menuitem value="Categories" url="loginAnterior.xhtml" />
+	<p:menuitem value="Registro Usuario" url="#" />
 
 	<h:form>
-	 <div class="ui-fluid">
-		<p:panel id="panel" header="Registro Usuario"
-			style="margin-bottom:10px;">
-
-			<p:panelGrid columns="3" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" styleClass="customPanelGrid" contentStyleClass="ui-fluid">
-				<p:outputLabel for="@next" value="Nombres:"></p:outputLabel>
-				<p:inputText id="nombre"
-					validatorMessage="Nombre: ingrese solo letras!"
-					value="#{beanLogin.registroUsuario.nombres}" required="true"
-					requiredMessage="Ingrese sus nombres" maxlength="100">
-					<f:validateRegex
-						pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
-				</p:inputText>
-				<p:message for="nombre"></p:message>
-
-				<p:outputLabel for="@next" value="Apellidos:"></p:outputLabel>
-				<p:inputText id="apellido"
-					validatorMessage="Apellido: ingrese solo letras!"
-					value="#{beanLogin.registroUsuario.apellidos}" required="true"
-					requiredMessage="Ingrese sus apellidos" maxlength="100">
-					<f:validateRegex
-						pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
-				</p:inputText>
-				<p:message for="apellido"></p:message>
-				
-				
-				<p:outputLabel for="@next" value="Cédula:" />
-				<p:inputText id="cedula" value="#{beanLogin.registroUsuario.ci}"
-					validatorMessage="Formato de cédula incorrecto !" required="true"
-					requiredMessage="Ingrese una identificación" maxlength="10">
-					<f:validateRegex pattern="[0-9]{10}"></f:validateRegex>
-				</p:inputText>
-				<p:message for="cedula"></p:message>
+		<div  align="center" class="ui-fluid">
+			<p:panel id="panel" header="Registro Usuario" style="width:600px">
+<div align="center" >
+				<p:panelGrid columns="3" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:column>
+						<p:outputLabel for="nombre" value="Nombres:"></p:outputLabel>
+					</p:column>
+					<p:column colspan="2">
+						<p:inputText id="nombre"
+							validatorMessage="Nombre: ingrese solo letras!"
+							value="#{beanLogin.registroUsuario.nombres}" required="true"
+							requiredMessage="Ingrese sus nombres" maxlength="100">
+							<f:validateRegex
+								pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+						</p:inputText>
+					</p:column>
+					<p:column>
+						<p:message for="nombre"></p:message>
+					</p:column>
+					<p:outputLabel for="@next" value="Apellidos:"></p:outputLabel>
+					<p:inputText id="apellido"
+						validatorMessage="Apellido: ingrese solo letras!"
+						value="#{beanLogin.registroUsuario.apellidos}" required="true"
+						requiredMessage="Ingrese sus apellidos" maxlength="100">
+						<f:validateRegex
+							pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,100}"></f:validateRegex>
+					</p:inputText>
+					<p:message for="apellido"></p:message>
 
 
-				<p:outputLabel for="@next" value="Correo:" />
-				<p:inputText id="correo" accesskey="true"
-					value="#{beanLogin.registroUsuario.correo}" required="true"
-					requiredMessage="Ingrese un correo " maxlength="50"
-					validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
-					<f:validateRegex
-						pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
-				</p:inputText>
-				<p:message for="correo"></p:message>
+					<p:outputLabel for="@next" value="Cédula:" />
+					<p:inputText id="cedula" value="#{beanLogin.registroUsuario.ci}"
+						validatorMessage="Formato de cédula incorrecto !" required="true"
+						requiredMessage="Ingrese una identificación" maxlength="10">
+						<f:validateRegex pattern="[0-9]{10}"></f:validateRegex>
+					</p:inputText>
+					<p:message for="cedula"></p:message>
 
 
-				<p:outputLabel for="@next" value="Contraseña:" />
-				<p:password id="pass" value="#{beanLogin.registroUsuario.password}"
-					feedback="true"
-					validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
-					required="true" requiredMessage="Ingrese una contraseña segura"
-					maxlength="20" promptLabel="Ingrese una contraseña segura!"
-					weakLabel="Bajo" goodLabel="Media" strongLabel="Alta">
-					<f:validateRegex
-						pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
-				</p:password>
-				<p:message for="pass"></p:message>
+					<p:outputLabel for="@next" value="Correo:" />
+					<p:inputText id="correoU" accesskey="true"
+						value="#{beanLogin.registroUsuario.correo}" required="true"
+						requiredMessage="Ingrese un correo " maxlength="50"
+						validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
+						<f:validateRegex
+							pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
+					</p:inputText>
+					<p:message for="correoU"></p:message>
+
+
+					<p:outputLabel for="@next" value="Contraseña:" />
+					<p:password id="passU"
+						value="#{beanLogin.registroUsuario.password}" feedback="true"
+						validatorMessage="Ingrese una contraseña de 8 a 16 dígitos al almenos contenga una miníscula . mayúscula y un número"
+						required="true" requiredMessage="Ingrese una contraseña segura"
+						maxlength="20" promptLabel="Ingrese una contraseña segura!"
+						weakLabel="Bajo" goodLabel="Media" strongLabel="Alta">
+						<f:validateRegex
+							pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}"></f:validateRegex>
+					</p:password>
+					<p:message for="passU"></p:message>
 
 
 
-			</p:panelGrid>
-			<p:commandButton ajax="true" styleClass="button buttonBlue"
-				value="Registrarse" action="#{beanLogin.actionregistrarUsuario()}"
-				validateClient="true">
-			</p:commandButton>
-	
-		</p:panel>
+				</p:panelGrid>
+				</div>
+				<div id="contenido" class="container-fluid col-lg-11" style="margin-top: 30px; ">	
+				<p:commandButton ajax="true" styleClass="button buttonBlue"
+					value="Registrarse" action="#{beanLogin.actionregistrarUsuario()}"
+					validateClient="true">
+				</p:commandButton>
+</div>
+			</p:panel>
 		</div>
 	</h:form>
 	<p:growl>

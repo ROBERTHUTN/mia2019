@@ -48,6 +48,8 @@ public String actionLogin() {
 			contrasenia=Seguridad.encriptar(contrasenia);
 			System.out.println("Contrasenia que ingresa "+contrasenia);
 			login = managerLogin.comprobarCredenciales(correo, contrasenia);
+			correo="";
+			contrasenia="";
 			if (!login.isActivo()) {
 				JSFUtil.crearMensajeError("Cuenta inactiva contáctese con el administrador");
 				return"";

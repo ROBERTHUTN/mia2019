@@ -2,7 +2,7 @@ package mia.core.model.usuario.view.controller;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,19 +24,19 @@ import java.util.Date;
 import java.util.List;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class BeanUsuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 //FICHA_
-	private FichaPersonal fichaPersonal = new FichaPersonal();
+	private FichaPersonal fichaPersonal =new FichaPersonal();
 	private Religion religion = new Religion();
 	private Etnia etnia = new Etnia();
 	private Rol rol = new Rol();
 	private Usuario usuario= new Usuario();
 	private PaisEstado paisEstado= new PaisEstado();
 	private GradoEstudio gradoEstudio = new GradoEstudio(); 
-	private FichaPersonal fichaPersonalE;
+	private FichaPersonal fichaPersonalE =new FichaPersonal();;
 	private Religion religionE;
 	private Etnia etniaE;
 	private Rol rolE;
@@ -79,7 +79,6 @@ public class BeanUsuario implements Serializable {
 		try {
 			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 
-			System.out.println("*");
 			fechaNacimiento = managerAdministrador.fechaActual();
 			
 			fechaMinimaNacimiento = managerAdministrador.fechadeNacimiento();
@@ -88,10 +87,28 @@ public class BeanUsuario implements Serializable {
 			religiones = managerAdministrador.findAllReligion();
 			paises= managerAdministrador.findOnlyPais();		
 			grados= managerUsuario.findAllGrado();
+			
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
+	public String actionNavegarFichaUsuario() {
+		try {
+		fichaPersonalE=managerUsuario.findFichaPersonalByID(beanLogin.getLogin().getId_usuario());
+		id_etnia_fk=fichaPersonalE.getEtnia().getIdEtnia();
+		id_religion_fk=fichaPersonalE.getReligion().getIdReligion();
+		 id_grado_fk=fichaPersonalE.getGradoEstudio().getIdGrado();
+		 id_pais_fk=fichaPersonalE.getPaisEstado2().getIdPaisEstado();
+		  estados=managerAdministrador.findPaisEstado(id_pais_fk);
+		 id_estado_fk=fichaPersonalE.getPaisEstado1().getIdPaisEstado();
+		
+		return"editarUsuario.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+		JSFUtil.crearMensajeError(e.getMessage());
+		}
+		return"";
+	}
+	
 
 	public void actionListenerIngresarReligion() {
 		try {
@@ -108,6 +125,7 @@ public class BeanUsuario implements Serializable {
 		    if(paises !=null && !paises.equals(""))
 		    {
 		    	estados = managerAdministrador.findPaisEstado(id_pais_fk);
+		    	id_estado_fk=0;
 		    }
 		    else
 		    {
@@ -216,6 +234,15 @@ public class BeanUsuario implements Serializable {
 		
 	}
 	
+	public void actionListeneEditarFichaPersonal() {
+		try {
+			managerUsuario.editarFichaPersonalUsuario(fichaPersonalE, id_religion_fk, id_etnia_fk, id_pais_fk, id_estado_fk, beanLogin.getLogin().getId_usuario(), id_grado_fk);
+		JSFUtil.crearMensajeInfo("Datos del usuario actualizado correctamente.!");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 	public String actionIngresarFichaPersonal() {
 		try {
 			fichaPersonal.setFechaInscripcion(managerAdministrador.fechaActual());

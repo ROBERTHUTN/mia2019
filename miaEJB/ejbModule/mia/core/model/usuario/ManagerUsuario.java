@@ -30,7 +30,24 @@ public class ManagerUsuario {
 	private ManagerAdministrador managerAdministrador;
 	public ManagerUsuario() {
 	}
-
+public FichaPersonal findFichaPersonalByID(long idUsuario) {
+	FichaPersonal ficha=new FichaPersonal();
+	Query q = em.createQuery("SELECT f FROM FichaPersonal f"
+			+ " where f.usuario.idUsuario=?1", FichaPersonal.class);
+	q.setParameter(1, idUsuario);
+	@SuppressWarnings("unchecked")
+	List<FichaPersonal> listaFichaU = q.getResultList();
+if (listaFichaU.isEmpty()) {
+	return ficha;
+}else {
+	System.out.println("si hay");
+	ficha=listaFichaU.get(0);
+	System.out.println(ficha.getCiudad());
+	return ficha;
+}
+}
+	
+	//ficha Personal
 	// MÃ©todo que me devuelve la Lista de ROLES
 	public List<Rol> findAllRoles() {
 
@@ -101,6 +118,11 @@ public class ManagerUsuario {
 	public GradoEstudio findGradoById(int id_grado) {
 		GradoEstudio grado = em.find(GradoEstudio.class, id_grado);
 		return grado;
+	}
+	public FichaPersonal findFichaPersonalById(long id_ficha) {
+		FichaPersonal ficha=em.find(FichaPersonal.class, id_ficha);
+		
+		return ficha;
 	}
 
 	public PaisEstado findPaisEstadoById(int id_pais_estado) {
@@ -514,6 +536,33 @@ public class ManagerUsuario {
 
 		etnN.setDescripcion(etnA.getDescripcion());
 		em.merge(etnN);
+	}
+	public void editarFichaPersonalUsuario(FichaPersonal ficha,int id_religion_fk, 
+int	id_etnia_fk,int id_pais_fk ,int id_estado_fk,long id_usuario, int id_grado_fk) throws Exception {
+		FichaPersonal fichaP=findFichaPersonalByID(ficha.getIdFicha());
+		if (fichaP == null) {
+			throw new Exception("Error al cargar la Ficha Personal");
+		}
+		if (id_religion_fk==0) {
+			
+		}
+	if (id_etnia_fk==0) {
+		throw new Exception("Error al cargar la etnia");
+		}
+	if (id_pais_fk==0) {
+		throw new Exception("Error al cargar el país");
+	}
+	if (id_estado_fk==0) {
+		throw new Exception("Error al cargar el estado");
+	}
+	if (id_usuario==0) {
+		throw new Exception("Error de conneción idUsuario");
+	}
+	if (id_grado_fk==0) {
+		throw new Exception("Error al cargar el grado");
+	}
+		fichaP=ficha;
+		em.merge(fichaP);
 	}
 
 	public void eliminarEtnia(int id_etnia) throws Exception {
