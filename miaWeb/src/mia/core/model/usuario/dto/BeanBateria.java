@@ -340,7 +340,7 @@ public class BeanBateria implements Serializable {
 		
 			
 			
-		
+		/**
 			Queue<tipoLiderazgoCola> tlCentral= new PriorityQueue<tipoLiderazgoCola>();
 			tlCentral.add(new tipoLiderazgoCola("Alquimista", al1));  
 			tlCentral.add(new tipoLiderazgoCola("Diplomatico", di1));
@@ -349,7 +349,7 @@ public class BeanBateria implements Serializable {
 			tlCentral.add(new tipoLiderazgoCola("Transformador", tr1));
 			tlCentral.add(new tipoLiderazgoCola("Impulsivo", im1));
 			tlCentral.add(new tipoLiderazgoCola("Oportunista", op1));
-			
+			System.out.println("Este es el primer"+tlCentral.peek().getNombre()+":"+tlCentral.peek().getTipo());
 			
 			while(!tlCentral.isEmpty()){
 				tipoLiderazgoCola tl= tlCentral.remove();
@@ -357,28 +357,18 @@ public class BeanBateria implements Serializable {
 				System.out.println(tl.getNombre()+ " "+ tl.getTipo());
 			
 			}
+			*/
+			tlCentroGravedad=respuestaLiderasgo(al1, di1, ex1, re1, tr1, im1, op1);
+			System.out.println("Centro de Gavedad"+ tlCentroGravedad);
 			
-			System.out.println("al1"+al1);
-			System.out.println("al2"+al2);
-			System.out.println("al3"+al3);
-			System.out.println("di1"+di1);
-			System.out.println("di2"+di2);
-			System.out.println("di3"+di3);
-			System.out.println("op1"+op1);
-			System.out.println("op2"+op2);
-			System.out.println("op3"+op3);
-			System.out.println("ex1"+ex1);
-			System.out.println("ex2"+ex2);
-			System.out.println("ex3"+ex3);
-			System.out.println("re1"+re1);
-			System.out.println("re2"+re2);
-			System.out.println("re3"+re3);
-			System.out.println("tr1"+tr1);
-			System.out.println("tr2"+tr2);
-			System.out.println("tr3"+tr3);
-			System.out.println("im1"+im1);
-			System.out.println("im2"+im2);
-			System.out.println("im3"+im3);
+	
+			tlLogicaEmergente= respuestaLiderasgo(al2, di2, ex2, re2, tr2, im2, op2);
+			System.out.println("Lógica Emergente"+ tlLogicaEmergente);
+			
+			tlLogicaretroceso= respuestaLiderasgo(al3, di3, ex3, re3, tr3, im3, op3);
+			System.out.println("Lógica de Retroceso"+ tlLogicaretroceso);
+			
+			
 	}
 	
 	public String respuestaLiderasgo (int al, int di, int ex, int re, int tr, int im, int op ) {
@@ -392,10 +382,17 @@ public class BeanBateria implements Serializable {
 		tlCentral.add(new tipoLiderazgoCola("Impulsivo", im));
 		tlCentral.add(new tipoLiderazgoCola("Oportunista", op));
 		
+		
+		int comparar=tlCentral.peek().getTipo();
+		System.out.println( "Comparar "+ comparar);
 		String tiposLiderazgos= "";
 		while(!tlCentral.isEmpty()){
 			tipoLiderazgoCola tl= tlCentral.remove();
-					
+			if(comparar==tl.getTipo())
+			{
+				tiposLiderazgos+= tl.getNombre()+ "/ ";
+			}
+			
 			System.out.println(tl.getNombre()+ " "+ tl.getTipo());
 		
 		}
