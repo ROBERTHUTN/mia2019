@@ -51,6 +51,7 @@ public class BeanInvestigador implements Serializable {
 	private List<AreaInvestigacion> investigacionareas;
 	private List<OrganizacionFichapersonal> organizacionFichapersonales;
 	private List<FichaPersonal> listaFichaU;
+	private List<FichaPersonal> listaFichaUvoluntariado;
 	private List<Organizacion>listaOrganizaciones;
 	private List<UsuarioInteresArea> areainteres;
 	
@@ -62,6 +63,7 @@ public class BeanInvestigador implements Serializable {
 		try {
 			investigacionareas= managerInvestigador.findAllAreaInvestigaciones();
 			listaFichaU=managerAdministrador.findAllFichaPersonal();
+			listaFichaUvoluntariado= managerAdministrador.findAllFichaPersonalVoluntariado();
 			listaOrganizaciones=managerAdministrador.findAllOrganizaciones();
 			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonales();
 			areainteres=managerInvestigador.findAllUsuarioInteresAreaes();
@@ -351,6 +353,14 @@ public class BeanInvestigador implements Serializable {
 
 	public void setAreainteres(List<UsuarioInteresArea> areainteres) {
 		this.areainteres = areainteres;
+	}
+
+	public List<FichaPersonal> getListaFichaUvoluntariado() {
+		return listaFichaUvoluntariado;
+	}
+
+	public void setListaFichaUvoluntariado(List<FichaPersonal> listaFichaUvoluntariado) {
+		this.listaFichaUvoluntariado = listaFichaUvoluntariado;
 	}
 	
 	

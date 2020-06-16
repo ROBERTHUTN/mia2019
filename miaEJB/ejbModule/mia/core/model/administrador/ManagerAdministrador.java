@@ -106,6 +106,14 @@ public class ManagerAdministrador {
 		List<FichaPersonal> listaFichaPersonal = q.getResultList();
 		return listaFichaPersonal;
 	}
+	
+	public List<FichaPersonal> findAllFichaPersonalVoluntariado() {
+
+		Query q = em.createQuery("SELECT f FROM FichaPersonal f where voluntariado='true' ", FichaPersonal.class);
+		@SuppressWarnings("unchecked")
+		List<FichaPersonal> listaFichaPersonal = q.getResultList();
+		return listaFichaPersonal;
+	}
 
 	public List<FichaPersonal> findAllFichaPersonalByRol() {
 
