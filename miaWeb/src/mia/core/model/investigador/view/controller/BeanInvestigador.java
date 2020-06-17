@@ -62,7 +62,7 @@ public class BeanInvestigador implements Serializable {
 	public void init() {
 		try {
 			investigacionareas= managerInvestigador.findAllAreaInvestigaciones();
-			listaFichaU=managerAdministrador.findAllFichaPersonal();
+			listaFichaU=managerAdministrador.findAllFichaPersonalByRolUsuario();
 			listaFichaUvoluntariado= managerAdministrador.findAllFichaPersonalVoluntariado();
 			listaOrganizaciones=managerAdministrador.findAllOrganizaciones();
 			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonales();
