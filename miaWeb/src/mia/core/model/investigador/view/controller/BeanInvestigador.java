@@ -147,10 +147,12 @@ public class BeanInvestigador implements Serializable {
 	}
 	public void actionListenerEditarOrganizacionFichapersonal() {
 		try {
-			managerInvestigador.editarOrganizacionFichapersonal(organizacionFichapersonal, id_ficha_fk, id_organizacion);
+			managerInvestigador.editarOrganizacionFichapersonal(organizacionFichapersonalE, id_ficha_fk, id_organizacion);
+			
+			organizacionFichapersonales = managerInvestigador.findAllOrganizacionFichapersonales();
 			JSFUtil.crearMensajeInfo("Usuario editado correctamente en la organización");
 		} catch (Exception e) {
-			organizacionFichapersonales = managerInvestigador.findAllOrganizacionFichapersonales();
+			
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 

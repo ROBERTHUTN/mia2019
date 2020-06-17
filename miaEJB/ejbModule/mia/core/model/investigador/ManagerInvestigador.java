@@ -308,6 +308,7 @@ public class ManagerInvestigador {
 				
 				FichaPersonal ficha= managerAdministrador.findFichaPersonalById(id_ficha_fk);
 				Organizacion organizacion= managerAdministrador.findOrganizacionById(id_organizacion);
+				
 				organizacionfichapersonalN.setFichaPersonal(ficha);
 				organizacionfichapersonalN.setOrganizacion(organizacion);
 

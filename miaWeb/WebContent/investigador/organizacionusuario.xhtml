@@ -69,7 +69,7 @@
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanInvestigador.listaFichaU}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos} #{u.usuario.idUsuario} / #{u.usuario.rol.idRol}" itemValue="#{u.idFicha}" />
+							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
 					</p:selectOneMenu>
 					
 					<p:outputLabel value="Organización: " />
@@ -170,7 +170,7 @@
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanInvestigador.listaFichaU}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.usuario.idUsuario}" />
+							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
 					</p:selectOneMenu>
 					
 					<p:outputLabel value="Organización: " />
@@ -185,11 +185,12 @@
 							itemLabel="#{o.nombreOrganizacion}" itemValue="#{o.idOrganizacion}" />
 					</p:selectOneMenu>
 				</p:panelGrid>
+				
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						actionListener="#{beanInvestigador.actionListenerEditarOrganizacionFichapersonal()}"
-						oncomplete="nuevoUsuarioOrganizacion" update="@form" ajax="false">	 
+						oncomplete="nuevoUsuarioOrganizacion" update="form2" ajax="false">	 
 					</p:commandButton>
 					
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
