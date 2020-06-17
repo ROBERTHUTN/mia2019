@@ -7,140 +7,184 @@
 
 
 
-<h:head></h:head>
-<div id="menu">
-	<h:form>
-		<p:menubar>
-			<p:menuitem>
-				<p:graphicImage value="images/logo1.png"></p:graphicImage>
-			</p:menuitem>
-			<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-				action="curso?faces-redirect=true" />
+<h:head>
 
-			<f:facet name="options">
-				<p:commandButton title="Datos de usuario" icon="fa fa-user"
-					value="#{beanLogin.login.nombres}" />
-				<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
-					action="#{beanLogin.actionCerrarSesion()}" />
-			</f:facet>
-		</p:menubar>
-	</h:form>
-</div>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	<!-- Estilos -->
+
+	<title>MIA</title>
+	<f:facet name="middle">
+		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+		<h:outputStylesheet name="css/styles2.css" />
+	</f:facet>
+	<f:facet name="last">
+		<h:outputScript name="bootstrap/js/bootstrap.js" />
+		<h:outputScript name="js/styles2.js" />
+		<h:outputScript name="js/validator.js" />
+	</f:facet>
+	<style type="text/css">
+.ui-panel-content {
+	background: gray;
+}
+</style>
+</h:head>
 <body style="background-color: #3b83bd;">
-<script type="text/javascript">
+
+	<script type="text/javascript">
     function handleDrop(event, ui) {
         var droppedCar = ui.draggable;
  
         droppedCar.fadeOut('fast');
     }
 </script>
+
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+			<p:menuitem value="Tipo Liderazgo"
+				url="/miaWeb/faces/usuario/tipoLiderazgo2.xhtml" />
+		</p:breadCrumb>
+	</div>
+
+
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<div class="ui-fluid">
-	<h:form  id="form1">
-	<p:spacer></p:spacer>
-	
-	<p:panel rendered="#{!beanBateria.iniciarTest}">
-        <p:panelGrid  columns="2" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
-        <h:outputText value="jssjsjsjsjs" />
-          <h:outputText
-                        value="El cuestionario consta de 16 ítems, con una escala de 5 alternativas de respuestas para cada uno. La escala está confeccionada teniendo en cuenta la frecuencia de aparición de la propuesta en cada sujeto (siempre, casi siempre, frecuentemente, casi nunca, nunca)." />
-              
-     </p:panelGrid>
-     <center> <p:commandButton value="Iniciar Test" actionListener="#{beanBateria.iniciarCuestionario()}" update="@form"></p:commandButton></center>
-     </p:panel>
+	<h:form id="form1">
+		<div class="ui-fluid" align="center">
 
-		
-			<p:repeat var="a" rendered="#{beanBateria.iniciarTest}"
+			<p:panelGrid columns="2" rendered="#{!beanBateria.iniciarTest}"
+				layout="grid" styleClass="showcase-text-align-center"
+				columnClasses="ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3">
+
+				<p:graphicImage value="/resources/images/utn.png"></p:graphicImage>
+				<h:outputText
+					value="El cuestionario consta de 16 ítems, con una escala de 5 alternativas de respuestas para cada uno. La escala está confeccionada teniendo en cuenta la frecuencia de aparición de la propuesta en cada sujeto (siempre, casi siempre, frecuentemente, casi nunca, nunca)." />
+
+				<h:outputText></h:outputText>
+				<p:commandButton value="Iniciar Test"
+					actionListener="#{beanBateria.iniciarCuestionario()}"
+					update="@form" style="width:188px"></p:commandButton>
+
+			</p:panelGrid>
+
+
+			<p:dataGrid var="a" rendered="#{beanBateria.iniciarTest}" columns="1"
 				value="#{beanBateria.listaDimensionRespuestaActual}"
-				emptyMessage="No se han cargado las preguntas"
-				>
+				emptyMessage="No se han cargado las preguntas" layout="grid">
 
 				<p:column>
-					<p:panel header="Teniendo en cuenta que 1 es siempre y 7 nunca. arrastre la opción a donde dice arrastre aquí." >
-						<br></br>
+					<p:panel
+						header="Teniendo en cuenta que 1 es siempre y 7 nunca. arrastre la opción a donde dice arrastre aquí."
+						style="background-color:#FC1F0D">
 
-						
-							
-							<p:fieldset id="preguntasField" legend="#{a.nombre	}">
-								<p:dataGrid id="preguntas" var="car"
-									value="#{a.listaPreguntas}" columns="4">
-									<p:panel id="pnl" header="#{car.pregunta}" style="text-align:center">
-										<h:panelGrid columns="1" style="width:100%">
-											<!--  <p:graphicImage value="images/pregunta.png" /> -->
-										</h:panelGrid>
-									</p:panel>
 
-									<p:draggable for="pnl" revert="true"
-										handle=".ui-panel-titlebar" stack=".ui-panel" />
-								</p:dataGrid>
-							</p:fieldset>
-							
-							<!--  ///////////////////////////////
-							
-							-->
-							<p:fieldset id="seleccionar" legend="Seleccionar preguntas" style="margin-top:20px">
-        <p:outputPanel id="dropArea">
-            <h:outputText value="!!!Arrastre aquí!!!" rendered="#{empty a.listaRespuestas}" style="font-size:24px;" />
-            <p:dataTable id="selectedCarsTable" var="r" value="#{a.listaRespuestas}" rendered="#{not empty a.listaRespuestas}">
-                <p:column headerText="Calificacion" width="75">
-                    <h:outputText value="#{r.posicion}" />
-                </p:column>
- 
-                <p:column headerText="Pregunta">
-                    <h:outputText value="#{r.pregunta}" />
-                </p:column>
- 
-                <p:column headerText="Literal" width="75">
-                    <h:outputText value="#{r.literal}" />
-                </p:column>
- 
-            </p:dataTable>
-        </p:outputPanel>
-    </p:fieldset>
-    
-    <p:droppable for="seleccionar" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="preguntas" onDrop="handleDrop">
-        <p:ajax listener="#{beanBateria.onCarDrop}" update="form1" />
-    </p:droppable>
+						<p:fieldset id="preguntasField" legend="#{a.nombre}">
+							<p:dataGrid id="preguntas" var="car" value="#{a.listaPreguntas}"
+								layout="grid">
+								<p:panel id="pnl" header="#{car.pregunta}"
+									style="text-align:center">
+									<h:panelGrid columns="1" style="width:100%">
+										<!--  <p:graphicImage value="images/pregunta.png" /> -->
+									</h:panelGrid>
+								</p:panel>
+
+								<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
+									stack=".ui-panel" />
+							</p:dataGrid>
+						</p:fieldset>
+
 						<!--  ///////////////////////////////
 							
-							-->		
-							<p:messages />
-							<p></p>
-							<br></br>
-							<p:panelGrid columns="4" layout="grid">
-								<p:commandButton value="Atrás" rendered="#{beanBateria.atras}"
-									actionListener="#{beanBateria.atras()}"
-									style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
-									update="form1" />
-								<p:commandButton value="Atrás" rendered="#{!beanBateria.atras}"
-									disabled="true" style="margin-right:5px;alight:left"
-									icon="fa fa-arrow-left" />
+							-->
+						<p:fieldset id="seleccionar" legend="Seleccionar preguntas">
+							<p:outputPanel id="dropArea">
+								<h:outputText value="!!!Arrastre aquí!!!"
+									rendered="#{empty a.listaRespuestas}" style="font-size:24px;" />
+								<p:dataTable id="selectedCarsTable" var="r"
+									value="#{a.listaRespuestas}"
+									rendered="#{not empty a.listaRespuestas}">
+									<p:column headerText="Calificacion" width="75">
+										<h:outputText value="#{r.posicion}" />
+									</p:column>
 
-								<p:outputLabel></p:outputLabel>
-								<p:outputLabel></p:outputLabel>
+									<p:column headerText="Pregunta">
+										<h:outputText value="#{r.pregunta}" />
+									</p:column>
 
-								<p:commandButton rendered="#{beanBateria.adelante}"
-									update="form1" value="Siguiente"
-									action="#{beanBateria.siguiente()}"
-									style="margin-right:5px;" icon="fa fa-arrow-right" />
-								<p:commandButton rendered="#{!beanBateria.adelante}"
-									disabled="true" value="Siguiente" style="margin-right:5px;"
-									icon="fa fa-arrow-right" />
+									<p:column headerText="Literal" width="75">
+										<h:outputText value="#{r.literal}" />
+									</p:column>
 
-							</p:panelGrid>
-							<p:commandButton value="Finalizar Test"
-								rendered="#{beanBateria.finalizarTest}" actionListener="#{beanBateria.finalizarTest()}"
+								</p:dataTable>
+							</p:outputPanel>
+						</p:fieldset>
+
+						<p:droppable for="seleccionar" tolerance="touch"
+							activeStyleClass="ui-state-highlight" datasource="preguntas"
+							onDrop="handleDrop">
+							<p:ajax listener="#{beanBateria.onCarDrop}" update="form1" />
+						</p:droppable>
+						<!--  ///////////////////////////////
+							
+							-->
+						<p:messages />
+						<p></p>
+						<br></br>
+						<p:panelGrid columns="4" layout="grid">
+							<p:commandButton value="Atrás" rendered="#{beanBateria.atras}"
+								actionListener="#{beanBateria.atras()}"
 								style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
 								update="form1" />
-						
+							<p:commandButton value="Atrás" rendered="#{!beanBateria.atras}"
+								disabled="true" style="margin-right:5px;alight:left"
+								icon="fa fa-arrow-left" />
+
+							<p:outputLabel></p:outputLabel>
+							<p:outputLabel></p:outputLabel>
+
+							<p:commandButton rendered="#{beanBateria.adelante}"
+								update="form1" value="Siguiente"
+								action="#{beanBateria.siguiente()}" style="margin-right:5px;"
+								icon="fa fa-arrow-right" />
+							<p:commandButton rendered="#{!beanBateria.adelante}"
+								disabled="true" value="Siguiente" style="margin-right:5px;"
+								icon="fa fa-arrow-right" />
+
+						</p:panelGrid>
+						<p:commandButton value="Finalizar Test"
+							rendered="#{beanBateria.finalizarTest}"
+							actionListener="#{beanBateria.finalizarTest()}"
+							style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
+							update="form1" />
+
 					</p:panel>
 				</p:column>
-		</p:repeat>
-		     </h:form>
+			</p:dataGrid>
+		</div>
+	</h:form>
 
-	</div>
+
 
 </body>
 </html>

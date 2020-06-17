@@ -79,23 +79,17 @@ public class BeanUsuario implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
-			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-            Date c=new Date();
 			Calendar t=Calendar.getInstance();
 			int a=t.get(Calendar.YEAR);
 			int b=a-100;
-			fechaRango=""+b+":"+a;
-			System.out.println(fechaRango);
-            
+			fechaRango=""+b+":"+a;    
 			fechaNacimiento = managerAdministrador.fechaActual();
-			
-			fechaMinimaNacimiento = managerAdministrador.fechadeNacimiento();
+		fechaMinimaNacimiento = managerAdministrador.fechadeNacimiento();
 			roles = managerAdministrador.findAllRoles();
 			etnias = managerAdministrador.findAllEtnia();
 			religiones = managerAdministrador.findAllReligion();
 			paises= managerAdministrador.findOnlyPais();		
 			grados= managerUsuario.findAllGrado();
-			
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
@@ -109,7 +103,6 @@ public class BeanUsuario implements Serializable {
 		 id_pais_fk=fichaPersonalE.getPaisEstado2().getIdPaisEstado();
 		  estados=managerAdministrador.findPaisEstado(id_pais_fk);
 		 id_estado_fk=fichaPersonalE.getPaisEstado1().getIdPaisEstado();
-		
 		return"editarUsuario.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 		JSFUtil.crearMensajeError(e.getMessage());
@@ -117,7 +110,6 @@ public class BeanUsuario implements Serializable {
 		return"";
 	}
 	
-
 	public void actionListenerIngresarReligion() {
 		try {
 			managerAdministrador.ingresarReligion(religion);
