@@ -16,8 +16,6 @@
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="curso?faces-redirect=true" />
 
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -27,6 +25,12 @@
 				</f:facet>
 			</p:menubar>
 		</h:form>
+	</div>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+				<p:menuitem value="Inteligencia Emocional" url="/miaWeb/faces/usuario/inteligenciaEmocional.xhtml" />
+		</p:breadCrumb>
 	</div>
 
 	<h:form>
