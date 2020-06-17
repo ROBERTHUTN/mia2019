@@ -159,10 +159,10 @@ public class ManagerInvestigador {
 		if (proyinvesti == null) {
 			throw new Exception("Ingrese los datos del proyinvesti");
 		}
-
+System.out.println(" 1");
 		boolean existeProyectoNombreInvestigacion = existeNombreProyectoInvestigacion(proyinvesti.getNombreProyecto());
 		if (existeProyectoNombreInvestigacion) {
-			throw new Exception("El proyinvesti " + proyinvesti.getNombreProyecto() + " ya existe");
+			throw new Exception("El proyecto de investigación " + proyinvesti.getNombreProyecto() + " ya existe");
 		}
 		boolean existeProyectoInvestigacion = existeProyectoInvestigacionenUserproyecto(
 				proyinvesti.getIdProyectoInvestigacion());

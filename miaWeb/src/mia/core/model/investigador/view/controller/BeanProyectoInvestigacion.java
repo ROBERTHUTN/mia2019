@@ -51,7 +51,9 @@ public class BeanProyectoInvestigacion implements Serializable {
 
 	public void actionListenerIngresarProyectoInvestigacion() {
 		try {
+		
 			managerInvestigador.ingresarProyectoInvestigacion(proyectoInvestigacion, id_area_fk);
+		
 			proyectoInvestigaciones = managerInvestigador.findAllProyectoInvestigaciones();
 			JSFUtil.crearMensajeInfo("Proyecto de Investigación creada correctamente");
 		} catch (Exception e) {
