@@ -103,17 +103,12 @@ public String actionLogin() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
     	String path=ec.getRequestPathInfo();
     	if(login==null) {
-    		if(path.equals("/login.xhtml"))
+    		if(path.equals("/login.xhtml")) {
     	    	return;
-    		if (path.equals("/administrador/menu.xhtml")) {
+    		}else {
     			ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
-			}
-    		if (path.equals("/usuario/menu.xhtml")) {
-    			ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");	
-    				}
-    		if (path.equals("/investigador/menu.xhtml")) {
-    			ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");	
-    				}
+			return;
+    		}
     	}
     	else {
     	activoLogin=true;
@@ -121,18 +116,20 @@ public String actionLogin() {
     	
     	if(!activoLogin){
     	ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
+    	return;
     	}else{
     		if(path.equals("/login.xhtml")) {
     			if (login.getRol().equals("Administrador")) {
     				ec.redirect(ec.getRequestContextPath() +	 "/faces/administrador/menu.xhtml");
-    		    		
+    			 	return;
 				}else {
 					if (login.getRol().equals("Investigador")) {
 						ec.redirect(ec.getRequestContextPath() + "/faces/investigador/menu.xhtml");
-    		    		
+					 	return;
 							
 					}else {
 							ec.redirect(ec.getRequestContextPath() + "/faces/usuario/menu.xhtml");
+						 	return;
 					}
 				}
     		}
@@ -140,23 +137,27 @@ public String actionLogin() {
         
     	//si hizo login, verificamos que acceda a paginas permitidas:
     	if(login.getRol().equals("Administrador")){
-System.out.println("path.contains "+path.contains("/administrador/"));
-    		if(!path.contains("/administrador/"))
+
+    		if(!path.contains("/administrador/")) {
     	ec.redirect(ec.getRequestContextPath() +"/faces/login.xhtml");
-    	else
+    	return;
+    		}else
     	return;
     	}
     	//si hizo login, verificamos que acceda a paginas permitidas:
     	if(login.getRol().equals("Investigador")){
-    	if(!path.contains("/investigador/"))
+    	if(!path.contains("/investigador/")) {
     	ec.redirect(ec.getRequestContextPath() +"/faces/login.xhtml");
+    	return;
+    	}
     	else
     	return;
     	}
     	if(login.getRol().equals("Usuario")){
-        	if(!path.contains("/usuario/"))
+        	if(!path.contains("/usuario/")) {
         	ec.redirect(ec.getRequestContextPath() +"/faces/login.xhtml");
-        	else
+        	return;
+        	}else
         	return;
         	}
     	
