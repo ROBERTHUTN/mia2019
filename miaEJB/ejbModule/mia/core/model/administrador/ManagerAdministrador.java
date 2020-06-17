@@ -36,13 +36,13 @@ import mia.core.model.usuario.ManagerUsuario;
 public class ManagerAdministrador {
 	@PersistenceContext(unitName = "miaDS")
 	private EntityManager em;
-	
+
 	@EJB
 	private ManagerUsuario managerUsuario;
-	
+
 	@EJB
 	private ManagerInvestigador managerInvestigador;
- 
+
 	public ManagerAdministrador() {
 	}
 
@@ -98,7 +98,7 @@ public class ManagerAdministrador {
 		List<Usuario> listaUsuario = q.getResultList();
 		return listaUsuario;
 	}
-	
+
 	public List<FichaPersonal> findAllFichaPersonal() {
 
 		Query q = em.createQuery("SELECT f FROM FichaPersonal f", FichaPersonal.class);
@@ -106,17 +106,17 @@ public class ManagerAdministrador {
 		List<FichaPersonal> listaFichaPersonal = q.getResultList();
 		return listaFichaPersonal;
 	}
-	
+
 	public List<FichaPersonal> findAllFichaPersonalByRolUsuario() {
 
-		Query q = em.createQuery("SELECT DISTINCT f FROM FichaPersonal f "
-				+ " where f.usuario.rol.idRol=?1", FichaPersonal.class);
+		Query q = em.createQuery("SELECT DISTINCT f FROM FichaPersonal f " + " where f.usuario.rol.idRol=?1",
+				FichaPersonal.class);
 		q.setParameter(1, 5);
 		@SuppressWarnings("unchecked")
 		List<FichaPersonal> listaFichaPersonal = q.getResultList();
 		return listaFichaPersonal;
 	}
-	
+
 	public List<FichaPersonal> findAllFichaPersonalVoluntariado() {
 
 		Query q = em.createQuery("SELECT f FROM FichaPersonal f where voluntariado='true' ", FichaPersonal.class);
@@ -133,7 +133,6 @@ public class ManagerAdministrador {
 		return listaFichaPersonal;
 	}
 
-	
 	public Rol findRolById(int id_rol) {
 		Rol rol = em.find(Rol.class, id_rol);
 		return rol;
@@ -156,7 +155,6 @@ public class ManagerAdministrador {
 		return reli;
 	}
 
-	
 	public Usuario findUsuarioById(long id_usuario) {
 		Usuario usuario = em.find(Usuario.class, id_usuario);
 		return usuario;
@@ -168,6 +166,20 @@ public class ManagerAdministrador {
 		return ficha;
 	}
 
+	public FichaPersonal findFichaPersonalByIdUsuario(long id_usuario) {
+		FichaPersonal f = new FichaPersonal();
+		String JPQL = "SELECT f FROM FichaPersonal f WHERE f.usuario.idUsuario=?1";
+		Query query = em.createQuery(JPQL, FichaPersonal.class);
+		query.setParameter(1, id_usuario);
+		List<FichaPersonal> lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return f;
+		} else {
+			f = lista.get(0);
+			return f;
+		}
+
+	}
 
 	//
 	@SuppressWarnings("unchecked")
@@ -196,7 +208,7 @@ public class ManagerAdministrador {
 		} else
 			return true;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public boolean existeCIUsuario(String nombre) {
 
@@ -383,13 +395,13 @@ public class ManagerAdministrador {
 		if (id_grado == 0) {
 			throw new Exception("Error al seleccionar el grado");
 		}
-		
+
 		PaisEstado paisEst = findPaisEstadoById(id_pais);
 		PaisEstado esta = findPaisEstadoById(estado);
 		Usuario usuario = findUsuarioById(id_usuario);
 		Etnia etnia = findEtniaById(id_etnia);
 		Religion reli = findReligionById(id_religion);
-		GradoEstudio grado= managerUsuario.findGradoById(id_grado);
+		GradoEstudio grado = managerUsuario.findGradoById(id_grado);
 		FichaPersonal fichaNueva = new FichaPersonal();
 		fichaNueva.setPaisEstado1(esta);
 		fichaNueva.setPaisEstado2(paisEst);
@@ -414,7 +426,6 @@ public class ManagerAdministrador {
 		em.persist(fichaNueva);
 	}
 
-	
 	public Timestamp fechaActual() {
 		Date today1 = new Date();
 		Timestamp hoy = new Timestamp(today1.getTime());
@@ -479,36 +490,30 @@ public class ManagerAdministrador {
 		rolN.setNombreRol(rolA.getNombreRol());
 		em.merge(rolN);
 	}
-	
-	
-	
 
 	public void editarUsuario(Usuario usuarioA, int id_rol) throws Exception {
 		Usuario userN = findUsuarioById(usuarioA.getIdUsuario());
-		
+
 		if (userN == null) {
 			throw new Exception("Error al cargar el usuario");
-			
+
 		}
-		if(!userN.getCi().equals(usuarioA.getCi())|| !userN.getCorreo().equals(usuarioA.getCorreo())) {
-			
-		
-		boolean correoRepetido, cedulaRepetida;
-		cedulaRepetida=existeCedulaUsuario(usuarioA.getCi());
-		correoRepetido=existeCorreoUsuario(usuarioA.getCorreo());
-		if (cedulaRepetida) {
-			throw new Exception("La cédula ya está registrada con otro usuario");	
+		if (!userN.getCi().equals(usuarioA.getCi()) || !userN.getCorreo().equals(usuarioA.getCorreo())) {
+
+			boolean correoRepetido, cedulaRepetida;
+			cedulaRepetida = existeCedulaUsuario(usuarioA.getCi());
+			correoRepetido = existeCorreoUsuario(usuarioA.getCorreo());
+			if (cedulaRepetida) {
+				throw new Exception("La cédula ya está registrada con otro usuario");
+			}
+			if (correoRepetido) {
+				throw new Exception("El correo ya se encuentra registrado con otro usuario");
+			}
+
 		}
-		if (correoRepetido) {
-			throw new Exception("El correo ya se encuentra registrado con otro usuario");
-		} 
-		
-		}
-		
-		
-		
-		Rol rol= findRolById(id_rol);
-		
+
+		Rol rol = findRolById(id_rol);
+
 		userN.setNombres(usuarioA.getNombres());
 		userN.setApellidos(usuarioA.getApellidos());
 		userN.setRol(rol);
@@ -520,28 +525,25 @@ public class ManagerAdministrador {
 
 	public void editarUsuario(Usuario usuarioA) throws Exception {
 		Usuario userN = findUsuarioById(usuarioA.getIdUsuario());
-		
+
 		if (userN == null) {
 			throw new Exception("Error al cargar el usuario");
-			
+
 		}
-		if(!userN.getCi().equals(usuarioA.getCi())|| !userN.getCorreo().equals(usuarioA.getCorreo())) {
-			
-		
-		boolean correoRepetido, cedulaRepetida;
-		cedulaRepetida=existeCedulaUsuario(usuarioA.getCi());
-		correoRepetido=existeCorreoUsuario(usuarioA.getCorreo());
-		if (cedulaRepetida) {
-			throw new Exception("La cédula ya está registrada con otro usuario");	
-		}
-		if (correoRepetido) {
-			throw new Exception("El correo ya se encuentra registrado con otro usuario");
-		} 
-		
+		if (!userN.getCi().equals(usuarioA.getCi()) || !userN.getCorreo().equals(usuarioA.getCorreo())) {
+
+			boolean correoRepetido, cedulaRepetida;
+			cedulaRepetida = existeCedulaUsuario(usuarioA.getCi());
+			correoRepetido = existeCorreoUsuario(usuarioA.getCorreo());
+			if (cedulaRepetida) {
+				throw new Exception("La cédula ya está registrada con otro usuario");
+			}
+			if (correoRepetido) {
+				throw new Exception("El correo ya se encuentra registrado con otro usuario");
+			}
+
 		}
 
-		
-		
 		userN.setNombres(usuarioA.getNombres());
 		userN.setApellidos(usuarioA.getApellidos());
 		userN.setRol(usuarioA.getRol());
@@ -551,7 +553,6 @@ public class ManagerAdministrador {
 		em.merge(userN);
 	}
 
-		
 	public void editarReligion(Religion relA) throws Exception {
 		Religion relN = findReligionById(relA.getIdReligion());
 		if (relN == null) {
@@ -712,7 +713,6 @@ public class ManagerAdministrador {
 		} else
 			return true;
 	}
-	
 
 	// Método que devuelve la Organización
 	public List<Organizacion> findAllOrganizaciones() {
@@ -723,15 +723,12 @@ public class ManagerAdministrador {
 		return listaOrganizaciones;
 	}
 
-
-
 	public Organizacion findOrganizacionById(int id_organizacion) {
 		Organizacion organizacion = em.find(Organizacion.class, id_organizacion);
 		return organizacion;
 
 	}
-	
-	
+
 	public void ingresarOrganizacion(Organizacion organizacion) throws Exception {
 		System.out.println("si entra");
 		if (organizacion == null) {
@@ -741,7 +738,7 @@ public class ManagerAdministrador {
 		if (existeOrganizacion) {
 			throw new Exception("El organizacion " + organizacion.getNombreOrganizacion() + " ya existe");
 		}
-		System.out.println("esto es una prueba"+ organizacion.getNombreOrganizacion());
+		System.out.println("esto es una prueba" + organizacion.getNombreOrganizacion());
 
 		Organizacion norganizacion = new Organizacion();
 		norganizacion.setNombreOrganizacion(organizacion.getNombreOrganizacion());
@@ -767,10 +764,6 @@ public class ManagerAdministrador {
 
 		em.merge(organizacionN);
 	}
-	
-	
-	
-
 
 	public void eliminarOrganizacion(int id_organizacion) throws Exception {
 		Organizacion organizacionN = findOrganizacionById(id_organizacion);
@@ -779,14 +772,16 @@ public class ManagerAdministrador {
 		}
 		boolean existeOrganizacionenFicha = existeOrganizacionenFicha(organizacionN.getIdOrganizacion());
 		if (existeOrganizacionenFicha) {
-			throw new Exception("El organizacion " + organizacionN.getNombreOrganizacion() + " esta siendo utilizada por un usuario.");
+			throw new Exception("El organizacion " + organizacionN.getNombreOrganizacion()
+					+ " esta siendo utilizada por un usuario.");
 		}
 		em.remove(organizacionN);
 	}
 
-	 @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public boolean existeOrganizacionenFicha(int id_organizacion) {
-		String JPQL = "SELECT o FROM OrganizacionFichapersonal o WHERE o.organizacion.idOrganizacion=" + id_organizacion;
+		String JPQL = "SELECT o FROM OrganizacionFichapersonal o WHERE o.organizacion.idOrganizacion="
+				+ id_organizacion;
 		Query query = em.createQuery(JPQL, OrganizacionFichapersonal.class);
 		List<OrganizacionFichapersonal> lista;
 		lista = query.getResultList();
@@ -795,37 +790,34 @@ public class ManagerAdministrador {
 		} else
 			return true;
 	}
-	 
-		@SuppressWarnings("unchecked")
-		public boolean existeNombreOrganizacion(String nombre) {
 
-			String JPQL = "SELECT o FROM Organizacion o WHERE o.nombreOrganizacion=?1";
-			Query query = em.createQuery(JPQL, Organizacion.class);
-			query.setParameter(1, nombre);
-			List<Organizacion> lista;
-			lista = query.getResultList();
-			if (lista.isEmpty()) {
-				return false;
-			} else
-				return true;
-		}
+	@SuppressWarnings("unchecked")
+	public boolean existeNombreOrganizacion(String nombre) {
 
-	
-	public Date fechadeNacimiento()
-	{
+		String JPQL = "SELECT o FROM Organizacion o WHERE o.nombreOrganizacion=?1";
+		Query query = em.createQuery(JPQL, Organizacion.class);
+		query.setParameter(1, nombre);
+		List<Organizacion> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+
+	public Date fechadeNacimiento() {
 		Date t = new Date();
 		Date m;
-		m= new Date(t.getTime() - (365 * 24 * 60 * 1000));
+		m = new Date(t.getTime() - (365 * 24 * 60 * 1000));
 		return m;
-		
+
 	}
-		
-		
+
 	/**
-	 * Métodos de usuarioproyecto
-	 * Donde se registran los proyectos y ficha del usuario encargado al lugar que pertenecen.
+	 * Métodos de usuarioproyecto Donde se registran los proyectos y ficha del
+	 * usuario encargado al lugar que pertenecen.
 	 */
-	
+
 	public List<UsuarioProyecto> findAllUsuarioProyectoes() {
 
 		Query q = em.createQuery("SELECT o FROM UsuarioProyecto o", UsuarioProyecto.class);
@@ -839,61 +831,60 @@ public class ManagerAdministrador {
 		return organizacionfichapersonal;
 
 	}
-	
-/**
-	public Organizacion findOrganizacionFichaByIdOrganizacion(int id_organizacion) {
-		Organizacion organizacionficha = em.find(Organizacion.class, id_organizacion);
-		return organizacionficha;
 
-	}
-	
+	/**
+	 * public Organizacion findOrganizacionFichaByIdOrganizacion(int
+	 * id_organizacion) { Organizacion organizacionficha =
+	 * em.find(Organizacion.class, id_organizacion); return organizacionficha;
+	 * 
+	 * }
+	 * 
+	 * 
+	 **/
+	/**
+	 * public boolean existeAreaInteres(int id_area,long id_ficha) { Query q =
+	 * em.createQuery("SELECT u FROM UsuarioProyecto u where
+	 * u.areaInvestigacion.areaId=" +id_area+" and
+	 * u.fichaPersonal.idFicha="+id_ficha,
+	 * UsuarioProyecto.class); @SuppressWarnings("unchecked") List<UsuarioProyecto>
+	 * listaUsuarioProyectoes = q.getResultList(); if
+	 * (listaUsuarioProyectoes.isEmpty()) return false; else return true;
+	 * 
+	 * }
+	 **/
+	public void ingresarUsuarioProyecto(UsuarioProyecto usuarioproyecto, long id_ficha_fk, long id_proyecto,
+			int id_organizacion) throws Exception {
 
-	**/
-/**
-	public boolean existeAreaInteres(int id_area,long id_ficha) {
-		Query q = em.createQuery("SELECT u FROM UsuarioProyecto u where u.areaInvestigacion.areaId="
-		+id_area+" and u.fichaPersonal.idFicha="+id_ficha, UsuarioProyecto.class);
-		@SuppressWarnings("unchecked")
-		List<UsuarioProyecto> listaUsuarioProyectoes = q.getResultList();
-	if (listaUsuarioProyectoes.isEmpty())
-		return false;
-	else
-		return true;
-		
-	}
-	**/
-	public void ingresarUsuarioProyecto( UsuarioProyecto usuarioproyecto ,long id_ficha_fk, long  id_proyecto, int id_organizacion) throws Exception {
-	
-		if (id_ficha_fk == 0 || id_proyecto==0 || id_organizacion==0) {
+		if (id_ficha_fk == 0 || id_proyecto == 0 || id_organizacion == 0) {
 			throw new Exception("Ingrese los datos del proyecto, encargado y organización.");
 		}
 		/**
-		boolean existeAreaInteresFicha=existeOrganizacionFicha(id_area, id_ficha_fk);
-		if (existeAreaInteresFicha) {
-			throw new Exception("Ya se encuentra el área con el usuario");
-		}
-		*/
+		 * boolean existeAreaInteresFicha=existeOrganizacionFicha(id_area, id_ficha_fk);
+		 * if (existeAreaInteresFicha) { throw new Exception("Ya se encuentra el área
+		 * con el usuario"); }
+		 */
 		UsuarioProyecto nusuerproyecto = new UsuarioProyecto();
-		FichaPersonal ficha= findFichaPersonalById(id_ficha_fk);
-		Organizacion organizacion= findOrganizacionById(id_organizacion);
-		ProyectoInvestigacion proyecto= managerInvestigador.findProyectoInvestigacionById(id_proyecto);
+		FichaPersonal ficha = findFichaPersonalById(id_ficha_fk);
+		Organizacion organizacion = findOrganizacionById(id_organizacion);
+		ProyectoInvestigacion proyecto = managerInvestigador.findProyectoInvestigacionById(id_proyecto);
 		nusuerproyecto.setFichaPersonal(ficha);
-		nusuerproyecto.setOrganizacion(organizacion); 
+		nusuerproyecto.setOrganizacion(organizacion);
 		nusuerproyecto.setProyectoInvestigacion(proyecto);
 		nusuerproyecto.setFechaDe(usuarioproyecto.getFechaDe());
 		nusuerproyecto.setFechaHasta(usuarioproyecto.getFechaHasta());
 		em.persist(nusuerproyecto);
 	}
 
-	public void editarUsuarioProyecto(UsuarioProyecto usuarioproyectoA , long id_ficha_fk,long id_proyect, int id_organizacion) throws Exception {
+	public void editarUsuarioProyecto(UsuarioProyecto usuarioproyectoA, long id_ficha_fk, long id_proyect,
+			int id_organizacion) throws Exception {
 		UsuarioProyecto usuarioproyectoN = findUsuarioProyectoById(usuarioproyectoA.getIdUsuarioProyecto());
-		if (id_ficha_fk == 0 || id_organizacion==0 || id_proyect==0 ) {
+		if (id_ficha_fk == 0 || id_organizacion == 0 || id_proyect == 0) {
 			throw new Exception("Ingrese los datos del usuario y proyectos a editar.");
 		}
-		
-		FichaPersonal ficha= findFichaPersonalById(id_ficha_fk);
-		Organizacion organizacion= findOrganizacionById(id_organizacion);
-		ProyectoInvestigacion proyecto= managerInvestigador.findProyectoInvestigacionById(id_proyect);
+
+		FichaPersonal ficha = findFichaPersonalById(id_ficha_fk);
+		Organizacion organizacion = findOrganizacionById(id_organizacion);
+		ProyectoInvestigacion proyecto = managerInvestigador.findProyectoInvestigacionById(id_proyect);
 		usuarioproyectoN.setOrganizacion(organizacion);
 		usuarioproyectoN.setFichaPersonal(ficha);
 		usuarioproyectoN.setProyectoInvestigacion(proyecto);
@@ -901,20 +892,20 @@ public class ManagerAdministrador {
 		usuarioproyectoN.setFechaHasta(usuarioproyectoA.getFechaHasta());
 		em.merge(usuarioproyectoN);
 	}
-	
+
 	public void eliminarUsuarioProyecto(int id_usuarioproyecto) throws Exception {
 		UsuarioProyecto usuarioproyectoN = findUsuarioProyectoById(id_usuarioproyecto);
 		if (usuarioproyectoN == null) {
 			throw new Exception("Error al cargar el usuario y proyecto de encargado.");
 		}
-		
+
 		em.remove(usuarioproyectoN);
 	}
-	
+
 	/**
 	 * metodos de AreaInvestigacion
 	 */
-  
+
 	public List<AreaInvestigacion> findAllAreaInvestigaciones() {
 
 		Query q = em.createQuery("SELECT a FROM AreaInvestigacion a", AreaInvestigacion.class);
@@ -922,7 +913,7 @@ public class ManagerAdministrador {
 		List<AreaInvestigacion> listaAreaInvestigacions = q.getResultList();
 		return listaAreaInvestigacions;
 	}
-	
+
 	public AreaInvestigacion findAreaInvestigacionById(int id_AreaInvestigacion) {
 		AreaInvestigacion areainvestigacion = em.find(AreaInvestigacion.class, id_AreaInvestigacion);
 		return areainvestigacion;
@@ -942,15 +933,17 @@ public class ManagerAdministrador {
 			return true;
 	}
 
-	public void ingresarAreaInvestigacion(AreaInvestigacion areaInvestigacion )throws Exception {
+	public void ingresarAreaInvestigacion(AreaInvestigacion areaInvestigacion) throws Exception {
 		if (areaInvestigacion == null) {
 			throw new Exception("No ha ingresado datos en el AreaInvestigacion");
 		}
-		boolean existeNombreAreaInvestigacion = existeNombreAreaInvestigacion(areaInvestigacion.getNombreInvestigacion());
-			if (existeNombreAreaInvestigacion) {
-				throw new Exception("Ya existe el AreaInvestigacion con el nombre " + areaInvestigacion.getNombreInvestigacion());
-			}
-			
+		boolean existeNombreAreaInvestigacion = existeNombreAreaInvestigacion(
+				areaInvestigacion.getNombreInvestigacion());
+		if (existeNombreAreaInvestigacion) {
+			throw new Exception(
+					"Ya existe el AreaInvestigacion con el nombre " + areaInvestigacion.getNombreInvestigacion());
+		}
+
 		AreaInvestigacion narea = new AreaInvestigacion();
 		narea.setNombreInvestigacion(areaInvestigacion.getNombreInvestigacion());
 		narea.setDescripcionInvestigacion(areaInvestigacion.getDescripcionInvestigacion());
@@ -964,14 +957,16 @@ public class ManagerAdministrador {
 			throw new Exception("Error al cargar el AreaInvestigacion");
 		}
 		if (!areaInvestigacionA.getNombreInvestigacion().equals(areaInvestigacionN.getNombreInvestigacion())) {
-			boolean existeNombreAreaInvestigacion = existeNombreAreaInvestigacion(areaInvestigacionA.getNombreInvestigacion());
+			boolean existeNombreAreaInvestigacion = existeNombreAreaInvestigacion(
+					areaInvestigacionA.getNombreInvestigacion());
 			if (existeNombreAreaInvestigacion) {
-				throw new Exception("Ya existe el AreaInvestigacion con el nombre " + areaInvestigacionA.getDescripcionInvestigacion());
+				throw new Exception("Ya existe el AreaInvestigacion con el nombre "
+						+ areaInvestigacionA.getDescripcionInvestigacion());
 			}
 		}
 		areaInvestigacionN.setNombreInvestigacion(areaInvestigacionA.getNombreInvestigacion());
 		areaInvestigacionN.setDescripcionInvestigacion(areaInvestigacionA.getDescripcionInvestigacion());
-	
+
 		em.merge(areaInvestigacionN);
 	}
 
@@ -985,7 +980,7 @@ public class ManagerAdministrador {
 
 	}
 
-	/*metodos de la tabla resultados*/
+	/* metodos de la tabla resultados */
 
 	public List<Respuesta> findAllRespuestaes() {
 
@@ -994,28 +989,23 @@ public class ManagerAdministrador {
 		List<Respuesta> listaRespuestas = q.getResultList();
 		return listaRespuestas;
 	}
-	
+
 	public Respuesta findRespuestaById(long id_user) {
 		Respuesta respuesta = em.find(Respuesta.class, id_user);
 		return respuesta;
 	}
-/*
-	@SuppressWarnings("unchecked")
-	public boolean existeNombreRespuesta(String nombre) {
 
-		String JPQL = "SELECT m FROM Respuesta m WHERE m.nombre=?1";
-		Query query = em.createQuery(JPQL, Respuesta.class);
-		query.setParameter(1, nombre);
-		List<Respuesta> lista;
-		lista = query.getResultList();
-		if (lista.isEmpty()) {
-			return false;
-		} else
-			return true;
-	}
-*/
-	public void ingresarRespuesta(long id_user, String resp, Date fecha)throws Exception {
-		
+	/*
+	 * @SuppressWarnings("unchecked") public boolean existeNombreRespuesta(String
+	 * nombre) {
+	 * 
+	 * String JPQL = "SELECT m FROM Respuesta m WHERE m.nombre=?1"; Query query =
+	 * em.createQuery(JPQL, Respuesta.class); query.setParameter(1, nombre);
+	 * List<Respuesta> lista; lista = query.getResultList(); if (lista.isEmpty()) {
+	 * return false; } else return true; }
+	 */
+	public void ingresarRespuesta(long id_user, String resp, Date fecha) throws Exception {
+
 		Respuesta nrespuesta = new Respuesta();
 		Usuario user = findUsuarioById(id_user);
 		nrespuesta.setUsuario(user);
@@ -1025,15 +1015,6 @@ public class ManagerAdministrador {
 
 	}
 
-	
 	// metodos de reporte
-
-
-
-
-
-	
-	
-	
 
 }

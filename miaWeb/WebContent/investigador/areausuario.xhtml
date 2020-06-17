@@ -26,7 +26,7 @@
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
 					
-				<p:menuitem value="Nuevo usuario en organización" title="Ingresar Nuevo usuario en organización"
+				<p:menuitem value="Nueva área de investigación" title="Ingresar Nuevo usuario en organización"
 					icon=" fa fa-plus " onclick="PF('nuevoUsuarioArea').show();"></p:menuitem>
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -51,7 +51,7 @@
 	</p:messages>
 
 
-	<p:dialog header="Ingresar nuevo usuario en organización" widgetVar="nuevoUsuarioArea"
+	<p:dialog header="Ingresar nueva área de investigación" widgetVar="nuevoUsuarioArea"
 		id="nuevoUsuarioArea" modal="true" height="230" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
@@ -59,17 +59,8 @@
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
 
-					<p:outputLabel value="Usuario: " />
-					<p:selectOneMenu autoWidth="100%" required="true"
-						requiredMessage="Seleccione un usuario"
-						value="#{beanInvestigador.id_ficha_fk}"
-						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Usuario"
-							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanInvestigador.listaFichaU}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
-					</p:selectOneMenu>
+					<p:outputLabel value="Investigador: " />
+					<p:inputText value="#{beanLogin.login.nombres}" disabled="true"></p:inputText>
 					
 					<p:outputLabel value="Área de Investigación: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
@@ -116,7 +107,7 @@
 							<h:outputText value="#{r.idInteresArea}" />
 						</p:column>
 
-						<p:column headerText="{Área de Investigación">
+						<p:column headerText="Área de Investigación">
 							<h:outputText value="#{r.areaInvestigacion.nombreInvestigacion}" />
 						</p:column>
 						
@@ -148,30 +139,17 @@
 				</div>
 			</h:form>
 			
-	<p:dialog header="Editar Organizacion Ficha" widgetVar="editarArea"
+	<p:dialog header="Editar Área de Investigación" widgetVar="editarArea"
 		id="editarArea" modal="true" height="330" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		<h:form id="form10">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
-					<p:outputLabel value="ID:" />
-					<p:inputText
-						value="#{beanInvestigador.organizacionFichapersonalE.idOrganizacionFicha}" required="true" disabled="true">
-					</p:inputText>
 					
-					<p:outputLabel value="Usuario: " />
-					<p:selectOneMenu autoWidth="100%" required="true"
-						requiredMessage="Seleccione un usuario"
-						value="#{beanInvestigador.id_ficha_fk}"
-						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Usuario"
-							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanInvestigador.listaFichaU}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.usuario.idUsuario}" />
-					</p:selectOneMenu>
 					
+					<p:outputLabel value="Investigador: " />
+					<p:inputText disabled="true" value="#{beanLogin.login.nombres}"></p:inputText>
 					<p:outputLabel value="Área de Investigación: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione un área de"

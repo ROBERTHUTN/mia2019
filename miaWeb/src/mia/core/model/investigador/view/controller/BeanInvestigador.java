@@ -164,7 +164,6 @@ public class BeanInvestigador implements Serializable {
 	public void actionListenerCargarAreaFicha(UsuarioInteresArea AreaFichaC) {
 		try {
 			usuarioInteresArea = AreaFichaC;
-			id_ficha_fk=AreaFichaC.getFichaPersonal().getIdFicha();
 			id_area_fk=AreaFichaC.getAreaInvestigacion().getAreaId();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -174,7 +173,7 @@ public class BeanInvestigador implements Serializable {
 	
 	public void actionListenerIngresarUsuarioInteresArea() {
 		try {
-			managerInvestigador.ingresarUsuarioInteresArea(id_ficha_fk, id_area_fk);
+			managerInvestigador.ingresarUsuarioInteresArea(beanLogin.getLogin().getId_usuario(), id_area_fk);
 			areainteres = managerInvestigador.findAllUsuarioInteresAreaes();
 			JSFUtil.crearMensajeInfo("Usuario agregado área de Interes de investigación.");
 		} catch (Exception e) {
@@ -197,7 +196,7 @@ public class BeanInvestigador implements Serializable {
 	
 	public void actionListenerEditarUsuarioInteresArea() {
 		try {
-			managerInvestigador.editarUsuarioInteresArea(usuarioInteresArea, id_ficha_fk, id_area_fk);
+			managerInvestigador.editarUsuarioInteresArea(usuarioInteresArea, beanLogin.getLogin().getId_usuario(), id_area_fk);
 			JSFUtil.crearMensajeInfo("Usuario editado correctamente en la área de investigación de interés");
 		} catch (Exception e) {
 			areainteres= managerInvestigador.findAllUsuarioInteresAreaes();
