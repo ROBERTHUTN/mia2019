@@ -61,19 +61,30 @@ order by r.id_rol]]>
 		<band height="72">
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="2ca22a41-aaea-40f0-911c-00f8aae2c688"/>
+				<image>
+					<reportElement x="0" y="0" width="132" height="92" uuid="b5972923-b08e-4acd-85e8-02e85083f5f9"/>
+					<imageExpression><![CDATA["http://localhost:8080/miaWeb/faces/administrador/images/logoMIA.png"]]></imageExpression>
+				</image>
 				<staticText>
-					<reportElement x="130" y="25" width="234" height="43" forecolor="#FFFFFF" uuid="42c0fbd1-f907-485b-9e1f-0c4cddf51af6"/>
+					<reportElement x="163" y="0" width="319" height="43" forecolor="#FFFFFF" uuid="10d109b9-3c74-47b8-9dfd-cf89017f627c"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[MIA Institute]]></text>
+					<text><![CDATA[MIAInstitute]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="1984f45e-f7ef-4c36-8c24-e60e3f3bf047"/>
+					<reportElement x="90" y="50" width="290" height="49" forecolor="#FFFFFF" uuid="095f8f72-beb6-43df-b787-be7f1dffbe52"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[usuario por roles]]></text>
+					<text><![CDATA[La metodología MIA afecta los modelos mentales y facilita la creación de una organizaciones inteligentes.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="390" y="72" width="195" height="20" forecolor="#FFFFFF" uuid="150c6372-13a8-413b-a02c-abaf1bce3620"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Lista de usuarios]]></text>
 				</staticText>
 			</frame>
 		</band>
