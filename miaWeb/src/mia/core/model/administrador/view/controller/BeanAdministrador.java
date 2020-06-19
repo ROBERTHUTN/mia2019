@@ -80,6 +80,7 @@ public class BeanAdministrador implements Serializable {
    private long id_ficha_fk;
    private long id_proyecto;
    private int id_organizacion;
+   private int reporte;
    
    
 	@EJB
@@ -119,11 +120,13 @@ public class BeanAdministrador implements Serializable {
 			grados = managerUsuario.findAllGrado();
 			organizaciones = managerAdministrador.findAllOrganizaciones();
 			usuarioproyectos = managerAdministrador.findAllUsuarioProyectoes();
-
+reporte=1;
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
+	
+	
 	public void actionListenerIngresarReligion() {
 		try {
 			managerAdministrador.ingresarReligion(religion);
@@ -453,22 +456,56 @@ public class BeanAdministrador implements Serializable {
 		}
 
 	}
-	public String actionReporte(){
+	public void actionListenerActulizarListaU() {
+		if (reporte==1) {
+			usuarios = managerAdministrador.findAllUsuario();
+			JSFUtil.crearMensajeInfo("Lista actualizada.");
+		}else {
+				
+				if (reporte==2) {
+				
+					usuarios=managerAdministrador.findAllUsuarioByInvestigador();
+					JSFUtil.crearMensajeInfo("Lista actualizada.");
+				}else {
+					System.out.println("HOLA3");
+				}
+			}
+	}
+	
+	public void generarReporte() {
+		String pathR="", nombre=""; 
+		if (reporte==1) {
+		pathR="administrador/reporte/miaDS.jasper";
+		nombre="miaDS.pdf";
+		actionReporteAllUsuarios(pathR, nombre);
+		
+		}else {
+			
+			if (reporte==2) {
+				pathR="administrador/reporte/investidores.jasper";
+				nombre="investidores.pdf";
+				 reporteInvestigadores( pathR, nombre);
+			}else {
+				System.out.println("HOLA3");
+			}
+		}
+	    }
+	public String actionReporteAllUsuarios(String pathR, String nombre){
 		Map<String,Object> parametros=new HashMap<String,Object>();
 		/*parametros.put("p_titulo_principal",p_titulo_principal);
 		parametros.put("p_titulo",p_titulo);*/
 		FacesContext context=FacesContext.getCurrentInstance();
 		ServletContext servletContext=(ServletContext)context.getExternalContext().getContext();
-		String ruta=servletContext.getRealPath("administrador/reporte/miaDS.jasper");
+		String ruta=servletContext.getRealPath(pathR);
 		System.out.println(ruta);
 		HttpServletResponse response=(HttpServletResponse)context.getExternalContext().getResponse();
-		response.addHeader("Content-disposition", "attachment;filename=miaDS.pdf");
+		response.addHeader("Content-disposition", "attachment;filename="+nombre);
 		response.setContentType("application/pdf");
 		try {
 		Class.forName("org.postgresql.Driver");
 		Connection connection = null;
 		connection = DriverManager.getConnection(
-		 "jdbc:postgresql://localhost:5432/mia","postgres", "root");
+		 "jdbc:postgresql://localhost:5432/mia","postgres", "Dosmenosuno0");
 		JasperPrint impresion=JasperFillManager.fillReport(ruta, parametros,connection);
 		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
 		context.getApplication().getStateManager().saveView(context);
@@ -476,21 +513,23 @@ public class BeanAdministrador implements Serializable {
 		context.responseComplete();
 		} catch (Exception e) {
 		JSFUtil.crearMensajeError(e.getMessage());
-		e.printStackTrace();
+		e.printStackTrace
+		();
 		}
 		return "";
 		}
 	
-	public String actionReporteInvestigacion(){
+	
+	public String reporteInvestigadores( String pathR, String nombre){
 		Map<String,Object> parametros=new HashMap<String,Object>();
 		/*parametros.put("p_titulo_principal",p_titulo_principal);
 		parametros.put("p_titulo",p_titulo);*/
 		FacesContext context=FacesContext.getCurrentInstance();
 		ServletContext servletContext=(ServletContext)context.getExternalContext().getContext();
-		String ruta=servletContext.getRealPath("administrador/reporte/investidores.jasper");
+		String ruta=servletContext.getRealPath(pathR);
 		System.out.println(ruta);
 		HttpServletResponse response=(HttpServletResponse)context.getExternalContext().getResponse();
-		response.addHeader("Content-disposition", "attachment;filename=Lista_Investigadores.pdf");
+		response.addHeader("Content-disposition", "attachment;filename="+nombre);
 		response.setContentType("application/pdf");
 		try {
 		Class.forName("org.postgresql.Driver");
@@ -858,15 +897,18 @@ public class BeanAdministrador implements Serializable {
 	public void setFecha_hasta(Date fecha_hasta) {
 		Fecha_hasta = fecha_hasta;
 	}
-
-
-
 	public List<AreaInvestigacion> getAreas() {
 		return areas;
 	}
 
 	public void setAreas(List<AreaInvestigacion> areas) {
 		this.areas = areas;
+	}
+	public int getReporte() {
+		return reporte;
+	}
+	public void setReporte(int reporte) {
+		this.reporte = reporte;
 	}
 
 

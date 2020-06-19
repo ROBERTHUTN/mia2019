@@ -62,23 +62,30 @@ order by r.id_rol]]>
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="0fb5b903-c9bc-4b68-a8b8-547ed0ccd3bc"/>
 				<staticText>
-					<reportElement x="221" y="7" width="319" height="43" forecolor="#FFFFFF" uuid="cc98392c-cb8a-440b-b1cf-fa2e0861f051"/>
+					<reportElement x="163" y="0" width="319" height="43" forecolor="#FFFFFF" uuid="cc98392c-cb8a-440b-b1cf-fa2e0861f051"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[MIAInstitute]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="150" y="50" width="344" height="49" forecolor="#FFFFFF" uuid="872a5e78-ac95-4a75-a928-fd8b0ed03f27"/>
+					<reportElement x="90" y="50" width="290" height="49" forecolor="#FFFFFF" uuid="872a5e78-ac95-4a75-a928-fd8b0ed03f27"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[La metodología MIA afecta los modelos mentales y facilita la creación de una organizaciones inteligentes.]]></text>
 				</staticText>
 				<image>
-					<reportElement x="9" y="4" width="91" height="82" uuid="d43a614b-b064-430f-9bb2-811920fe1a99"/>
-					<imageExpression><![CDATA["C:/Users/empin/git/mia2019/miaWeb/WebContent/administrador/images/logoMIA.png"]]></imageExpression>
+					<reportElement x="0" y="0" width="132" height="92" uuid="fdfe697d-9ce1-440a-8c1b-dc56a5f39011"/>
+					<imageExpression><![CDATA["http://localhost:8080/miaWeb/faces/administrador/images/logoMIA.png"]]></imageExpression>
 				</image>
+				<staticText>
+					<reportElement x="390" y="72" width="195" height="20" forecolor="#FFFFFF" uuid="8fb033ad-627b-4225-b1d7-14b94c89a15d"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Lista de investigadores]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</title>
@@ -91,7 +98,7 @@ order by r.id_rol]]>
 				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="53843014-cb7f-4232-a7ed-f328517c4aeb"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="80e95792-d7c6-4264-b85b-64a0a7b40696">
+				<reportElement mode="Opaque" x="-20" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="80e95792-d7c6-4264-b85b-64a0a7b40696">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8aff82d-74fb-4d72-a651-0036d8f67b6d"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -118,7 +125,7 @@ order by r.id_rol]]>
 				<text><![CDATA[Apellidos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="333" y="1" width="222" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ee7d64a6-e9d1-492f-9cc1-876ed07ef57e">
+				<reportElement mode="Opaque" x="333" y="0" width="222" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ee7d64a6-e9d1-492f-9cc1-876ed07ef57e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="91b16a63-41b1-4d7b-89b6-6920bb8b83b7"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -161,7 +168,7 @@ order by r.id_rol]]>
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="0" y="0" width="111" height="20" uuid="8fc40e82-01b0-41f5-b09c-a05dde1a1cfb">
+				<reportElement x="10" y="-1" width="100" height="20" uuid="8fc40e82-01b0-41f5-b09c-a05dde1a1cfb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8aff82d-74fb-4d72-a651-0036d8f67b6d"/>
 				</reportElement>
 				<textElement>

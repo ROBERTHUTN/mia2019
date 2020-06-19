@@ -136,20 +136,35 @@
 
 
 
-	<h:form id="form2">
-		
-<div id="contenido" class="container-fluid col-lg-11" style="margin-top: 30px; ">		
-<h:form>
-	<div align="right">
-	<br/>
+<h:form>	
+<div class="ui-fluid" style="margin-top: 10px; ">		
 
-		<p:commandButton value="Reporte" icon="pi pi-print" ajax="false" action="#{beanAdministrador.actionReporte()}" style="background-color:gray ; border: #CAE1E8;"/>
-		<p:commandButton value="Reporte Investigadores" icon="pi pi-print" ajax="false" action="#{beanAdministrador.actionReporteInvestigacion()}" style="background-color:gray ; border: #CAE1E8;"/>
-		
-	<p:spacer></p:spacer>
+	 <p:panel  style="text-align:center">
+	 <p:row>
+	   <p:panelGrid style="width:100%" columns="3" layout="grid" styleClass="showcase-text-align-center">
+	 <p:column>
+	   <p:outputLabel value="Seleccione el tipo de Reporte:"></p:outputLabel>
+	 </p:column>
+	 <p:column>
+	    <p:selectOneMenu id="onemenu" value="#{beanAdministrador.reporte}">
+	     <p:ajax listener="#{beanAdministrador.actionListenerActulizarListaU()}" update="form2" />
+            <f:selectItem itemLabel="Todos los usuarios" itemValue="1" />
+            <f:selectItem itemLabel="Usuarios Investigadores" itemValue="2" />
+            <f:selectItem itemLabel="Usuarios por organizaciones" itemValue="3" />
+            </p:selectOneMenu>
+	 </p:column>
+	 <p:column>
+	  <p:commandButton value="Gererar" ajax="false" action="#{beanAdministrador.generarReporte()}"  icon="fa fa-download" />
+	 </p:column>
+	  </p:panelGrid>
+	 </p:row>      
+            </p:panel>
+            
 	</div>
-</h:form>
-</div>
+	</h:form>
+	
+<h:form id="form2">
+<div class="ui-fluid" style="margin-top: 10px; ">
 			<p:dataTable var="r" widgetVar="tabla1"
 				value="#{beanAdministrador.usuarios}" reflow="true" rows="10"
 				paginator="true"
@@ -201,7 +216,7 @@
 
 
 			</p:dataTable>
-	
+	</div>
 	</h:form>
 	
 	<p:dialog header="Editar rol" widgetVar="editarUsuario"

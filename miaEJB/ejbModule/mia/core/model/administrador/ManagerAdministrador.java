@@ -98,6 +98,14 @@ public class ManagerAdministrador {
 		List<Usuario> listaUsuario = q.getResultList();
 		return listaUsuario;
 	}
+	public List<Usuario> findAllUsuarioByInvestigador() {
+
+		Query q = em.createQuery("SELECT u FROM Usuario u "
+				+ " where u.rol.idRol=6", Usuario.class);
+		@SuppressWarnings("unchecked")
+		List<Usuario> listaUsuario = q.getResultList();
+		return listaUsuario;
+	}
 
 	public List<FichaPersonal> findAllFichaPersonal() {
 
