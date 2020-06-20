@@ -31,34 +31,5 @@
 	<class>mia.core.model.entities.Reporte</class>
 	<class>mia.core.model.entities.Reporteprepost</class>
 	<class>mia.core.model.entities.Respuestapregunta</class>
-	<class>mia.core.entities.AreaInvestigacion</class>
-	<class>mia.core.entities.Cuestionario</class>
-	<class>mia.core.entities.Curso</class>
-	<class>mia.core.entities.CursoModulo</class>
-	<class>mia.core.entities.Dimension</class>
-	<class>mia.core.entities.DimensionPregunta</class>
-	<class>mia.core.entities.Etnia</class>
-	<class>mia.core.entities.FichaPersonal</class>
-	<class>mia.core.entities.GradoEstudio</class>
-	<class>mia.core.entities.Modulo</class>
-	<class>mia.core.entities.Opcion</class>
-	<class>mia.core.entities.Opcionpregunta</class>
-	<class>mia.core.entities.Organizacion</class>
-	<class>mia.core.entities.OrganizacionFichapersonal</class>
-	<class>mia.core.entities.PaisEstado</class>
-	<class>mia.core.entities.Pregunta</class>
-	<class>mia.core.entities.Preguntamodulo</class>
-	<class>mia.core.entities.ProyectoInvestigacion</class>
-	<class>mia.core.entities.Religion</class>
-	<class>mia.core.entities.Reporte</class>
-	<class>mia.core.entities.Reporteprepost</class>
-	<class>mia.core.entities.Respuesta</class>
-	<class>mia.core.entities.Respuestapregunta</class>
-	<class>mia.core.entities.RestablecerContrasenia</class>
-	<class>mia.core.entities.Rol</class>
-	<class>mia.core.entities.Usuario</class>
-	<class>mia.core.entities.UsuarioCurso</class>
-	<class>mia.core.entities.UsuarioInteresArea</class>
-	<class>mia.core.entities.UsuarioProyecto</class>
 	</persistence-unit>
 </persistence>
