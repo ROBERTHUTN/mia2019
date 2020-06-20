@@ -2,7 +2,6 @@ package mia.core.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import java.util.List;
 
 
@@ -17,7 +16,7 @@ public class AreaInvestigacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AREA_INVESTIGACION_AREAID_GENERATOR", sequenceName="SEQ_AREA_INVESTIGACION", allocationSize = 1)
+	@SequenceGenerator(name="AREA_INVESTIGACION_AREAID_GENERATOR", sequenceName="SEQ_AREA_INVESTIGACION",allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AREA_INVESTIGACION_AREAID_GENERATOR")
 	@Column(name="area_id")
 	private Integer areaId;

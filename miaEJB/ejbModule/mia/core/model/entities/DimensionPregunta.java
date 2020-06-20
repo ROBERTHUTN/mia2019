@@ -28,9 +28,9 @@ public class DimensionPregunta implements Serializable {
 	//bi-directional many-to-one association to Pregunta
 	@ManyToOne
 	@JoinColumn(name="id_pregunta")
-	private Pregunta pregunta; 
-	
-	 public DimensionPregunta() {
+	private Pregunta pregunta;
+
+	public DimensionPregunta() {
 	}
 
 	public long getIdPreguntaDimension() {

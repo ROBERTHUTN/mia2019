@@ -46,11 +46,14 @@
     <f:viewParam name="moduloRealizado" value="#{beanUserCursoModulo.moduloRealizado}" />
 </f:metadata>
 
-      
-<iframe src="#{beanUserCursoModulo.moduloRealizado} " width="1000" height="1000"  >
+     
+<iframe src="#{beanUserCursoModulo.moduloRealizado}" width="1000" height="1000"  >
 </iframe>
 <p:commandButton value="Finalizar"  action="#{beanUserCursoModulo.actionIngresarCambio(car)}"></p:commandButton>
 
+<p>
+        ViewParameter you've passed is <strong>"#{beanUserCursoModulo.moduloRealizado}"</strong>
+</p>
 </body> 
 
 </html>

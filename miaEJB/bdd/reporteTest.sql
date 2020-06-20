@@ -38,6 +38,7 @@ CREATE TABLE public.reporteprepost (
     centrogravedad character varying(70) NOT NULL, 
     logica_emergente character varying(70) NOT NULL, 
     logica_retroceso character varying(70) NOT NULL, 
+    respuesta_cuestionario text null
     fecha_inscripcion timestamp without time zone NOT NULL,
     id_usuario numeric NOT NULL
 );
@@ -62,6 +63,18 @@ ALTER TABLE ONLY public.reporteprepost
 ALTER TABLE ONLY public.reporteprepost
     ADD CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES public.usuario(id_usuario) MATCH FULL;
 
+
+
+
+CREATE SEQUENCE public.seq_reporteprepost
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE public.seq_cuestionario OWNER TO postgres;
 
 -- Completed on 2020-06-13 10:00:50
 

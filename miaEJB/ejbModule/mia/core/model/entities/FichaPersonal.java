@@ -82,10 +82,6 @@ public class FichaPersonal implements Serializable {
 	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
 
-	//bi-directional many-to-one association to OrganizacionFichapersonal
-	@OneToMany(mappedBy="fichaPersonal")
-	private List<OrganizacionFichapersonal> organizacionFichapersonals;
-
 	//bi-directional many-to-one association to UsuarioInteresArea
 	@OneToMany(mappedBy="fichaPersonal")
 	private List<UsuarioInteresArea> usuarioInteresAreas;
@@ -247,28 +243,6 @@ public class FichaPersonal implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public List<OrganizacionFichapersonal> getOrganizacionFichapersonals() {
-		return this.organizacionFichapersonals;
-	}
-
-	public void setOrganizacionFichapersonals(List<OrganizacionFichapersonal> organizacionFichapersonals) {
-		this.organizacionFichapersonals = organizacionFichapersonals;
-	}
-
-	public OrganizacionFichapersonal addOrganizacionFichapersonal(OrganizacionFichapersonal organizacionFichapersonal) {
-		getOrganizacionFichapersonals().add(organizacionFichapersonal);
-		organizacionFichapersonal.setFichaPersonal(this);
-
-		return organizacionFichapersonal;
-	}
-
-	public OrganizacionFichapersonal removeOrganizacionFichapersonal(OrganizacionFichapersonal organizacionFichapersonal) {
-		getOrganizacionFichapersonals().remove(organizacionFichapersonal);
-		organizacionFichapersonal.setFichaPersonal(null);
-
-		return organizacionFichapersonal;
 	}
 
 	public List<UsuarioInteresArea> getUsuarioInteresAreas() {

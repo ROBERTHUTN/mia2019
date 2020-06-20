@@ -2,7 +2,6 @@ package mia.core.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -16,15 +15,13 @@ public class Reporte implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="REPORTE_IDREPORTE_GENERATOR", sequenceName="SEQ_REPORTE",allocationSize =1)
+	@SequenceGenerator(name="REPORTE_IDREPORTE_GENERATOR", sequenceName="SEQ_REPORTE", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="REPORTE_IDREPORTE_GENERATOR")
 	@Column(name="id_reporte")
 	private long idReporte;
 
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
-
-	private BigDecimal porcentaje;
 
 	private String resultado;
 
@@ -55,14 +52,6 @@ public class Reporte implements Serializable {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-
-	public BigDecimal getPorcentaje() {
-		return this.porcentaje;
-	}
-
-	public void setPorcentaje(BigDecimal porcentaje) {
-		this.porcentaje = porcentaje;
 	}
 
 	public String getResultado() {

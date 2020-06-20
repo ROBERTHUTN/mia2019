@@ -30,6 +30,10 @@ public class Modulo implements Serializable {
 	@OneToMany(mappedBy="modulo")
 	private List<CursoModulo> cursoModulos;
 
+	//bi-directional many-to-one association to Preguntamodulo
+	@OneToMany(mappedBy="modulo")
+	private List<Preguntamodulo> preguntamodulos;
+
 	public Modulo() {
 	}
 
@@ -85,6 +89,28 @@ public class Modulo implements Serializable {
 		cursoModulo.setModulo(null);
 
 		return cursoModulo;
+	}
+
+	public List<Preguntamodulo> getPreguntamodulos() {
+		return this.preguntamodulos;
+	}
+
+	public void setPreguntamodulos(List<Preguntamodulo> preguntamodulos) {
+		this.preguntamodulos = preguntamodulos;
+	}
+
+	public Preguntamodulo addPreguntamodulo(Preguntamodulo preguntamodulo) {
+		getPreguntamodulos().add(preguntamodulo);
+		preguntamodulo.setModulo(this);
+
+		return preguntamodulo;
+	}
+
+	public Preguntamodulo removePreguntamodulo(Preguntamodulo preguntamodulo) {
+		getPreguntamodulos().remove(preguntamodulo);
+		preguntamodulo.setModulo(null);
+
+		return preguntamodulo;
 	}
 
 }

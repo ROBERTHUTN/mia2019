@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,7 +14,6 @@ import org.wildfly.security.audit.SyslogAuditEndpoint;
 
 import mia.core.model.administrador.ManagerCurso;
 import mia.core.model.administrador.view.controller.BeanCurso;
-import mia.core.model.cuestionario.ManagerCuestionario;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Modulo;

@@ -2,9 +2,6 @@ package mia.core.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import mia.core.model.entities.UsuarioCurso;
-
 import java.util.List;
 
 

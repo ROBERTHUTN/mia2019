@@ -3,8 +3,6 @@ package mia.core.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import mia.core.model.entities.Modulo;
-
 
 /**
  * The persistent class for the curso_modulo database table.
@@ -20,7 +18,6 @@ public class CursoModulo implements Serializable {
 	@SequenceGenerator(name="CURSO_MODULO_IDCURSOMODULO_GENERATOR", sequenceName="SEQ_CURSO_MODULO", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CURSO_MODULO_IDCURSOMODULO_GENERATOR")
 	@Column(name="id_curso_modulo")
-	
 	private long idCursoModulo;
 
 	@Column(name="orden_curso")

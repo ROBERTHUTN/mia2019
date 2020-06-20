@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
- 
+
 /**
  * The persistent class for the usuario_curso database table.
  * 
@@ -20,6 +20,7 @@ public class UsuarioCurso implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_CURSO_IDUSUARIOCURSO_GENERATOR")
 	@Column(name="id_usuariocurso")
 	private long idUsuariocurso;
+
 	private BigDecimal avance;
 
 	private String modulorealizados;
@@ -76,7 +77,5 @@ public class UsuarioCurso implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
 
 }

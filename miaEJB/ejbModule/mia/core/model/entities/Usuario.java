@@ -36,9 +36,17 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<FichaPersonal> fichaPersonals;
 
+	//bi-directional many-to-one association to OrganizacionFichapersonal
+	@OneToMany(mappedBy="usuario")
+	private List<OrganizacionFichapersonal> organizacionFichapersonals;
+
 	//bi-directional many-to-one association to Reporte
 	@OneToMany(mappedBy="usuario")
 	private List<Reporte> reportes;
+
+	//bi-directional many-to-one association to Reporteprepost
+	@OneToMany(mappedBy="usuario")
+	private List<Reporteprepost> reportepreposts;
 
 	//bi-directional many-to-one association to Respuesta
 	@OneToMany(mappedBy="usuario")
@@ -134,6 +142,28 @@ public class Usuario implements Serializable {
 		return fichaPersonal;
 	}
 
+	public List<OrganizacionFichapersonal> getOrganizacionFichapersonals() {
+		return this.organizacionFichapersonals;
+	}
+
+	public void setOrganizacionFichapersonals(List<OrganizacionFichapersonal> organizacionFichapersonals) {
+		this.organizacionFichapersonals = organizacionFichapersonals;
+	}
+
+	public OrganizacionFichapersonal addOrganizacionFichapersonal(OrganizacionFichapersonal organizacionFichapersonal) {
+		getOrganizacionFichapersonals().add(organizacionFichapersonal);
+		organizacionFichapersonal.setUsuario(this);
+
+		return organizacionFichapersonal;
+	}
+
+	public OrganizacionFichapersonal removeOrganizacionFichapersonal(OrganizacionFichapersonal organizacionFichapersonal) {
+		getOrganizacionFichapersonals().remove(organizacionFichapersonal);
+		organizacionFichapersonal.setUsuario(null);
+
+		return organizacionFichapersonal;
+	}
+
 	public List<Reporte> getReportes() {
 		return this.reportes;
 	}
@@ -154,6 +184,28 @@ public class Usuario implements Serializable {
 		reporte.setUsuario(null);
 
 		return reporte;
+	}
+
+	public List<Reporteprepost> getReportepreposts() {
+		return this.reportepreposts;
+	}
+
+	public void setReportepreposts(List<Reporteprepost> reportepreposts) {
+		this.reportepreposts = reportepreposts;
+	}
+
+	public Reporteprepost addReporteprepost(Reporteprepost reporteprepost) {
+		getReportepreposts().add(reporteprepost);
+		reporteprepost.setUsuario(this);
+
+		return reporteprepost;
+	}
+
+	public Reporteprepost removeReporteprepost(Reporteprepost reporteprepost) {
+		getReportepreposts().remove(reporteprepost);
+		reporteprepost.setUsuario(null);
+
+		return reporteprepost;
 	}
 
 	public List<Respuesta> getRespuestas() {
