@@ -41,6 +41,7 @@ public class BeanInvestigador implements Serializable {
 //claves foraneas
 	private int id_rol_fk;
 	private long id_ficha_fk;
+	private long id_usuario_fk;
 	private int id_organizacion;
 	private int id_area_fk;
 	@EJB
@@ -96,7 +97,7 @@ public class BeanInvestigador implements Serializable {
 	public void actionListenerCargarOrganizacionFicha(OrganizacionFichapersonal organFichaC) {
 		try {
 			organizacionFichapersonalE = organFichaC;
-			id_ficha_fk=organFichaC.getFichaPersonal().getIdFicha();
+			id_usuario_fk=organFichaC.getUsuario().getIdUsuario();
 			id_organizacion=organFichaC.getOrganizacion().getIdOrganizacion();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -362,6 +363,14 @@ public class BeanInvestigador implements Serializable {
 
 	public void setListaFichaUvoluntariado(List<FichaPersonal> listaFichaUvoluntariado) {
 		this.listaFichaUvoluntariado = listaFichaUvoluntariado;
+	}
+
+	public long getId_usuario_fk() {
+		return id_usuario_fk;
+	}
+
+	public void setId_usuario_fk(long id_usuario_fk) {
+		this.id_usuario_fk = id_usuario_fk;
 	}
 	
 	
