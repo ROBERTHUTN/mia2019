@@ -260,9 +260,9 @@ System.out.println(" 1");
 
 	}
 
-	public boolean existeOrganizacionFicha(int id_organizacion, long id_ficha) {
+	public boolean existeOrganizacionFicha(int id_organizacion, long id_usuario) {
 		Query q = em.createQuery("SELECT o FROM OrganizacionFichapersonal o where o.organizacion.idOrganizacion="
-				+ id_organizacion + " and o.fichaPersonal.idFicha=" + id_ficha, OrganizacionFichapersonal.class);
+				+ id_organizacion + " and o.usuario.idUsuario=" + id_usuario, OrganizacionFichapersonal.class);
 		@SuppressWarnings("unchecked")
 		List<OrganizacionFichapersonal> listaOrganizacionFichapersonales = q.getResultList();
 		if (listaOrganizacionFichapersonales.isEmpty())
@@ -272,48 +272,48 @@ System.out.println(" 1");
 
 	}
 
-	public void ingresarOrganizacionFichapersonal(long id_ficha_fk, int id_organizacion) throws Exception {
-		if (id_ficha_fk == 0 || id_organizacion == 0) {
+	public void ingresarOrganizacionFichapersonal(long id_usuario_fk, int id_organizacion) throws Exception {
+		if (id_usuario_fk == 0 || id_organizacion == 0) {
 			throw new Exception("Ingrese los datos del organizacion y la ficha personal.");
 		}
-		boolean existeOrganiFicha = existeOrganizacionFicha(id_organizacion, id_ficha_fk);
+		boolean existeOrganiFicha = existeOrganizacionFicha(id_organizacion, id_usuario_fk);
 		if (existeOrganiFicha) {
-			throw new Exception("Ya se encuentra la ficha registrada con esa organizacion");
+			throw new Exception("Ya se encuentra registrado el usuari@ con esa organizacion");
 		}
 
 		OrganizacionFichapersonal norganizacionfichapersonal = new OrganizacionFichapersonal();
-		FichaPersonal ficha = managerAdministrador.findFichaPersonalById(id_ficha_fk);
+		Usuario user = managerAdministrador.findUsuarioById(id_usuario_fk);
 		Organizacion organizacion = managerAdministrador.findOrganizacionById(id_organizacion);
-		norganizacionfichapersonal.setFichaPersonal(ficha);
+		norganizacionfichapersonal.setUsuario(user);
 		norganizacionfichapersonal.setOrganizacion(organizacion);
 		em.persist(norganizacionfichapersonal);
 	}
 
-	public void editarOrganizacionFichapersonal(OrganizacionFichapersonal organizacionfichapersonalA, long id_ficha_fk,
+	public void editarOrganizacionFichapersonal(OrganizacionFichapersonal organizacionfichapersonalA, long id_usuario_fk,
 			int id_organizacion) throws Exception {
 		OrganizacionFichapersonal organizacionfichapersonalN = findOrganizacionFichapersonalById(
 				organizacionfichapersonalA.getIdOrganizacionFicha());
-		if (id_ficha_fk == 0 || id_organizacion == 0) {
+		if (id_usuario_fk == 0 || id_organizacion == 0) {
 			throw new Exception("Ingrese los datos del organizacionfichapersonal");
 		}
 
-		if (id_ficha_fk == organizacionfichapersonalN.getFichaPersonal().getIdFicha()
+		if (id_usuario_fk== organizacionfichapersonalN.getUsuario().getIdUsuario()
 				&& id_organizacion == organizacionfichapersonalN.getOrganizacion().getIdOrganizacion()) {
 
 		} else {
-			boolean existeOfP = existeOrganizaciónFichaPersonal(id_ficha_fk, id_organizacion);
+			boolean existeOfP = existeOrganizaciónFichaPersonal(id_usuario_fk, id_organizacion);
 			if (!existeOfP) {
-				FichaPersonal ficha = managerAdministrador.findFichaPersonalById(id_ficha_fk);
+				Usuario user=managerAdministrador.findUsuarioById(id_usuario_fk);
 				Organizacion organizacion = managerAdministrador.findOrganizacionById(id_organizacion);
 
-				organizacionfichapersonalN.setFichaPersonal(ficha);
+				organizacionfichapersonalN.setUsuario(user);
 				organizacionfichapersonalN.setOrganizacion(organizacion);
 
 				em.merge(organizacionfichapersonalN);
 			} else {
 				throw new Exception("Ya existe una Organización con el usuario: " + ""
-						+ organizacionfichapersonalA.getFichaPersonal().getUsuario().getApellidos() + " "
-						+ organizacionfichapersonalA.getFichaPersonal().getUsuario().getNombres()
+						+ organizacionfichapersonalA.getUsuario().getApellidos() + " "
+						+ organizacionfichapersonalA.getUsuario().getNombres()
 						+ " y la organización " + organizacionfichapersonalA.getOrganizacion().getNombreOrganizacion());
 			}
 
