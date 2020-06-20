@@ -676,7 +676,9 @@ public class ManagerCuestionario {
 		Dimension dime = managerCuestionario.findDimensionById(id_dimension);
 		nreport.setResultado(respuesta);
 		BigDecimal a=new BigDecimal(valor);
-		nreport.setPorcentaje(a);
+		
+		
+		
 		nreport.setDimension(dime);
 		nreport.setFecha(fecha_realizacion);
 		nreport.setUsuario(user);

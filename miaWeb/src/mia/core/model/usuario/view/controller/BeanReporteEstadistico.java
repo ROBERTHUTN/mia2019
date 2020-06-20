@@ -42,9 +42,9 @@ private BarChartModel mixedModelEjecValidProy;
 		BarChartDataSet dataSet = new BarChartDataSet();
 
 		List<Number> values = new ArrayList<>();
-		for (Reporte rep: reporteUsuario) {
+	/**	for (Reporte rep: reporteUsuario) {
 			values.add(rep.getPorcentaje());
-		}
+		}*/
 		dataSet.setData(values);
 		dataSet.setLabel("% de análisis");
 		List<String> bgColor = new ArrayList<>();
