@@ -12,7 +12,7 @@ import mia.core.model.entities.AreaInvestigacion;
 import mia.core.model.entities.FichaPersonal;
 import mia.core.model.entities.Organizacion;
 import mia.core.model.entities.OrganizacionFichapersonal;
-
+import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioInteresArea;
 import mia.core.model.investigador.ManagerInvestigador;
 import mia.core.model.login.view.controller.BeanLogin;
@@ -52,6 +52,7 @@ public class BeanInvestigador implements Serializable {
 	private List<AreaInvestigacion> investigacionareas;
 	private List<OrganizacionFichapersonal> organizacionFichapersonales;
 	private List<FichaPersonal> listaFichaU;
+	private List<Usuario> listaUsuario;
 	private List<FichaPersonal> listaFichaUvoluntariado;
 	private List<Organizacion>listaOrganizaciones;
 	private List<UsuarioInteresArea> areainteres;
@@ -64,6 +65,7 @@ public class BeanInvestigador implements Serializable {
 		try {
 			investigacionareas= managerInvestigador.findAllAreaInvestigaciones();
 			listaFichaU=managerAdministrador.findAllFichaPersonalByRolUsuario();
+			 listaUsuario=managerAdministrador.findAllUsuariosByRolUsuario();
 			listaFichaUvoluntariado= managerAdministrador.findAllFichaPersonalVoluntariado();
 			listaOrganizaciones=managerAdministrador.findAllOrganizaciones();
 			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonales();
@@ -118,7 +120,7 @@ public class BeanInvestigador implements Serializable {
 	
 	public void actionListenerIngresarOrganizacionFichapersonal() {
 		try {
-			managerInvestigador.ingresarOrganizacionFichapersonal(id_ficha_fk, id_organizacion);
+			managerInvestigador.ingresarOrganizacionFichapersonal(id_usuario_fk, id_organizacion);
 			organizacionFichapersonales = managerInvestigador.findAllOrganizacionFichapersonales();
 			JSFUtil.crearMensajeInfo("Usuario creado en la organización correctamente");
 		} catch (Exception e) {
@@ -148,7 +150,7 @@ public class BeanInvestigador implements Serializable {
 	}
 	public void actionListenerEditarOrganizacionFichapersonal() {
 		try {
-			managerInvestigador.editarOrganizacionFichapersonal(organizacionFichapersonalE, id_ficha_fk, id_organizacion);
+			managerInvestigador.editarOrganizacionFichapersonal(organizacionFichapersonalE, id_usuario_fk, id_organizacion);
 			
 			organizacionFichapersonales = managerInvestigador.findAllOrganizacionFichapersonales();
 			JSFUtil.crearMensajeInfo("Usuario editado correctamente en la organización");
@@ -371,6 +373,14 @@ public class BeanInvestigador implements Serializable {
 
 	public void setId_usuario_fk(long id_usuario_fk) {
 		this.id_usuario_fk = id_usuario_fk;
+	}
+
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
 	}
 	
 	

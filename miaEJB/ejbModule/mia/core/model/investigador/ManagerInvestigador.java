@@ -302,8 +302,9 @@ System.out.println(" 1");
 
 		} else {
 			boolean existeOfP = existeOrganizaciónFichaPersonal(id_usuario_fk, id_organizacion);
+			Usuario user=managerAdministrador.findUsuarioById(id_usuario_fk);
 			if (!existeOfP) {
-				Usuario user=managerAdministrador.findUsuarioById(id_usuario_fk);
+				
 				Organizacion organizacion = managerAdministrador.findOrganizacionById(id_organizacion);
 
 				organizacionfichapersonalN.setUsuario(user);
@@ -312,20 +313,20 @@ System.out.println(" 1");
 				em.merge(organizacionfichapersonalN);
 			} else {
 				throw new Exception("Ya existe una Organización con el usuario: " + ""
-						+ organizacionfichapersonalA.getUsuario().getApellidos() + " "
-						+ organizacionfichapersonalA.getUsuario().getNombres()
+						+ user.getApellidos() + " "
+						+ user.getNombres()
 						+ " y la organización " + organizacionfichapersonalA.getOrganizacion().getNombreOrganizacion());
 			}
 
 		}
 	}
 
-	public boolean existeOrganizaciónFichaPersonal(long id_ficha_fk, int id_organizacion) {
+	public boolean existeOrganizaciónFichaPersonal(long id_usuario_fk, int id_organizacion) {
 		Query q = em.createQuery("SELECT o FROM OrganizacionFichapersonal o "
-				+ " where o.organizacion.idOrganizacion=?1" + " and o.fichaPersonal.idFicha=?2 ",
+				+ " where o.organizacion.idOrganizacion=?1" + " and o.usuario.idUsuario=?2 ",
 				OrganizacionFichapersonal.class);
 		q.setParameter(1, id_organizacion);
-		q.setParameter(2, id_ficha_fk);
+		q.setParameter(2, id_usuario_fk);
 		@SuppressWarnings("unchecked")
 		List<OrganizacionFichapersonal> listaOrgFichaPer = q.getResultList();
 		if (listaOrgFichaPer.isEmpty()) {

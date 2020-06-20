@@ -64,16 +64,16 @@
 				<p:panelGrid columns="1" layout="grid">
 
 					
-						<p:outputLabel value="Ficha: " />
+						<p:outputLabel value="Usuario: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione un usuario"
-						value="#{beanInvestigador.id_ficha_fk}"
+						value="#{beanInvestigador.id_usuario_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione Usuario"
 							noSelectionOption="true" />
 						<f:selectItems
-							value="#{beanInvestigador.listaFichaU}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
+							value="#{beanInvestigador.listaUsuario}" var="u"
+							itemLabel="#{u.nombres} #{u.apellidos}" itemValue="#{u.idUsuario}" />
 					</p:selectOneMenu>
 					
 					<p:outputLabel value="Organización: " />
@@ -127,7 +127,7 @@
 						</p:column>
 						
 						<p:column headerText="Usuario">
-							<h:outputText value="#{r.fichaPersonal.usuario.nombres} #{r.fichaPersonal.usuario.apellidos}" />
+							<h:outputText value="#{r.usuario.nombres} #{r.usuario.apellidos}" />
 						</p:column>
 						
 						<p:column headerText="OPCIONES" style="width:100px;">
@@ -168,13 +168,13 @@
 					<p:outputLabel value="Ficha: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione un usuario"
-						value="#{beanInvestigador.id_ficha_fk}"
+						value="#{beanInvestigador.id_usuario_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione Usuario"
 							noSelectionOption="true" />
 						<f:selectItems
-							value="#{beanInvestigador.listaFichaU}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
+							value="#{beanInvestigador.listaUsuario}" var="u"
+							itemLabel="#{u.nombres} #{u.apellidos}" itemValue="#{u.idUsuario}" />
 					</p:selectOneMenu>
 					
 					<p:outputLabel value="Organización: " />
