@@ -639,6 +639,62 @@ System.out.println("ENTRA");
 			}
 			}
 	}
+	public void editarOpcionpregunta(Opcionpregunta opcN,long id_pregunta_modulo_fk) throws Exception {
+		Opcionpregunta opcA = findOpcionpreguntaById(opcN.getIdOpcionpregunta());
+		if (opcA == null) {
+			throw new Exception("Error al cargar la opción pregunta");
+		}
+		if (id_pregunta_modulo_fk==0) {
+			throw new Exception("Error al cargar la pregunta módulo = 0");
+		}
+		
+		Preguntamodulo preM=new Preguntamodulo();
+		
+		preM=managerCuestionario.findPreguntamoduloById(id_pregunta_modulo_fk);
+		if (preM==null) {
+			throw new Exception("No existe la pregunta módulo");
+		}
+		if ((opcA.getOpcion().equals(opcN.getOpcion()))&&(opcA.getPreguntamodulo().getIdPregunta()==id_pregunta_modulo_fk)) {
+		return;
+			}else {
+			boolean existeNombreOpcionPregunta= existeNombreOpcionPregunta(id_pregunta_modulo_fk, opcN.getOpcion());
+			if (existeNombreOpcionPregunta) {
+				throw new Exception("Ya existe la opción pregunta: " + opcN.getOpcion());
+			}else {
+				opcA.setPreguntamodulo(preM);
+				opcA.setOpcion(opcN.getOpcion());
+				em.merge(opcA);
+			}
+			}
+	}
+	
+	public void editarRespuestapregunta(Respuestapregunta respN,long id_pregunta_modulo_fk) throws Exception {
+		Respuestapregunta respA = findRespuestapreguntaById(respN.getIdRespuestapregunta());
+		if (respA == null) {
+			throw new Exception("Error al cargar la respuesta pregunta");
+		}
+		if (id_pregunta_modulo_fk==0) {
+			throw new Exception("Error al cargar la pregunta módulo = 0");
+		}
+		Preguntamodulo preM=new Preguntamodulo();
+		
+		preM=managerCuestionario.findPreguntamoduloById(id_pregunta_modulo_fk);
+		if (preM==null) {
+			throw new Exception("No existe la pregunta módulo");
+		}
+		if ((respA.getRespuesta().equals(respN.getRespuesta()))&&(respA.getPreguntamodulo().getIdPregunta()==id_pregunta_modulo_fk)) {
+		return;
+			}else {
+			boolean existeNombreRespuestaPregunta= existeNombreRespuestaPregunta(id_pregunta_modulo_fk, respN.getRespuesta());
+			if (existeNombreRespuestaPregunta) {
+				throw new Exception("Ya existe la respuesta pregunta: " + respN.getRespuesta());
+			}else {
+				respA.setPreguntamodulo(preM);
+				respA.setRespuesta(respN.getRespuesta());
+				em.merge(respA);
+			}
+			}
+	}
 	public void editarPregunta(Pregunta pregA) throws Exception {
 		Pregunta pregN = findPreguntaById(pregA.getIdPregunta());
 		if (pregN == null) {

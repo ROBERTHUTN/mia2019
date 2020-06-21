@@ -278,6 +278,7 @@ private 	List<Opcionpregunta> listaOpcPre;
 	public void actionListenerCargarOpcionpregunta(Opcionpregunta opcionP) {
 		try {
 			opcionPreE = opcionP;
+			id_pregunta_modulo_fk=opcionP.getPreguntamodulo().getIdPregunta();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
@@ -294,7 +295,10 @@ private 	List<Opcionpregunta> listaOpcPre;
 		}
 
 	}
-	
+	public void actionListenerCargarRespuestapregunta(Respuestapregunta resPreg) {
+		respPregE=resPreg;
+		id_pregunta_modulo_fk=resPreg.getPreguntamodulo().getIdPregunta();
+	}
 	public void actionListenerEditarPreguntamodulo() {
 		try {
 		managerCuestionario.editarPreguntamodulo(pregunModE, id_modulo_fk);
@@ -305,8 +309,25 @@ private 	List<Opcionpregunta> listaOpcPre;
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
+	public void actionListenerEditarRespuestaPregunta() {
+		try {
+			managerCuestionario.editarRespuestapregunta(respPregE, id_pregunta_modulo_fk);
+			listaRespPreg=managerCuestionario.findAllRespuestapregunta();
+			JSFUtil.crearMensajeInfo("Respuesta pregunta editada correctamente.");
+			} catch (Exception e) {
+				listaRespPreg=managerCuestionario.findAllRespuestapregunta();
+				JSFUtil.crearMensajeError(e.getMessage());
+			}
+	}
 	public void actionListenerEditarOpcionPregunta() {
-		
+		try {
+			managerCuestionario.editarOpcionpregunta(opcionPreE, id_pregunta_modulo_fk);
+			listaOpcPre=managerCuestionario.findAllOpcionpregunta();
+			JSFUtil.crearMensajeInfo("Opción pregunta editada correctamente.");
+			} catch (Exception e) {
+				listaOpcPre=managerCuestionario.findAllOpcionpregunta();
+				JSFUtil.crearMensajeError(e.getMessage());
+			}
 	}
 	/**
 	 * metodos de las opciones del Cuestionario

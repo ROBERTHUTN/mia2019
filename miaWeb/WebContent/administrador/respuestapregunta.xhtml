@@ -29,7 +29,7 @@ type="preRenderView"></f:event>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
 
-				<p:menuitem value="Nueva Respuesta Pregunta" title="Ingresar Nueva Dimension"
+				<p:menuitem value="Nueva Respuesta Pregunta" title="Ingresar Nueva Respuesta Pregunta"
 					icon=" fa fa-plus " onclick="PF('nuevaDimension').show();"></p:menuitem>
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -55,7 +55,7 @@ type="preRenderView"></f:event>
 	</p:messages>
 
 
-	<p:dialog header="Ingresar Nueva Dimension" widgetVar="nuevaDimension"
+	<p:dialog header="Ingresar Nueva Respuesta Pregunta" widgetVar="nuevaDimension"
 		id="nuevaDimension" modal="true" height="250" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
@@ -126,7 +126,7 @@ type="preRenderView"></f:event>
 
 				<p:column headerText="Opciones" style="width:100px;">
 					<p:commandButton icon="fa fa-pencil"
-						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarDimension(e)}"
+						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarRespuestapregunta(e)}"
 						onclick="PF('editardimension').show();" title="Editar"
 						update="form10"></p:commandButton>
 
@@ -148,7 +148,7 @@ type="preRenderView"></f:event>
 	</h:form>
 
 
-	<p:dialog header="Editar dimension" widgetVar="editardimension"
+	<p:dialog header="Editar Respuesta Pregunta" widgetVar="editardimension"
 		id="editardimension" modal="true" height="330" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
@@ -157,33 +157,33 @@ type="preRenderView"></f:event>
 				<p:panelGrid columns="1" layout="grid">
 					<p:outputLabel value="ID:" />
 					<p:inputText
-						value="#{beanAdministrradorCuestionario.dimensionE.idDimension}"
+						value="#{beanAdministrradorCuestionario.respPregE.idRespuestapregunta}"
 						required="true" disabled="true">
 					</p:inputText>
-					<p:outputLabel value="Descripción:" />
+					<p:outputLabel value="Respuesta:" />
 					<p:inputText
-						value="#{beanAdministrradorCuestionario.dimensionE.descripcion}"
+						value="#{beanAdministrradorCuestionario.respPregE.respuesta}"
 						required="true"
-						requiredMessage="Ingrese la descripción del dimension"
-						maxlength="100">
+						requiredMessage="Ingrese la respuesta"
+						maxlength="69">
 					</p:inputText>
 
-					<p:outputLabel value="Cuestionario: " />
+					<p:outputLabel value="Pregunta módulo: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
-						requiredMessage="Seleccione un cuestionario"
-						value="#{beanAdministrradorCuestionario.id_cuestionarioopc_fk}"
+						requiredMessage="Seleccione una pregunta módulo"
+						value="#{beanAdministrradorCuestionario.id_pregunta_modulo_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Cuestionario"
+						<f:selectItem itemLabel="Seleccione Respuesta Pregunta"
 							noSelectionOption="true" />
 						<f:selectItems
-							value="#{beanAdministrradorCuestionario.cuestionarios}" var="reg"
-							itemLabel="#{reg.descripcion}" itemValue="#{reg.idCuestionario}" />
+							value="#{beanAdministrradorCuestionario.listaPreMo}" var="reg"
+							itemLabel="#{reg.pregunta}" itemValue="#{reg.idPregunta}" />
 					</p:selectOneMenu>
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
-						actionListener="#{beanAdministrradorCuestionario.actionListenerEditarDimension()}"
+						actionListener="#{beanAdministrradorCuestionario.actionListenerEditarRespuestaPregunta()}"
 						oncomplete="nuevaDimension" update="@form"  ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"

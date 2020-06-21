@@ -111,7 +111,7 @@ type="preRenderView"></f:event>
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
-					<p:outputLabel value="Lista de Dimensiones"></p:outputLabel>
+					<p:outputLabel value="Lista de Opciones preguntas"></p:outputLabel>
 				</f:facet>
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{e.idOpcionpregunta}" />
@@ -157,7 +157,7 @@ type="preRenderView"></f:event>
 				<p:panelGrid columns="1" layout="grid">
 					<p:outputLabel value="ID:" />
 					<p:inputText
-						value="#{beanAdministrradorCuestionario.id_pregunta_modulo_fk}"
+						value="#{beanAdministrradorCuestionario.opcionPreE.idOpcionpregunta}"
 						required="true" disabled="true">
 					</p:inputText>
 					<p:outputLabel value="Opción:" />
@@ -173,7 +173,7 @@ type="preRenderView"></f:event>
 						requiredMessage="Seleccione un cuestionario"
 						value="#{beanAdministrradorCuestionario.id_pregunta_modulo_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Cuestionario"
+						<f:selectItem itemLabel="Seleccione una pregunta módulo"
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanAdministrradorCuestionario.listaPreMo}" var="reg"
