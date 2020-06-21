@@ -29,7 +29,7 @@ type="preRenderView"></f:event>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
 
-				<p:menuitem value="Nueva Dimension" title="Ingresar Nueva Pregunta Módulo"
+				<p:menuitem value="Nueva Pregunta Módulo" title="Ingresar Nueva Pregunta Módulo"
 					icon=" fa fa-plus " onclick="PF('nuevaPregMod').show();"></p:menuitem>
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -111,7 +111,7 @@ type="preRenderView"></f:event>
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
-					<p:outputLabel value="Lista de Dimensiones"></p:outputLabel>
+					<p:outputLabel value="Lista de Preguntas Módulos"></p:outputLabel>
 				</f:facet>
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{e.idPregunta}" />
@@ -126,7 +126,7 @@ type="preRenderView"></f:event>
 
 				<p:column headerText="Opciones" style="width:100px;">
 					<p:commandButton icon="fa fa-pencil"
-						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarPreguntamodulo()}"
+						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarPreguntamodulo(e)}"
 						onclick="PF('editardimension').show();" title="Editar"
 						update="form10"></p:commandButton>
 
@@ -160,7 +160,7 @@ type="preRenderView"></f:event>
 						value="#{beanAdministrradorCuestionario.pregunModE.idPregunta}"
 						required="true" disabled="true">
 					</p:inputText>
-					<p:outputLabel value="Descripción:" />
+					<p:outputLabel value="Pregunta:" />
 					<p:inputText
 						value="#{beanAdministrradorCuestionario.pregunModE.pregunta}"
 						required="true"

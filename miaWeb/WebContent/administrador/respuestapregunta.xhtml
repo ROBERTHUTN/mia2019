@@ -29,7 +29,7 @@ type="preRenderView"></f:event>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
 
-				<p:menuitem value="Nueva Dimension" title="Ingresar Nueva Dimension"
+				<p:menuitem value="Nueva Respuesta Pregunta" title="Ingresar Nueva Dimension"
 					icon=" fa fa-plus " onclick="PF('nuevaDimension').show();"></p:menuitem>
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -44,7 +44,7 @@ type="preRenderView"></f:event>
 		<p:breadCrumb>
 			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
 			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
-			<p:menuitem value="Dimensión" url="/miaWeb/faces/administrador/dimension.xhtml" />
+			<p:menuitem value="Respuesta pregunta" url="/miaWeb/faces/administrador/respuestapregunta.xhtml" />
 		</p:breadCrumb>
 	</div>
 	<p:growl>
@@ -111,7 +111,7 @@ type="preRenderView"></f:event>
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
-					<p:outputLabel value="Lista de Dimensiones"></p:outputLabel>
+					<p:outputLabel value="Lista de Respuesta Pregunta"></p:outputLabel>
 				</f:facet>
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{e.idRespuestapregunta}" />

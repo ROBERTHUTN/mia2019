@@ -296,7 +296,14 @@ private 	List<Opcionpregunta> listaOpcPre;
 	}
 	
 	public void actionListenerEditarPreguntamodulo() {
-		
+		try {
+		managerCuestionario.editarPreguntamodulo(pregunModE, id_modulo_fk);
+		listaPreMo=managerCuestionario.findAllPreguntamodulo();
+		JSFUtil.crearMensajeInfo("Pregunta módulo editada correctamente.");
+		} catch (Exception e) {
+			listaPreMo=managerCuestionario.findAllPreguntamodulo();
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
 	}
 	public void actionListenerEditarOpcionPregunta() {
 		
@@ -407,6 +414,7 @@ private 	List<Opcionpregunta> listaOpcPre;
 	public void actionListenerCargarPreguntamodulo(Preguntamodulo pregM) {
 		try {
 			pregunModE= pregM;
+			id_modulo_fk=pregM.getModulo().getIdModulo();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}

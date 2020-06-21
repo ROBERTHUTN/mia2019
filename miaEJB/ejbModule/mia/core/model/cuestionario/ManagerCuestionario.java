@@ -612,6 +612,33 @@ System.out.println("ENTRA");
 		em.persist(npreg);
 	}
 
+	public void editarPreguntamodulo(Preguntamodulo pregN,long id_modulo_fk) throws Exception {
+		Preguntamodulo pregA = findPreguntamoduloById(pregN.getIdPregunta());
+		if (pregA == null) {
+			throw new Exception("Error al cargar la pregunta módulo");
+		}
+		if (id_modulo_fk==0) {
+			throw new Exception("Error al cargar el módulo id 0");
+		}
+		Modulo m=new Modulo();
+		
+		m=managerCuestionario.findModuloById(id_modulo_fk);
+		if (m==null) {
+			throw new Exception("No existe el módulo");
+		}
+		if ((pregA.getPregunta().equals(pregN.getPregunta()))&&(pregA.getModulo().getIdModulo()==id_modulo_fk)) {
+		return;
+			}else {
+			boolean existeNombrePreguntaModulo= existeNombrePreguntaModulo(id_modulo_fk, pregN.getPregunta());
+			if (existeNombrePreguntaModulo) {
+				throw new Exception("Ya existe la pregunta módulo : " + pregN.getPregunta());
+			}else {
+				pregA.setModulo(m);
+				pregA.setPregunta(pregN.getPregunta());
+				em.merge(pregA);
+			}
+			}
+	}
 	public void editarPregunta(Pregunta pregA) throws Exception {
 		Pregunta pregN = findPreguntaById(pregA.getIdPregunta());
 		if (pregN == null) {
