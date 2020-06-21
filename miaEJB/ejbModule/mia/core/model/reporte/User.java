@@ -56,6 +56,23 @@ public class User implements Serializable {
 	    private int cuarentaytres;
 	    private int cuarentaycuatro;
 	    private int cuarentaycinco;
+	    private int cuarentayseis;
+	    private int cuarentaysiete;
+	    private int cuarentayocho;
+	    private int cuarentaynueve;
+	    private int cincuenta;
+	    private int cincuentayuno;
+	    private int cincuentaydos;
+	    private int cincuentaytres;
+	    private int cincuentaycuatro;
+	    private int cincuentaycinco;
+	    private int cincuentayseis;
+	    private int cincuentaysiete;
+	    private int cincuentayocho;
+	    private int cincuentaynueve;
+	    private int sesenta;
+	    private int sesentayuno;
+	    
 		public int getUno() {
 			return uno;
 		}
@@ -325,6 +342,102 @@ public class User implements Serializable {
 		}
 		public void setCuarentaycinco(int cuarentaycinco) {
 			this.cuarentaycinco = cuarentaycinco;
+		}
+		public int getCuarentayseis() {
+			return cuarentayseis;
+		}
+		public void setCuarentayseis(int cuarentayseis) {
+			this.cuarentayseis = cuarentayseis;
+		}
+		public int getCuarentaysiete() {
+			return cuarentaysiete;
+		}
+		public void setCuarentaysiete(int cuarentaysiete) {
+			this.cuarentaysiete = cuarentaysiete;
+		}
+		public int getCuarentayocho() {
+			return cuarentayocho;
+		}
+		public void setCuarentayocho(int cuarentayocho) {
+			this.cuarentayocho = cuarentayocho;
+		}
+		public int getCuarentaynueve() {
+			return cuarentaynueve;
+		}
+		public void setCuarentaynueve(int cuarentaynueve) {
+			this.cuarentaynueve = cuarentaynueve;
+		}
+		public int getCincuenta() {
+			return cincuenta;
+		}
+		public void setCincuenta(int cincuenta) {
+			this.cincuenta = cincuenta;
+		}
+		public int getCincuentayuno() {
+			return cincuentayuno;
+		}
+		public void setCincuentayuno(int cincuentayuno) {
+			this.cincuentayuno = cincuentayuno;
+		}
+		public int getCincuentaydos() {
+			return cincuentaydos;
+		}
+		public void setCincuentaydos(int cincuentaydos) {
+			this.cincuentaydos = cincuentaydos;
+		}
+		public int getCincuentaytres() {
+			return cincuentaytres;
+		}
+		public void setCincuentaytres(int cincuentaytres) {
+			this.cincuentaytres = cincuentaytres;
+		}
+		public int getCincuentaycuatro() {
+			return cincuentaycuatro;
+		}
+		public void setCincuentaycuatro(int cincuentaycuatro) {
+			this.cincuentaycuatro = cincuentaycuatro;
+		}
+		public int getCincuentaycinco() {
+			return cincuentaycinco;
+		}
+		public void setCincuentaycinco(int cincuentaycinco) {
+			this.cincuentaycinco = cincuentaycinco;
+		}
+		public int getCincuentayseis() {
+			return cincuentayseis;
+		}
+		public void setCincuentayseis(int cincuentayseis) {
+			this.cincuentayseis = cincuentayseis;
+		}
+		public int getCincuentaysiete() {
+			return cincuentaysiete;
+		}
+		public void setCincuentaysiete(int cincuentaysiete) {
+			this.cincuentaysiete = cincuentaysiete;
+		}
+		public int getCincuentayocho() {
+			return cincuentayocho;
+		}
+		public void setCincuentayocho(int cincuentayocho) {
+			this.cincuentayocho = cincuentayocho;
+		}
+		public int getCincuentaynueve() {
+			return cincuentaynueve;
+		}
+		public void setCincuentaynueve(int cincuentaynueve) {
+			this.cincuentaynueve = cincuentaynueve;
+		}
+		public int getSesenta() {
+			return sesenta;
+		}
+		public void setSesenta(int sesenta) {
+			this.sesenta = sesenta;
+		}
+		public int getSesentayuno() {
+			return sesentayuno;
+		}
+		public void setSesentayuno(int sesentayuno) {
+			this.sesentayuno = sesentayuno;
 		}
 
 	    

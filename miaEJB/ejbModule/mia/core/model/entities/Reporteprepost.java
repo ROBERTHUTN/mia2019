@@ -2,7 +2,7 @@ package mia.core.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -15,7 +15,7 @@ public class Reporteprepost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="REPORTEPREPOST_IDREPORTETEST_GENERATOR", sequenceName="SEQ_REPORTEPREPOST", allocationSize = 1)
+	@SequenceGenerator(name="REPORTEPREPOST_IDREPORTETEST_GENERATOR", sequenceName="SEQ_REPORTEPREPOST",allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="REPORTEPREPOST_IDREPORTETEST_GENERATOR")
 	@Column(name="id_reportetest")
 	private long idReportetest;
@@ -32,8 +32,9 @@ public class Reporteprepost implements Serializable {
 	@Column(name="control_emocion")
 	private Integer controlEmocion;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_inscripcion")
-	private Timestamp fechaInscripcion;
+	private Date fechaInscripcion;
 
 	private Integer interpersonal;
 
@@ -119,11 +120,11 @@ public class Reporteprepost implements Serializable {
 		this.controlEmocion = controlEmocion;
 	}
 
-	public Timestamp getFechaInscripcion() {
+	public Date getFechaInscripcion() {
 		return this.fechaInscripcion;
 	}
 
-	public void setFechaInscripcion(Timestamp fechaInscripcion) {
+	public void setFechaInscripcion(Date fechaInscripcion) {
 		this.fechaInscripcion = fechaInscripcion;
 	}
 

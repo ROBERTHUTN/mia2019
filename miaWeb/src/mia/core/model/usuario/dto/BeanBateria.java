@@ -14,6 +14,8 @@ import javax.inject.Named;
 
 import org.primefaces.event.DragDropEvent;
 
+import mia.core.model.reporte.ManagerReporte;
+import mia.core.model.reporte.ManagerReportePrePost;
 import mia.modulos.view.util.JSFUtil;
 import java.io.Serializable;
 
@@ -38,9 +40,9 @@ public class BeanBateria implements Serializable {
 	@EJB
 	BateriaServiceDto managerBateria;
 
-	private String tlCentroGravedad;
-	private String tlLogicaEmergente;
-	private String tlLogicaretroceso;
+	
+	@EJB
+	private ManagerReportePrePost managerReporteprepost;
 
 	public void iniciarCuestionario() {
 		iniciarTest = true;
@@ -179,11 +181,10 @@ public class BeanBateria implements Serializable {
 		 * }
 		 */
 		//tipoLiderazgo(oportunista, diplomatico, experto, redefiniendo, transformador, alquimico, impulsivo);
-	 calculoTl(oportunista, diplomatico, experto, transformador, alquimico, redefiniendo, impulsivo);
-
+		managerReporteprepost.calculoTl(oportunista, diplomatico, experto, transformador, alquimico, redefiniendo, impulsivo);
 	}
 
-
+/**
 
 	
 	
@@ -340,24 +341,6 @@ public class BeanBateria implements Serializable {
 		
 			
 			
-		/**
-			Queue<tipoLiderazgoCola> tlCentral= new PriorityQueue<tipoLiderazgoCola>();
-			tlCentral.add(new tipoLiderazgoCola("Alquimista", al1));  
-			tlCentral.add(new tipoLiderazgoCola("Diplomatico", di1));
-			tlCentral.add(new tipoLiderazgoCola("Experto", ex1));
-			tlCentral.add(new tipoLiderazgoCola("Redefinido", re1));
-			tlCentral.add(new tipoLiderazgoCola("Transformador", tr1));
-			tlCentral.add(new tipoLiderazgoCola("Impulsivo", im1));
-			tlCentral.add(new tipoLiderazgoCola("Oportunista", op1));
-			System.out.println("Este es el primer"+tlCentral.peek().getNombre()+":"+tlCentral.peek().getTipo());
-			
-			while(!tlCentral.isEmpty()){
-				tipoLiderazgoCola tl= tlCentral.remove();
-						
-				System.out.println(tl.getNombre()+ " "+ tl.getTipo());
-			
-			}
-			*/
 			tlCentroGravedad=respuestaLiderasgo(al1, di1, ex1, re1, tr1, im1, op1);
 			System.out.println("Centro de Gavedad"+ tlCentroGravedad);
 			
@@ -417,6 +400,7 @@ public class BeanBateria implements Serializable {
 		
 		return mp;
 	}
+	*/
 	
 	public void estadoActualContador(int contadorC) {
 		if (listaDimensionRespuesta.isEmpty()) {

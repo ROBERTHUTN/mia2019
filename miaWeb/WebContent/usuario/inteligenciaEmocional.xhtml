@@ -38,6 +38,24 @@
 		<p:growl id="growl" sticky="true" showDetail="true" />
 
 		<p:wizard flowListener="#{userWizard.onFlowProcess}">
+		
+		
+			<p:tab id="IE0" title="Inteligencia Emocional">
+				<p:panel>
+			
+					<p:messages />
+
+					<h:panelGrid columns="2" columnClasses="label, value">
+ <h:outputText
+					value="El cuestionario consta de 45 ítems,Por favor en cada frase, de la puntuación que crea es la más cercana, a su realidad. Teniendo en cuenta que 1 es menos y 7 más. Antes de responder hay que pensar en situaciones reales en las que se ha usado dicha capacidad." />
+
+				<h:outputText></h:outputText>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+		
+		
+			
 			<p:tab id="IE1" title="Parte 1">
 				<p:panel
 					header="Por favor en  cada frase, de la puntuación que crea es la más cercana, a su realidad.
@@ -714,11 +732,246 @@
 					</h:panelGrid>
 				</p:panel>
 			</p:tab>
+			
+						<p:tab id="NE0" title="Nivel Estrés">
+				<p:panel>
+			
+					<p:messages />
+
+					<h:panelGrid columns="2" columnClasses="label, value">
+ <h:outputText
+					value="A continuación usted encontrará 16 ítems, relacionados con sus hábitos y /o 
+					dificultades, que afrontamos la mayoría de las personas en la cotidianidad.
+					 Por favor responda con la verdad. De la puntuación que crea es la más cercana,
+					  a su realidad. Con valores es 1 Siempre, 2 Casi Siempre, 3 Frecuentemente, 4 Casi Nunca, 5 Nunca." />
+
+				<h:outputText></h:outputText>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+		
+		
+					<p:tab id="NE1" title="Parte 1">
+				<p:panel header="De la puntuación que crea es la más cercana,
+					  a su realidad. Con valores es 1 Siempre, 2 Casi Siempre, 3 Frecuentemente, 4 Casi Nunca, 5 Nunca.">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+						<p:outputLabel for="cuarentayseis"
+							value="46. Al menos cuatro noches a la semana duermo de siete a ocho horas." />
+						<p:selectOneRadio id="cuarentayseis"
+							value="#{userWizard.user.cuarentayseis}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cuarentaysiete"
+							value="47. En 50 kilómetros a la redonda poseo por lo menos una familia en que pueda confiar." />
+						<p:selectOneRadio id="cuarentaysiete"
+							value="#{userWizard.user.cuarentaysiete}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cuarentayocho"
+							value="48.Por lo menos 2 veces por semana hago ejercicios hasta sudar." />
+				<p:selectOneRadio id="cuarentayocho"
+							value="#{userWizard.user.cuarentayocho}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cuarentaynueve"
+							value="49. Fumo menos de media cajetilla de cigarrillos al día." />
+						<p:selectOneRadio id="cuarentaynueve"
+							value="#{userWizard.user.cuarentaynueve}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuenta"
+							value="50.Tomo menos de cinco tragos (de bebidas alcohólicas) a la semana." />
+						<p:selectOneRadio id="cincuenta"
+							value="#{userWizard.user.cincuenta}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+
+					
+						<p:outputLabel for="cincuentayuno"
+							value="51. Tengo el peso apropiado para mi estatura." />
+						<p:selectOneRadio id="cincuentayuno"
+							value="#{userWizard.user.cincuentayuno}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuentaydos"
+							value="52. Mis ingresos satisfacen mis gastos fundamentales." />
+						<p:selectOneRadio id="cincuentaydos"
+							value="#{userWizard.user.cincuentaydos}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuentaytres"
+							value="53.Asisto regularmente a actividades sociales." />
+				<p:selectOneRadio id="cincuentaytres"
+							value="#{userWizard.user.cincuentaytres}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuentaycuatro"
+							value="54. Tengo una red (grupo) de amigos conocidos." />
+						<p:selectOneRadio id="cincuentaycuatro"
+							value="#{userWizard.user.cincuentaycuatro}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuentaycinco"
+							value="55.Tengo uno o más amigos a quienes puedo confiarle, mis problemas personales." />
+						<p:selectOneRadio id="cincuentaycinco"
+							value="#{userWizard.user.cincuentaycinco}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+					
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			
+		<p:tab id="NE2" title="Parte 2">
+				<p:panel header="
+				De la puntuación que crea es la más cercana,
+					  a su realidad. Con valores es 1 Siempre, 2 Casi Siempre, 3 Frecuentemente, 4 Casi Nunca, 5 Nunca.">
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+						<p:outputLabel for="cincuentayseis"
+							value="56. Al menos cuatro noches a la semana duermo de siete a ocho horas." />
+						<p:selectOneRadio id="cincuentayseis"
+							value="#{userWizard.user.cincuentayseis}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuentaysiete"
+							value="57. En 50 kilómetros a la redonda poseo por lo menos una familia en que pueda confiar." />
+						<p:selectOneRadio id="cincuentaysiete"
+							value="#{userWizard.user.cincuentaysiete}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuentayocho"
+							value="58.Por lo menos 2 veces por semana hago ejercicios hasta sudar." />
+				<p:selectOneRadio id="cincuentayocho"
+							value="#{userWizard.user.cincuentayocho}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="cincuentaynueve"
+							value="59. Fumo menos de media cajetilla de cigarrillos al día." />
+						<p:selectOneRadio id="cincuentaynueve"
+							value="#{userWizard.user.cincuentaynueve}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="sesenta"
+							value="60.Tomo menos de cinco tragos (de bebidas alcohólicas) a la semana." />
+						<p:selectOneRadio id="sesenta"
+							value="#{userWizard.user.sesenta}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+
+					
+						<p:outputLabel for="sesentayuno"
+							value="61. Tengo el peso apropiado para mi estatura." />
+						<p:selectOneRadio id="sesentayuno"
+							value="#{userWizard.user.sesentayuno}" required="true"
+							unselectable="true">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneRadio>
+					
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+				
 
 			<p:tab id="confirm" title="Confirmation">
 				<p:panel header="Confirmation">
-					<h:panelGrid id="confirmation" columns="6"
-						columnClasses="grid,grid,grid,grid,grid,grid">
+					<h:panelGrid id="confirmation" columns="8"
+						columnClasses="grid,grid,grid,grid,grid,grid,grid,grid">
 
 						<h:panelGrid columns="2" columnClasses="label, value">
 							<h:outputText value="uno: " />
@@ -914,10 +1167,88 @@
 							<h:outputText value=" cuarentaycinco: " />
 							<h:outputText value="#{userWizard.user.cuarentaycinco}"
 								styleClass="outputLabel" />
+								
+							<h:outputText value=" cuarentayseis: " />
+							<h:outputText value="#{userWizard.user.cuarentayseis}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cuarentaysiete: " />
+							<h:outputText value="#{userWizard.user.cuarentaysiete}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cuarentayocho: " />
+							<h:outputText value="#{userWizard.user.cuarentayocho}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cuarentaynueve: " />
+							<h:outputText value="#{userWizard.user.cuarentaynueve}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuenta: " />
+							<h:outputText value="#{userWizard.user.cincuenta}"
+								styleClass="outputLabel" />
+								
+							
+							<h:outputText value=" cincuentayuno: " />
+							<h:outputText value="#{userWizard.user.cincuentayuno}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentaydos: " />
+							<h:outputText value="#{userWizard.user.cincuentaydos}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentaytres: " />
+							<h:outputText value="#{userWizard.user.cincuentaytres}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentaycuatro: " />
+							<h:outputText value="#{userWizard.user.cincuentaycuatro}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentaycinco: " />
+							<h:outputText value="#{userWizard.user.cincuentaycinco}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentayseis: " />
+							<h:outputText value="#{userWizard.user.cincuentayseis}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentaysiete: " />
+							<h:outputText value="#{userWizard.user.cincuentaysiete}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentayocho: " />
+							<h:outputText value="#{userWizard.user.cincuentayocho}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" cincuentaynueve: " />
+							<h:outputText value="#{userWizard.user.cincuentaynueve}"
+								styleClass="outputLabel" />
+								
+								
+							<h:outputText value=" sesenta: " />
+							<h:outputText value="#{userWizard.user.sesenta}"
+								styleClass="outputLabel" />
+								
 
+							<h:outputText value=" sesentayuno: " />
+							<h:outputText value="#{userWizard.user.sesentayuno}"
+								styleClass="outputLabel" />
+								
 						</h:panelGrid>
-
-
+						
 					</h:panelGrid>
 
 
