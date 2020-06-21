@@ -80,7 +80,7 @@ type="preRenderView"></f:event>
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanAdministrradorCuestionario.listaModulos}" var="reg"
-							itemLabel="#{reg.descripcion}" itemValue="#{reg.idModulo}" />
+							itemLabel="#{reg.nombre}" itemValue="#{reg.idModulo}" />
 					</p:selectOneMenu>
 
 				</p:panelGrid>
@@ -120,8 +120,8 @@ type="preRenderView"></f:event>
 				<p:column headerText="Respuesta">
 					<h:outputText value="#{e.pregunta}" />
 				</p:column>
-					<p:column headerText="Cuestionario">
-					<h:outputText value="#{e.modulo.direccion}" />
+					<p:column headerText="Módulo">
+					<h:outputText value="#{e.modulo.nombre}" />
 				</p:column>
 
 				<p:column headerText="Opciones" style="width:100px;">
