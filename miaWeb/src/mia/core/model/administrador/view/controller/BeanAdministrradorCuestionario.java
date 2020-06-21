@@ -17,10 +17,12 @@ import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.DimensionPregunta;
+import mia.core.model.entities.Modulo;
 import mia.core.model.entities.Opcion;
-
+import mia.core.model.entities.Opcionpregunta;
 import mia.core.model.entities.Pregunta;
-
+import mia.core.model.entities.Preguntamodulo;
+import mia.core.model.entities.Respuestapregunta;
 import mia.core.model.entities.Usuario;
 import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.reporte.ManagerReporte;
@@ -41,13 +43,24 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	private boolean adelante;
 	private boolean finalizarTest;
 	private int contador;
+private long id_modulo_fk;
+private long id_pregunta_modulo_fk;
 
-	// respuesta
-	private String respuesta = "";
-	private String[] respuestaReporte;
 	private Date fechaRealizacion;
+	private Opcionpregunta opcionPreIng= new Opcionpregunta();
+	private Opcionpregunta opcionPreE= new Opcionpregunta();
+	private Respuestapregunta respPregIng= new Respuestapregunta();
+	private Respuestapregunta respPregE= new Respuestapregunta();
+	private Preguntamodulo pregunModIng= new Preguntamodulo();
+	private Preguntamodulo pregunModE= new Preguntamodulo();
+	private List<Modulo>listaModulos;
+//OPCIONPREGUNTA
+private 	List<Respuestapregunta> listaRespPreg;
+private 	List<Preguntamodulo> listaPreMo;
+private 	List<Opcionpregunta> listaOpcPre;
 
 //FICHA_
+	
 	private Cuestionario cuestionario = new Cuestionario();
 	private Dimension dimension = new Dimension();
 	private Opcion opcion = new Opcion();
@@ -96,7 +109,10 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
-
+			listaModulos=managerCuestionario.findAllModulos();
+			listaOpcPre=managerCuestionario.findAllOpcionpregunta();
+			listaRespPreg=managerCuestionario.findAllRespuestapregunta();
+			listaPreMo=managerCuestionario.findAllPreguntamodulo();
 			cuestionarios = managerCuestionario.findAllCuestionarioes();
 			cuestionarioDto = managerCuestionario.cargarCuestionarios(cuestionarios);
 			inicioDTO.setListaCuestionariosDto(cuestionarioDto);
@@ -223,10 +239,45 @@ public class BeanAdministrradorCuestionario implements Serializable {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
+	public void actionListenerEliminarOpcionpregunta(long id_opcion_pregunta) {
+		try {
+			managerCuestionario.eliminarOpcionpregunta(id_opcion_pregunta);
+			listaOpcPre=managerCuestionario.findAllOpcionpregunta();
+			JSFUtil.crearMensajeInfo("Opciòn pregunta eliminada correctamente");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+	}
+	public void actionListenerEliminarPreguntamodulo(int id_pregunta_modulo) {
+		try {
+			managerCuestionario.eliminarPreguntamodulo(id_pregunta_modulo);
+			listaPreMo=managerCuestionario.findAllPreguntamodulo();
+			JSFUtil.crearMensajeInfo("Pregunta mòdulo eliminada correctamente");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+	}
+	public void actionListenerEliminarRespuestapregunta(long id_respuesta_pregunta) {
+		try {
+			managerCuestionario.eliminarRespuestapregunta(id_respuesta_pregunta);
+			listaRespPreg=managerCuestionario.findAllRespuestapregunta();
+			JSFUtil.crearMensajeInfo("Respuesta pregunta eliminada correctamente");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+	}
 
 	public void actionListenerCargarCuestionario(Cuestionario cuestC) {
 		try {
 			cuestionarioE = cuestC;
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+
+	}
+	public void actionListenerCargarOpcionpregunta(Opcionpregunta opcionP) {
+		try {
+			opcionPreE = opcionP;
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
@@ -243,7 +294,13 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 
 	}
-
+	
+	public void actionListenerEditarPreguntamodulo() {
+		
+	}
+	public void actionListenerEditarOpcionPregunta() {
+		
+	}
 	/**
 	 * metodos de las opciones del Cuestionario
 	 */
@@ -347,6 +404,14 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 
 	}
+	public void actionListenerCargarPreguntamodulo(Preguntamodulo pregM) {
+		try {
+			pregunModE= pregM;
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+
+	}
 
 	public void actionListenerEditarPregunta() {
 		try {
@@ -362,7 +427,47 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	/**
 	 * metodos del crud de dimensiones
 	 */
+	public String actionIngresarOpcionpregunta() {
+		try {
 
+			managerCuestionario.ingresarOpcionpregunta(opcionPreIng,id_pregunta_modulo_fk);
+			listaOpcPre=managerCuestionario.findAllOpcionpregunta();
+			JSFUtil.crearMensajeInfo("Opción pregunta creada correctamente");
+			opcionPreIng = new Opcionpregunta();
+			return "";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		}
+
+	}
+	public String actionIngresarPreguntamodulo() {
+		try {
+			managerCuestionario.ingresarPreguntamodulo(pregunModIng,id_modulo_fk);
+listaPreMo=managerCuestionario.findAllPreguntamodulo();
+			JSFUtil.crearMensajeInfo("Pregunta módulo creada correctamente");
+			pregunModIng = new Preguntamodulo();
+			return "";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		}
+
+	}
+	public String actionIngresarRespuestaPregunta() {
+		try {
+
+			managerCuestionario.ingresarRespuestapregunta(respPregIng,id_pregunta_modulo_fk);
+			listaRespPreg=managerCuestionario.findAllRespuestapregunta();
+			JSFUtil.crearMensajeInfo("Respuesta pregunta creada correctamente");
+			respPregIng = new Respuestapregunta();
+			return "";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		}
+
+	}
 	public String actionIngresarDimension() {
 		try {
 
@@ -497,7 +602,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 
 	}
-
+/*
 	public String actionRetornarbyCuestiono() {
 		try {
 
@@ -532,7 +637,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 		}
 
 	}
-
+*/
 	/*
 	 * public String ActionDimensionPreguntabyCuestionario(Cuestionario cuest) { try
 	 * { dimensiones=
@@ -834,7 +939,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	public void setFinalizarTest(boolean finalizarTest) {
 		this.finalizarTest = finalizarTest;
 	}
-
+/*
 	public String getRespuesta() {
 		return respuesta;
 	}
@@ -854,5 +959,102 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	public void setRespuestaReporte(String[] respuestaReporte) {
 		this.respuestaReporte = respuestaReporte;
 	}
+*/
+	public Opcionpregunta getOpcionPreIng() {
+		return opcionPreIng;
+	}
+
+	public void setOpcionPreIng(Opcionpregunta opcionPreIng) {
+		this.opcionPreIng = opcionPreIng;
+	}
+
+	public Opcionpregunta getOpcionPreE() {
+		return opcionPreE;
+	}
+
+	public void setOpcionPreE(Opcionpregunta opcionPreE) {
+		this.opcionPreE = opcionPreE;
+	}
+
+	public Respuestapregunta getRespPregIng() {
+		return respPregIng;
+	}
+
+	public void setRespPregIng(Respuestapregunta respPregIng) {
+		this.respPregIng = respPregIng;
+	}
+
+	public Respuestapregunta getRespPregE() {
+		return respPregE;
+	}
+
+	public void setRespPregE(Respuestapregunta respPregE) {
+		this.respPregE = respPregE;
+	}
+
+	public Preguntamodulo getPregunModIng() {
+		return pregunModIng;
+	}
+
+	public void setPregunModIng(Preguntamodulo pregunModIng) {
+		this.pregunModIng = pregunModIng;
+	}
+
+	public Preguntamodulo getPregunModE() {
+		return pregunModE;
+	}
+
+	public void setPregunModE(Preguntamodulo pregunModE) {
+		this.pregunModE = pregunModE;
+	}
+
+	public List<Respuestapregunta> getListaRespPreg() {
+		return listaRespPreg;
+	}
+
+	public void setListaRespPreg(List<Respuestapregunta> listaRespPreg) {
+		this.listaRespPreg = listaRespPreg;
+	}
+
+	public List<Preguntamodulo> getListaPreMo() {
+		return listaPreMo;
+	}
+
+	public void setListaPreMo(List<Preguntamodulo> listaPreMo) {
+		this.listaPreMo = listaPreMo;
+	}
+
+	public List<Opcionpregunta> getListaOpcPre() {
+		return listaOpcPre;
+	}
+
+	public void setListaOpcPre(List<Opcionpregunta> listaOpcPre) {
+		this.listaOpcPre = listaOpcPre;
+	}
+
+	public List<Modulo> getListaModulos() {
+		return listaModulos;
+	}
+
+	public void setListaModulos(List<Modulo> listaModulos) {
+		this.listaModulos = listaModulos;
+	}
+
+	public long getId_modulo_fk() {
+		return id_modulo_fk;
+	}
+
+	public void setId_modulo_fk(long id_modulo_fk) {
+		this.id_modulo_fk = id_modulo_fk;
+	}
+
+	public long getId_pregunta_modulo_fk() {
+		return id_pregunta_modulo_fk;
+	}
+
+	public void setId_pregunta_modulo_fk(long id_pregunta_modulo_fk) {
+		this.id_pregunta_modulo_fk = id_pregunta_modulo_fk;
+	}
+	
 
 }

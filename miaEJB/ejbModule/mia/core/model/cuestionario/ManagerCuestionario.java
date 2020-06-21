@@ -24,10 +24,13 @@ import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.DimensionPregunta;
+import mia.core.model.entities.Modulo;
 import mia.core.model.entities.Opcion;
+import mia.core.model.entities.Opcionpregunta;
 import mia.core.model.entities.Pregunta;
-
+import mia.core.model.entities.Preguntamodulo;
 import mia.core.model.entities.Reporte;
+import mia.core.model.entities.Respuestapregunta;
 import mia.core.model.entities.Usuario;
 
 /**
@@ -149,6 +152,29 @@ public class ManagerCuestionario {
 	/***
 	 * mï¿½todos del cuestionario
 	 */
+	public List<Respuestapregunta> findAllRespuestapregunta() {
+
+		Query q = em.createQuery("SELECT r FROM Respuestapregunta r", Respuestapregunta.class);
+		@SuppressWarnings("unchecked")
+		List<Respuestapregunta> listaRespuestapregunta = q.getResultList();
+		return listaRespuestapregunta;
+	}
+
+	public List<Preguntamodulo> findAllPreguntamodulo() {
+
+		Query q = em.createQuery("SELECT p FROM Preguntamodulo p", Preguntamodulo.class);
+		@SuppressWarnings("unchecked")
+		List<Preguntamodulo> listaPreguntamodulo = q.getResultList();
+		return listaPreguntamodulo;
+	}
+
+	public List<Opcionpregunta> findAllOpcionpregunta() {
+
+		Query q = em.createQuery("SELECT o FROM Opcionpregunta o", Opcionpregunta.class);
+		@SuppressWarnings("unchecked")
+		List<Opcionpregunta> listaOpcionpregunta = q.getResultList();
+		return listaOpcionpregunta;
+	}
 
 	public List<Cuestionario> findAllCuestionarioes() {
 
@@ -161,6 +187,24 @@ public class ManagerCuestionario {
 	public Cuestionario findCuestionarioById(int id_cuest) {
 		Cuestionario rol = em.find(Cuestionario.class, id_cuest);
 		return rol;
+
+	}
+
+	public Opcionpregunta findOpcionpreguntaById(long id_opcion_pregunta) {
+		Opcionpregunta opcPre = em.find(Opcionpregunta.class, id_opcion_pregunta);
+		return opcPre;
+
+	}
+
+	public Preguntamodulo findPreguntamoduloById(long id_pregunta_modulo) {
+		Preguntamodulo preMod = em.find(Preguntamodulo.class, id_pregunta_modulo);
+		return preMod;
+
+	}
+
+	public Respuestapregunta findRespuestapreguntaById(long id_respuesta_pregunta) {
+		Respuestapregunta respPre = em.find(Respuestapregunta.class, id_respuesta_pregunta);
+		return respPre;
 
 	}
 
@@ -189,6 +233,31 @@ public class ManagerCuestionario {
 		} else
 			return true;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean existePreguntamoduloenOpcionPregunta(long id_pregunta_modulo) {
+		String JPQL = "SELECT o FROM Opcionpregunta o WHERE o.preguntamodulo.idPregunta=" + id_pregunta_modulo;
+		Query query = em.createQuery(JPQL, Opcionpregunta.class);
+		List<Opcionpregunta> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+	@SuppressWarnings("unchecked")
+	public boolean  existePreguntamoduloenRespuestapregunta(long id_pregunta_modulo) {
+		String JPQL = "SELECT r FROM Respuestapregunta r WHERE "
+				+ "r.preguntamodulo.idPregunta=" + id_pregunta_modulo;
+		Query query = em.createQuery(JPQL, Respuestapregunta.class);
+		List<Respuestapregunta> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+
 
 	public void ingresarCuestionario(Cuestionario cuest) throws Exception {
 		if (cuest == null) {
@@ -229,6 +298,37 @@ public class ManagerCuestionario {
 		}
 		em.remove(cuestN);
 	}
+	
+	public void eliminarOpcionpregunta(long id_opcion_pregunta) throws Exception {
+		Opcionpregunta opcPre=findOpcionpreguntaById(id_opcion_pregunta);
+		if (opcPre== null) {
+			throw new Exception("Error al cargar la opciòn pregunta.");
+		}
+		
+		em.remove(opcPre);
+	}
+	public void eliminarPreguntamodulo(long id_pregunta_modulo) throws Exception {
+		Preguntamodulo preM= findPreguntamoduloById(id_pregunta_modulo);
+		if (preM== null) {
+			throw new Exception("Error al cargar la pregunta mòdulo.");
+		}
+		boolean existePreguntamodulo= existePreguntamoduloenOpcionPregunta(id_pregunta_modulo);
+		if (existePreguntamodulo) {
+			throw new Exception("La pregunta mòdulo està siendo utilizada en opciòn pregunta.");
+		}
+		boolean existePreguntamodulo1= existePreguntamoduloenRespuestapregunta(id_pregunta_modulo);
+		if (existePreguntamodulo1) {
+			throw new Exception("La pregunta mòdulo està siendo utilizada en respuesta pregunta.");
+		}
+		em.remove(preM);
+	}
+	public void eliminarRespuestapregunta(long id_respuesta_pregunta) throws Exception {
+		Respuestapregunta respP=findRespuestapreguntaById(id_respuesta_pregunta);
+		if (respP== null) {
+			throw new Exception("Error al cargar la respuesta pregunta.");
+		}
+		em.remove(respP);
+	}
 
 	/***
 	 * mï¿½todos de als dimensiones a evaluar con respecto a la pregunta
@@ -247,6 +347,11 @@ public class ManagerCuestionario {
 		return dimen;
 
 	}
+	public Modulo findModuloById(long id_modulo) {
+		Modulo mo= em.find(Modulo.class, id_modulo);
+		return mo;
+
+	}
 
 	public List<Dimension> findalDimensionbyIdcuestionario(int id_cuestionario) {
 
@@ -257,6 +362,53 @@ public class ManagerCuestionario {
 		List<Dimension> lista = query.getResultList();
 		return lista;
 	}
+
+	@SuppressWarnings("unchecked")
+	public boolean existeNombreOpcionPregunta(long idPregunta, String opcion) {
+
+		String JPQL = "SELECT o FROM Opcionpregunta o WHERE o.opcion=?1 and " + "o.preguntamodulo.idPregunta=?2";
+		Query query = em.createQuery(JPQL, Opcionpregunta.class);
+		query.setParameter(1, opcion);
+		query.setParameter(2, idPregunta);
+		List<Opcionpregunta> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+	@SuppressWarnings("unchecked")
+	public boolean existeNombreRespuestaPregunta(long idPregunta, String respuesta) {
+
+		String JPQL = "SELECT r FROM Respuestapregunta r "
+				+ "WHERE r.respuesta=?1 and " + "r.preguntamodulo.idPregunta=?2";
+		Query query = em.createQuery(JPQL, Respuestapregunta.class);
+		query.setParameter(1, respuesta);
+		query.setParameter(2, idPregunta);
+		List<Respuestapregunta> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean existeNombrePreguntaModulo(long idModulo, String pregunta) {
+
+		String JPQL = "SELECT p FROM Preguntamodulo p "
+				+ "WHERE p.pregunta=?1 and " + "p.modulo.idModulo=?2";
+		Query query = em.createQuery(JPQL, Preguntamodulo.class);
+		query.setParameter(1, pregunta);
+		query.setParameter(2, idModulo);
+		List<Preguntamodulo> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	public boolean existeNombreDimension(String nombre, int id_cuestionario) {
@@ -295,6 +447,61 @@ public class ManagerCuestionario {
 			return false;
 		} else
 			return true;
+	}
+
+	public void ingresarOpcionpregunta(Opcionpregunta opcionPregunta, long id_pregunta_modulo_fk) throws Exception {
+
+		if (id_pregunta_modulo_fk == 0) {
+			throw new Exception("Seleccione una Dimensiòn Pregunta");
+		}
+		boolean existeOpcionPregunta = existeNombreOpcionPregunta(id_pregunta_modulo_fk,
+				opcionPregunta.getOpcion());
+		if (existeOpcionPregunta) {
+			throw new Exception("La opciòn pregunta" + opcionPregunta.getOpcion() + " ya existe");
+		}
+
+		Preguntamodulo preMo = managerCuestionario
+				.findPreguntamoduloById(id_pregunta_modulo_fk);
+		Opcionpregunta opcPre = new Opcionpregunta();
+		opcPre.setOpcion(opcionPregunta.getOpcion());
+		opcPre.setPreguntamodulo(preMo);
+		em.persist(opcPre);
+	}
+	public void ingresarPreguntamodulo(Preguntamodulo preguntaModulo,long id_modulo_fk) throws Exception {
+System.out.println("ENTRA");
+		if (id_modulo_fk== 0) {
+			throw new Exception("Seleccione un Módulo");
+		}
+		System.out.println("ENTRA2");
+		boolean existePreguntaModulo= existeNombrePreguntaModulo(id_modulo_fk,preguntaModulo.getPregunta());
+		if (existePreguntaModulo) {
+			throw new Exception("La pregunta módulo " + preguntaModulo.getPregunta()+ " ya existe");
+		}
+		Modulo m=new Modulo();
+		m=findModuloById(id_modulo_fk);
+		Preguntamodulo preM=new Preguntamodulo();
+		preM.setModulo(m);
+		preM.setPregunta(preguntaModulo.getPregunta());
+
+		System.out.println("ENTRA3");
+		em.persist(preM);
+	}
+	public void ingresarRespuestapregunta(Respuestapregunta respuestaPregunta, long id_pregunta_modulo_fk) throws Exception {
+
+		if (id_pregunta_modulo_fk== 0) {
+			throw new Exception("Seleccione una Pregunta módulo");
+		}
+		boolean existeRespuestaPregunta= existeNombreRespuestaPregunta(id_pregunta_modulo_fk,respuestaPregunta.getRespuesta());
+		if (existeRespuestaPregunta) {
+			throw new Exception("La respuesta pregunta " + respuestaPregunta.getRespuesta()+ " ya existe");
+		}
+
+		Preguntamodulo preMo = managerCuestionario
+				.findPreguntamoduloById(id_pregunta_modulo_fk);
+		Respuestapregunta resPreg= new Respuestapregunta();
+		resPreg.setRespuesta(respuestaPregunta.getRespuesta());
+		resPreg.setPreguntamodulo(preMo);
+		em.persist(resPreg);
 	}
 
 	public void ingresarDimension(Dimension dimen, int id_cuestionario) throws Exception {
@@ -458,6 +665,13 @@ public class ManagerCuestionario {
 		List<CursoModulo> ListaCursoModulos = q.getResultList();
 
 		return ListaCursoModulos;
+	}
+	public List<Modulo> findAllModulos() {
+		Query q = em.createQuery("SELECT m FROM Modulo m" , Modulo.class);
+		@SuppressWarnings("unchecked")
+		List<Modulo> ListaModulos= q.getResultList();
+
+		return ListaModulos;
 	}
 
 	public void ingresarDimensionPregunta(int id_dimen, int id_preg) throws Exception {
@@ -666,24 +880,23 @@ public class ManagerCuestionario {
 		Reporte = (Reporte) query.getSingleResult();
 		return Reporte;
 	}
-	public void ingresarReporte(int  id_dimension ,String respuesta,double valor, Date fecha_realizacion, long id_usuario)
-			throws Exception {
+
+	public void ingresarReporte(int id_dimension, String respuesta, double valor, Date fecha_realizacion,
+			long id_usuario) throws Exception {
 
 		Reporte nreport = new Reporte();
-			
-		
+
 		Usuario user = managerAdministrador.findUsuarioById(id_usuario);
 		Dimension dime = managerCuestionario.findDimensionById(id_dimension);
 		nreport.setResultado(respuesta);
-		BigDecimal a=new BigDecimal(valor);
-		
-		
-		
+		BigDecimal a = new BigDecimal(valor);
+
 		nreport.setDimension(dime);
 		nreport.setFecha(fecha_realizacion);
 		nreport.setUsuario(user);
 		em.persist(nreport);
 	}
+
 	public String reporteTest(List<DimensionDTO> listaDimensionesDto) throws Exception {
 		if (listaDimensionesDto.isEmpty()) {
 			throw new Exception("Error lista vacï¿½a");
@@ -691,8 +904,8 @@ public class ManagerCuestionario {
 			String respuesta = "";
 			for (DimensionDTO dimensionDTO : listaDimensionesDto) {
 
-				respuesta = respuesta +"|"+ dimensionDTO.getCuestionario().getIdCuestionario() + "-";
-				respuesta = respuesta +"|"+ dimensionDTO.getIdDimension() + "|";
+				respuesta = respuesta + "|" + dimensionDTO.getCuestionario().getIdCuestionario() + "-";
+				respuesta = respuesta + "|" + dimensionDTO.getIdDimension() + "|";
 				for (DimensionPreguntaDTO dimP : dimensionDTO.getListaDimensionesPreguntaDto()) {
 					respuesta = respuesta + dimP.getPregunta().getIdPregunta() + ",";
 					System.out.println("preg=" + dimP.getPregunta().getIdPregunta());
@@ -706,7 +919,7 @@ public class ManagerCuestionario {
 		}
 	}
 
-	public String  calcularRespuestaCuestionario(List<DimensionDTO> listaDimensionesDto) throws Exception {
+	public String calcularRespuestaCuestionario(List<DimensionDTO> listaDimensionesDto) throws Exception {
 		String respuesta = "";
 		int a = 0, b = 0;
 
@@ -736,29 +949,26 @@ public class ManagerCuestionario {
 								+ " con el porcentaje de " + r + "%";
 						return respuesta;
 					}
-				}else if (dimensionDTO.getCuestionario().getIdCuestionario() == 2 ) {
+				} else if (dimensionDTO.getCuestionario().getIdCuestionario() == 2) {
 					int sumEstres = 0;
 					for (DimensionPreguntaDTO dimPDto : dimensionDTO.getListaDimensionesPreguntaDto()) {
-						sumEstres= sumEstres+dimPDto.getValor();
+						sumEstres = sumEstres + dimPDto.getValor();
 					}
-					System.out.println("Estres sumatoria"+sumEstres);
-					
-					int menEstres= sumEstres-16;
-					
-					if(menEstres>24)
-					{
-						respuesta= "Vulnerable al estrés.";
-					}else if(menEstres>=40 || menEstres<=60)
-					{
-						respuesta= "Seriamente vulnerable al ï¿½stres.";
-					}else if(menEstres>60)
-					{
-						respuesta= "Extremadamente vulnerable al ï¿½stres.";
-					}else {
-						respuesta= "Baja vulnerabilidad al ï¿½stres.";
+					System.out.println("Estres sumatoria" + sumEstres);
+
+					int menEstres = sumEstres - 16;
+
+					if (menEstres > 24) {
+						respuesta = "Vulnerable al estrés.";
+					} else if (menEstres >= 40 || menEstres <= 60) {
+						respuesta = "Seriamente vulnerable al ï¿½stres.";
+					} else if (menEstres > 60) {
+						respuesta = "Extremadamente vulnerable al ï¿½stres.";
+					} else {
+						respuesta = "Baja vulnerabilidad al ï¿½stres.";
 					}
-				}else  if (dimensionDTO.getCuestionario().getIdCuestionario() == 3 ) {
-					return respuesta= "respuesta se guardo";
+				} else if (dimensionDTO.getCuestionario().getIdCuestionario() == 3) {
+					return respuesta = "respuesta se guardo";
 				}
 			}
 		}
@@ -777,5 +987,4 @@ public class ManagerCuestionario {
 		}
 	}
 
-	
 }
