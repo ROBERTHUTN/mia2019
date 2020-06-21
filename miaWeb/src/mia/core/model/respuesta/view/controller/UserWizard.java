@@ -11,6 +11,7 @@ import javax.inject.Named;
 import org.primefaces.event.FlowEvent;
 
 import mia.core.model.reporte.ManagerReporte;
+import mia.core.model.reporte.ManagerReportePrePost;
 import mia.core.model.reporte.User;
 
 import java.io.Serializable;
@@ -23,6 +24,10 @@ public class UserWizard implements Serializable {
 
 	@EJB
 	private ManagerReporte managerReporte; 
+	
+	@EJB
+	private ManagerReportePrePost managerReporteprepost; 
+	
 	
 	    private User user = new User();
 	     
@@ -43,9 +48,9 @@ public class UserWizard implements Serializable {
 	    }
 	     
 	    public void save() {        
-	    	managerReporte.respuestasIE(user);
+	    	managerReporteprepost.respuestasIE(user);
 	    	System.out.println(" entra");
-	    	managerReporte.ingresarIEEL(user);
+	    	managerReporteprepost.ingresarIEEL(user);
 	    	
 	    	
 	        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getUno());

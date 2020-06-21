@@ -389,7 +389,7 @@ private ManagerCuestionario managerCuestionario;
 	}
 
 
-	
+	/*
 	
 	public String [] calcularRespuestaDimension(List<DimensionPreguntaDTO>listaDto,Dimension dimension)
 	{
@@ -455,7 +455,7 @@ private ManagerCuestionario managerCuestionario;
 		
 		return respuestaT;	
 	}
-
+*/
 	private int[] res = new int[45];
 	
 	
@@ -661,7 +661,7 @@ private ManagerCuestionario managerCuestionario;
 	
 	
 	
-	
+	/**
 	
 	public String [] calcularRespuestaDimension2( List<DimensionPreguntaDTO>listaDto,Dimension dimension)
 	{
@@ -728,7 +728,7 @@ private ManagerCuestionario managerCuestionario;
 		return respuestaT;	
 	}
 	
-	
+	*/
 	
 	
 	public double calcularPorcentaje(int a,int b,int tamanio) {
