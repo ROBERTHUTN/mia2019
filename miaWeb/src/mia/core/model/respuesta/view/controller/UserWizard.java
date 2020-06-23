@@ -14,9 +14,12 @@ import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.reporte.ManagerReporte;
 import mia.core.model.reporte.ManagerReportePrePost;
 import mia.core.model.reporte.User;
+import mia.core.model.usuario.dto.BeanBateria;
+import mia.core.model.usuario.dto.DimensionBateriaDto2;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -28,6 +31,9 @@ public class UserWizard implements Serializable {
 	
 	@Inject
 	private BeanLogin beanLogin;
+	
+	@Inject
+	private BeanBateria beanBateria;
 
 	@EJB
 	private ManagerReporte managerReporte; 
@@ -64,9 +70,12 @@ public class UserWizard implements Serializable {
 	    	
 	    	
 	        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getUno());
+	        
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 	        
-	        return"tipoLiderazgo2.xhtml?faces-redirect=true";
+	        
+	        return beanBateria.PreguntasByDimension();
+	    	        
 	    	}catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			}
