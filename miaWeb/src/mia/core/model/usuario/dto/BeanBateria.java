@@ -2,6 +2,7 @@ package mia.core.model.usuario.dto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +11,12 @@ import java.util.Queue;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.DragDropEvent;
 
+import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.reporte.ManagerReporte;
 import mia.core.model.reporte.ManagerReportePrePost;
 import mia.modulos.view.util.JSFUtil;
@@ -37,6 +40,10 @@ public class BeanBateria implements Serializable {
 	private int contador;
 	private boolean iniciarTest;
 	int cont = 1;
+	
+	@Inject
+	private BeanLogin beanLogin;
+	
 	@EJB
 	BateriaServiceDto managerBateria;
 
@@ -96,7 +103,7 @@ public class BeanBateria implements Serializable {
 	public void finalizarTest() {
 
 		// System.out.println(" cantidad de datos"+ respuesta.size());
-
+    	try {
 		int[] oportunista = new int[6];
 		int[] diplomatico = new int[6];
 		int[] experto = new int[6];
@@ -181,7 +188,37 @@ public class BeanBateria implements Serializable {
 		 * }
 		 */
 		//tipoLiderazgo(oportunista, diplomatico, experto, redefiniendo, transformador, alquimico, impulsivo);
-		managerReporteprepost.calculoTl(oportunista, diplomatico, experto, transformador, alquimico, redefiniendo, impulsivo);
+		Date fecha= new Date();
+		String []tiposLiderazgo=managerReporteprepost.calculoTl(oportunista, diplomatico, experto, transformador, alquimico, redefiniendo, impulsivo);
+		 String centroGravedad= tiposLiderazgo[0];
+		 String logicaEmergente=  tiposLiderazgo[1];
+		 String logicaRetroceso=  tiposLiderazgo[2];
+		
+		Object [] IENE=	managerReporteprepost.ingresarIEEL();
+	      String respCuestionario= managerReporteprepost.respuestascuestionario();
+	      int AC= (int)IENE[0];
+	      String RAC= (String) IENE[1];
+	      int AE= (int)IENE[2];
+	      String RAE= (String) IENE[3];
+	      int AM= (int)IENE[4];
+	      String RAM= (String) IENE[5];
+	      int CE= (int)IENE[6];
+	      String RCE= (String) IENE[7];
+	      int IP= (int)IENE[8];
+	      String RIP= (String) IENE[9];
+	      String NE= (String) IENE[10];
+	      
+	      
+	      
+	      
+	       managerReporteprepost.ingresarReporteprepost(AC, AM, AE, CE, IP, centroGravedad, logicaEmergente, logicaRetroceso, NE, RAC, RAM,
+	    		   RAE, RCE, RIP,respCuestionario, fecha, beanLogin.getLogin().getId_usuario());
+	    
+    	}catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			}
+	    	
+		
 	}
 
 /**

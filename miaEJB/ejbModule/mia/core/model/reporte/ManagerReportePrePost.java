@@ -156,9 +156,10 @@ private ManagerCuestionario managerCuestionario;
 	private String tlLogicaretroceso;
 
 	
-	
-	public void calculoTl(int arrOp[], int arrDi[], int arrEx[],int arrTr[],int arrAl[],int arrRd[],int arrIm[] ) {
+	//
+	public String [] calculoTl(int arrOp[], int arrDi[], int arrEx[],int arrTr[],int arrAl[],int arrRd[],int arrIm[] ) {
 		
+		String [] tipoLiderazgo= new String[3];
 		
 		int al1=0,al2=0,al3=0;
 		int di1=0, di2=0, di3=0, ex1=0, ex2=0, ex3=0;
@@ -339,6 +340,12 @@ private ManagerCuestionario managerCuestionario;
 			System.out.println("Lógica de Retroceso"+ tlLogicaretroceso);
 			
 			
+			tipoLiderazgo[0]=tlCentroGravedad;
+			tipoLiderazgo[1]=tlLogicaEmergente;
+			tipoLiderazgo[2]=tlLogicaretroceso;
+			
+			return tipoLiderazgo;
+			
 	}
 	
 	public String respuestaLiderasgo (int al, int di, int ex, int re, int tr, int im, int op ) {
@@ -456,7 +463,7 @@ private ManagerCuestionario managerCuestionario;
 		return respuestaT;	
 	}
 */
-	private int[] res = new int[45];
+	private int[] res = new int[61];
 	
 	
 	public int[] respuestasIE(User user) {
@@ -505,6 +512,22 @@ private ManagerCuestionario managerCuestionario;
     	res[42]= user.getCuarentaytres();
     	res[43]= user.getCuarentaycuatro();
     	res[44]= user.getCuarentaycinco();
+    	res[45]= user.getCuarentayseis();
+    	res[46]= user.getCuarentaysiete();
+    	res[47]= user.getCuarentayocho();
+    	res[48]= user.getCuarentaynueve();
+    	res[49]= user.getCincuenta();
+    	res[50]= user.getCincuentayuno();
+    	res[51]= user.getCincuentaydos();
+    	res[52]= user.getCincuentaytres();
+    	res[53]= user.getCincuentaycuatro();
+    	res[54]= user.getCincuentaycinco();
+    	res[55]= user.getCincuentayseis();
+    	res[56]= user.getCincuentaysiete();
+    	res[57]= user.getCincuentayocho();
+    	res[58]= user.getCincuentaynueve();
+    	res[59]= user.getSesenta();
+    	res[60]= user.getSesentayuno();
     	
     	/**System.out.println(res.length);
     	
@@ -516,17 +539,30 @@ private ManagerCuestionario managerCuestionario;
 
 	}
 	
+   public String respuestascuestionario()
+   {
+	   StringBuffer cadena = new StringBuffer();
+	   for (int x=0;x<res.length;x++){
+		   cadena =cadena.append(res[x]);
+		}
+	   
+	   return cadena.toString();
+   }
+	
 	private int autoConciencia[] = {0,5,10,11,12,13,14,16,17,18,19,20};
 	private int autoMotivacion[]= {6,21,22,24,25,26,27};
 	private int controlEmociones[]= {0,1,2,3,4,6,8,9,12,26};
 	private int interPersonal[]= {7,9,15,18,19,28,29,30,31,32,33,34,35,36,37,38,41,42,43,44};
 	private int asesoriaEmocional[]= {7,9,15,17,33,34,36,37,38,39,40,43,44};
+	private int nivelEstres[]= {45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60};
 
 	
-	public void ingresarIEEL(User user) {
+	
+	
+	public Object[] ingresarIEEL() {
 		
 		
-		double porcentajeAE=0.0;
+		int porcentajeAE=0;
 		
 		int [] trabajarIE= res;
 		
@@ -546,16 +582,17 @@ private ManagerCuestionario managerCuestionario;
 			
 		}
 			porcentajeAE= calcularPorcentaje(bajoAE, altoAE, asesoriaEmocional.length);
-	
+			String res_porcentajeAE="";
 			if (bajoAE>altoAE) {
 				System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeAE+"%");
-				
+				res_porcentajeAE="Bajo";
 			}else {
+				res_porcentajeAE="Alto";
 				System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeAE+"%");
 			}
 			
 		
-			double porcentajeIP=0.0;
+			int porcentajeIP=0;
 			// respuesta Inter Personal
 			int bajoIP=0;
 			int altoIP=0;
@@ -572,16 +609,17 @@ private ManagerCuestionario managerCuestionario;
 				
 			}
 				porcentajeIP= calcularPorcentaje(bajoIP, altoIP, interPersonal.length);
-		
+				String res_porcentajeIP="";
 				if (bajoIP>altoIP) {
 					System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeIP+"%");
-					
+					res_porcentajeIP="Bajo";
 				}else {
+					res_porcentajeIP="Alto";
 					System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeIP+"%");
 				}
 				
-				double porcentajeCE=0.0;
-				
+				int porcentajeCE=0;
+	
 				// respuesta control Emocional
 				int bajoCE=0;
 				int altoCE=0;
@@ -598,16 +636,17 @@ private ManagerCuestionario managerCuestionario;
 					
 				}
 					porcentajeCE= calcularPorcentaje(bajoCE, altoCE, controlEmociones.length);
-			
+					String res_porcentajeCE="";
 					if (bajoCE>altoCE) {
 						System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeCE+"%");
-						
+						res_porcentajeCE="Bajo";
 					}else {
+						res_porcentajeCE="Alto";
 						System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeCE+"%");
 					}
 					
 				
-					double porcentajeAM=0.0;
+					int porcentajeAM=0;
 				
 					// respuesta autoMotivacion
 					int bajoAM=0;
@@ -625,15 +664,16 @@ private ManagerCuestionario managerCuestionario;
 						
 					}
 						porcentajeAM= calcularPorcentaje(bajoAM, altoAM, autoMotivacion.length);
-				
+						String res_pporcentajeAM="";
 						if (bajoAM>altoAM) {
 							System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeAM+"%");
-							
+							res_pporcentajeAM="Bajo";
 						}else {
 							System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeAM+"%");
+							res_pporcentajeAM="Alto";
 						}
 						
-						double porcentajeAC=0.0; 
+						int porcentajeAC=0; 
 						// respuesta autoConciencia
 						int bajoAC=0;
 						int altoAC=0;
@@ -650,89 +690,67 @@ private ManagerCuestionario managerCuestionario;
 							
 						}
 							porcentajeAC= calcularPorcentaje(bajoAC, altoAC, autoConciencia.length);
-					
+							String res_porcentajeAC="";
 							if (bajoAC>altoAC) {
 								System.out.println("Tiene bajo grado de capacidad en:  con el porcentaje de "+porcentajeAC+"%");
-								
+								res_porcentajeAC="Bajo";
 							}else {
+								res_porcentajeAC="Alto";
 								System.out.println("Tiene alto grado de capacidad en:  con el porcentaje de "+porcentajeAC+"%");
 							}
+							
+							
+
+							// respuesta nivel de estres
+							String respuesta="";
+							int sumEstres=0;
+							for (int i = 0; i < nivelEstres.length; i++) {
+								
+								System.out.println(i+""+"NE"+ ""+trabajarIE[nivelEstres[i]]);	
+								sumEstres+=trabajarIE[nivelEstres[i]];
+							}	
+							
+							System.out.println(" sumEstres="+ sumEstres);
+							int menEstres= sumEstres-16;
+							
+							if(menEstres>24)
+							{
+								respuesta= "Vulnerable al estrés.";
+							
+							}else if(menEstres>=40 || menEstres<=60)
+							{
+								respuesta= "Seriamente vulnerable al estrés.";
+					
+							}else if(menEstres>60)
+							{
+								respuesta= "Extremadamente vulnerable al estrés.";
+							
+							}else {
+								respuesta= "Baja vulnerabilidad al estres.";
+							
+							}
+					
+							Object vector[] = new Object[11];
+							
+							vector[0]= porcentajeAC;
+							vector[1]= res_porcentajeAC;
+							vector[2]= porcentajeAE;
+							vector[3]= res_porcentajeAE;
+							vector[4]= porcentajeAM;
+							vector[5]= res_pporcentajeAM;
+							vector[6]= porcentajeCE;
+							vector[7]= res_porcentajeCE;
+							vector[8]= porcentajeIP;
+							vector[9]= res_porcentajeIP;
+							vector[10]= respuesta;
+							
+							return vector;
+	
 	}
 	
 	
-	
-	/**
-	
-	public String [] calcularRespuestaDimension2( List<DimensionPreguntaDTO>listaDto,Dimension dimension)
-	{
- String respuestaT[]=new String[2];
-		String respuesta="";
-		int a=0,b=0;
-		if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 || dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 || dimension.getIdDimension()== 5)
-		{
-			for (DimensionPreguntaDTO dpDTO : listaDto) {
-				if (dpDTO.getValor()<=3) {
-					a++;
-				}else {
-					b++;
-				}
-				}
-				double r;
-				r=calcularPorcentaje(a, b, listaDto.size());
-				if (a>b) {
-					respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
-					respuestaT[0]=respuesta;
-					respuestaT[1]=r+"";
-					return respuestaT;
-				}else {
-					respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
-					respuestaT[0]=respuesta;
-					respuestaT[1]=r+"";
-					return respuestaT;					
-				}
-		
-				
-		}else if(dimension.getIdDimension() == 6) 
-		{
-			int sumEstres = 0;
-			for (DimensionPreguntaDTO dpDTO : listaDto) {
-				sumEstres= sumEstres+dpDTO.getValor();
-			}
-			System.out.println("Estres sumatoria"+sumEstres);
-			
-			int menEstres= sumEstres-16;
-			
-			if(menEstres>24)
-			{
-				respuesta= "Vulnerable al ï¿½stres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}else if(menEstres>=40 || menEstres<=60)
-			{
-				respuesta= "Seriamente vulnerable al estres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}else if(menEstres>60)
-			{
-				respuesta= "Extremadamente vulnerable al estres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}else {
-				respuesta= "Baja vulnerabilidad al estres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}
-			
-		}
-		
-		return respuestaT;	
-	}
-	
-	*/
-	
-	
-	public double calcularPorcentaje(int a,int b,int tamanio) {
-		double r;
+	public int calcularPorcentaje(int a,int b,int tamanio) {
+		int r;
 		if (a>b) {
 			r=(a*100)/tamanio;
 			return r;
