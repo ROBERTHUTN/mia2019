@@ -30,11 +30,12 @@ public class BeanUserCursoModulo implements Serializable {
 	private String direccion;
 	private String nombre;
 	private List<UserCursoModuloDTO> userccursomoduloIdDto;
+	private UserCursoModuloDTO usuarioCursoDto;
 	private String moduloRealizado;
 	@EJB
 	private ManagerUserCurso managerUserCurso;
 	
-	@EJB 
+	@EJB
 	private ManagerCurso managerCurso;
 	
 
@@ -50,12 +51,20 @@ public class BeanUserCursoModulo implements Serializable {
 		
 	}
 	
+	
+	public String actionContestarModulo() {
+		/*
+		 Código para cargar el modulo con las opciones
+		*/
+		
+		return "test2?faces-redirect=true";
+	}
+	
 	public String cargarModulo(UserCursoModuloDTO m) {
 		try {
-	modulo=managerCurso.findModuloById(m.getModulo().getIdModulo());
-	System.out.println("URL: "+modulo.getDireccion());
+			usuarioCursoDto=m;
 	JSFUtil.crearMensajeInfo("Módulo cargado correctamente.");
-		return"modulo1?faces-redirect=true";
+		return"modulo?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}finally {
@@ -64,17 +73,18 @@ public class BeanUserCursoModulo implements Serializable {
 		return"";
 	}
 	
-	public String actionIngresarCambio(UserCursoModuloDTO userCursoDto) {
+	public String actionIngresarCambio() {
 		try {
-			managerUserCurso.editarAvanceCurso( userCursoDto);
+			managerUserCurso.editarAvanceCurso( usuarioCursoDto);
 			userccursomoduloIdDto= managerUserCurso.cargarListaUserCurso(usuariocursoCar);
-			System.out.println("usuariocursoCar;"+usuariocursoCar.getIdUsuariocurso());
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
 			return "modulos?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
 			return "";
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
 		}
 	}
 
@@ -210,6 +220,14 @@ public class BeanUserCursoModulo implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public UserCursoModuloDTO getUsuarioCursoDto() {
+		return usuarioCursoDto;
+	}
+
+	public void setUsuarioCursoDto(UserCursoModuloDTO usuarioCursoDto) {
+		this.usuarioCursoDto = usuarioCursoDto;
 	}
 
 

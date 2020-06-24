@@ -86,7 +86,10 @@
  
       <p:panelGrid  styleClass="showcase-text-align-center">
        <div class="ui-fluid" align="center">
-     <p:commandButton value="Finalizar Test" style="width:150px" title="Finalizar test" action="#{beanUserCursoModulo.actionIngresarCambio(car)}"></p:commandButton>
+     <p:commandButton value="Finalizar Test" style="width:150px" title="Finalizar test" action="#{beanUserCursoModulo.actionContestarModulo()}">
+     <p:confirm header="Confirmación" message="Está seguro de contestar el cuestionario??"
+							icon="fa fa-times" />
+							</p:commandButton>
 </div>
 </p:panelGrid>
     </p:layoutUnit>
@@ -98,7 +101,7 @@
     <p:panelGrid style="margin-top:20px">
     <f:facet name="header">
              <iframe id="imagepgframe" name="imagepgframe" frameborder="0" scrolling="auto" 
-            src="#{beanUserCursoModulo.modulo.direccion}">
+            src="#{beanUserCursoModulo.usuarioCursoDto.modulo.direccion}">
            
             </iframe>
  
@@ -114,6 +117,12 @@
         </div>
     </h:form>
     
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
 </body> 
 
 </html>
