@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+   <title>
+        <h:outputText value="your application title"></h:outputText>
+    </title>
+    <style type="text/css">
+        #imagepgframe { 
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        #wrap { 
+            width: 100%;
+            position: absolute;
+            top: 0px; 
+            left: 0;
+            bottom: 0;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+    </style>
+</h:head>
+<body>
+
+    <h:form>
+      <div class="ui-fluid">
+        <p:layout fullPage="true">
+ <p:layoutUnit position="north" size="50" >
+        <div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="usuario/images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+				<p:menuitem icon="fa fa-home" title="Menú" url="/miaWeb/faces/usuario/menu.xhtml" class="p-grid" />
+				
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div> 
+	
+	
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+		<p:menuitem value="Módulos" url="/miaWeb/faces/usuario/modulos.xhtml" />
+		</p:breadCrumb>
+	</div>
+    </p:layoutUnit>
+    <p:layoutUnit position="south" size="50"  >
+    
+ 
+      <p:panelGrid  styleClass="showcase-text-align-center">
+       <div class="ui-fluid" align="center">
+     <p:commandButton value="Finalizar" style="width:100px" title="Finalizar test" action="#{beanUserCursoModulo.actionIngresarCambio(car)}"></p:commandButton>
+</div>
+</p:panelGrid>
+    </p:layoutUnit>
+
+
+
+    <p:layoutUnit position="center">
+     
+    <p:panelGrid style="margin-top:20px">
+    <f:facet name="header">
+             <iframe id="imagepgframe" name="imagepgframe" frameborder="0" scrolling="auto" 
+            src="https://www.edjet.com/course/80310186?fbclid=IwAR3lDCEum-f3TmAd6N0T8MYBmt8o4Arg-T8hWbQ0S99p0rgWJjnO5U6sIDg">
+           
+            </iframe>
+ 
+    </f:facet>
+
+ 
+ 
+</p:panelGrid>
+    </p:layoutUnit>
+
+</p:layout>
+
+        </div>
+    </h:form>
+</body> 
+</html>

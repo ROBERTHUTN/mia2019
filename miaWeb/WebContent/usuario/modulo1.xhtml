@@ -5,55 +5,115 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
+
 <f:metadata>
 	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
 		type="preRenderView"></f:event>
 </f:metadata>
-<h:head></h:head> 
-<body style="background-color: #3b83bd;"> 
-<div id="menu">
+<h:head>
+
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	<!-- Estilos -->
+
+	<title>MIA</title>
+	<f:facet name="middle">
+		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+		<h:outputStylesheet name="css/styles2.css" />
+	</f:facet>
+	<f:facet name="last">
+		<h:outputScript name="bootstrap/js/bootstrap.js" />
+		<h:outputScript name="js/styles2.js" />
+		<h:outputScript name="js/validator.js" />
+	</f:facet>
+	<style type="text/css">
+.ui-panel-content {
+	background: gray;
+}
+</style>
+<style type="text/css">
+        #imagepgframe { 
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        #wrap { 
+            width: 100%;
+            position: absolute;
+            top: 0px; 
+            left: 0;
+            bottom: 0;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+    </style>
+</h:head>
+<body>
+<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+    <h:form>
+      <div class="ui-fluid">
+        <p:layout fullPage="true">
+ <p:layoutUnit position="north" size="50" >
+        <div id="menu">
 		<h:form>
 			<p:menubar>
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				<p:menuitem value="ATRÁS" title="ATRÁS" icon="fa fa-arrow-left"
-					action="curso?faces-redirect=true" />
-					
+				<p:menuitem icon="fa fa-home" title="Menú" url="/miaWeb/faces/usuario/menu.xhtml" class="p-grid" />
+				<p:menuitem value="Módulos" icon="fa fa-angle-right"  url="/miaWeb/faces/usuario/modulos.xhtml" class="p-grid" />
+				<p:menuitem value="Módulo 1" icon="fa fa-angle-right"  url="/miaWeb/faces/usuario/modulo1.xhtml" class="p-grid" />
+				
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
 						value="#{beanLogin.login.nombres}" />
-					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
-						action="#{beanLogin.actionCerrarSesion()}" />
+					
 				</f:facet>
 			</p:menubar>
 		</h:form>
 	</div> 
-	
-	
-	<div id="migajas" class="p-grid">
-		<p:breadCrumb>
-			<p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
-			<p:menuitem value="Módulos" url="/miaWeb/faces/usuario/modulos.xhtml" />
-		</p:breadCrumb>
-	</div>
-	<p:growl>
-		<p:autoUpdate />
-	</p:growl>
+    </p:layoutUnit>
+    <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
+    
+ 
+      <p:panelGrid  styleClass="showcase-text-align-center">
+       <div class="ui-fluid" align="center">
+     <p:commandButton value="Finalizar Test" style="width:150px" title="Finalizar test" action="#{beanUserCursoModulo.actionIngresarCambio(car)}"></p:commandButton>
+</div>
+</p:panelGrid>
+    </p:layoutUnit>
 
-<p:outputLabel></p:outputLabel>
-<f:metadata>
-    <f:viewParam name="moduloRealizado" value="#{beanUserCursoModulo.moduloRealizado}" />
-</f:metadata>
 
+
+    <p:layoutUnit position="center">
      
-<iframe src="#{beanUserCursoModulo.moduloRealizado}" width="1000" height="1000"  >
-</iframe>
-<p:commandButton value="Finalizar"  action="#{beanUserCursoModulo.actionIngresarCambio(car)}"></p:commandButton>
+    <p:panelGrid style="margin-top:20px">
+    <f:facet name="header">
+             <iframe id="imagepgframe" name="imagepgframe" frameborder="0" scrolling="auto" 
+            src="#{beanUserCursoModulo.modulo.direccion}">
+           
+            </iframe>
+ 
+    </f:facet>
 
-<p>
-        ViewParameter you've passed is <strong>"#{beanUserCursoModulo.moduloRealizado}"</strong>
-</p>
+ 
+ 
+</p:panelGrid>
+    </p:layoutUnit>
+
+</p:layout>
+
+        </div>
+    </h:form>
+    
 </body> 
 
 </html>

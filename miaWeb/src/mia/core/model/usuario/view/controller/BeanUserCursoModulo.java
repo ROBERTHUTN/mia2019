@@ -6,20 +6,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.wildfly.security.audit.SyslogAuditEndpoint;
-
 import mia.core.model.administrador.ManagerCurso;
-import mia.core.model.administrador.view.controller.BeanCurso;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Modulo;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
-import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.usuario.ManagerUserCurso;
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.modulos.view.util.JSFUtil;
@@ -36,14 +29,8 @@ public class BeanUserCursoModulo implements Serializable {
 	private Usuario usuario= new Usuario();
 	private String direccion;
 	private String nombre;
-
+	private List<UserCursoModuloDTO> userccursomoduloIdDto;
 	private String moduloRealizado;
-	
-	@Inject
-	private BeanLogin login;
-	@Inject
-	private BeanCurso beanCurso;
-
 	@EJB
 	private ManagerUserCurso managerUserCurso;
 	
@@ -60,8 +47,22 @@ public class BeanUserCursoModulo implements Serializable {
 	@PostConstruct
 	public void init() {
 		
+		
 	}
 	
+	public String cargarModulo(UserCursoModuloDTO m) {
+		try {
+	modulo=managerCurso.findModuloById(m.getModulo().getIdModulo());
+	System.out.println("URL: "+modulo.getDireccion());
+	JSFUtil.crearMensajeInfo("Módulo cargado correctamente.");
+		return"modulo1?faces-redirect=true";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
+		}
+		return"";
+	}
 	
 	public String actionIngresarCambio(UserCursoModuloDTO userCursoDto) {
 		try {
@@ -211,11 +212,6 @@ public class BeanUserCursoModulo implements Serializable {
 		this.nombre = nombre;
 	}
 
-
-
-
-
-	private List<UserCursoModuloDTO> userccursomoduloIdDto;
 
 
 } 
