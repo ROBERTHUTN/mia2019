@@ -63,8 +63,8 @@ private ManagerCuestionario managerCuestionario;
 	public List<Reporteprepost> findResultadosTestbyUsuarioAndAnioAndMes(long id_user,int anio,int mes)
 	{
 		String JPQL = "SELECT r FROM Reporteprepost r WHERE r.usuario.idUsuario=?1 "
-				+ "and year(r.fecha)="+anio+" "
-						+ " and month(r.fecha)="+mes;
+				+ "and year(r.fechaInscripcion)="+anio+" "
+						+ " and month(r.fechaInscripcion)="+mes;
 		Query query = em.createQuery(JPQL, Reporteprepost.class);
 		query.setParameter(1, id_user);
 		@SuppressWarnings("unchecked")
@@ -76,9 +76,9 @@ private ManagerCuestionario managerCuestionario;
 	public List<Integer> findResultadosTestbyUsuarioByAnio(long id_user)
 	{
 		List<Integer> publicationYears = em.createQuery(
-				    "select distinct year(r.fecha) " +
+				    "select distinct year(r.fechaInscripcion) " +
 				    " From Reporteprepost r where r.usuario.idUsuario="+id_user+
-				    "  order by year(r.fecha) desc", Integer.class)
+				    "  order by year(r.fechaInscripcion) desc", Integer.class)
 				.getResultList();
 		for (Integer integer : publicationYears) {
 			System.out.println("AÑO: "+integer.toString());
@@ -88,10 +88,10 @@ private ManagerCuestionario managerCuestionario;
 	public List<Integer> findResultadosTestbyUsuarioByMes(int anio,long idUsuario)
 	{
 		List<Integer> listaMeses= em.createQuery(
-				    "select distinct month(r.fecha) " +
+				    "select distinct month(r.fechaInscripcion) " +
 				    " From Reporteprepost r where r.usuario.idUsuario="+idUsuario
-				    + " and year(r.fecha)="+anio +
-				    "  order by month(r.fecha) desc", Integer.class)
+				    + " and year(r.fechaInscripcion)="+anio +
+				    "  order by month(r.fechaInscripcion) desc", Integer.class)
 				.getResultList();
 		return listaMeses;
 	}
@@ -395,74 +395,6 @@ private ManagerCuestionario managerCuestionario;
 		return mp;
 	}
 
-
-	/*
-	
-	public String [] calcularRespuestaDimension(List<DimensionPreguntaDTO>listaDto,Dimension dimension)
-	{
- String respuestaT[]=new String[2];
-		String respuesta="";
-		int a=0,b=0;
-		if(dimension.getIdDimension()== 1|| dimension.getIdDimension()== 2 || dimension.getIdDimension()== 3|| dimension.getIdDimension()== 4 || dimension.getIdDimension()== 5)
-		{
-			for (DimensionPreguntaDTO dpDTO : listaDto) {
-				if (dpDTO.getValor()<=3) {
-					a++;
-				}else {
-					b++;
-				}
-				}
-				double r;
-				r=calcularPorcentaje(a, b, listaDto.size());
-				if (a>b) {
-					respuesta="Tiene bajo grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
-					respuestaT[0]=respuesta;
-					respuestaT[1]=r+"";
-					return respuestaT;
-				}else {
-					respuesta="Tiene alto grado de capacidad en: "+dimension.getDescripcion()+" con el porcentaje de "+r+"%";
-					respuestaT[0]=respuesta;
-					respuestaT[1]=r+"";
-					return respuestaT;					
-				}
-		
-				
-		}else if(dimension.getIdDimension() == 6) 
-		{
-			int sumEstres = 0;
-			for (DimensionPreguntaDTO dpDTO : listaDto) {
-				sumEstres= sumEstres+dpDTO.getValor();
-			}
-			System.out.println("Estres sumatoria"+sumEstres);
-			
-			int menEstres= sumEstres-16;
-			
-			if(menEstres>24)
-			{
-				respuesta= "Vulnerable al estres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}else if(menEstres>=40 || menEstres<=60)
-			{
-				respuesta= "Seriamente vulnerable al estres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}else if(menEstres>60)
-			{
-				respuesta= "Extremadamente vulnerable al estres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}else {
-				respuesta= "Baja vulnerabilidad al estres.";
-				respuestaT[0]=respuesta;
-				respuestaT[1]= menEstres+"";
-			}
-			
-		}
-		
-		return respuestaT;	
-	}
-*/
 	private int[] res = new int[61];
 	
 	

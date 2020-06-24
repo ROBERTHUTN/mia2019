@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<f:metadata>
+	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	<!-- Estilos -->
+	
+
+	<title>Formulario usuarios y lista</title>
+<style type="text/css">
+    /** Demo **/
+    .ui-outputlabel {
+        font-weight: bold;
+    }
+     
+    .ui-orderlist .ui-orderlist-list {
+        height: auto;
+    }
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+					
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+						<p:menuitem value="Resultado" url="/miaWeb/faces/usuario/resultadoTest2.xhtml" />
+		</p:breadCrumb>
+	</div>
+
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	
+	<h:form>
+    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+ 
+    <p:panel header="Seleccione una fecha" style="margin-bottom:10px;">
+        <h:panelGrid columns="5" cellpadding="5">
+            <p:outputLabel for="anio" value="Año: " />
+            <p:selectOneMenu id="anio" value="#{bean}" style="width:150px">
+                <p:ajax listener="#{beanReporteprepost.seleccionarMes()}" update="mes" />
+                <f:selectItem itemLabel="Seleccione año" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{beanReporteprepost.listaanios}" />
+            </p:selectOneMenu>
+ 
+            <p:outputLabel for="mes" value="Mes: " />
+            <p:selectOneMenu id="mes"  style="width:150px" value="#{beanReporte.mes}">
+                <f:selectItem itemLabel="Seleccione mes" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{beanReporteprepost.listaMeses}" />
+            </p:selectOneMenu>
+                    <p:commandButton value="Consultar" update="form1" actionListener="#{beanReporte.reportebyMesAndAnio()}" icon="pi pi-check" />
+  
+        </h:panelGrid>
+ 
+       
+ 
+  </p:panel>
+  
+ 
+</h:form>
+	
+	
+	<div class="ui-fluid">
+	<h:form id="form1">
+	 <p:panel>
+  <p:panelGrid>
+  <p:growl id="growl" showDetail="true" />
+  <p:barChart  model="#{beanReporteprepost.mixedModelEjecValidProy}" style="width: 100%; height: 500px;">
+  <p:ajax event="itemSelect" listener="#{beanReporte.itemSelect}" update="growl"/>
+    </p:barChart>
+  </p:panelGrid>
+  </p:panel>
+ <p:dataTable var="resp" value="#{beanReporteprepost.reporteprepostTest}">  
+        <f:facet name="header">
+            Lista de Resultados de Diagnostico.
+        </f:facet>
+        
+  <p:column style="width:7%" headerText="ID">	 
+  <p:panelGrid columns="1" layout="grid" >
+        <p:outputLabel value="#{resp.idReportetest}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+   <p:column style="width:25%" headerText="Nivel">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.resAsesoriaEmocional}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+ 
+  <p:column style="width:25%" headerText="Asesoría Emocional">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.asesoriaEmocional}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+ 
+   <p:column style="width:25%" headerText="Nivel">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.resAutoconciencia}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+ 
+  <p:column style="width:25%" headerText="Autoconciencia">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.autoconciencia}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+   <p:column style="width:25%" headerText="Nivel">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.resAutomotivacion}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+ 
+  <p:column style="width:25%" headerText="Automotivación">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.automotivacion}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+ 
+   <p:column style="width:25%" headerText="Nivel">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.resControlEmocion}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+ 
+  <p:column style="width:25%" headerText="Control Emoción">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.controlEmocion}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+   <p:column style="width:25%" headerText="Nivel">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.resInterpersonal}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+ 
+  <p:column style="width:25%" headerText="Interpersonal">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.interpersonal}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
+ 
+      				
+  </p:dataTable>
+  </h:form> 
+</div>
+
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+</body>
+</html>   
+    

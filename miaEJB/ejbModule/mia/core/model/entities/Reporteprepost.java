@@ -202,7 +202,7 @@ public class Reporteprepost implements Serializable {
 
 	public String getRespuestaCuestionario() {
 		return this.respuestaCuestionario;
-	}
+	}	
 
 	public void setRespuestaCuestionario(String respuestaCuestionario) {
 		this.respuestaCuestionario = respuestaCuestionario;
