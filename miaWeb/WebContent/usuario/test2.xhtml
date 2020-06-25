@@ -82,7 +82,7 @@
 								<p:panelGrid columns="1" layout="grid">
 								 
 									<p:outputLabel value="#{a.pregunta}"></p:outputLabel>
-									<p:selectOneRadio id="console" 
+									<p:selectOneRadio id="console" value="#{a.respuesta}"
 										unselectable="true" required="true"
 										requiredMessage="Seleccione la opción de la pregunta: #{car.pregunta.descripcion}?">
 										<f:selectItems value="#{a.opcionpreguntas}" var="opc"

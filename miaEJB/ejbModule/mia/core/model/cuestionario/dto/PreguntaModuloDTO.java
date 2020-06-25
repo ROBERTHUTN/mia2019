@@ -16,7 +16,9 @@ public class PreguntaModuloDTO extends Preguntamodulo{
 	List<PreguntaOpcionDTO> preguntaOpcionDTO = new ArrayList<>();
 	List<RespuestaPreguntaDTO> respuestaPreguntaDTO= new ArrayList<>();
 	
+	
 	*/
+	private String respuesta;
 	@Override
 	public long getIdPregunta() {
 		// TODO Auto-generated method stub
@@ -129,6 +131,14 @@ public class PreguntaModuloDTO extends Preguntamodulo{
 	public String toString() {
 		// TODO Auto-generated method stub
 		return super.toString();
+	}
+
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
 	}
 
 
