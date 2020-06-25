@@ -5,17 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-<<<<<<< HEAD
-import javax.inject.Inject;
-=======
->>>>>>> branch 'master' of https://github.com/ROBERTHUTN/mia2019.git
 import javax.inject.Named;
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/ROBERTHUTN/mia2019.git
 import mia.core.model.administrador.ManagerCurso;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
