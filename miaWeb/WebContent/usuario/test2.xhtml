@@ -71,7 +71,7 @@
             CUESTIONARIO DEL MÓDULO
         </f:facet>
 				<p:column>
-					<p:panel header="#{a.descripcion}">
+					<p:panel header="#{a.pregunta}">
 						<br></br>
 
 						<form>
@@ -101,22 +101,24 @@
 
 							</p:panelGrid>
 							<br></br>
-							<p:repeat var="car" value="#{a.listaDimensionesPreguntaDto}"  >
+							
 
 
 								<p:panelGrid columns="1" layout="grid">
-									<p:outputLabel value="#{car.pregunta.descripcion}?"></p:outputLabel>
-									<p:selectOneRadio id="console" value="#{car.valor}"
+								 
+									<p:outputLabel value="#{a.pregunta}"></p:outputLabel>
+									<p:selectOneRadio id="console" 
 										unselectable="true" required="true"
 										requiredMessage="Seleccione la opción de la pregunta: #{car.pregunta.descripcion}?">
-										<f:selectItems value="#{car.listaOpciones}" var="opc"
-											itemLabel="#{opc.opcDescripcion}" itemValue="#{opc.valor}">
+										<f:selectItems value="#{a.opcionpreguntas}" var="opc"
+											itemLabel="#{opc.opcion}" itemValue="#{opc.opcion}">
 										</f:selectItems>
 									</p:selectOneRadio>
+									
 								</p:panelGrid>
 
 
-							</p:repeat>
+							
 							<p:messages />
 							<p></p>
 							<br></br>
@@ -147,7 +149,7 @@
 							</p:panelGrid>
 							<p:commandButton value="Finalizar Test"
 								rendered="#{beanAdministrradorCuestionario.finalizarTest}"
-								action="#{beanAdministrradorCuestionario.actionRetornarbyCuestiono()}"
+							
 								style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
 								update="form1" />
 						</form>

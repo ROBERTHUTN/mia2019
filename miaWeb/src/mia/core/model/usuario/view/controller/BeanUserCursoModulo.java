@@ -256,6 +256,16 @@ public class BeanUserCursoModulo implements Serializable {
 	}
 
 
+	public List<PreguntaModuloDTO> getPreguntamoduloDTO() {
+		return preguntamoduloDTO;
+	}
+
+
+	public void setPreguntamoduloDTO(List<PreguntaModuloDTO> preguntamoduloDTO) {
+		this.preguntamoduloDTO = preguntamoduloDTO;
+	}
+
+
 
 } 
  

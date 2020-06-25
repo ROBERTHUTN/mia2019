@@ -163,7 +163,7 @@ public class ManagerCuestionario {
 	
 	public List<Respuestapregunta> findAllRespuestapreguntabypregunta(long id_pregunta) {
 
-		Query q = em.createQuery("SELECT r FROM Respuestapregunta r"
+		Query q = em.createQuery("SELECT r FROM Respuestapregunta r "
 				+ "where r.preguntamodulo.idPregunta=?1", Respuestapregunta.class);
 		q.setParameter(1, id_pregunta);
 		@SuppressWarnings("unchecked")
@@ -242,7 +242,7 @@ public class ManagerCuestionario {
 	public List<Opcionpregunta> findAllOpcionpreguntabypregunta(long id_pregunta) {
 
 		Query q = em.createQuery("SELECT o FROM Opcionpregunta o "
-				+ "where o.preguntamodulo.idPregunta=?1", Opcionpregunta.class);
+				+ " where o.preguntamodulo.idPregunta=?1", Opcionpregunta.class);
 		q.setParameter(1, id_pregunta);
 		@SuppressWarnings("unchecked")
 		List<Opcionpregunta> listaOpcionpregunta = q.getResultList();
@@ -320,8 +320,8 @@ public class ManagerCuestionario {
 	}
 	@SuppressWarnings("unchecked")
 	public boolean  existePreguntamoduloenRespuestapregunta(long id_pregunta_modulo) {
-		String JPQL = "SELECT r FROM Respuestapregunta r WHERE "
-				+ "r.preguntamodulo.idPregunta=" + id_pregunta_modulo;
+		String JPQL = "SELECT r FROM Respuestapregunta r WHERE  "
+				+ " r.preguntamodulo.idPregunta=" + id_pregunta_modulo;
 		Query query = em.createQuery(JPQL, Respuestapregunta.class);
 		List<Respuestapregunta> lista;
 		lista = query.getResultList();

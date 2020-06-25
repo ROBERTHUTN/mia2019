@@ -12,11 +12,11 @@ import mia.core.model.entities.Respuestapregunta;
 
 
 public class PreguntaModuloDTO extends Preguntamodulo{
-
+/*
 	List<PreguntaOpcionDTO> preguntaOpcionDTO = new ArrayList<>();
 	List<RespuestaPreguntaDTO> respuestaPreguntaDTO= new ArrayList<>();
 	
-	
+	*/
 	@Override
 	public long getIdPregunta() {
 		// TODO Auto-generated method stub
@@ -131,21 +131,7 @@ public class PreguntaModuloDTO extends Preguntamodulo{
 		return super.toString();
 	}
 
-	public List<PreguntaOpcionDTO> getPreguntaOpcionDTO() {
-		return preguntaOpcionDTO;
-	}
 
-	public void setPreguntaOpcionDTO(List<PreguntaOpcionDTO> preguntaOpcionDTO) {
-		this.preguntaOpcionDTO = preguntaOpcionDTO;
-	}
-
-	public List<RespuestaPreguntaDTO> getRespuestaPreguntaDTO() {
-		return respuestaPreguntaDTO;
-	}
-
-	public void setRespuestaPreguntaDTO(List<RespuestaPreguntaDTO> respuestaPreguntaDTO) {
-		this.respuestaPreguntaDTO = respuestaPreguntaDTO;
-	}
 
 	
 	
