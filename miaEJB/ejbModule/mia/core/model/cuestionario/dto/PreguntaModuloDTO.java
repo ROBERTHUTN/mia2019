@@ -18,6 +18,8 @@ public class PreguntaModuloDTO extends Preguntamodulo{
 	
 	
 	*/
+	
+	private String respuestacorrecta;
 	private String respuesta;
 	@Override
 	public long getIdPregunta() {
@@ -139,6 +141,14 @@ public class PreguntaModuloDTO extends Preguntamodulo{
 
 	public void setRespuesta(String respuesta) {
 		this.respuesta = respuesta;
+	}
+
+	public String getRespuestacorrecta() {
+		return respuestacorrecta;
+	}
+
+	public void setRespuestacorrecta(String respuestacorrecta) {
+		this.respuestacorrecta = respuestacorrecta;
 	}
 
 

@@ -15,9 +15,11 @@ import javax.persistence.Query;
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.core.model.administrador.ManagerCurso;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
+import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Opcion;
+import mia.core.model.entities.Respuestapregunta;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
 
@@ -96,7 +98,21 @@ public class ManagerUserCurso {
 		return curso;
 	}
 	
-
+    public int obtenerResCorrectas (List<PreguntaModuloDTO> lp ) {
+    	
+    	int respCorrectas=0;
+    	
+    	for (PreguntaModuloDTO pm : lp) {
+			System.out.println(pm.getRespuestacorrecta()+" /"+" "+pm.getRespuesta()+"");
+    		if(pm.getRespuestacorrecta().equals(pm.getRespuesta()))
+{
+	respCorrectas++;
+}
+		}
+    	
+    	
+    	return respCorrectas ;
+    }
 
 	@SuppressWarnings("unchecked")
 	public boolean existeNombreUsuariobyCurso(String nombre) {

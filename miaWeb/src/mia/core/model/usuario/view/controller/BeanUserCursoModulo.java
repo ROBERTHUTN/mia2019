@@ -102,7 +102,12 @@ public class BeanUserCursoModulo implements Serializable {
 	public String actionIngresarCambio() {
 		try {
 			managerUserCurso.editarAvanceCurso( usuarioCursoDto);
+		
+			
 			userccursomoduloIdDto= managerUserCurso.cargarListaUserCurso(usuariocursoCar);
+		int a=	managerUserCurso.obtenerResCorrectas( preguntamoduloDTO);
+		
+		System.out.println("dato="+a);
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
 			return "modulos?faces-redirect=true";
 		} catch (Exception e) {
@@ -114,6 +119,7 @@ public class BeanUserCursoModulo implements Serializable {
 		}
 	}
 
+	
 	public List<UserCursoModuloDTO> getUserccursomoduloIdDto() {
 		return userccursomoduloIdDto;
 	}

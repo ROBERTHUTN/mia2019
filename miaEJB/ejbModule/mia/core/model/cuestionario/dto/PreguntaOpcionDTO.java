@@ -10,6 +10,8 @@ import mia.core.model.entities.Respuestapregunta;
 
 
 public class PreguntaOpcionDTO extends Opcionpregunta {
+	
+	
 
 	@Override
 	public long getIdOpcionpregunta() {

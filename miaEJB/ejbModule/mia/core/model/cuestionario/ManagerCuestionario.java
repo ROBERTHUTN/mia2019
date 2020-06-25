@@ -21,6 +21,7 @@ import mia.core.model.cuestionario.dto.DimensionDTO;
 import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
+import mia.core.model.cuestionario.dto.RespuestaPreguntaDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Dimension;
@@ -209,6 +210,7 @@ public class ManagerCuestionario {
 		
 	}
 
+	
 	public List<PreguntaModuloDTO> otrometodo (List<Preguntamodulo> listapm) throws Exception {
 		if(listapm.isEmpty())
 		{
@@ -220,6 +222,11 @@ public class ManagerCuestionario {
 		for (Preguntamodulo pr : listapm) {
 			pmdto.setIdPregunta(pr.getIdPregunta());
 			pmdto.setModulo(pr.getModulo());
+			Respuestapregunta rp= new Respuestapregunta();
+			rp= findRespuestapreguntaByIdPreguntaModulo(pr.getIdPregunta());
+			
+			pmdto.setRespuestacorrecta(rp.getRespuesta());
+			
 			pmdto.setOpcionpreguntas(pr.getOpcionpreguntas());	
 			pmdto.setPregunta(pr.getPregunta());
 			pmdto.setRespuestapreguntas(pr.getRespuestapreguntas());
@@ -228,6 +235,10 @@ public class ManagerCuestionario {
 		return p;
 		
 	}
+	
+
+
+	
 
 	
 	
@@ -280,7 +291,20 @@ public class ManagerCuestionario {
 		return respPre;
 
 	}
-
+	public Respuestapregunta findRespuestapreguntaByIdPreguntaModulo(long id_pregunta_modulo) {
+		
+		String JPQL = "SELECT r FROM Respuestapregunta r"
+				+ " WHERE preguntamodulo.idPregunta=?1";
+		Query query = em.createQuery(JPQL, Respuestapregunta.class);
+		query.setParameter(1, id_pregunta_modulo);
+		List<Respuestapregunta> lista;
+		lista = query.getResultList();
+		Respuestapregunta r	=new Respuestapregunta();
+		if (!lista.isEmpty()) {
+			r=lista.get(0);
+		} 
+return r;
+	}
 	@SuppressWarnings("unchecked")
 	public boolean existeNombreCuestionario(String nombre) {
 
