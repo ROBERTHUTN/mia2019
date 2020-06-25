@@ -84,7 +84,7 @@
 									<p:outputLabel value="#{a.pregunta}"></p:outputLabel>
 									<p:selectOneRadio id="console" value="#{a.respuesta}"
 										unselectable="true" required="true"
-										requiredMessage="Seleccione la opción de la pregunta: #{car.pregunta.descripcion}?">
+										requiredMessage="Seleccione la opción ">
 										<f:selectItems value="#{a.opcionpreguntas}" var="opc"
 											itemLabel="#{opc.opcion}" itemValue="#{opc.opcion}">
 										</f:selectItems>
