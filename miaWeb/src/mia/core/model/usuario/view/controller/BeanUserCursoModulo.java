@@ -6,11 +6,17 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import mia.core.model.administrador.ManagerCurso;
+import mia.core.model.administrador.view.controller.BeanAdministrador;
+import mia.core.model.cuestionario.ManagerCuestionario;
+import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Modulo;
+import mia.core.model.entities.Opcionpregunta;
+import mia.core.model.entities.Preguntamodulo;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
 import mia.core.model.usuario.ManagerUserCurso;
@@ -32,6 +38,7 @@ public class BeanUserCursoModulo implements Serializable {
 	private String direccion;
 	private String nombre;
 	private List<UserCursoModuloDTO> userccursomoduloIdDto;
+	private List<PreguntaModuloDTO> preguntamoduloDTO;
 	private UserCursoModuloDTO usuarioCursoDto;
 	private String moduloRealizado;
 	@EJB
@@ -40,7 +47,8 @@ public class BeanUserCursoModulo implements Serializable {
 	@EJB
 	private ManagerCurso managerCurso;
 	
-
+	@EJB
+	private ManagerCuestionario managerCuestionario;
 
 	private List<CursoModulo> cursomoduloID;	
 	private List<UsuarioCurso> usuariocursoID;
@@ -58,8 +66,23 @@ public class BeanUserCursoModulo implements Serializable {
 		/*
 		 Código para cargar el modulo con las opciones
 		*/
-		
+		try {
+			
+	
+	PreguntaModuloDTO preguntaOpcionRespuestaDTO = new PreguntaModuloDTO();
+	
+	List<Preguntamodulo> preguntamodul= managerCuestionario.findAllPreguntamodulobymodulo(usuarioCursoDto.getModulo().getIdModulo()) ;
+
+	
+	preguntamoduloDTO= managerCuestionario.otrometodo(preguntamodul);
+	preguntamoduloDTO=managerCuestionario.cargarPreguntasModulodto(preguntamoduloDTO);
 		return "test2?faces-redirect=true";
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+		return "";
 	}
 	
 	public String cargarModulo(UserCursoModuloDTO m) {

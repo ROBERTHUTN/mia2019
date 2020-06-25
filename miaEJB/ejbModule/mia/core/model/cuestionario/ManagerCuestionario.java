@@ -20,6 +20,7 @@ import mia.core.model.cuestionario.dto.CuestionarioDTO;
 import mia.core.model.cuestionario.dto.DimensionDTO;
 import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
+import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Dimension;
@@ -159,6 +160,16 @@ public class ManagerCuestionario {
 		List<Respuestapregunta> listaRespuestapregunta = q.getResultList();
 		return listaRespuestapregunta;
 	}
+	
+	public List<Respuestapregunta> findAllRespuestapreguntabypregunta(long id_pregunta) {
+
+		Query q = em.createQuery("SELECT r FROM Respuestapregunta r"
+				+ "where r.preguntamodulo.idPregunta=?1", Respuestapregunta.class);
+		q.setParameter(1, id_pregunta);
+		@SuppressWarnings("unchecked")
+		List<Respuestapregunta> listaRespuestapregunta = q.getResultList();
+		return listaRespuestapregunta;
+	}
 
 	public List<Preguntamodulo> findAllPreguntamodulo() {
 
@@ -167,7 +178,59 @@ public class ManagerCuestionario {
 		List<Preguntamodulo> listaPreguntamodulo = q.getResultList();
 		return listaPreguntamodulo;
 	}
+	
+	public List<Preguntamodulo> findAllPreguntamodulobymodulo(long id_modulo) {
 
+		Query q = em.createQuery("SELECT p FROM Preguntamodulo p "
+				+ "where p.modulo.idModulo=?1", Preguntamodulo.class);
+		q.setParameter(1, id_modulo);
+		@SuppressWarnings("unchecked")
+		List<Preguntamodulo> listaPreguntamodulo = q.getResultList();
+		return listaPreguntamodulo;
+	}
+
+	public List<PreguntaModuloDTO> cargarPreguntasModulodto (List<PreguntaModuloDTO> lista) throws Exception {
+		if(lista.isEmpty())
+		{
+			throw new Exception("Error al cargar las Preguntas");
+		}
+		
+		List<PreguntaModuloDTO> pm= new ArrayList<>();
+		List<Opcionpregunta> op = new ArrayList<>(); 
+		List<Respuestapregunta> rp= new ArrayList<>();
+		for (PreguntaModuloDTO p : lista) {
+			op=findAllOpcionpreguntabypregunta(p.getIdPregunta());
+			rp= findAllRespuestapreguntabypregunta(p.getIdPregunta());
+			p.setOpcionpreguntas(op);
+			p.setRespuestapreguntas(rp);
+			pm.add(p);
+		}
+		return pm;
+		
+	}
+
+	public List<PreguntaModuloDTO> otrometodo (List<Preguntamodulo> listapm) throws Exception {
+		if(listapm.isEmpty())
+		{
+			throw new Exception("Error al cargar las Preguntas");
+		}
+		
+		List<PreguntaModuloDTO> p= new ArrayList<>();
+		PreguntaModuloDTO pmdto= new PreguntaModuloDTO();
+		for (Preguntamodulo pr : listapm) {
+			pmdto.setIdPregunta(pr.getIdPregunta());
+			pmdto.setModulo(pr.getModulo());
+			pmdto.setOpcionpreguntas(pr.getOpcionpreguntas());	
+			pmdto.setPregunta(pr.getPregunta());
+			pmdto.setRespuestapreguntas(pr.getRespuestapreguntas());
+			p.add(pmdto);
+		}
+		return p;
+		
+	}
+
+	
+	
 	public List<Opcionpregunta> findAllOpcionpregunta() {
 
 		Query q = em.createQuery("SELECT o FROM Opcionpregunta o", Opcionpregunta.class);
@@ -175,7 +238,17 @@ public class ManagerCuestionario {
 		List<Opcionpregunta> listaOpcionpregunta = q.getResultList();
 		return listaOpcionpregunta;
 	}
+	
+	public List<Opcionpregunta> findAllOpcionpreguntabypregunta(long id_pregunta) {
 
+		Query q = em.createQuery("SELECT o FROM Opcionpregunta o "
+				+ "where o.preguntamodulo.idPregunta=?1", Opcionpregunta.class);
+		q.setParameter(1, id_pregunta);
+		@SuppressWarnings("unchecked")
+		List<Opcionpregunta> listaOpcionpregunta = q.getResultList();
+		return listaOpcionpregunta;
+	}
+	
 	public List<Cuestionario> findAllCuestionarioes() {
 
 		Query q = em.createQuery("SELECT c FROM Cuestionario c", Cuestionario.class);
