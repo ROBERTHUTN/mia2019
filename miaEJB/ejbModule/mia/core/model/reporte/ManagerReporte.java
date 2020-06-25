@@ -74,9 +74,7 @@ private ManagerCuestionario managerCuestionario;
 				    " From Reporte r where r.usuario.idUsuario="+id_user+
 				    "  order by year(r.fecha) desc", Integer.class)
 				.getResultList();
-		for (Integer integer : publicationYears) {
-			System.out.println("AÑO: "+integer.toString());
-		}
+	
 		return publicationYears;
 	}
 	public List<Integer> findResultadosTestbyUsuarioByMes(int anio,long idUsuario)
@@ -158,7 +156,7 @@ private ManagerCuestionario managerCuestionario;
 			for (DimensionPreguntaDTO dpDTO : listaDto) {
 				sumEstres= sumEstres+dpDTO.getValor();
 			}
-			System.out.println("Estres sumatoria"+sumEstres);
+			
 			
 			int menEstres= sumEstres-16;
 			
@@ -287,7 +285,6 @@ private ManagerCuestionario managerCuestionario;
 		
 		for (int i = 0; i < asesoriaEmocional.length; i++) {
 		
-			System.out.println(i+""+"AC"+ ""+trabajarIE[asesoriaEmocional[i]]);	
 			if(trabajarIE[asesoriaEmocional[i]]<=3)
 			{
 				bajoAE++;

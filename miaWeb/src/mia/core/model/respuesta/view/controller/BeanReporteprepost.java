@@ -63,7 +63,6 @@ public class BeanReporteprepost implements Serializable {
 	public void init() {
 		try {
 		reporteprepostTest= new ArrayList<>();
-		System.out.println("Si entra "+reporteprepostTest.size());
 		listaanios= managerReporteprepost.findResultadosTestbyUsuarioByAnio(login.getLogin().getId_usuario());
 		//sin inicializar
 		mixedModelEjecValidProy=beanReporteprepostEsta.createMixedModelEjecProyVal(reporteprepostTest);

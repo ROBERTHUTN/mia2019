@@ -69,11 +69,11 @@
             </p:selectOneMenu>
  
             <p:outputLabel for="mes" value="Mes: " />
-            <p:selectOneMenu id="mes"  style="width:150px" value="#{beanReporte.mes}">
+            <p:selectOneMenu id="mes"  style="width:150px" value="#{beanReporteprepost.mes}">
                 <f:selectItem itemLabel="Seleccione mes" itemValue="" noSelectionOption="true" />
                 <f:selectItems value="#{beanReporteprepost.listaMeses}" />
             </p:selectOneMenu>
-                    <p:commandButton value="Consultar" update="form1" actionListener="#{beanReporte.reportebyMesAndAnio()}" icon="pi pi-check" />
+                    <p:commandButton value="Consultar" update="form1" actionListener="#{beanReporteprepost.reportebyMesAndAnio()}" icon="pi pi-check" />
   
         </h:panelGrid>
  

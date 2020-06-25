@@ -62,6 +62,7 @@ private ManagerCuestionario managerCuestionario;
 	
 	public List<Reporteprepost> findResultadosTestbyUsuarioAndAnioAndMes(long id_user,int anio,int mes)
 	{
+
 		String JPQL = "SELECT r FROM Reporteprepost r WHERE r.usuario.idUsuario=?1 "
 				+ "and year(r.fechaInscripcion)="+anio+" "
 						+ " and month(r.fechaInscripcion)="+mes;
@@ -80,9 +81,7 @@ private ManagerCuestionario managerCuestionario;
 				    " From Reporteprepost r where r.usuario.idUsuario="+id_user+
 				    "  order by year(r.fechaInscripcion) desc", Integer.class)
 				.getResultList();
-		for (Integer integer : publicationYears) {
-			System.out.println("AÑO: "+integer.toString());
-		}
+		
 		return publicationYears;
 	}
 	public List<Integer> findResultadosTestbyUsuarioByMes(int anio,long idUsuario)
@@ -177,17 +176,14 @@ private ManagerCuestionario managerCuestionario;
 
 				if(entry.getKey()==1) {
 					al1=entry.getValue();
-					System.out.println("al1"+ al1);
 					
 				}
 				if(entry.getKey()==2) {
 					al2=entry.getValue();
-					System.out.println("al2"+ al2);
-					
+				
 				}
 				if(entry.getKey()==3) {
 					al3=entry.getValue();
-					System.out.println("al3"+ al3);
 					
 				}
 				
@@ -198,18 +194,14 @@ private ManagerCuestionario managerCuestionario;
 			Map<Integer, Integer> mpDi = new HashMap<>();
 			mpDi= countFreq(arrDi, arrDi.length);
 			for (Map.Entry<Integer, Integer> entry : mpDi.entrySet()) {
-				//System.out.println("diplomatico:" + entry.getKey() + " " + entry.getValue());
 				if(entry.getKey()==1) {
 					di1=entry.getValue();
-				//	System.out.println("di1"+ di1);
 				}
 				if(entry.getKey()==2) {
 					di2=entry.getValue();
-					//System.out.println("d2"+ di2);
 				}
 				if(entry.getKey()==3) {
 					di3=entry.getValue();
-					//System.out.println("di3"+ di3);
 				}
 
 			}
@@ -218,18 +210,18 @@ private ManagerCuestionario managerCuestionario;
 			mpOp= countFreq(arrOp, arrOp.length);
 		
 			for (Map.Entry<Integer, Integer> entry : mpOp.entrySet()) {
-			//	System.out.println("Oportunista:" + entry.getKey() + " " + entry.getValue());
+
 				if(entry.getKey()==1) {
 					op1=entry.getValue();
-					//System.out.println("op1"+ op1);
+
 				}
 				if(entry.getKey()==2) {
 					op2=entry.getValue();
-					//System.out.println("op2"+ op2);
+
 				}
 				if(entry.getKey()==3) {
 					op3=entry.getValue();
-					//System.out.println("op3"+ op3);
+
 				}
 			}
 		
@@ -237,55 +229,55 @@ private ManagerCuestionario managerCuestionario;
 			mpEx= countFreq(arrEx, arrEx.length);
 
 			for (Map.Entry<Integer, Integer> entry : mpEx.entrySet()) {
-				//System.out.println("Experto:" + entry.getKey() + " " + entry.getValue());
+				
 				if(entry.getKey()==1) {
 					ex1=entry.getValue();
-					//System.out.println("ex1"+ ex1);
+				
 				}
 				if(entry.getKey()==2) {
 					ex2=entry.getValue();
-					//System.out.println("ex2"+ ex2);
+					
 				}
 				if(entry.getKey()==3) {
 					ex3=entry.getValue();
-					//System.out.println("ex3"+ ex3);
+				
 				}
 			}
 		
 			Map<Integer, Integer> mpRe = new HashMap<>();
 			mpRe= countFreq(arrRd, arrRd.length);
 			for (Map.Entry<Integer, Integer> entry : mpRe.entrySet()) {
-				//System.out.println("Redefiniendo:" + entry.getKey() + " " + entry.getValue());
+			
 				if(entry.getKey()==1) {
 					re1=entry.getValue();
-				//	System.out.println("re1"+ re1);
+		
 				}
 				if(entry.getKey()==2) {
 					re2=entry.getValue();
-					//System.out.println("re2"+ re2);
+			
 				}
 				if(entry.getKey()==3) {
 					re3=entry.getValue();
-					//System.out.println("re3"+ re3);
+				
 				}
 			}
 		
 			Map<Integer, Integer> mpTr = new HashMap<>();
 			mpTr= countFreq(arrTr, arrTr.length);
 			for (Map.Entry<Integer, Integer> entry : mpTr.entrySet()) {
-				//System.out.println("Transformador:" + entry.getKey() + " " + entry.getValue());
+			
 				
 				if(entry.getKey()==1) {
 					tr1=entry.getValue();
-					//System.out.println("tr1"+ tr1);
+			
 				}
 				if(entry.getKey()==2) {
 					tr2=entry.getValue();
-					//System.out.println("tr2"+ tr2);
+				
 				}
 				if(entry.getKey()==3) {
 					tr3=entry.getValue();
-					//System.out.println("tr3"+ tr3);
+			
 				}
 				
 			}
@@ -293,19 +285,19 @@ private ManagerCuestionario managerCuestionario;
 			Map<Integer, Integer> mpIm = new HashMap<>();
 			mpIm= countFreq(arrIm, arrIm.length);
 			for (Map.Entry<Integer, Integer> entry : mpIm.entrySet()) {
-				//System.out.println("Impulsivo:" + entry.getKey() + " " + entry.getValue());
+			
 			
 				if(entry.getKey()==1) {
 					im1=entry.getValue();
-					//System.out.println("im1"+ im1);
+				
 				}
 				if(entry.getKey()==2) {
 					im2=entry.getValue();
-					//System.out.println("im2"+ im2);
+				
 				}
 				if(entry.getKey()==3) {
 					im3=entry.getValue();
-					//System.out.println("im3"+ im3);
+				
 				}
 			}
 		

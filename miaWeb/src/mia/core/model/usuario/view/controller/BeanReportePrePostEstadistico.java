@@ -43,9 +43,15 @@ public class BeanReportePrePostEstadistico implements Serializable {
 		
 		List<Number> values = new ArrayList<>();
 		
-	/**	for (Reporte rep: reporteUsuario) {
-			values.add(rep.getPorcentaje());
-		}*/
+		for (Reporteprepost rep: reporteUsuario) {
+			values.add(rep.getAsesoriaEmocional());
+			values.add(rep.getAutoconciencia());
+			values.add(rep.getAutomotivacion());
+			values.add(rep.getControlEmocion());
+			values.add(rep.getInterpersonal());
+			System.out.println(rep.getAsesoriaEmocional());
+		}
+
 		dataSet.setData(values);
 		dataSet.setLabel("% de análisis");
 		List<String> bgColor = new ArrayList<>();
@@ -53,7 +59,7 @@ public class BeanReportePrePostEstadistico implements Serializable {
 		
 
 		for (Reporteprepost rep: reporteUsuario) {
-			if(rep.getResAsesoriaEmocional()=="Bajo")
+			if(rep.getResAsesoriaEmocional().equals("Bajo"))
 			{
 				bgColor.add("rgba(255, 99, 132, 0.2)");
 			}else
@@ -61,7 +67,7 @@ public class BeanReportePrePostEstadistico implements Serializable {
 				bgColor.add("rgb(26,255, 26)");
 			}
 			
-			if(rep.getResAutoconciencia()=="Bajo")
+			if(rep.getResAutoconciencia().equals("Bajo"))
 			{
 				bgColor.add("rgba(255, 99, 132, 0.2)");
 			}else
@@ -69,21 +75,21 @@ public class BeanReportePrePostEstadistico implements Serializable {
 				bgColor.add("rgb(26,255, 26)");
 			}
 			
-			if(rep.getResAutomotivacion()=="Bajo")
+			if(rep.getResAutomotivacion().equals("Bajo"))
 			{
 				bgColor.add("rgba(255, 99, 132, 0.2)");
 			}else
 			{
 				bgColor.add("rgb(26,255, 26)");
 			}
-			if(rep.getResControlEmocion()=="Bajo")
+			if(rep.getResControlEmocion().equals("Bajo"))
 			{
 				bgColor.add("rgba(255, 99, 132, 0.2)");
 			}else
 			{
 				bgColor.add("rgb(26,255, 26)");
 			}
-			if(rep.getResInterpersonal()=="Bajo")
+			if(rep.getResInterpersonal().equals("Bajo"))
 			{
 				bgColor.add("rgba(255, 99, 132, 0.2)");
 			}else
