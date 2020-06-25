@@ -62,7 +62,7 @@
     <p:panel header="Seleccione una fecha" style="margin-bottom:10px;">
         <h:panelGrid columns="5" cellpadding="5">
             <p:outputLabel for="anio" value="Año: " />
-            <p:selectOneMenu id="anio" value="#{bean}" style="width:150px">
+            <p:selectOneMenu id="anio" value="#{beanReporteprepost.anio}" style="width:150px">
                 <p:ajax listener="#{beanReporteprepost.seleccionarMes()}" update="mes" />
                 <f:selectItem itemLabel="Seleccione año" itemValue="" noSelectionOption="true" />
                 <f:selectItems value="#{beanReporteprepost.listaanios}" />

@@ -42,6 +42,7 @@ public class BeanReportePrePostEstadistico implements Serializable {
 		BarChartDataSet dataSet = new BarChartDataSet();
 		
 		List<Number> values = new ArrayList<>();
+		
 	/**	for (Reporte rep: reporteUsuario) {
 			values.add(rep.getPorcentaje());
 		}*/
