@@ -71,8 +71,9 @@ public class BeanUserCursoModulo implements Serializable {
 	
 	PreguntaModuloDTO preguntaOpcionRespuestaDTO = new PreguntaModuloDTO();
 	
+	
 	List<Preguntamodulo> preguntamodul= managerCuestionario.findAllPreguntamodulobymodulo(usuarioCursoDto.getModulo().getIdModulo()) ;
-
+	System.out.println(preguntamodul.size());
 	
 	preguntamoduloDTO= managerCuestionario.otrometodo(preguntamodul);
 	preguntamoduloDTO=managerCuestionario.cargarPreguntasModulodto(preguntamoduloDTO);
