@@ -10,21 +10,26 @@
 		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
 
 	<!-- Estilos -->
 
-	<title>Formulario usuarios y lista</title>
-	<style type="text/css">
-/** Demo **/
-.ui-outputlabel {
+	<title>MIA</title>
+	<f:facet name="middle">
+		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+		<h:outputStylesheet name="css/styles.css" />
+	</f:facet>
+	<f:facet name="last">
+		<h:outputScript name="bootstrap/js/bootstrap.js" />
+		<h:outputScript name="js/styles2.js" />
+		<h:outputScript name="js/validator.js" />
+	</f:facet>
+			<style type="text/css">
+.value {
 	font-weight: bold;
-}
-
-.ui-orderlist .ui-orderlist-list {
-	height: auto;
 }
 </style>
 </h:head>
@@ -63,51 +68,43 @@
 				<f:facet name="header">
             Lista de Módulos de cursos.
         </f:facet>
-				<p:column style="width:7%">
+				<p:column style="width:7%" headerText="ID">
 					<p:panelGrid columns="1" layout="grid">
 						<p:outputLabel value="#{car.usuarioCurso.idUsuariocurso}"></p:outputLabel>
 					</p:panelGrid>
 				</p:column>
 
 
-				<p:column>
+				<p:column headerText="Módulos realizados" style="width:100px">
 					<p:panelGrid columns="1" layout="grid">
-						<p:outputLabel value="#{car.modulosrealizados}"></p:outputLabel>
+						<p:outputLabel value="#{car.modulosrealizados}" ></p:outputLabel>
 					</p:panelGrid>
 				</p:column>
 
-				<p:column>
+			
+
+				<p:column headerText="Nombre">
 					<p:panelGrid columns="1" layout="grid">
-						<p:outputLabel value="#{car.avance}"></p:outputLabel>
+						<p:outputLabel value="#{car.modulo.nombre}"></p:outputLabel>
 					</p:panelGrid>
 				</p:column>
-
-				<p:column>
+					<p:column headerText="Descripción">
 					<p:panelGrid columns="1" layout="grid">
 						<p:outputLabel value="#{car.modulo.descripcion}"></p:outputLabel>
 					</p:panelGrid>
 				</p:column>
-				
-				<p:column style="width:25%">
-				<h:form>
-					<p:linkButton outcome="modulo1" value="Módulo #{car.ordenCurso}"
-						style="margin-right:20px;">
-						<f:param name="moduloRealizado" value="#{car.modulo.direccion}" />
-					</p:linkButton>
-					</h:form>
-				</p:column>
-
-
-			<!-- 	<p:column style="width:5%">
+					<p:column headerText="% Avance" >
 					<p:panelGrid columns="1" layout="grid">
-						<p:outputLabel value="#{car.idCursoModulo}"></p:outputLabel>
+						<p:progressBar value="#{car.avance}" ></p:progressBar>
 					</p:panelGrid>
 				</p:column>
+				<p:column style="width:100px" headerText="Módulos">
+		
+				<p:commandButton value="Módulo #{car.ordenCurso}" action="#{beanUserCursoModulo.cargarModulo(car)}"></p:commandButton>
 				
-  <p:column>   
-<p:commandButton value="GUARDAR" action="#{beanUserCursoModulo.actionIngresarCambio(car)}" update="form1" ></p:commandButton> 
- </p:column>
-   -->
+					
+				
+				</p:column>
 
 			</p:dataTable>
 		</h:form>

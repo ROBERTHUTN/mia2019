@@ -7,17 +7,21 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+<<<<<<< HEAD
 import javax.inject.Inject;
+=======
+>>>>>>> branch 'master' of https://github.com/ROBERTHUTN/mia2019.git
 import javax.inject.Named;
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/ROBERTHUTN/mia2019.git
 import mia.core.model.administrador.ManagerCurso;
-import mia.core.model.administrador.view.controller.BeanCurso;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Modulo;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
-import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.usuario.ManagerUserCurso;
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.modulos.view.util.JSFUtil;
@@ -36,18 +40,13 @@ public class BeanUserCursoModulo implements Serializable {
 	private Usuario usuario= new Usuario();
 	private String direccion;
 	private String nombre;
-
+	private List<UserCursoModuloDTO> userccursomoduloIdDto;
+	private UserCursoModuloDTO usuarioCursoDto;
 	private String moduloRealizado;
-	
-	@Inject
-	private BeanLogin login;
-	@Inject
-	private BeanCurso beanCurso;
-
 	@EJB
 	private ManagerUserCurso managerUserCurso;
 	
-	@EJB 
+	@EJB
 	private ManagerCurso managerCurso;
 	
 
@@ -60,20 +59,43 @@ public class BeanUserCursoModulo implements Serializable {
 	@PostConstruct
 	public void init() {
 		
+		
 	}
 	
 	
-	public String actionIngresarCambio(UserCursoModuloDTO userCursoDto) {
+	public String actionContestarModulo() {
+		/*
+		 Código para cargar el modulo con las opciones
+		*/
+		
+		return "test2?faces-redirect=true";
+	}
+	
+	public String cargarModulo(UserCursoModuloDTO m) {
 		try {
-			managerUserCurso.editarAvanceCurso( userCursoDto);
+			usuarioCursoDto=m;
+	JSFUtil.crearMensajeInfo("Módulo cargado correctamente.");
+		return"modulo?faces-redirect=true";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
+		}
+		return"";
+	}
+	
+	public String actionIngresarCambio() {
+		try {
+			managerUserCurso.editarAvanceCurso( usuarioCursoDto);
 			userccursomoduloIdDto= managerUserCurso.cargarListaUserCurso(usuariocursoCar);
-			System.out.println("usuariocursoCar;"+usuariocursoCar.getIdUsuariocurso());
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
 			return "modulos?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
 			return "";
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
 		}
 	}
 
@@ -211,11 +233,14 @@ public class BeanUserCursoModulo implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public UserCursoModuloDTO getUsuarioCursoDto() {
+		return usuarioCursoDto;
+	}
 
+	public void setUsuarioCursoDto(UserCursoModuloDTO usuarioCursoDto) {
+		this.usuarioCursoDto = usuarioCursoDto;
+	}
 
-
-
-	private List<UserCursoModuloDTO> userccursomoduloIdDto;
 
 
 } 

@@ -156,11 +156,11 @@ public class ManagerUserCurso {
 		char[]caracteres;
 		if(modulo.equals(" ")||modulo.length()==0)
 		{
-			modulo="0";	
+			modulo="";	
 			return modulo; 
 		}else {
 			caracteres=modulo.toCharArray();
-		int ultimo=	Integer.parseInt(userCursoDto.getIdCursoModulo()+"");
+		int ultimo=	Integer.parseInt(userCursoDto.getOrdenCurso()+"");
 		
 		modulo=modulo+","+ultimo;
 			return modulo;
