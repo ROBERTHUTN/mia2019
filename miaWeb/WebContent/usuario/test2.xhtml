@@ -62,54 +62,35 @@
 	</p:growl>
  	<div class="ui-fluid">
 		<h:form id="form1">
-			<p:dataTable var="a"
+		 <p:panel header="TEST DEL MÓDULO" >
+			<p:repeat  var="a" 
 				value="#{beanUserCursoModulo.preguntamoduloDTO}"
 				emptyMessage="No se han asignado módulos al cuestionario"
-				rowsPerPageTemplate="1">
+				>
 
-				<f:facet name="header">
-            CUESTIONARIO DEL MÓDULO
-        </f:facet>
-				<p:column>
-					<p:panel >
-						
-
-						<form>
-							
-					
-
-
-								<p:panelGrid columns="1" layout="grid">
-								 
-									<p:outputLabel value="#{a.pregunta}"></p:outputLabel>
-									<p:selectOneRadio id="console" value="#{a.respuesta}"
-										unselectable="true" required="true"
-										requiredMessage="Seleccione la opción ">
-										<f:selectItems value="#{a.opcionpreguntas}" var="opc"
-											itemLabel="#{opc.opcion}" itemValue="#{opc.opcion}">
-										</f:selectItems>
-									</p:selectOneRadio>
+            
+				<p:panelGrid columns="1" layout="grid">
+								
+									<p:outputLabel value="#{a.pregunta} "></p:outputLabel>
 									
-								</p:panelGrid>
-
-
-							
-							<p:messages />
-							
-						
-							
-						
-						</form>
-					</p:panel>
-				</p:column>
-			</p:dataTable>
+		 <p:selectOneRadio id="city" value="#{a.respuesta}"  >
+            <f:selectItems value="#{a.opcionpreguntas}" var="c" required="true"
+										requiredMessage="Seleccione la opción "
+             itemLabel="#{c.opcion}" itemValue="#{c.opcion}"/>
+        </p:selectOneRadio>
+	
+								</p:panelGrid>		
+			
+			</p:repeat>
+			</p:panel>
+		 	 <div class="ui-fluid">
+  <p:commandButton value="FINALIZAR" action="#{beanUserCursoModulo.actionIngresarCambio()}"></p:commandButton>
+   </div>
 		</h:form>
 	</div>
  
  
-    <div class="ui-fluid">
-  <p:commandButton value="FINALIZAR" action="#{beanUserCursoModulo.actionIngresarCambio()}"></p:commandButton>
-   </div>
+   
 
 
 	<p:messages>

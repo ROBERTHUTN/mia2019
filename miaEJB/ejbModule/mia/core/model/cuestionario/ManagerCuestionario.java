@@ -204,6 +204,7 @@ public class ManagerCuestionario {
 			rp= findAllRespuestapreguntabypregunta(p.getIdPregunta());
 			p.setOpcionpreguntas(op);
 			p.setRespuestapreguntas(rp);
+			
 			pm.add(p);
 		}
 		return pm;
@@ -218,8 +219,9 @@ public class ManagerCuestionario {
 		}
 		
 		List<PreguntaModuloDTO> p= new ArrayList<>();
-		PreguntaModuloDTO pmdto= new PreguntaModuloDTO();
+	
 		for (Preguntamodulo pr : listapm) {
+			PreguntaModuloDTO pmdto= new PreguntaModuloDTO();
 			pmdto.setIdPregunta(pr.getIdPregunta());
 			pmdto.setModulo(pr.getModulo());
 			Respuestapregunta rp= new Respuestapregunta();
@@ -230,8 +232,10 @@ public class ManagerCuestionario {
 			pmdto.setOpcionpreguntas(pr.getOpcionpreguntas());	
 			pmdto.setPregunta(pr.getPregunta());
 			pmdto.setRespuestapreguntas(pr.getRespuestapreguntas());
+			pmdto.setRespuesta(" ");
 			p.add(pmdto);
 		}
+		
 		return p;
 		
 	}
