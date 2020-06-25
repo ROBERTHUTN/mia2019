@@ -209,6 +209,14 @@ public class BeanReporteprepost implements Serializable {
 		this.reporteprepostTest = reporteprepostTest;
 	}
 
+	public Reporteprepost getRepor() {
+		return repor;
+	}
+
+	public void setRepor(Reporteprepost repor) {
+		this.repor = repor;
+	}
+
 
 
 

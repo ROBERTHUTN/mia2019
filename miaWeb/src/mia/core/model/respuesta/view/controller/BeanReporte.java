@@ -127,6 +127,8 @@ JSFUtil.crearMensajeInfo(reporteTest.get(event.getItemIndex()).getResultado()+""
 	public void setRepor(Reporte repor) {
 		this.repor = repor;
 	}
+	
+	
 	public int getId_dimen_fk() {
 		return id_dimen_fk;
 	}
