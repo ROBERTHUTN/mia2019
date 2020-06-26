@@ -153,7 +153,38 @@ private ManagerCuestionario managerCuestionario;
 	private String tlCentroGravedad;
 	private String tlLogicaEmergente;
 	private String tlLogicaretroceso;
-
+		
+	public String concatenarATL(int arrOp[], int arrDi[], int arrEx[],int arrTr[],int arrAl[],int arrRd[],int arrIm[] ) {
+	
+	    String OP="OP", Di="Di", Ex="Ex", Tr="Tr", Al="Al", Rd="Rd",Im="Im";
+	    String resp="";
+	    
+	    for (int i = 0; i < arrOp.length; i++) {
+	    	OP+=arrOp[i];
+		}
+	    for (int i = 0; i < arrDi.length; i++) {
+	    	Di+=arrDi[i];
+		}
+	    for (int i = 0; i < arrEx.length; i++) {
+	    	Ex+=arrEx[i];
+		}
+	    for (int i = 0; i < arrTr.length; i++) {
+	    	Tr+=arrTr[i];
+		}
+	    for (int i = 0; i < arrAl.length; i++) {
+	    	Al+=arrAl[i];
+		}
+	    for (int i = 0; i < arrRd.length; i++) {
+	    	Rd+=arrRd[i];
+		}
+	    for (int i = 0; i < arrIm.length; i++) {
+	    	Im+=arrIm[i];
+		}
+	 
+	    
+	    return resp= OP+Di+Ex+Tr+Al+Rd+Im;
+		
+	}
 	
 	//
 	public String [] calculoTl(int arrOp[], int arrDi[], int arrEx[],int arrTr[],int arrAl[],int arrRd[],int arrIm[] ) {

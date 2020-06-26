@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.From;
 
 import com.sun.xml.internal.ws.message.stream.StreamAttachment;
 
@@ -32,6 +33,7 @@ import mia.core.model.entities.Opcionpregunta;
 import mia.core.model.entities.Pregunta;
 import mia.core.model.entities.Preguntamodulo;
 import mia.core.model.entities.Reporte;
+import mia.core.model.entities.Reporteprepost;
 import mia.core.model.entities.Respuestapregunta;
 import mia.core.model.entities.Usuario;
 
@@ -57,6 +59,16 @@ public class ManagerCuestionario {
 	 * m�todos de las opciones del cuestionario
 	 */
 
+	public List<Reporteprepost> findAllMaxFecha(long id_user)
+	{
+				Query q= em.createQuery(" SELECT r FROM Reporteprepost r"
+						+ "WHERE r.usuario.idUsuario=?1 and r.fechaInscripcion="
+						+ "SELECT MAX(e.fechaInscripcion) FROM Reporteprepost e", Reporteprepost.class);
+			//	@SuppressWarnings("unchecked")
+				List<Reporteprepost> reporteprepost= q.getResultList();
+				return reporteprepost;
+	}
+	
 	public List<Opcion> findAllOpciones() {
 
 		Query q = em.createQuery("SELECT o FROM Opcion o", Opcion.class);

@@ -193,6 +193,8 @@ public class BeanBateria implements Serializable {
 		 String centroGravedad= tiposLiderazgo[0];
 		 String logicaEmergente=  tiposLiderazgo[1];
 		 String logicaRetroceso=  tiposLiderazgo[2];
+		 
+		 String cuest2= managerReporteprepost.concatenarATL(oportunista, diplomatico, experto, transformador, alquimico, redefiniendo, impulsivo);
 		
 		Object [] IENE=	managerReporteprepost.ingresarIEEL();
 	      String respCuestionario= managerReporteprepost.respuestascuestionario();
@@ -208,8 +210,7 @@ public class BeanBateria implements Serializable {
 	      String RIP= (String) IENE[9];
 	      String NE= (String) IENE[10];
 	      
-	      
-	      
+	      respCuestionario=respCuestionario+cuest2;
 	      
 	       managerReporteprepost.ingresarReporteprepost(AC, AM, AE, CE, IP, centroGravedad, logicaEmergente, logicaRetroceso, NE, RAC, RAM,
 	    		   RAE, RCE, RIP,respCuestionario, fecha, beanLogin.getLogin().getId_usuario());
@@ -220,225 +221,11 @@ public class BeanBateria implements Serializable {
 	    	
 		
 	}
-
-/**
-
 	
 	
-	public void calculoTl(int arrOp[], int arrDi[], int arrEx[],int arrTr[],int arrAl[],int arrRd[],int arrIm[] ) {
-		
-		
-		int al1=0,al2=0,al3=0;
-		int di1=0, di2=0, di3=0, ex1=0, ex2=0, ex3=0;
-		int re1=0, re2=0, re3=0, tr1=0, tr2=0, tr3=0;
-		int im1=0, im2=0, im3=0, op1=0, op2=0, op3=0;
-		
-
-	    
-		// Traverse through map and print frequencies
-		Map<Integer, Integer> mpAl = new HashMap<>();
-		mpAl= countFreq(arrAl, arrAl.length);
-
-			for (Map.Entry<Integer, Integer> entry : mpAl.entrySet()) {
-				System.out.println("alquimista:" + entry.getKey() + " " + entry.getValue());
-
-				if(entry.getKey()==1) {
-					al1=entry.getValue();
-					System.out.println("al1"+ al1);
-					
-				}
-				if(entry.getKey()==2) {
-					al2=entry.getValue();
-					System.out.println("al2"+ al2);
-					
-				}
-				if(entry.getKey()==3) {
-					al3=entry.getValue();
-					System.out.println("al3"+ al3);
-					
-				}
-				
-				
-			}
-		
-
-			Map<Integer, Integer> mpDi = new HashMap<>();
-			mpDi= countFreq(arrDi, arrDi.length);
-			for (Map.Entry<Integer, Integer> entry : mpDi.entrySet()) {
-				//System.out.println("diplomatico:" + entry.getKey() + " " + entry.getValue());
-				if(entry.getKey()==1) {
-					di1=entry.getValue();
-				//	System.out.println("di1"+ di1);
-				}
-				if(entry.getKey()==2) {
-					di2=entry.getValue();
-					//System.out.println("d2"+ di2);
-				}
-				if(entry.getKey()==3) {
-					di3=entry.getValue();
-					//System.out.println("di3"+ di3);
-				}
-
-			}
-		
-			Map<Integer, Integer> mpOp = new HashMap<>();
-			mpOp= countFreq(arrOp, arrOp.length);
-		
-			for (Map.Entry<Integer, Integer> entry : mpOp.entrySet()) {
-			//	System.out.println("Oportunista:" + entry.getKey() + " " + entry.getValue());
-				if(entry.getKey()==1) {
-					op1=entry.getValue();
-					//System.out.println("op1"+ op1);
-				}
-				if(entry.getKey()==2) {
-					op2=entry.getValue();
-					//System.out.println("op2"+ op2);
-				}
-				if(entry.getKey()==3) {
-					op3=entry.getValue();
-					//System.out.println("op3"+ op3);
-				}
-			}
-		
-			Map<Integer, Integer> mpEx = new HashMap<>();
-			mpEx= countFreq(arrEx, arrEx.length);
-
-			for (Map.Entry<Integer, Integer> entry : mpEx.entrySet()) {
-				//System.out.println("Experto:" + entry.getKey() + " " + entry.getValue());
-				if(entry.getKey()==1) {
-					ex1=entry.getValue();
-					//System.out.println("ex1"+ ex1);
-				}
-				if(entry.getKey()==2) {
-					ex2=entry.getValue();
-					//System.out.println("ex2"+ ex2);
-				}
-				if(entry.getKey()==3) {
-					ex3=entry.getValue();
-					//System.out.println("ex3"+ ex3);
-				}
-			}
-		
-			Map<Integer, Integer> mpRe = new HashMap<>();
-			mpRe= countFreq(arrRd, arrRd.length);
-			for (Map.Entry<Integer, Integer> entry : mpRe.entrySet()) {
-				//System.out.println("Redefiniendo:" + entry.getKey() + " " + entry.getValue());
-				if(entry.getKey()==1) {
-					re1=entry.getValue();
-				//	System.out.println("re1"+ re1);
-				}
-				if(entry.getKey()==2) {
-					re2=entry.getValue();
-					//System.out.println("re2"+ re2);
-				}
-				if(entry.getKey()==3) {
-					re3=entry.getValue();
-					//System.out.println("re3"+ re3);
-				}
-			}
-		
-			Map<Integer, Integer> mpTr = new HashMap<>();
-			mpTr= countFreq(arrTr, arrTr.length);
-			for (Map.Entry<Integer, Integer> entry : mpTr.entrySet()) {
-				//System.out.println("Transformador:" + entry.getKey() + " " + entry.getValue());
-				
-				if(entry.getKey()==1) {
-					tr1=entry.getValue();
-					//System.out.println("tr1"+ tr1);
-				}
-				if(entry.getKey()==2) {
-					tr2=entry.getValue();
-					//System.out.println("tr2"+ tr2);
-				}
-				if(entry.getKey()==3) {
-					tr3=entry.getValue();
-					//System.out.println("tr3"+ tr3);
-				}
-				
-			}
-
-			Map<Integer, Integer> mpIm = new HashMap<>();
-			mpIm= countFreq(arrIm, arrIm.length);
-			for (Map.Entry<Integer, Integer> entry : mpIm.entrySet()) {
-				//System.out.println("Impulsivo:" + entry.getKey() + " " + entry.getValue());
-			
-				if(entry.getKey()==1) {
-					im1=entry.getValue();
-					//System.out.println("im1"+ im1);
-				}
-				if(entry.getKey()==2) {
-					im2=entry.getValue();
-					//System.out.println("im2"+ im2);
-				}
-				if(entry.getKey()==3) {
-					im3=entry.getValue();
-					//System.out.println("im3"+ im3);
-				}
-			}
-		
-			
-			
-			tlCentroGravedad=respuestaLiderasgo(al1, di1, ex1, re1, tr1, im1, op1);
-			System.out.println("Centro de Gavedad"+ tlCentroGravedad);
-			
 	
-			tlLogicaEmergente= respuestaLiderasgo(al2, di2, ex2, re2, tr2, im2, op2);
-			System.out.println("Lógica Emergente"+ tlLogicaEmergente);
-			
-			tlLogicaretroceso= respuestaLiderasgo(al3, di3, ex3, re3, tr3, im3, op3);
-			System.out.println("Lógica de Retroceso"+ tlLogicaretroceso);
-			
-			
-	}
 	
-	public String respuestaLiderasgo (int al, int di, int ex, int re, int tr, int im, int op ) {
-		
-		Queue<tipoLiderazgoCola> tlCentral= new PriorityQueue<tipoLiderazgoCola>();
-		tlCentral.add(new tipoLiderazgoCola("Alquimista", al));  
-		tlCentral.add(new tipoLiderazgoCola("Diplomatico", di));
-		tlCentral.add(new tipoLiderazgoCola("Experto", ex));
-		tlCentral.add(new tipoLiderazgoCola("Redefinido", re));
-		tlCentral.add(new tipoLiderazgoCola("Transformador", tr));
-		tlCentral.add(new tipoLiderazgoCola("Impulsivo", im));
-		tlCentral.add(new tipoLiderazgoCola("Oportunista", op));
-		
-		
-		int comparar=tlCentral.peek().getTipo();
-		System.out.println( "Comparar "+ comparar);
-		String tiposLiderazgos= "";
-		while(!tlCentral.isEmpty()){
-			tipoLiderazgoCola tl= tlCentral.remove();
-			if(comparar==tl.getTipo())
-			{
-				tiposLiderazgos+= tl.getNombre()+ "/ ";
-			}
-			
-			System.out.println(tl.getNombre()+ " "+ tl.getTipo());
-		
-		}
-		
-		return  tiposLiderazgos;
-	}
 
-	public static  Map<Integer, Integer> countFreq(int arr[], int n) {
-		
-		Map<Integer, Integer> mp = new HashMap<>();
-		
-	
-		// Traverse through array elements and
-		// count frequencies
-		for (int i = 0; i < n; i++) {
-			if (mp.containsKey(arr[i])) {
-				mp.put(arr[i], mp.get(arr[i]) + 1);
-			} else {
-				mp.put(arr[i], 1);
-			}
-		}
-		
-		return mp;
-	}
-	*/
-	
 	public void estadoActualContador(int contadorC) {
 		if (listaDimensionRespuesta.isEmpty()) {
 			atras = false;
