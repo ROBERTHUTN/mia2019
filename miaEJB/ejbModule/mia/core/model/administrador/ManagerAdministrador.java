@@ -930,6 +930,16 @@ public class ManagerAdministrador {
 		List<AreaInvestigacion> listaAreaInvestigacions = q.getResultList();
 		return listaAreaInvestigacions;
 	}
+	public List<OrganizacionFichapersonal> findAllOrganizacionesUsuarios() {
+
+		Query q = em.createQuery("SELECT o FROM OrganizacionFichapersonal o "
+				+ " GROUP BY ("
+				+ "o.idOrganizacionFicha) "
+				+ "order by o.idOrganizacionFicha", OrganizacionFichapersonal.class);
+		@SuppressWarnings("unchecked")
+		List<OrganizacionFichapersonal> listaUsuariosOrganizaciones= q.getResultList();
+		return listaUsuariosOrganizaciones;
+	}
 
 	public AreaInvestigacion findAreaInvestigacionById(int id_AreaInvestigacion) {
 		AreaInvestigacion areainvestigacion = em.find(AreaInvestigacion.class, id_AreaInvestigacion);

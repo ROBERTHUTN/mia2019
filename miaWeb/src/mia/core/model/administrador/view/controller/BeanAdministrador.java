@@ -14,6 +14,7 @@ import mia.core.model.entities.Etnia;
 import mia.core.model.entities.FichaPersonal;
 import mia.core.model.entities.GradoEstudio;
 import mia.core.model.entities.Organizacion;
+import mia.core.model.entities.OrganizacionFichapersonal;
 import mia.core.model.entities.PaisEstado;
 import mia.core.model.entities.Religion;
 import mia.core.model.entities.Rol;
@@ -96,7 +97,8 @@ public class BeanAdministrador implements Serializable {
 	private List<Organizacion> organizaciones;
 	private List<UsuarioProyecto> usuarioproyectos;
 	private List<AreaInvestigacion> areas;
-	
+	private boolean usuarioOrganizacion;
+	private List<OrganizacionFichapersonal>listaOrgFi;
 	@EJB
 	private ManagerUsuario managerUsuario;
 
@@ -459,15 +461,17 @@ reporte=1;
 	public void actionListenerActulizarListaU() {
 		if (reporte==1) {
 			usuarios = managerAdministrador.findAllUsuario();
+			usuarioOrganizacion=false;
 			JSFUtil.crearMensajeInfo("Lista actualizada.");
 		}else {
-				
 				if (reporte==2) {
-				
-					usuarios=managerAdministrador.findAllUsuarioByInvestigador();
+					usuarioOrganizacion=false;
+				usuarios=managerAdministrador.findAllUsuarioByInvestigador();
 					JSFUtil.crearMensajeInfo("Lista actualizada.");
 				}else {
-					System.out.println("HOLA3");
+					listaOrgFi=managerAdministrador.findAllOrganizacionesUsuarios();
+					usuarioOrganizacion=true;
+					JSFUtil.crearMensajeInfo("Lista actualizada.");
 				}
 			}
 	}
@@ -486,7 +490,9 @@ reporte=1;
 				nombre="investidores.pdf";
 				 reporteInvestigadores( pathR, nombre);
 			}else {
-				System.out.println("HOLA3");
+				pathR="administrador/reporte/usuariosByOrganizacion.jasper";
+				nombre="Usuarios_por_Organizaciones.pdf";
+				 reporteInvestigadores( pathR, nombre);	
 			}
 		}
 	    }
@@ -505,7 +511,7 @@ reporte=1;
 		Class.forName("org.postgresql.Driver");
 		Connection connection = null;
 		connection = DriverManager.getConnection(
-		 "jdbc:postgresql://localhost:5432/mia","postgres", "root");
+		 "jdbc:postgresql://localhost:5432/mia","postgres", "Dosmenosuno0");
 		JasperPrint impresion=JasperFillManager.fillReport(ruta, parametros,connection);
 		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
 		context.getApplication().getStateManager().saveView(context);
@@ -535,7 +541,7 @@ reporte=1;
 		Class.forName("org.postgresql.Driver");
 		Connection connection = null;
 		connection = DriverManager.getConnection(
-		 "jdbc:postgresql://localhost:5432/mia","postgres", "root");
+		 "jdbc:postgresql://localhost:5432/mia","postgres", "Dosmenosuno0");
 		JasperPrint impresion=JasperFillManager.fillReport(ruta, parametros,connection);
 		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
 		context.getApplication().getStateManager().saveView(context);
@@ -912,6 +918,23 @@ reporte=1;
 	}
 
 
-	
-	
+	public boolean isUsuarioOrganizacion() {
+		return usuarioOrganizacion;
+	}
+
+
+	public void setUsuarioOrganizacion(boolean usuarioOrganizacion) {
+		this.usuarioOrganizacion = usuarioOrganizacion;
+	}
+
+
+	public List<OrganizacionFichapersonal> getListaOrgFi() {
+		return listaOrgFi;
+	}
+
+
+	public void setListaOrgFi(List<OrganizacionFichapersonal> listaOrgFi) {
+		this.listaOrgFi = listaOrgFi;
+	}
+
 }
