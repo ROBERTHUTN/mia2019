@@ -112,10 +112,13 @@ msm=nameArr[0]+'\n \n'+nameArr[1];
 
 			<p:panel header="Iniciar Test">
 				<h:form>
-				 
-					<p:commandButton value="PRUEBA" rendered="#{beanUserCurso.dias lt 1}"  action="#{beanBateria.PreguntasByDimension()}" > </p:commandButton>
-					<p:commandButton value="PRUEBA" rendered="#{beanUserCurso.dias gt 0}" onclick="return myFunction('#{beanUserCurso.mensajeDias}') " > </p:commandButton>
-				
+				<p:commandLink rendered="#{beanUserCurso.dias lt 1}"  action="#{beanBateria.PreguntasByDimension()}">
+						<p:graphicImage value="images/curso.png" />
+				</p:commandLink>
+				<p:commandLink rendered="#{beanUserCurso.dias gt 0}" >
+						<p:graphicImage value="images/curso.png" onclick="return myFunction('#{beanUserCurso.mensajeDias}') " />
+				</p:commandLink>		
+				   
 				</h:form>
 			</p:panel>
 
@@ -147,14 +150,6 @@ msm=nameArr[0]+'\n \n'+nameArr[1];
 			<p:panel id="resultado" header="Resultado Diagnostico">
 				<h:form>
 					<p:commandLink action="resultadoTest2?faces-redirect=true">
-						<p:graphicImage value="images/curso.png" />
-					</p:commandLink>
-				</h:form>
-			</p:panel>
-
-			<p:panel id="resulta" header="Client VAlidation">
-				<h:form>
-					<p:commandLink action="modulo5?faces-redirect=true">
 						<p:graphicImage value="images/curso.png" />
 					</p:commandLink>
 				</h:form>
