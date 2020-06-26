@@ -2,7 +2,6 @@ package mia.core.model.usuario;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,12 +13,9 @@ import javax.persistence.Query;
 
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.core.model.administrador.ManagerCurso;
-import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
-import mia.core.model.entities.Opcion;
-import mia.core.model.entities.Respuestapregunta;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
 
@@ -88,6 +84,8 @@ public class ManagerUserCurso {
 		return listaUsuarioCursos;
 	}
 
+
+	
 	public UsuarioCurso findUsuarioCursoById(long id_user_curso) {
 		UsuarioCurso curso = em.find(UsuarioCurso.class, id_user_curso);
 		return curso;
@@ -159,6 +157,7 @@ public class ManagerUserCurso {
 		em.persist(nusercurso);
 	}
 
+	@SuppressWarnings("unused")
 	public String ConcatenarModulos(UsuarioCurso usuercurse, UserCursoModuloDTO userCursoDto) {
 		String modulo = usuercurse.getModulorealizados();
 		char[] caracteres;

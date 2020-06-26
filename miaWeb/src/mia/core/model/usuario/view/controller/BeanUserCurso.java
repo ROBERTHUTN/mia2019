@@ -11,7 +11,9 @@ import javax.inject.Named;
 
 import mia.core.model.administrador.ManagerCurso;
 import mia.core.model.administrador.view.controller.BeanCurso;
+import mia.core.model.cuestionario.ManagerCuestionario;
 import mia.core.model.entities.CursoModulo;
+import mia.core.model.entities.Reporteprepost;
 import mia.core.model.entities.UsuarioCurso;
 import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.usuario.ManagerUserCurso;
@@ -30,6 +32,8 @@ public class BeanUserCurso implements Serializable {
 	private ManagerCurso managerCurso;
 	@EJB
 	private ManagerUserCurso managerUserCurso; 
+	@EJB
+	private ManagerCuestionario managerCuestionario; 
 	
 	//FICHA_
 	  	private UsuarioCurso usuarioCurso = new UsuarioCurso();
@@ -40,8 +44,10 @@ public class BeanUserCurso implements Serializable {
 	  	private long id_user_fk;
 		private String modulos_res;
 		private String avance_curso;
+		private String mensajeDias;
 private UsuarioCurso usuarioFinalizado;
-
+private List<Reporteprepost> listaReporteTest;
+private int dias;
 	  	private List<UsuarioCurso> usuarioCursos;
 	 
 		
@@ -49,7 +55,17 @@ private UsuarioCurso usuarioFinalizado;
 		public void init() {  
 			try {
 				usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
-				
+				listaReporteTest=managerCuestionario.ultimoReporte(login.getLogin().getId_usuario());
+			if (!listaReporteTest.isEmpty()) {
+				Reporteprepost re=listaReporteTest.get(0);
+				dias=managerCuestionario.calcularDiasFaltantes(re.getFechaInscripcion());
+				mensajeDias="Faltan "+dias+" días para que se habilite el cuestionario."
+						+ "Fecha última que se realizó: "+re.getFechaInscripcion();
+			}else {
+				dias=0;
+			}
+			
+				System.out.println(dias);
 			} catch (Exception e) {
 				JSFUtil.crearMensajeError(e.getMessage());
 			} 
@@ -258,6 +274,30 @@ private UsuarioCurso usuarioFinalizado;
 
 		public void setUsuarioFinalizado(UsuarioCurso usuarioFinalizado) {
 			this.usuarioFinalizado = usuarioFinalizado;
+		}
+
+
+
+		public int getDias() {
+			return dias;
+		}
+
+
+
+		public void setDias(int dias) {
+			this.dias = dias;
+		}
+
+
+
+		public String getMensajeDias() {
+			return mensajeDias;
+		}
+
+
+
+		public void setMensajeDias(String mensajeDias) {
+			this.mensajeDias = mensajeDias;
 		}
 
 

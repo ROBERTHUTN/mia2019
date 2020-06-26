@@ -1,6 +1,4 @@
 package mia.core.model.cuestionario;
-
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,9 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.From;
-
-import com.sun.xml.internal.ws.message.stream.StreamAttachment;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.cuestionario.dto.CuestionarioDTO;
@@ -22,7 +17,6 @@ import mia.core.model.cuestionario.dto.DimensionDTO;
 import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
-import mia.core.model.cuestionario.dto.RespuestaPreguntaDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Dimension;
@@ -59,14 +53,35 @@ public class ManagerCuestionario {
 	 * mï¿½todos de las opciones del cuestionario
 	 */
 
-	public List<Reporteprepost> findAllMaxFecha(long id_user)
+	@SuppressWarnings("unchecked")
+	public List<Reporteprepost> ultimoReporte(long id_user)
 	{
-				Query q= em.createQuery(" SELECT r FROM Reporteprepost r"
-						+ "WHERE r.usuario.idUsuario=?1 and r.fechaInscripcion="
-						+ "SELECT MAX(e.fechaInscripcion) FROM Reporteprepost e", Reporteprepost.class);
+				Query q= em.createQuery(" SELECT r FROM Reporteprepost r "
+						+ "WHERE r.usuario.idUsuario=?1 order by r.fechaInscripcion desc", Reporteprepost.class);
+				q.setParameter(1, id_user);
 			//	@SuppressWarnings("unchecked")
 				List<Reporteprepost> reporteprepost= q.getResultList();
 				return reporteprepost;
+	}
+	public int calcularDiasFaltantes(Date ultimoReporte) throws Exception {
+		int d=0;
+		if (ultimoReporte==null) {
+			throw new Exception("La fecha está vacía");
+		}else {
+			Date fecha = new Date();
+			System.out.println(fecha);
+			long tiempoActualSistema, tiempoultimoReporte,diasTranscurrridos;
+			
+			tiempoActualSistema = fecha.getTime();// milisegundos
+			tiempoultimoReporte = ultimoReporte.getTime();// milisegundos
+			if (tiempoActualSistema>tiempoultimoReporte) {
+				diasTranscurrridos=(tiempoActualSistema-tiempoultimoReporte)/(1000 * 60 * 60 * 24);
+				d=Integer.parseInt(""+diasTranscurrridos);
+				d=30-d;
+			}
+
+		}
+		return d;
 	}
 	
 	public List<Opcion> findAllOpciones() {
@@ -307,6 +322,7 @@ public class ManagerCuestionario {
 		return respPre;
 
 	}
+	@SuppressWarnings("unchecked")
 	public Respuestapregunta findRespuestapreguntaByIdPreguntaModulo(long id_pregunta_modulo) {
 		
 		String JPQL = "SELECT r FROM Respuestapregunta r"
@@ -1077,6 +1093,7 @@ System.out.println("ENTRA");
 		return Reporte;
 	}
 
+	@SuppressWarnings("unused")
 	public void ingresarReporte(int id_dimension, String respuesta, double valor, Date fecha_realizacion,
 			long id_usuario) throws Exception {
 
@@ -1115,6 +1132,7 @@ System.out.println("ENTRA");
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public String calcularRespuestaCuestionario(List<DimensionDTO> listaDimensionesDto) throws Exception {
 		String respuesta = "";
 		int a = 0, b = 0;
