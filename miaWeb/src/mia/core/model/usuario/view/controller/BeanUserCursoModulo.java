@@ -73,14 +73,11 @@ public class BeanUserCursoModulo implements Serializable {
 	
 	
 	List<Preguntamodulo> preguntamodul= managerCuestionario.findAllPreguntamodulobymodulo(usuarioCursoDto.getModulo().getIdModulo()) ;
-	System.out.println(preguntamodul.size());
-	
 	preguntamoduloDTO= managerCuestionario.otrometodo(preguntamodul);
 	preguntamoduloDTO=managerCuestionario.cargarPreguntasModulodto(preguntamoduloDTO);
 		return "test2?faces-redirect=true";
 		
 		} catch (Exception e) {
-			// TODO: handle exception
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 		return "";
@@ -101,15 +98,13 @@ public class BeanUserCursoModulo implements Serializable {
 	
 	public String actionIngresarCambio() {
 		try {
+			int a=	managerUserCurso.obtenerResCorrectas(preguntamoduloDTO);
+			 System.out.println("dato="+a);
 			managerUserCurso.editarAvanceCurso( usuarioCursoDto);
-		
-			
 			userccursomoduloIdDto= managerUserCurso.cargarListaUserCurso(usuariocursoCar);
-		int a=	managerUserCurso.obtenerResCorrectas( preguntamoduloDTO);
-		
-		System.out.println("dato="+a);
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
 			return "modulos?faces-redirect=true";
+			
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();

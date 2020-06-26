@@ -31,6 +31,25 @@
 .value {
 	font-weight: bold;
 }
+.myProgress {
+	width: 100%;
+	background-color: silver;
+}
+
+.myBarBlue {
+	height: 20px;
+	background-color: #099910;
+}
+
+.myBarYellow {
+	height: 20px;
+	background-color: orange ;
+}
+
+.myBarRed {
+	height: 20px;
+	background-color: red !important;
+}
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -69,34 +88,34 @@
             Lista de Módulos de cursos.
         </f:facet>
 				<p:column style="width:7%" headerText="ID">
-					<p:panelGrid columns="1" layout="grid">
 						<p:outputLabel value="#{car.usuarioCurso.idUsuariocurso}"></p:outputLabel>
-					</p:panelGrid>
 				</p:column>
 
 
 				<p:column headerText="Módulos realizados" style="width:100px">
-					<p:panelGrid columns="1" layout="grid">
 						<p:outputLabel value="#{car.modulosrealizados}" ></p:outputLabel>
-					</p:panelGrid>
 				</p:column>
 
 			
 
 				<p:column headerText="Nombre">
-					<p:panelGrid columns="1" layout="grid">
 						<p:outputLabel value="#{car.modulo.nombre}"></p:outputLabel>
-					</p:panelGrid>
 				</p:column>
 					<p:column headerText="Descripción">
-					<p:panelGrid columns="1" layout="grid">
 						<p:outputLabel value="#{car.modulo.descripcion}"></p:outputLabel>
-					</p:panelGrid>
+				
 				</p:column>
 					<p:column headerText="% Avance" >
-					<p:panelGrid columns="1" layout="grid">
-						<p:progressBar value="#{car.avance}" ></p:progressBar>
-					</p:panelGrid>
+					<h:outputText
+										value="Avance #{car.avance}%" />
+						<div class="myProgress">
+										<p:outputPanel 
+											title="% Ejecutado">
+											<div class="myBarBlue"
+												style="width:#{car.avance}%;"></div>
+										</p:outputPanel>
+									</div>
+						
 				</p:column>
 				<p:column style="width:100px" headerText="Módulos">
 		
