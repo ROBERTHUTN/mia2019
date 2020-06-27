@@ -3,6 +3,7 @@ package mia.core.model.usuario.view.controller;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.model.charts.hbar.HorizontalBarChartModel;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
@@ -10,7 +11,9 @@ import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
 import org.primefaces.model.charts.bar.BarChartDataSet;
 import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.bar.BarChartOptions;
+import org.primefaces.model.charts.hbar.HorizontalBarChartDataSet;
 import org.primefaces.model.charts.line.LineChartDataSet;
+import org.primefaces.model.charts.optionconfig.title.Title;
 
 import mia.core.model.entities.Reporteprepost;
 import mia.modulos.view.util.JSFUtil;
@@ -18,6 +21,7 @@ import mia.modulos.view.util.JSFUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Named
 @ViewScoped
@@ -25,7 +29,8 @@ public class BeanReportePrePostEstadistico implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private BarChartModel mixedModelEjecValidProy;
 	private BarChartModel barModel;
-
+	//private HorizontalBarChartModel hbarModel;
+	private HorizontalBarChartModel hbarModelestres;
 	public void init() {
 		try {
 
@@ -144,12 +149,151 @@ public class BeanReportePrePostEstadistico implements Serializable {
 		return mixedModelEjecValidProy;
 	}
 
+	
+	
+	 public HorizontalBarChartModel createHorizontalBarModel(List<Reporteprepost>reportes) {
+	        hbarModelestres = new HorizontalBarChartModel();
+	        ChartData data = new ChartData();
+	         
+	        
+	        List<Reporteprepost>reporteEstres=reportes;
+	      
+	        HorizontalBarChartDataSet hbarDataSet = new HorizontalBarChartDataSet();
+	        hbarDataSet.setLabel("Nivel Estrés");
+	        List<Number> values = new ArrayList<>();
+	        for (Reporteprepost reporteprepost : reporteEstres) {
+	        	
+	        	 if(reporteprepost.getNivelestres().equals("Baja vulnerabilidad al estrés."))
+	        	 {
+	        		 System.out.println("--- ");
+	        		 values.add(reporteprepost.getPorEstres());
+	        		
+	        	 }
+	        	
+	        	 if(reporteprepost.getNivelestres().equals("Vulnerable al estrés."))
+	        	 {
+	        		 values.add(reporteprepost.getPorEstres());
+	        		 
+	        	 }
+	        	
+	        	 if(reporteprepost.getNivelestres().equals("Seriamente vulnerable al estrés."))
+	        	 {
+	        		 values.add(reporteprepost.getPorEstres());
+	        		 
+	        	 }
+	        	 
+	        	 if(reporteprepost.getNivelestres().equals("Extremadamente vulnerable al estrés."))
+	        	 {
+	        		 values.add(reporteprepost.getPorEstres());
+	        	 }
+	        	
+	        	
+			}
+	        hbarDataSet.setData(values);
+	        List<String> bgColor = new ArrayList<>();
+	        for (Reporteprepost reporteprepost : reporteEstres) {
+	        	 
+	        	 if(reporteprepost.getNivelestres().equals("Baja vulnerabilidad al estrés."))
+	        	 {
+	        		 System.out.println("---2 ");
+	 				bgColor.add("rgb(26,255, 26)");
+	        	 }
+	        	
+	        	 if(reporteprepost.getNivelestres().equals("Vulnerable al estrés."))
+	        	 {
+	        		 bgColor.add("rgb(255,255, 000)");
+	        	 }
+	        	
+	        	 if(reporteprepost.getNivelestres().equals("Seriamente vulnerable al estrés."))
+	        	 {
+	        		 bgColor.add("rgb(255,164, 032)");
+	        	 }
+	        	 
+	        	 if(reporteprepost.getNivelestres().equals("Extremadamente vulnerable al estrés."))
+	        	 {
+	        		 bgColor.add("rgba(255, 99, 132, 0.2)");
+	        	 }
+	        	
+	        	
+	  	       
+			}
+	        hbarDataSet.setBackgroundColor(bgColor);
+	        
+	        List<String> borderColor = new ArrayList<>();
+	        borderColor.add("rgb(26,255, 26)");
+	
+	        hbarDataSet.setBorderColor(borderColor);
+	        hbarDataSet.setBorderWidth(1);
+	         
+	        data.addChartDataSet(hbarDataSet);
+	         
+	        List<String> labels = new ArrayList<>();
+	        labels.add("Baja vulnerabilidad al estrés.");
+	     
+	        data.setLabels(labels);
+	        LineChartDataSet dataSet2 = new LineChartDataSet();
+	        List<Number> values3 = new ArrayList<>();
+	        values3.add(100);
+	        dataSet2.setData(values3);
+	        dataSet2.setLabel("Line Dataset");
+	        dataSet2.setFill(false);
+	        dataSet2.setBorderColor("rgb(54, 162, 235)");
+	        
+	        hbarModelestres.setData(data);
+	         
+	        //Options
+	        BarChartOptions options = new BarChartOptions();
+	        CartesianScales cScales = new CartesianScales();
+	        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+	        CartesianLinearTicks ticks = new CartesianLinearTicks();
+	        ticks.setBeginAtZero(true);
+	        linearAxes.setTicks(ticks);
+	        cScales.addXAxesData(linearAxes);
+	        options.setScales(cScales);
+	         
+	        Title title = new Title();
+	        title.setDisplay(true);
+	        title.setText("Nivel de Estrés");
+	        options.setTitle(title);
+	         
+	        hbarModelestres.setOptions(options);
+	        
+	        return hbarModelestres;
+	    }
+	
+	
+	 public int getRandomNumberInRange(int min, int max) {
+
+			if (min >= max) {
+				throw new IllegalArgumentException("max must be greater than min");
+			}
+
+			Random r = new Random();
+			return r.nextInt((max - min) + 1) + min;
+		}
+	 
 	public BarChartModel getMixedModelEjecValidProy() {
 		return mixedModelEjecValidProy;
 	}
 
 	public void setMixedModelEjecValidProy(BarChartModel mixedModelEjecValidProy) {
 		this.mixedModelEjecValidProy = mixedModelEjecValidProy;
+	}
+
+	public BarChartModel getBarModel() {
+		return barModel;
+	}
+
+	public void setBarModel(BarChartModel barModel) {
+		this.barModel = barModel;
+	}
+
+	public HorizontalBarChartModel getHbarModelestres() {
+		return hbarModelestres;
+	}
+
+	public void setHbarModelestres(HorizontalBarChartModel hbarModelestres) {
+		this.hbarModelestres = hbarModelestres;
 	}
 
 }

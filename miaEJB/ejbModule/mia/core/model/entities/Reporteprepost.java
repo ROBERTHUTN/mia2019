@@ -15,7 +15,7 @@ public class Reporteprepost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="REPORTEPREPOST_IDREPORTETEST_GENERATOR", sequenceName="SEQ_REPORTEPREPOST",allocationSize = 1)
+	@SequenceGenerator(name="REPORTEPREPOST_IDREPORTETEST_GENERATOR", sequenceName="SEQ_REPORTEPREPOST", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="REPORTEPREPOST_IDREPORTETEST_GENERATOR")
 	@Column(name="id_reportetest")
 	private long idReportetest;
@@ -45,6 +45,9 @@ public class Reporteprepost implements Serializable {
 	private String logicaRetroceso;
 
 	private String nivelestres;
+
+	@Column(name="por_estres")
+	private Integer porEstres;
 
 	@Column(name="res_asesoria_emocional")
 	private String resAsesoriaEmocional;
@@ -160,6 +163,14 @@ public class Reporteprepost implements Serializable {
 		this.nivelestres = nivelestres;
 	}
 
+	public Integer getPorEstres() {
+		return this.porEstres;
+	}
+
+	public void setPorEstres(Integer porEstres) {
+		this.porEstres = porEstres;
+	}
+
 	public String getResAsesoriaEmocional() {
 		return this.resAsesoriaEmocional;
 	}
@@ -202,7 +213,7 @@ public class Reporteprepost implements Serializable {
 
 	public String getRespuestaCuestionario() {
 		return this.respuestaCuestionario;
-	}	
+	}
 
 	public void setRespuestaCuestionario(String respuestaCuestionario) {
 		this.respuestaCuestionario = respuestaCuestionario;

@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.hbar.HorizontalBarChartModel;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.administrador.view.controller.BeanAdministrradorCuestionario;
@@ -44,6 +45,8 @@ public class BeanReporteprepost implements Serializable {
 	List<Integer> listaanios=new ArrayList<Integer>();
 	List<Integer>listaMeses=new ArrayList<Integer>();
 	private BarChartModel mixedModelEjecValidProy;
+	private HorizontalBarChartModel hbarModelestres;
+	
 	@Inject
 	private BeanLogin login;
 	@Inject
@@ -62,11 +65,21 @@ public class BeanReporteprepost implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
+			
 		reporteprepostTest= new ArrayList<>();
 		listaanios= managerReporteprepost.findResultadosTestbyUsuarioByAnio(login.getLogin().getId_usuario());
 		//sin inicializar
 		mixedModelEjecValidProy=beanReporteprepostEsta.createMixedModelEjecProyVal(reporteprepostTest);
-	
+		hbarModelestres=beanReporteprepostEsta.createHorizontalBarModel(reporteprepostTest);
+		
+		if (!listaanios.isEmpty()) {
+			 anio=listaanios.get(0);
+				listaMeses= managerReporteprepost.findResultadosTestbyUsuarioByMes(anio,login.getLogin().getId_usuario());
+				   mes=listaMeses.get(0);
+				reporteprepostTest= managerReporteprepost.findResultadosTestbyUsuarioAndAnioAndMes(login.getLogin().getId_usuario(),anio,mes);
+				mixedModelEjecValidProy=beanReporteprepostEsta.createMixedModelEjecProyVal(reporteprepostTest);
+				hbarModelestres=beanReporteprepostEsta.createHorizontalBarModel(reporteprepostTest);
+		}
 		} catch (Exception e) {
 		JSFUtil.crearMensajeError(e.getMessage());
 		}
@@ -214,6 +227,14 @@ public class BeanReporteprepost implements Serializable {
 
 	public void setRepor(Reporteprepost repor) {
 		this.repor = repor;
+	}
+
+	public HorizontalBarChartModel getHbarModelestres() {
+		return hbarModelestres;
+	}
+
+	public void setHbarModelestres(HorizontalBarChartModel hbarModelestres) {
+		this.hbarModelestres = hbarModelestres;
 	}
 
 

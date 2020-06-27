@@ -96,6 +96,16 @@
     </p:barChart>
   </p:panelGrid>
   </p:panel>
+  	 <p:panel>
+  <p:panelGrid>
+  <p:growl id="growln" showDetail="true" />
+  <p:barChart  model="#{beanReporteprepost.hbarModelestres}" style="width: 100%; height: 500px;">
+  <p:ajax event="itemSelect" listener="#{beanReporte.itemSelect}" update="growln"/>
+    </p:barChart>
+  </p:panelGrid>
+  </p:panel>
+  
+  
  <p:dataTable var="resp" value="#{beanReporteprepost.reporteprepostTest}">  
         <f:facet name="header">
             Lista de Resultados de Diagnostico.

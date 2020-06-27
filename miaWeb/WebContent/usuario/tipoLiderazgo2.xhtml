@@ -82,7 +82,10 @@
 
 				<p:graphicImage value="/resources/images/utn.png"></p:graphicImage>
 				<h:outputText
-					value="El cuestionario consta de 16 ítems, con una escala de 5 alternativas de respuestas para cada uno. La escala está confeccionada teniendo en cuenta la frecuencia de aparición de la propuesta en cada sujeto (siempre, casi siempre, frecuentemente, casi nunca, nunca)." />
+					value="A continuación, le sugerimos una serie de afirmaciones auto-descriptivas, 
+					con siete (7) propuestas de solución posible, debe contestar cada una, con honestidad, y de acuerdo al que sea su criterio cotidiano, a como usted estima que sea el enfoque que más gobierna sus decisiones y acciones de trabajo y vida, frente a cada una de las situaciones propuestas. Teniendo en cuenta que 1 es siempre y 7 nunca. No son posible los empates.
+ 
+" />
 
 				<h:outputText></h:outputText>
 				<p:commandButton value="Iniciar Test"
@@ -176,7 +179,7 @@
 						</p:panelGrid>
 						<p:commandButton value="Finalizar Test"
 							rendered="#{beanBateria.finalizarTest}"
-							actionListener="#{beanBateria.finalizarTest()}"
+							action="#{beanBateria.finalizarTest1()}"
 							style="margin-right:5px;alight:left" icon="fa fa-arrow-left"
 							update="form1" />
 

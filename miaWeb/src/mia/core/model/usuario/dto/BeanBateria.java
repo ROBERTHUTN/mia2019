@@ -1,13 +1,10 @@
 package mia.core.model.usuario.dto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Date;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -17,7 +14,7 @@ import javax.inject.Named;
 import org.primefaces.event.DragDropEvent;
 
 import mia.core.model.login.view.controller.BeanLogin;
-import mia.core.model.reporte.ManagerReporte;
+
 import mia.core.model.reporte.ManagerReportePrePost;
 import mia.modulos.view.util.JSFUtil;
 import java.io.Serializable;
@@ -100,7 +97,7 @@ public class BeanBateria implements Serializable {
 		return "";
 	}
 
-	public void finalizarTest() {
+	public String finalizarTest1() {
 
 		// System.out.println(" cantidad de datos"+ respuesta.size());
     	try {
@@ -117,8 +114,6 @@ public class BeanBateria implements Serializable {
 		for (DimensionBateriaDto2 d : listaDimensionRespuesta) {
 			System.out.println("Literal; " + d.getNombre());// literal
 			for (BateriaDto r : d.getListaRespuestas()) {
-				// System.out.println("Respuesta; "+r.getPregunta()+" Puntuacion;
-				// "+r.getPosicion()+" "+ r.getLiteral());
 //Oportunista:    
 				if (r.getLiteral() == "a7" || r.getLiteral() == "b2" || r.getLiteral() == "c1" || r.getLiteral() == "d5"
 						|| r.getLiteral() == "e1" || r.getLiteral() == "f2") {
@@ -209,16 +204,20 @@ public class BeanBateria implements Serializable {
 	      int IP= (int)IENE[8];
 	      String RIP= (String) IENE[9];
 	      String NE= (String) IENE[10];
+	      int porestres= (int)IENE[11];
 	      
 	      respCuestionario=respCuestionario+cuest2;
 	      
 	       managerReporteprepost.ingresarReporteprepost(AC, AM, AE, CE, IP, centroGravedad, logicaEmergente, logicaRetroceso, NE, RAC, RAM,
-	    		   RAE, RCE, RIP,respCuestionario, fecha, beanLogin.getLogin().getId_usuario());
+	    		   RAE, RCE, RIP,respCuestionario, fecha,porestres, beanLogin.getLogin().getId_usuario());
 	    
+	       return "resultadoTest2?faces-redirect=true";
+	    		   
     	}catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
-			}
+    	}
 	    	
+    	return "";
 		
 	}
 	
@@ -289,7 +288,7 @@ public class BeanBateria implements Serializable {
 
 			JSFUtil.crearMensajeInfo("Responder las siguientes preguntas");
 
-			return "inteligenciaEmocional?faces-redirect=true";
+			return "tipoLiderazgo2?faces-redirect=true";
 
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -388,4 +387,5 @@ public class BeanBateria implements Serializable {
 		this.iniciarTest = iniciarTest;
 	}
 
+	
 }

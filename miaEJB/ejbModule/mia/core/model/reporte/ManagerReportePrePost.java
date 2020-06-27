@@ -121,7 +121,7 @@ private ManagerCuestionario managerCuestionario;
 			String centroGravedad, String logicaEmergente, String logicaRetroceso, 
 			String nivelEstres, String resAutcon, String resAutomoti, 
 			String resAse, String resControlEmocion, String resInterpersonal,
-			String resCuestionario, Date fecha_realizacion, long id_usuario) throws Exception {
+			String resCuestionario, Date fecha_realizacion,int porEstres ,long id_usuario) throws Exception {
 		 
 		Reporteprepost nreport = new Reporteprepost();
 
@@ -144,6 +144,7 @@ private ManagerCuestionario managerCuestionario;
 		nreport.setRespuestaCuestionario(resCuestionario);
 		nreport.setFechaInscripcion(fecha_realizacion);
 		nreport.setUsuario(user);
+		nreport.setPorEstres(porEstres);
 		em.persist(nreport);
 	}
 
@@ -668,24 +669,29 @@ private ManagerCuestionario managerCuestionario;
 							System.out.println(" sumEstres="+ sumEstres);
 							int menEstres= sumEstres-16;
 							
+							int por_estre=(menEstres*100)/64;
+							
 							if(menEstres>24)
 							{
 								respuesta= "Vulnerable al estrés.";
 							
-							}else if(menEstres>=40 || menEstres<=60)
+							}
+							if(menEstres>=40 || menEstres<=60)
 							{
 								respuesta= "Seriamente vulnerable al estrés.";
 					
-							}else if(menEstres>60)
+							}
+							if(menEstres>60)
 							{
 								respuesta= "Extremadamente vulnerable al estrés.";
 							
-							}else {
-								respuesta= "Baja vulnerabilidad al estres.";
+							}
+							if (menEstres<24) {
+								respuesta= "Baja vulnerabilidad al estrés.";
 							
 							}
 					
-							Object vector[] = new Object[11];
+							Object vector[] = new Object[12];
 							
 							vector[0]= porcentajeAC;
 							vector[1]= res_porcentajeAC;
@@ -698,7 +704,7 @@ private ManagerCuestionario managerCuestionario;
 							vector[8]= porcentajeIP;
 							vector[9]= res_porcentajeIP;
 							vector[10]= respuesta;
-							
+							vector[11]= por_estre;
 							return vector;
 	
 	}
