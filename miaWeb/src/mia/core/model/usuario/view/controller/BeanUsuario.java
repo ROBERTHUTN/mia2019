@@ -249,7 +249,7 @@ public class BeanUsuario implements Serializable {
 			managerAdministrador.ingresarFichaPersonal(fichaPersonal, id_religion_fk, id_etnia_fk,id_pais_fk ,id_estado_fk,beanLogin.getLogin().getId_usuario(), id_grado_fk);
 			JSFUtil.crearMensajeInfo("Ficha creada correctamente");
 			fichaPersonal = new FichaPersonal();
-			return "menu?faces-redirect=true";
+			return "inteligenciaEmocional?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			return "";

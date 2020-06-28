@@ -235,6 +235,25 @@ reporte=1;
 					id_estado_fk, beanLogin.getLogin().getId_usuario(), id_grado_fk);
 			JSFUtil.crearMensajeInfo("Ficha personal creada correctamente");
 			fichaPersonal = new FichaPersonal();
+			return "inteligenciaEmocional?faces-redirect=true";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
+		}
+
+	}
+	
+
+	
+	public String actionIngresarFichaPersonalAdmin() {
+		try {
+			fichaPersonal.setFechaInscripcion(managerAdministrador.fechaActual());
+			managerAdministrador.ingresarFichaPersonal(fichaPersonal, id_religion_fk, id_etnia_fk, id_pais_fk,
+					id_estado_fk, beanLogin.getLogin().getId_usuario(), id_grado_fk);
+			JSFUtil.crearMensajeInfo("Ficha personal creada correctamente");
+			fichaPersonal = new FichaPersonal();
 			return "menu?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -937,4 +956,5 @@ reporte=1;
 		this.listaOrgFi = listaOrgFi;
 	}
 
+	
 }
