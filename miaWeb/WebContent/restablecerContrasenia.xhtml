@@ -11,18 +11,22 @@
 	<link rel="icon" type="image/png" href="usuario/images/logo1.png" />
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-
+<title>MIA</title>
+<f:facet name="middle">
+		<h:outputStylesheet name="css/style2.css" />
+	</f:facet>
 
 </h:head>
 
-<body>
+<body style="background: url(../resources/images/fondoM.jpg) no-repeat center center fixed; background-size: cover; 
+		background-position: center center; background-repeat: no-repeat; background-color: #85c1e9;">
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
 
-	<h:form id="form1">
+	<h:form id="formLogin" styleClass="login">
 		<div class="ui-fluid" align="center">
-			<br></br> <br></br> <br></br> <br></br> <br></br>
+			
 			<p:panelGrid rendered="#{!beanRestablecerContrasenia.inicioA}" 
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				styleClass="showcase-text-align-center" contentStyleClass="ui-fluid">
@@ -53,7 +57,7 @@
 
 				<p:row>
 					<p:column style="font-weight: bold;">
-						<h:outputLabel value="Correo:" />
+						<h:outputLabel value="Correo:*" />
 					</p:column>
 
 				</p:row>
@@ -82,7 +86,7 @@
 						<p:commandButton value="VERIFICAR" id="ajax" icon="fa fa-send"
 							actionListener="#{beanRestablecerContrasenia.comprobarCorreo()}"
 							style="width:188px" styleClass="ui-priority-primary"
-							validateClient="true" update="form1" />
+							validateClient="true" update="formLogin" />
 					</p:column>
 
 
@@ -166,7 +170,7 @@
 								<div align="center">
 <p:commandButton value="Verificar Código" icon="fa fa-check" 
 						actionListener="#{beanRestablecerContrasenia.enviarCodigo()}"
-						 update="form1" validateClient="true"
+						 update="formLogin" validateClient="true"
 						styleClass="ui-priority-primary" />
 				</div>
 				</p:column>
@@ -238,7 +242,7 @@
 <p:row>
 <p:column>
 <p:commandButton value="Cambiar Contraseña" icon="fa fa-save" 
-					update="form1"
+					update="formLogin"
 					actionListener="#{beanRestablecerContrasenia.guardarNuevaContrasenia()}" />
 </p:column>
 </p:row>
@@ -274,7 +278,7 @@
 				</p:row>
 				<p:row>
 				<p:column>
-				<p:commandButton value="Inicio" icon="fa fa-home" update="form1" style="margin-top:50px"
+				<p:commandButton value="Inicio" icon="fa fa-home" update="formLogin" style="margin-top:50px"
 					rendered="#{beanRestablecerContrasenia.inicio}"
 					action="#{beanRestablecerContrasenia.regresarInicio()}" />
 				</p:column>

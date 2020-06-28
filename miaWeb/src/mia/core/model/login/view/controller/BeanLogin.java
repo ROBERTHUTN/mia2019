@@ -40,7 +40,9 @@ try {
 }finally {
 	JSFUtil.crearMensajeFastFinal();
 }
-	
+}
+public String actionListenerRegresarLogin() {
+	return "login?faces-redirect=true";
 }
 
 public String actionLogin() {
