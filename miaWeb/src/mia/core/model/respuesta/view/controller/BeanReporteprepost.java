@@ -16,8 +16,7 @@ import org.primefaces.model.charts.hbar.HorizontalBarChartModel;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.administrador.view.controller.BeanAdministrradorCuestionario;
-
-
+import mia.core.model.cuestionario.dto.TipoLiderazgo;
 import mia.core.model.entities.Reporteprepost;
 import mia.core.model.entities.Usuario;
 import mia.core.model.login.view.controller.BeanLogin;
@@ -66,7 +65,7 @@ public class BeanReporteprepost implements Serializable {
 	private ManagerAdministrador managerAdministrador; 
 	
 	private List<Reporteprepost> reporteprepostTest;
-	
+	private List<TipoLiderazgo> lista=new ArrayList<TipoLiderazgo>();
 	@PostConstruct
 	public void init() {
 		try {
@@ -90,6 +89,7 @@ public class BeanReporteprepost implements Serializable {
 				hbarModelestres=beanReporteprepostEsta.createHorizontalBarModel(reporteprepostTest);
 			    
 				model=beanReporteprepostEsta.dashboarTipoLider(reporteprepostTest);
+			lista= managerReporteprepost.cargarListaString(reporteprepostTest);
 			
 		}
 		} catch (Exception e) {
@@ -105,12 +105,17 @@ public class BeanReporteprepost implements Serializable {
 	    }
 	  
 	  public void reportebyMesAndAnio() {
-		  reporteprepostTest= managerReporteprepost.findResultadosTestbyUsuarioAndAnioAndMes(login.getLogin().getId_usuario(),anio,mes);
-		  JSFUtil.crearMensajeInfo("Consulta realizada correctamente!");
+			try {
+		  reporteprepostTest= managerReporteprepost.findResultadosTestbyUsuarioAndAnioAndMes(login.getLogin().getId_usuario(),anio,mes); 
 			mixedModelEjecValidProy=beanReporteprepostEsta.createMixedModelEjecProyVal(reporteprepostTest);
-		  System.out.println("T: "+reporteprepostTest.size());
-		  
-		  
+			hbarModelestres=beanReporteprepostEsta.createHorizontalBarModel(reporteprepostTest);
+		lista= managerReporteprepost.cargarListaString(reporteprepostTest);
+				 JSFUtil.crearMensajeInfo("Consulta realizada correctamente!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+			}  
+		
 	  }
 	 
 	  public void itemSelect(ItemSelectEvent event) {
@@ -257,15 +262,14 @@ public class BeanReporteprepost implements Serializable {
 		this.model = model;
 	}
 
+	public List<TipoLiderazgo> getLista() {
+		return lista;
+	}
 
+	public void setLista(List<TipoLiderazgo> lista) {
+		this.lista = lista;
+	}
 
-
-
-
-
-
-	
-	
 	
 
 } 

@@ -125,7 +125,24 @@
   </p:panelGrid>
   </p:panel>
   
-
+ <p:dataGrid var="a" value="#{beanReporteprepost.lista}" columns="3" layout="grid"
+       id="cars">
+       
+         
+        <f:facet name="header">
+          TIPO DE LIDERAZGO GLOBALES
+        </f:facet>
+ 
+        <p:panel header="#{a.nombre}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+                <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+ 
+                <h:outputText value="#{a.respuesta}" />
+ 
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
  <p:dataTable var="resp" value="#{beanReporteprepost.reporteprepostTest}">  
         <f:facet name="header">
             Lista de Resultados de Diagnóstico.
@@ -203,14 +220,10 @@
         <p:outputLabel value="#{resp.interpersonal}"></p:outputLabel>
  </p:panelGrid>
  </p:column>
- 
-    <p:column style="width:25%" headerText="Centro  de Gravedad">	 
-  <p:panelGrid columns="1" layout="grid">
-        <p:outputLabel value="#{resp.centrogravedad}"></p:outputLabel>
- </p:panelGrid>
- </p:column>
-      				
+    		
   </p:dataTable>
+  
+  	
   </div>
   </h:form> 
 

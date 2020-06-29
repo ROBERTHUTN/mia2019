@@ -1,5 +1,6 @@
 package mia.core.model.reporte;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,6 +20,7 @@ import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.cuestionario.ManagerCuestionario;
 import mia.core.model.cuestionario.dto.DimensionPreguntaDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
+import mia.core.model.cuestionario.dto.TipoLiderazgo;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.Reporteprepost;
 import mia.core.model.entities.Usuario;
@@ -73,7 +75,19 @@ private ManagerCuestionario managerCuestionario;
 		return listaReporte;
 	}
 	
+	public List<TipoLiderazgo>cargarListaString(List<Reporteprepost>listaC) {
+		List<TipoLiderazgo>lista=new ArrayList<TipoLiderazgo>();
+for (Reporteprepost r : listaC) {
+	TipoLiderazgo c=new TipoLiderazgo("Centro de gravedad",r.getCentrogravedad());
+	TipoLiderazgo l=new TipoLiderazgo("Lógica Emergente",r.getLogicaEmergente());
+	TipoLiderazgo li=new TipoLiderazgo("Lógica de retroceso",r.getLogicaRetroceso());
+	lista.add(c);
+	lista.add(l);
+	lista.add(li);
 	
+}
+return lista;
+	}
 	public List<Integer> findResultadosTestbyUsuarioByAnio(long id_user)
 	{
 		List<Integer> publicationYears = em.createQuery(

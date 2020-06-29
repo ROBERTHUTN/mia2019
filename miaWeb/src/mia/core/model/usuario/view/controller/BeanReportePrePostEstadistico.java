@@ -150,6 +150,10 @@ public class BeanReportePrePostEstadistico implements Serializable {
 		linearAxes.setTicks(ticks);
 
 		cScales.addYAxesData(linearAxes);
+		  Title title = new Title();
+	        title.setDisplay(true);
+	        title.setText("Inteligencia Emocional");
+	        options.setTitle(title);
 		options.setScales(cScales);
 		mixedModelEjecValidProy.setOptions(options);
 		return mixedModelEjecValidProy;
