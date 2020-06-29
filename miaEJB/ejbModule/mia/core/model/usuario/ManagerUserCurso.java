@@ -165,11 +165,23 @@ public class ManagerUserCurso {
 			modulo = "";
 			return modulo;
 		} else {
-			caracteres = modulo.toCharArray();
-			int ultimo = Integer.parseInt(userCursoDto.getOrdenCurso() + "");
+			String[] parts = modulo.split(",");
+			boolean existe=false;
+			for (String s : parts) {
+				if (s.equals(userCursoDto.getOrdenCurso()+"")) {
+					existe=true;
+				}
+			}
+			if (!existe) {
+				caracteres = modulo.toCharArray();
+				int ultimo = Integer.parseInt(userCursoDto.getOrdenCurso() + "");
 
-			modulo = modulo + "," + ultimo;
-			return modulo;
+				modulo = modulo + "," + ultimo;
+				return modulo;	
+			}else {
+				return modulo;
+			}
+			
 		}
 	}
 
@@ -208,10 +220,12 @@ public class ManagerUserCurso {
 
 		String modulo = ConcatenarModulos(usercurseN, userCursoDto);
 		usercurseN.setModulorealizados(modulo);
-		usercurseN.setAvance(porcentajeAvance(modulo, userCursoDto));
+		
 		BigDecimal d=new BigDecimal(100);
 		if (Integer.parseInt(porcentajeAvance(modulo, userCursoDto)+"")>100) {
 			usercurseN.setAvance(d);
+		}else {
+			usercurseN.setAvance(porcentajeAvance(modulo, userCursoDto));
 		}
 		em.merge(usercurseN);
 
