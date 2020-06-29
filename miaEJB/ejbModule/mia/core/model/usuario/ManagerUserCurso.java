@@ -209,6 +209,10 @@ public class ManagerUserCurso {
 		String modulo = ConcatenarModulos(usercurseN, userCursoDto);
 		usercurseN.setModulorealizados(modulo);
 		usercurseN.setAvance(porcentajeAvance(modulo, userCursoDto));
+		BigDecimal d=new BigDecimal(100);
+		if (Integer.parseInt(porcentajeAvance(modulo, userCursoDto)+"")>100) {
+			usercurseN.setAvance(d);
+		}
 		em.merge(usercurseN);
 
 	}

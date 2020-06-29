@@ -70,7 +70,7 @@
 				</p:menuitem>
 				<p:menuitem icon="fa fa-home" title="Menú" url="/miaWeb/faces/usuario/menu.xhtml" class="p-grid" />
 				<p:menuitem value="Módulos" icon="fa fa-angle-right"  url="/miaWeb/faces/usuario/modulos.xhtml" class="p-grid" />
-				<p:menuitem value="Módulo 1" icon="fa fa-angle-right"  url="/miaWeb/faces/usuario/modulo1.xhtml" class="p-grid" />
+				<p:menuitem value="Contenido módulo " icon="fa fa-angle-right"  url="/miaWeb/faces/usuario/contenidoModulo.xhtml" class="p-grid" />
 				
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -86,7 +86,7 @@
  
       <p:panelGrid  styleClass="showcase-text-align-center">
        <div class="ui-fluid" align="center">
-     <p:commandButton value="Finalizar Test" style="width:150px" title="Finalizar test" action="#{beanUserCursoModulo.actionContestarModulo()}">
+     <p:commandButton value="Finalizar Módulo" style="width:150px" title="Finalizar test" action="#{beanUserCursoModulo.actionContestarModulo()}">
      <p:confirm header="Confirmación" message="Está seguro de contestar el cuestionario??"
 							icon="fa fa-times" />
 							</p:commandButton>

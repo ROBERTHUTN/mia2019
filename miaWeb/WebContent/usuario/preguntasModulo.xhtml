@@ -1,0 +1,95 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+	<!-- Estilos -->
+
+	<title>MIA</title>
+	<f:facet name="middle">
+		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+		<h:outputStylesheet name="css/styles.css" />
+	</f:facet>
+	<f:facet name="last">
+		<h:outputScript name="bootstrap/js/bootstrap.js" />
+		<h:outputScript name="js/styles2.js" />
+		<h:outputScript name="js/validator.js" />
+	</f:facet>
+	<style type="text/css">
+.value {
+	font-weight: bold;
+}
+</style>
+</h:head>
+
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+			<p:menuitem value="Módulos" url="/miaWeb/faces/usuario/modulos.xhtml"
+				class="p-grid" />
+			<p:menuitem value="Contenido módulo "
+				url="/miaWeb/faces/usuario/contenidoModulo.xhtml" class="p-grid" />
+			<p:menuitem value="Preguntas Módulo"
+				url="/miaWeb/faces/usuario/preguntasModulo.xhtml" />
+
+		</p:breadCrumb>
+
+	</div>
+	
+		<h:form id="form1">
+		<div class="ui-fluid">
+			<p:panel header="TEST DEL MÓDULO">
+				<p:repeat var="a" value="#{beanUserCursoModulo.preguntamoduloDTO}"
+					emptyMessage="No se han asignado módulos al cuestionario">
+
+					<p:panelGrid columns="1" layout="grid">
+						<p:outputLabel value="#{a.pregunta} "></p:outputLabel>
+						<p:selectOneRadio id="city" value="#{a.respuesta}" required="true" requiredMessage="Seleccione una respuesta">
+							<f:selectItems value="#{a.opcionpreguntas}" var="c"
+								required="true" requiredMessage="Seleccione la opción "
+								itemLabel="#{c.opcion}" itemValue="#{c.opcion}" />
+						</p:selectOneRadio>
+
+					</p:panelGrid>
+					<p:message for="city"></p:message>
+				</p:repeat>
+					<p:commandButton value="FINALIZAR" ajax="true"
+						action="#{beanUserCursoModulo.actionIngresarCambio()}" update="form1"></p:commandButton>
+				
+			</p:panel>
+	</div>
+		</h:form>
+
+</body>
+</html>
