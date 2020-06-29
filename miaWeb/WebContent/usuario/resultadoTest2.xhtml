@@ -8,6 +8,7 @@
 	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
 		type="preRenderView"></f:event>
 </f:metadata>
+
 <h:head>
 <link rel="icon" type="image/png" href="images/logo1.png" />
 	<meta name="viewport"
@@ -26,6 +27,15 @@
      
     .ui-orderlist .ui-orderlist-list {
         height: auto;
+    }
+</style>
+<style type="text/css">
+    .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+        text-align: center;
+    }
+ 
+    .customPanelGrid .ui-panelgrid-content {
+        align-items: center;
     }
 </style>
 </h:head>
@@ -86,18 +96,28 @@
 </h:form>
 	
 	
-	<div class="ui-fluid">
+	
 	<h:form id="form1">
-	 <p:panel>
-  <p:panelGrid  >
-
-
-  <p:barChart  model="#{beanReporteprepost.mixedModelEjecValidProy}" style="width: 50%; height: 300px;">
+	<div class="ui-fluid">
+	
+ <p:panelGrid  styleClass="showcase-text-align-center" style="width: 100%; height: 300px;">
+    <f:facet name="header">
+        <p:row>
+            <p:column colspan="4">Resultado Test</p:column>
+        </p:row>
+        </f:facet>
+        <p:row>
+<p:column >
+  <p:barChart  model="#{beanReporteprepost.mixedModelEjecValidProy}" style="width: 100%; height: 300px;" >
     </p:barChart>
-    
-    <p:barChart  model="#{beanReporteprepost.hbarModelestres}" style="width: 15%; height: 300px;"/>
+    </p:column>
+    <p:column >
+    <p:barChart  model="#{beanReporteprepost.hbarModelestres}" style="width: 100%; height: 300px;"/>
+ </p:column>
+ </p:row>
+ 
   </p:panelGrid>
-  </p:panel>
+
   	 <p:panel>
   <p:panelGrid>
   <p:growl id="growln" showDetail="true" />
@@ -105,43 +125,10 @@
   </p:panelGrid>
   </p:panel>
   
-<h:form id="form">
-    <p:carousel value="#{beanReporteprepost.reporteprepostTest}" headerText="Responsive" var="car" itemStyle="text-align:center" responsive="true">
-        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-            <f:facet name="header">
-                <p:graphicImage /> 
-            </f:facet>
- 
-            <h:outputText value="Id:" />
-            <h:outputText value="#{car.idReportetest}" />
- 
-         
-        </p:panelGrid>
- 
-        <f:facet name="footer">
-              
-        </f:facet>
-    </p:carousel>
- 
-    <p:dialog header="Tipos de Liderazgo" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:outputPanel id="carDetail" style="text-align:center;">
-            <p:panelGrid  columns="2" rendered="#{not empty carouselView.selectedCar}" columnClasses="label,value">
-                <f:facet name="header">
-                    <p:graphicImage name="demo/images/car/#{carouselView.selectedCar.brand}-big.gif"/> 
-                </f:facet>
- 
-                <h:outputText value="Id:" />
-                <h:outputText value="#{carouselView.selectedCar.id}" />
- 
-             
-            </p:panelGrid>
-        </p:outputPanel>
-    </p:dialog>
-</h:form>
-  
+
  <p:dataTable var="resp" value="#{beanReporteprepost.reporteprepostTest}">  
         <f:facet name="header">
-            Lista de Resultados de Diagnostico.
+            Lista de Resultados de Diagnóstico.
         </f:facet>
         
   <p:column style="width:7%" headerText="ID">	 
@@ -224,8 +211,9 @@
  </p:column>
       				
   </p:dataTable>
+  </div>
   </h:form> 
-</div>
+
 
 	<p:messages>
 		<p:autoUpdate />
