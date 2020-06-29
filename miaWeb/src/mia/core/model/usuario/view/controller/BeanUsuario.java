@@ -253,6 +253,8 @@ public class BeanUsuario implements Serializable {
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 			return "";
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
 		}
 
 	}

@@ -104,20 +104,20 @@
   </p:panel>
   
 <h:form id="form">
-    <p:carousel value="#{carouselView.cars}" headerText="Responsive" var="car" itemStyle="text-align:center" responsive="true">
+    <p:carousel value="#{beanReporteprepost.reporteprepostTest}" headerText="Responsive" var="car" itemStyle="text-align:center" responsive="true">
         <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
             <f:facet name="header">
-                <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+                <p:graphicImage /> 
             </f:facet>
  
             <h:outputText value="Id:" />
-            <h:outputText value="#{car.id}" />
+            <h:outputText value="#{car.idReportetest}" />
  
          
         </p:panelGrid>
  
         <f:facet name="footer">
-                In total there are #{fn:length(carouselView.cars)} cars.
+              
         </f:facet>
     </p:carousel>
  
@@ -215,6 +215,11 @@
  </p:panelGrid>
  </p:column>
  
+    <p:column style="width:25%" headerText="Centro  de Gravedad">	 
+  <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="#{resp.centrogravedad}"></p:outputLabel>
+ </p:panelGrid>
+ </p:column>
       				
   </p:dataTable>
   </h:form> 

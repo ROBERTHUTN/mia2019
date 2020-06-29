@@ -105,7 +105,7 @@ public String actionLogin() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
     	String path=ec.getRequestPathInfo();
     	if(login==null) {
-    		if(path.equals("/login.xhtml")) {
+    		if(path.equals("/login.xhtml")||path.equals("/registrarse.xhtml")||path.equals("/restablecerContrasenia.xhtml")) {
     	    	return;
     		}else {
     			ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
