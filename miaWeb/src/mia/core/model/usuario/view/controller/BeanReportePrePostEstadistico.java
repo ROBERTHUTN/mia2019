@@ -170,7 +170,6 @@ public class BeanReportePrePostEstadistico implements Serializable {
 	        	
 	        	 if(reporteprepost.getNivelestres().equals("Baja vulnerabilidad al estrés."))
 	        	 {
-	        		 System.out.println("--- ");
 	        		 values.add(reporteprepost.getPorEstres());
 	        		
 	        	 }
@@ -191,7 +190,7 @@ public class BeanReportePrePostEstadistico implements Serializable {
 	        	 {
 	        		 values.add(reporteprepost.getPorEstres());
 	        	 }
-	        	
+	        	values.add(100);
 	        	
 			}
 	        hbarDataSet.setData(values);
@@ -200,7 +199,6 @@ public class BeanReportePrePostEstadistico implements Serializable {
 	        	 
 	        	 if(reporteprepost.getNivelestres().equals("Baja vulnerabilidad al estrés."))
 	        	 {
-	        		 System.out.println("---2 ");
 	 				bgColor.add("rgb(26,255, 26)");
 	        	 }
 	        	
@@ -229,12 +227,36 @@ public class BeanReportePrePostEstadistico implements Serializable {
 	
 	        hbarDataSet.setBorderColor(borderColor);
 	        hbarDataSet.setBorderWidth(1);
-	         
+	        
 	        data.addChartDataSet(hbarDataSet);
 	         
 	        List<String> labels = new ArrayList<>();
-	        labels.add("Baja vulnerabilidad al estrés.");
-	     
+	      
+	        for (Reporteprepost reporteprepost : reporteEstres) {
+	        	 
+	        	 if(reporteprepost.getNivelestres().equals("Baja vulnerabilidad al estrés."))
+	        	 {
+	        		  labels.add("Baja vulnerabilidad al estrés.");
+	        	 }
+	        	
+	        	 if(reporteprepost.getNivelestres().equals("Vulnerable al estrés."))
+	        	 {
+	        		  labels.add("Vulnerable al estrés.");
+	        	 }
+	        	
+	        	 if(reporteprepost.getNivelestres().equals("Seriamente vulnerable al estrés."))
+	        	 {
+	        		  labels.add("Seriamente vulnerable al estrés.");
+	        	 }
+	        	 
+	        	 if(reporteprepost.getNivelestres().equals("Extremadamente vulnerable al estrés."))
+	        	 {
+	        		  labels.add("Extremadamente vulnerable al estrés.");
+	        	 }
+	        	
+	        	
+	  	       
+			}
 	        data.setLabels(labels);
 	        LineChartDataSet dataSet2 = new LineChartDataSet();
 	        List<Number> values3 = new ArrayList<>();
