@@ -276,7 +276,7 @@ public class BeanBateria implements Serializable {
 		}
 	}
 
-	public String PreguntasByDimension() {
+	public String PreguntasByTipoliderazgo() {
 		try {
 			iniciarTest = false;
 			listaDimensionRespuesta = managerBateria.inicializarPreguntasPadres();
@@ -286,6 +286,21 @@ public class BeanBateria implements Serializable {
 			contador = 0;
 			estadoActualContador(contador);
 
+			JSFUtil.crearMensajeInfo("Responder las siguientes preguntas");
+
+			return "tipoLiderazgo2?faces-redirect=true";
+
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		} finally {
+			JSFUtil.crearMensajeFastFinal();
+		}
+
+	}
+	public String PreguntasByDimension() {
+		try {
+	
 			JSFUtil.crearMensajeInfo("Responder las siguientes preguntas");
 
 			return "inteligenciaEmocional?faces-redirect=true";

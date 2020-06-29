@@ -74,7 +74,7 @@ public class UserWizard implements Serializable {
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 	        
 	        
-	        return beanBateria.PreguntasByDimension();
+	        return beanBateria.PreguntasByTipoliderazgo();
 	    	        
 	    	}catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
