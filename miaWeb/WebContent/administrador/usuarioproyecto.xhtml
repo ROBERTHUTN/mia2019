@@ -30,7 +30,7 @@
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
 					
-				<p:menuitem value="Nuevo usuario y proyecto." title="Ingresar Nuevo usuario y proyecto."
+				<p:menuitem value="Nuevo investigador y organización." title="Ingresar Nuevo usuario y proyecto."
 					icon=" fa fa-plus " onclick="PF('nuevoUsuarioProyecto').show();"></p:menuitem>
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -132,13 +132,13 @@
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15">
 						<f:facet name="header">
-							<p:outputLabel value="Lista de organización y usuarios"></p:outputLabel>
+							<p:outputLabel value="Lista de organización y Investigador"></p:outputLabel>
 						</f:facet>
 						<p:column headerText="Id" style="width:50px">
 							<h:outputText value="#{r.idUsuarioProyecto}" />
 						</p:column>
 
-						<p:column headerText="Usuario">
+						<p:column headerText="Investigador">
 							<h:outputText value="#{r.fichaPersonal.usuario.nombres} #{r.fichaPersonal.usuario.apellidos}" />
 						</p:column>
 						
@@ -197,10 +197,10 @@
 					
 						<p:outputLabel value="Ficha: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
-						requiredMessage="Seleccione un usuario"
+						requiredMessage="Seleccione un Investigador"
 						value="#{beanAdministrador.id_ficha_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Usuario"
+						<f:selectItem itemLabel="Seleccione Investigador"
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanInvestigador.listaFichaU}" var="u"
@@ -211,10 +211,10 @@
 					
 					<p:outputLabel value="Proyecto: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
-						requiredMessage="Seleccione un usuario"
+						requiredMessage="Seleccione una Organización"
 						value="#{beanAdministrador.id_proyecto}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Usuario"
+						<f:selectItem itemLabel="Seleccione Organización"
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanProyectoInvestigacion.proyectoInvestigaciones}" var="u"

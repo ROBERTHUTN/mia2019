@@ -739,6 +739,11 @@ public class ManagerAdministrador {
 		List<Organizacion> listaOrganizaciones = q.getResultList();
 		return listaOrganizaciones;
 	}
+	
+	
+	
+	
+	
 
 	public Organizacion findOrganizacionById(int id_organizacion) {
 		Organizacion organizacion = em.find(Organizacion.class, id_organizacion);

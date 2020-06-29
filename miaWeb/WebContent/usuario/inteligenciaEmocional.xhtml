@@ -7,7 +7,9 @@
 
 
 
-<h:head></h:head>
+<h:head>
+
+</h:head>
 
 <body style="background-color: #3b83bd;">
 	<div id="menu">
@@ -37,7 +39,7 @@
 
 		<p:growl id="growl" sticky="true" showDetail="true" />
 
-		<p:wizard flowListener="#{userWizard.onFlowProcess}">
+		<p:wizard  showNavBar="false" widgetVar="wiz">
 		
 		
 			<p:tab id="IE0" title="Inteligencia Emocional">
@@ -1256,12 +1258,18 @@
 
 				</p:panel>
 
-				<p:commandButton value="Submit" action="#{userWizard.save()}"
-					update="growl" process="@this"/>
+				<p:commandButton value="Realizar Encuesta" action="#{userWizard.save()}"
+					update="growl" process="@this" style="border:#FC1F0D;background-color:	#008000" />
 
 			</p:tab>
 		</p:wizard>
-
+	
+<div align="left">
+<p:commandButton style="border:#FC1F0D;background-color:	#008000"  value="Atras" onclick="PF('wiz').back();"/>
+</div>	
+<div align="right">
+<p:commandButton  style="border:#FC1F0D;  background-color:	#008000" value="Siguiente" onclick="PF('wiz').next();"></p:commandButton>
+</div>	
 	</h:form>
 
 
