@@ -55,9 +55,9 @@
 							<p:inputText id="correo" accesskey="true" placeholder="example@gmail.com"
 								value="#{beanLogin.correo}" required="true"
 								requiredMessage="Ingrese un correo! " maxlength="50"
-								validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
+								validatorMessage="Ingrese un correo válido ejemplo: bu.dario@gmail.com">
 								<f:validateRegex
-									pattern="([_A-Za-z0-9+,ñ]+([_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(([A-Za-z0-9]+){2,3}[.])+([A-Za-z,.]{2,3}))"></f:validateRegex>
+									pattern="^[A-Za-z0-9+_.-]+@(.+)$"></f:validateRegex>
 							</p:inputText>
 							<p:message for="correo"></p:message>
 						</p:column>
@@ -104,9 +104,7 @@
 		<p:growl>
 			<p:autoUpdate />
 		</p:growl>
-		<p:messages>
-			<p:autoUpdate />
-		</p:messages>
+	
 	</div>
 </body>
 

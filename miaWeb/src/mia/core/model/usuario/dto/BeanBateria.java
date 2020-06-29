@@ -288,7 +288,7 @@ public class BeanBateria implements Serializable {
 
 			JSFUtil.crearMensajeInfo("Responder las siguientes preguntas");
 
-			return "tipoLiderazgo2?faces-redirect=true";
+			return "inteligenciaEmocional?faces-redirect=true";
 
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());

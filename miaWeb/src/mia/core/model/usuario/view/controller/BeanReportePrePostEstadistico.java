@@ -4,6 +4,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.model.charts.hbar.HorizontalBarChartModel;
+import org.primefaces.model.DashboardColumn;
+import org.primefaces.model.DashboardModel;
+import org.primefaces.model.DefaultDashboardColumn;
+import org.primefaces.model.DefaultDashboardModel;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
@@ -29,6 +33,8 @@ public class BeanReportePrePostEstadistico implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private BarChartModel mixedModelEjecValidProy;
 	private BarChartModel barModel;
+	private DashboardModel model;
+	
 	//private HorizontalBarChartModel hbarModel;
 	private HorizontalBarChartModel hbarModelestres;
 	public void init() {
@@ -148,7 +154,6 @@ public class BeanReportePrePostEstadistico implements Serializable {
 		mixedModelEjecValidProy.setOptions(options);
 		return mixedModelEjecValidProy;
 	}
-
 	
 	
 	 public HorizontalBarChartModel createHorizontalBarModel(List<Reporteprepost>reportes) {
@@ -262,16 +267,31 @@ public class BeanReportePrePostEstadistico implements Serializable {
 	    }
 	
 	
-	 public int getRandomNumberInRange(int min, int max) {
-
-			if (min >= max) {
-				throw new IllegalArgumentException("max must be greater than min");
-			}
-
-			Random r = new Random();
-			return r.nextInt((max - min) + 1) + min;
+	 public DashboardModel dashboarTipoLider(List<Reporteprepost>reportes)
+	 {
+		 model= new DefaultDashboardModel();
+		 DashboardColumn column1 = new DefaultDashboardColumn();
+		 DashboardColumn column2 = new DefaultDashboardColumn();
+		 DashboardColumn column3 = new DefaultDashboardColumn();
+		 
+		 for (Reporteprepost reporteprepost : reportes) {
+			column1.addWidget(" Centro de Gravedad");
+			column1.addWidget(reporteprepost.getCentrogravedad());
+			
+			column1.addWidget("Lógica emergente");
+			column1.addWidget(reporteprepost.getLogicaEmergente());
+			
+			column1.addWidget("Lógica de Retroceso");
+			column1.addWidget(reporteprepost.getLogicaRetroceso());
 		}
-	 
+		 
+		 model.addColumn(column1);
+		 model.addColumn(column2);
+		 model.addColumn(column3);
+		 
+		 return model;
+	 }
+
 	public BarChartModel getMixedModelEjecValidProy() {
 		return mixedModelEjecValidProy;
 	}

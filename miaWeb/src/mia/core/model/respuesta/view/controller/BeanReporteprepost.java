@@ -7,6 +7,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.ItemSelectEvent;
+import org.primefaces.model.DashboardColumn;
+import org.primefaces.model.DashboardModel;
+import org.primefaces.model.DefaultDashboardColumn;
+import org.primefaces.model.DefaultDashboardModel;
 import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.hbar.HorizontalBarChartModel;
 
@@ -46,6 +50,7 @@ public class BeanReporteprepost implements Serializable {
 	List<Integer>listaMeses=new ArrayList<Integer>();
 	private BarChartModel mixedModelEjecValidProy;
 	private HorizontalBarChartModel hbarModelestres;
+	private DashboardModel model;
 	
 	@Inject
 	private BeanLogin login;
@@ -72,6 +77,10 @@ public class BeanReporteprepost implements Serializable {
 		mixedModelEjecValidProy=beanReporteprepostEsta.createMixedModelEjecProyVal(reporteprepostTest);
 		hbarModelestres=beanReporteprepostEsta.createHorizontalBarModel(reporteprepostTest);
 		
+		//dashboard
+		model = new DefaultDashboardModel();
+		
+	
 		if (!listaanios.isEmpty()) {
 			 anio=listaanios.get(0);
 				listaMeses= managerReporteprepost.findResultadosTestbyUsuarioByMes(anio,login.getLogin().getId_usuario());
@@ -79,6 +88,9 @@ public class BeanReporteprepost implements Serializable {
 				reporteprepostTest= managerReporteprepost.findResultadosTestbyUsuarioAndAnioAndMes(login.getLogin().getId_usuario(),anio,mes);
 				mixedModelEjecValidProy=beanReporteprepostEsta.createMixedModelEjecProyVal(reporteprepostTest);
 				hbarModelestres=beanReporteprepostEsta.createHorizontalBarModel(reporteprepostTest);
+			    
+				model=beanReporteprepostEsta.dashboarTipoLider(reporteprepostTest);
+			
 		}
 		} catch (Exception e) {
 		JSFUtil.crearMensajeError(e.getMessage());
@@ -235,6 +247,14 @@ public class BeanReporteprepost implements Serializable {
 
 	public void setHbarModelestres(HorizontalBarChartModel hbarModelestres) {
 		this.hbarModelestres = hbarModelestres;
+	}
+
+	public DashboardModel getModel() {
+		return model;
+	}
+
+	public void setModel(DashboardModel model) {
+		this.model = model;
 	}
 
 
