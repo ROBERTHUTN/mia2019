@@ -4,8 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<f:metadata>
+
+<f:metadata>
 	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
 		type="preRenderView"></f:event>
 </f:metadata>
@@ -27,10 +27,11 @@
 		<h:outputScript name="js/styles2.js" />
 		<h:outputScript name="js/validator.js" />
 	</f:facet>
-			<style type="text/css">
+	<style type="text/css">
 .value {
 	font-weight: bold;
 }
+
 .myProgress {
 	width: 100%;
 	background-color: silver;
@@ -43,13 +44,15 @@
 
 .myBarYellow {
 	height: 20px;
-	background-color: orange ;
+	background-color: orange;
 }
 
 .myBarRed {
 	height: 20px;
 	background-color: red !important;
 }
+ 
+ 
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -59,7 +62,7 @@
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-				
+
 
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
@@ -80,54 +83,89 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<div class="ui-fluid">
-		<h:form id="form1">
-			<p:dataTable var="car"
-				value="#{beanUserCursoModulo.userccursomoduloIdDto}">
-				<f:facet name="header">
-            Lista de Módulos de cursos.
-        </f:facet>
-				<p:column style="width:7%" headerText="ID">
-						<p:outputLabel value="#{car.usuarioCurso.idUsuariocurso}"></p:outputLabel>
-				</p:column>
 
-
-				<p:column headerText="Módulos realizados" style="width:100px">
-						<p:outputLabel value="#{car.modulosrealizados}" ></p:outputLabel>
-				</p:column>
-
+	<h:form id="form2">
 			
 
-				<p:column headerText="Nombre">
-						<p:outputLabel value="#{car.modulo.nombre}"></p:outputLabel>
-				</p:column>
-					<p:column headerText="Descripción">
-						<p:outputLabel value="#{car.modulo.descripcion}"></p:outputLabel>
 				
-				</p:column>
-					<p:column headerText="% Avance" >
-					<h:outputText
-										value="Avance #{car.avance}%" />
-						<div class="myProgress">
-										<p:outputPanel 
-											title="% Ejecutado">
-											<div class="myBarBlue"
-												style="width:#{car.avance}%;"></div>
-										</p:outputPanel>
-									</div>
+					<p:panel
+				header="Curso #{beanUserCursoModulo.usuarioCursoModuloDto.curso.nombre}">
+			<p:panelGrid columns="4" layout="grid" styleClass="showcase-text-align-center" columnClasses="ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3">
+ 
+						<p:column>
+						<p:outputLabel value="Avance del curso" style="font-weight: bold"></p:outputLabel>
+						</p:column>
 						
-				</p:column>
-				<p:column style="width:100px" headerText="Módulos">
-		
-				<p:commandButton value="Módulo #{car.ordenCurso}" action="#{beanUserCursoModulo.cargarModulo(car)}"></p:commandButton>
-				
-					
-				
-				</p:column>
+						<p:column>
+							<p:outputLabel style="alight:center;font-weight: bold"
+								value="Avance #{beanUserCursoModulo.usuarioCursoModuloDto.avance}%" />
+							<div class="myProgress" >
+								<p:outputPanel title="% Ejecutado" >
+									<div class="myBarBlue"
+										style="width:#{beanUserCursoModulo.usuarioCursoModuloDto.avance}%;"></div>
+								</p:outputPanel>
+							</div>
+						</p:column>
+						<p:column>
+							<h:outputText  value="Módulos realizados" style="font-weight: bold" />
+						</p:column>
+						<p:column>
+						<h:outputText
+								value="#{beanUserCursoModulo.usuarioCursoModuloDto.modulorealizados}" />
+						</p:column>
 
-			</p:dataTable>
-		</h:form>
-	</div>
+				</p:panelGrid>
+
+			</p:panel>
+
+			<div class="col-lg-5"></div>
+		<br />
+
+		<p:dataTable var="car"
+			value="#{beanUserCursoModulo.usuarioCursoModuloDto.listaUsuarioCurMod}">
+			<f:facet name="header">
+				<p:outputLabel value="Lista de módulos del Curso "></p:outputLabel>
+			</f:facet>
+
+			<p:column headerText="Módulos ">
+				<p:outputLabel value="#{car.cursoModulo.modulo.nombre}"></p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Aciertos">
+				<p:outputLabel value="#{car.aciertos}"></p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Errores">
+				<p:outputLabel value="#{car.errores}"></p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Avance">
+				<h:outputText value="Avance #{car.avance}%" />
+				<div class="myProgress">
+					<p:outputPanel title="% Ejecutado">
+						<div class="myBarBlue" style="width:#{car.avance}%;"></div>
+					</p:outputPanel>
+				</div>
+
+
+			</p:column>
+
+
+
+
+			<p:column style="width:100px" headerText="Módulos">
+
+				<p:commandButton value="Módulo #{car.cursoModulo.ordenCurso}"
+					action="#{beanUserCursoModulo.cargarModulo(car)}"></p:commandButton>
+
+
+
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+
 	<p:messages>
 		<p:autoUpdate />
 	</p:messages>

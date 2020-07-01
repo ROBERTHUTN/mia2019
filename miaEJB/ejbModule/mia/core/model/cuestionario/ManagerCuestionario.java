@@ -242,7 +242,8 @@ public class ManagerCuestionario {
 	public List<PreguntaModuloDTO> otrometodo (List<Preguntamodulo> listapm) throws Exception {
 		if(listapm.isEmpty())
 		{
-			throw new Exception("Error al cargar las Preguntas");
+			throw new Exception("El módulo no tiene preguntas \n "
+					+ "Contáctese con el administrador");
 		}
 		
 		List<PreguntaModuloDTO> p= new ArrayList<>();

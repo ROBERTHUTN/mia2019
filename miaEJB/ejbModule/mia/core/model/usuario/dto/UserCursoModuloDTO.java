@@ -1,94 +1,116 @@
 package mia.core.model.usuario.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import mia.core.model.entities.Curso;
-import mia.core.model.entities.CursoModulo;
-import mia.core.model.entities.Modulo;
+import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
+import mia.core.model.entities.UsuarioCursoModulo;
 
-public class UserCursoModuloDTO extends CursoModulo {
+public class UserCursoModuloDTO extends UsuarioCurso {
 
 	private static final long serialVersionUID = 1L;
-	
-	private UsuarioCurso usuarioCurso;
-	private BigDecimal avance;
-	private String modulosrealizados;
-	
-	public UsuarioCurso getUsuarioCurso() {
-		return usuarioCurso;
-	}
+	List<UsuarioCursoModulo> listaUsuarioCurMod;
 
-	public void setUsuarioCurso(UsuarioCurso usuarioCurso) {
-		this.usuarioCurso = usuarioCurso;
+	@Override
+	public long getIdUsuariocurso() {
+
+		return super.getIdUsuariocurso();
 	}
 
 	@Override
-	public long getIdCursoModulo() {
-		
-		return super.getIdCursoModulo();
+	public void setIdUsuariocurso(long idUsuariocurso) {
+
+		super.setIdUsuariocurso(idUsuariocurso);
 	}
 
 	@Override
-	public void setIdCursoModulo(long idCursoModulo) {
-		
-		super.setIdCursoModulo(idCursoModulo);
+	public BigDecimal getAvance() {
+
+		return super.getAvance();
 	}
 
 	@Override
-	public Integer getOrdenCurso() {
-		
-		return super.getOrdenCurso();
+	public void setAvance(BigDecimal avance) {
+
+		super.setAvance(avance);
 	}
 
 	@Override
-	public void setOrdenCurso(Integer ordenCurso) {
-		
-		super.setOrdenCurso(ordenCurso);
+	public String getModulorealizados() {
+
+		return super.getModulorealizados();
+	}
+
+	@Override
+	public void setModulorealizados(String modulorealizados) {
+
+		super.setModulorealizados(modulorealizados);
 	}
 
 	@Override
 	public Curso getCurso() {
-		
+
 		return super.getCurso();
 	}
 
 	@Override
 	public void setCurso(Curso curso) {
-		
+
 		super.setCurso(curso);
 	}
 
 	@Override
-	public Modulo getModulo() {
-		
-		return super.getModulo();
+	public Usuario getUsuario() {
+
+		return super.getUsuario();
 	}
 
 	@Override
-	public void setModulo(Modulo modulo) {
-		
-		super.setModulo(modulo);
+	public void setUsuario(Usuario usuario) {
+
+		super.setUsuario(usuario);
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+
+		return super.clone();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		return super.equals(obj);
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+
+		super.finalize();
+	}
+
+	@Override
+	public int hashCode() {
+
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+
+		return super.toString();
+	}
+
+	public List<UsuarioCursoModulo> getListaUsuarioCurMod() {
+		return listaUsuarioCurMod;
+	}
+
+	public void setListaUsuarioCurMod(List<UsuarioCursoModulo> listaUsuarioCurMod) {
+		this.listaUsuarioCurMod = listaUsuarioCurMod;
 	}
 
 
 
-	public BigDecimal getAvance() {
-		return avance;
-	}
-
-	public void setAvance(BigDecimal avance) {
-		this.avance = avance;
-	}
-
-	public String getModulosrealizados() {
-		return modulosrealizados;
-	}
-
-	public void setModulosrealizados(String modulosrealizados) {
-		this.modulosrealizados = modulosrealizados;
-	}
-
-	
-	
 }

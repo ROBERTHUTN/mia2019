@@ -2,7 +2,6 @@ package mia.core.model.usuario.view.controller;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -16,6 +15,7 @@ import mia.core.model.entities.Modulo;
 import mia.core.model.entities.Preguntamodulo;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
+import mia.core.model.entities.UsuarioCursoModulo;
 import mia.core.model.usuario.ManagerUserCurso;
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.modulos.view.util.JSFUtil;
@@ -33,22 +33,21 @@ public class BeanUserCursoModulo implements Serializable {
 	private String direccion;
 	private String nombre;
 	private List<UserCursoModuloDTO> userccursomoduloIdDto;
+	private UserCursoModuloDTO usuarioCursoModuloDto;
 	private List<PreguntaModuloDTO> preguntamoduloDTO;
 	private UserCursoModuloDTO usuarioCursoDto;
 	private String moduloRealizado;
+	private CursoModulo cursoMod;
 	@EJB
 	private ManagerUserCurso managerUserCurso;
-
 	@EJB
 	private ManagerCurso managerCurso;
-
 	@EJB
 	private ManagerCuestionario managerCuestionario;
-
 	private List<CursoModulo> cursomoduloID;
 	private List<UsuarioCurso> usuariocursoID;
 	private UsuarioCurso usuariocursoCar;
-
+	private UsuarioCursoModulo usuarioCursoModuloC;
 	@PostConstruct
 	public void init() {
 
@@ -59,7 +58,7 @@ public class BeanUserCursoModulo implements Serializable {
 		try {
 			PreguntaModuloDTO preguntaOpcionRespuestaDTO = new PreguntaModuloDTO();
 			List<Preguntamodulo> preguntamodul = managerCuestionario
-					.findAllPreguntamodulobymodulo(usuarioCursoDto.getModulo().getIdModulo());
+					.findAllPreguntamodulobymodulo(cursoMod.getModulo().getIdModulo());
 			preguntamoduloDTO = managerCuestionario.otrometodo(preguntamodul);
 			preguntamoduloDTO = managerCuestionario.cargarPreguntasModulodto(preguntamoduloDTO);
 			return "preguntasModulo?faces-redirect=true";
@@ -70,10 +69,11 @@ public class BeanUserCursoModulo implements Serializable {
 		return "";
 	}
 
-	public String cargarModulo(UserCursoModuloDTO m) {
+	public String cargarModulo(UsuarioCursoModulo m) {
 		try {
-			numeroModulo=m.getOrdenCurso();
-			usuarioCursoDto = m;
+			usuarioCursoModuloC=m;
+			numeroModulo=m.getCursoModulo().getOrdenCurso();
+			cursoMod=m.getCursoModulo();
 			JSFUtil.crearMensajeInfo("Módulo cargado correctamente.");
 			return "contenidoModulo?faces-redirect=true";
 		} catch (Exception e) {
@@ -86,10 +86,12 @@ public class BeanUserCursoModulo implements Serializable {
 
 	public String actionIngresarCambio() {
 		try {
-			int a = managerUserCurso.obtenerResCorrectas(preguntamoduloDTO);
-			managerUserCurso.editarAvanceCurso(usuarioCursoDto);
-			userccursomoduloIdDto = managerUserCurso.cargarListaUserCurso(usuariocursoCar);
+			//usuarioCursoModuloDto;
+			//usuarioCursoModuloC;
+			managerUserCurso.editarAvanceCurso(usuarioCursoModuloDto,usuarioCursoModuloC,preguntamoduloDTO);
+			usuarioCursoModuloDto = managerUserCurso.cargarListaUserCurso(usuariocursoCar);
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
+			
 			return "modulos?faces-redirect=true";
 
 		} catch (Exception e) {
@@ -122,10 +124,9 @@ public class BeanUserCursoModulo implements Serializable {
 	}
 
 	public String actionCursoModulosbyUserCurso(UsuarioCurso userCurso) {
-		//
-		try {
+	try {
 			usuariocursoCar = userCurso;
-			userccursomoduloIdDto = managerUserCurso.cargarListaUserCurso(userCurso);
+			usuarioCursoModuloDto = managerUserCurso.cargarListaUserCurso(userCurso);
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
 			return "modulos?faces-redirect=true";
 		} catch (Exception e) {
@@ -236,6 +237,30 @@ public class BeanUserCursoModulo implements Serializable {
 
 	public void setNumeroModulo(int numeroModulo) {
 		this.numeroModulo = numeroModulo;
+	}
+
+	public UserCursoModuloDTO getUsuarioCursoModuloDto() {
+		return usuarioCursoModuloDto;
+	}
+
+	public void setUsuarioCursoModuloDto(UserCursoModuloDTO usuarioCursoModuloDto) {
+		this.usuarioCursoModuloDto = usuarioCursoModuloDto;
+	}
+
+	public CursoModulo getCursoMod() {
+		return cursoMod;
+	}
+
+	public void setCursoMod(CursoModulo cursoMod) {
+		this.cursoMod = cursoMod;
+	}
+
+	public UsuarioCursoModulo getUsuarioCursoModuloC() {
+		return usuarioCursoModuloC;
+	}
+
+	public void setUsuarioCursoModuloC(UsuarioCursoModulo usuarioCursoModuloC) {
+		this.usuarioCursoModuloC = usuarioCursoModuloC;
 	}
 	
 

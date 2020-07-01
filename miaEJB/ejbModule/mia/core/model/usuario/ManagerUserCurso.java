@@ -18,6 +18,7 @@ import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
+import mia.core.model.entities.UsuarioCursoModulo;
 
 /**
  * Session Bean implementation class ManagerCuestionario
@@ -72,6 +73,23 @@ public class ManagerUserCurso {
 		List<CursoModulo> listaUsuarioCursos = q.getResultList();
 		return listaUsuarioCursos;
 	}
+	// lista de usuarios y cursos
+	public CursoModulo findCursoModuloByCursoAndModulo(int idCurso,long idModulo) {
+        CursoModulo cm=new CursoModulo();
+		Query q = em.createQuery("SELECT u FROM CursoModulo u where u.curso.idCurso=?1"
+				+ " and u.modulo.idModulo=?2" , CursoModulo.class);
+		q.setParameter(1, idCurso);
+		q.setParameter(2, idModulo);
+		@SuppressWarnings("unchecked")
+		List<CursoModulo> listaCursosModulos = q.getResultList();
+		if (!listaCursosModulos.isEmpty()) {
+			cm=listaCursosModulos.get(0);
+			return cm;
+		}else {
+			return cm;
+		}
+		
+	}
 
 	// lista de usuario y cursos
 	public List<UsuarioCurso> findAllUsuarioCursoesbyUser(long user) {
@@ -84,11 +102,24 @@ public class ManagerUserCurso {
 		return listaUsuarioCursos;
 	}
 
+	// lista de usuario y cursos
+	public List<UsuarioCursoModulo> findAllUsuarioCursoModulobyUserCusro(long id_user_curso) {
 
+		String JPQL = "SELECT u FROM UsuarioCursoModulo u WHERE u.usuarioCurso.idUsuariocurso=?1";
+		Query query = em.createQuery(JPQL, UsuarioCursoModulo.class);
+		query.setParameter(1, id_user_curso);
+		@SuppressWarnings("unchecked")
+		List<UsuarioCursoModulo> listaUsuarioCursosModulos = query.getResultList();
+		return listaUsuarioCursosModulos;
+	}
 	
 	public UsuarioCurso findUsuarioCursoById(long id_user_curso) {
 		UsuarioCurso curso = em.find(UsuarioCurso.class, id_user_curso);
 		return curso;
+	}
+	public UsuarioCursoModulo findUsuarioCursoModuloById(long id_user_curso_modulo) {
+		UsuarioCursoModulo usuaCursoMod = em.find(UsuarioCursoModulo.class, id_user_curso_modulo);
+		return usuaCursoMod;
 	}
 
 	public int obtenerResCorrectas(List<PreguntaModuloDTO> lp) {
@@ -96,7 +127,6 @@ public class ManagerUserCurso {
 		int respCorrectas = 0;
 
 		for (PreguntaModuloDTO pm : lp) {
-			System.out.println(pm.getRespuestacorrecta() + " /" + " " + pm.getRespuesta() + "");
 			if (pm.getRespuestacorrecta().equals(pm.getRespuesta())) {
 				respCorrectas++;
 			}
@@ -155,10 +185,35 @@ public class ManagerUserCurso {
 		nusercurso.setModulorealizados("0");
 		nusercurso.setAvance(num);
 		em.persist(nusercurso);
+		ingresarUsuarioCursoModulo(nusercurso, curso);
+	}
+	
+	public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur) throws Exception {
+		
+		if (useC==null) {
+			throw new Exception("Usuario curso vacío");	
+		}
+		
+		List<CursoModulo>listaCursosModulos=new ArrayList<CursoModulo>();
+		listaCursosModulos=findAllUsuarioCursoByIdCurso(cur.getIdCurso());
+		for (CursoModulo c : listaCursosModulos) {
+			UsuarioCursoModulo uCMod=new UsuarioCursoModulo();
+			uCMod.setAciertos(0);
+			BigDecimal r=new BigDecimal(0);
+			uCMod.setAvance(r);
+			uCMod.setCursoModulo(c);
+			uCMod.setErrores(0);
+			uCMod.setUsuarioCurso(useC);
+			em.persist(uCMod);
+		}
+		
+		
 	}
 
+
 	@SuppressWarnings("unused")
-	public String ConcatenarModulos(UsuarioCurso usuercurse, UserCursoModuloDTO userCursoDto) {
+	public String ConcatenarModulos(UsuarioCurso usuercurse, UsuarioCursoModulo usuarioCursoModulo) {
+	//	error
 		String modulo = usuercurse.getModulorealizados();
 		char[] caracteres;
 		if (modulo.equals(" ") || modulo.length() == 0) {
@@ -168,13 +223,13 @@ public class ManagerUserCurso {
 			String[] parts = modulo.split(",");
 			boolean existe=false;
 			for (String s : parts) {
-				if (s.equals(userCursoDto.getOrdenCurso()+"")) {
+				if (s.equals(usuarioCursoModulo.getCursoModulo().getOrdenCurso()+"")) {
 					existe=true;
 				}
 			}
 			if (!existe) {
 				caracteres = modulo.toCharArray();
-				int ultimo = Integer.parseInt(userCursoDto.getOrdenCurso() + "");
+				int ultimo = Integer.parseInt(usuarioCursoModulo.getCursoModulo().getOrdenCurso()+ "");
 
 				modulo = modulo + "," + ultimo;
 				return modulo;	
@@ -184,6 +239,7 @@ public class ManagerUserCurso {
 			
 		}
 	}
+	
 
 	public void editarCurso(UsuarioCurso usercurseA, int id_curso, long id_user) throws Exception {
 		UsuarioCurso usercurseN = findUsuarioCursoById(usercurseA.getIdUsuariocurso());
@@ -211,43 +267,70 @@ public class ManagerUserCurso {
 	 * ); int tama=usuaC.getModulorealizados().length(); return ; }
 	 */
 
-	public void editarAvanceCurso(UserCursoModuloDTO userCursoDto) throws Exception {
-
-		UsuarioCurso usercurseN = findUsuarioCursoById(userCursoDto.getUsuarioCurso().getIdUsuariocurso());
+	public void editarAvanceCurso(UserCursoModuloDTO userCursoDto,UsuarioCursoModulo usuarioCursoModulo,List<PreguntaModuloDTO> preguntamoduloDTO) throws Exception {
+      
+		UsuarioCurso usercurseN = findUsuarioCursoById(userCursoDto.getIdUsuariocurso());
 		if (usercurseN == null) {
-			throw new Exception("Usuario Curso no existe en la bdd!.");
+			throw new Exception("Usuario Curso no existe en la base de datos!.");
 		}
-
-		String modulo = ConcatenarModulos(usercurseN, userCursoDto);
+		porcentajeUsuarioCursoModulo(usuarioCursoModulo, preguntamoduloDTO);
+		String modulo = ConcatenarModulos(usercurseN, usuarioCursoModulo);
 		usercurseN.setModulorealizados(modulo);
 		
 		BigDecimal d=new BigDecimal(100);
-		if (Integer.parseInt(porcentajeAvance(modulo, userCursoDto)+"")>100) {
+		if (Integer.parseInt(porcentajeAvanceCursoUsuario(usercurseN)+"")>100) {
 			usercurseN.setAvance(d);
 		}else {
-			usercurseN.setAvance(porcentajeAvance(modulo, userCursoDto));
+			usercurseN.setAvance(porcentajeAvanceCursoUsuario(usercurseN));
 		}
 		em.merge(usercurseN);
 
 	}
-
-	public BigDecimal porcentajeAvance(String modulo, UserCursoModuloDTO userCursoDto) {
-		BigDecimal bi;
-		double a;
-		List<CursoModulo> cursoModulo = findAllUsuarioCursoByIdCurso(userCursoDto.getCurso().getIdCurso());
-		int numModulo = cursoModulo.size();
-		UsuarioCurso usuaC = findUsuarioCursoById(userCursoDto.getUsuarioCurso().getIdUsuariocurso());
-		int tama = usuaC.getModulorealizados().length();
-		if (tama <= 1) {
-			bi = new BigDecimal(0.00);
-		} else {
-			tama = tama - 1;
-			tama = tama / 2;
-			a = (tama * 100) / numModulo;
-			bi = new BigDecimal(a);
+	public BigDecimal porcentajeUsuarioCursoModulo(UsuarioCursoModulo usuarioCursoModulo,List<PreguntaModuloDTO> preguntamoduloDTO) throws Exception {
+		if (preguntamoduloDTO.isEmpty()) {
+			throw new Exception("Las respuestas del módulo están vacías!.");
+		}else {
+			BigDecimal p=new BigDecimal(0);
+			double respuesta=0.0;
+			int totalPreguntas=preguntamoduloDTO.size();
+			int respuestasCorrecta=obtenerResCorrectas(preguntamoduloDTO);
+			int respuestasIncorrectas=totalPreguntas-respuestasCorrecta;
+			respuesta=(respuestasCorrecta*100)/totalPreguntas;
+			p=new BigDecimal(respuesta);
+			UsuarioCursoModulo uCM=findUsuarioCursoModuloById(usuarioCursoModulo.getIdUsuarioCursoModulo());
+			uCM.setAciertos(respuestasCorrecta);
+			uCM.setErrores(respuestasIncorrectas);
+			uCM.setAvance(p);
+			em.merge(uCM);
+		return p;
 		}
+		
+	}
 
-		return bi;
+	public BigDecimal porcentajeAvanceCursoUsuario(UsuarioCurso usercurseN) throws Exception {
+		BigDecimal bi=new BigDecimal(0);
+		List<UsuarioCursoModulo>lista=findAllUsuarioCursoModulobyUserCusro(usercurseN.getIdUsuariocurso());
+		if (lista.isEmpty()) {
+			throw new Exception("Contactese con el administrador el cuestionario no tiene módulos..");
+		}else {
+			double respuesta=0.0;
+			int numMod=lista.size();
+			for (UsuarioCursoModulo u : lista) {
+				respuesta=respuesta+Double.parseDouble(u.getAvance()+"");
+			}
+			if (respuesta>0.0) {
+
+				respuesta=respuesta/numMod;
+				bi=new BigDecimal(respuesta);
+				return bi;
+			}
+			return bi;
+		}
+	
+		
+		
+	
+	
 	}
 
 	public void eliminarUsuarioCurso(int id_modulo) throws Exception {
@@ -261,22 +344,20 @@ public class ManagerUserCurso {
 
 	// metodos de lista user curso DTO
 
-	public List<UserCursoModuloDTO> cargarListaUserCurso(UsuarioCurso userCurso) {
+	public UserCursoModuloDTO cargarListaUserCurso(UsuarioCurso userCurso) {
 		userCurso = findUsuarioCursoById(userCurso.getIdUsuariocurso());
-		List<UserCursoModuloDTO> listaUserCursoDto = new ArrayList<>();
-		List<CursoModulo> cursoModulo = findAllUsuarioCursoByIdCurso(userCurso.getCurso().getIdCurso());
-
-		for (CursoModulo cM : cursoModulo) {
-			UserCursoModuloDTO obj = new UserCursoModuloDTO();
-			obj.setUsuarioCurso(userCurso);
-			obj.setModulosrealizados(userCurso.getModulorealizados());
-			obj.setAvance(userCurso.getAvance());
-			obj.setCurso(cM.getCurso());
-			obj.setOrdenCurso(cM.getOrdenCurso());
-			obj.setIdCursoModulo(cM.getIdCursoModulo());
-			obj.setModulo(cM.getModulo());
-			listaUserCursoDto.add(obj);
-		}
-		return listaUserCursoDto;
+		UserCursoModuloDTO  userCursoDto = new UserCursoModuloDTO();
+		List<UsuarioCursoModulo> listaUsuarioCursoModulo =  findAllUsuarioCursoModulobyUserCusro(userCurso.getIdUsuariocurso());
+		userCursoDto.setIdUsuariocurso(userCurso.getIdUsuariocurso());
+		userCursoDto.setAvance(userCurso.getAvance());
+		userCursoDto.setCurso(userCurso.getCurso());
+		userCursoDto.setModulorealizados(userCurso.getModulorealizados());
+		userCursoDto.setUsuario(userCurso.getUsuario());
+	   userCursoDto.setListaUsuarioCurMod(listaUsuarioCursoModulo);
+		/*
+		 AQUI HAY QUE MODIFICAR
+		 */
+		userCursoDto.setListaUsuarioCurMod(listaUsuarioCursoModulo);
+		return userCursoDto;
 	}
 }
