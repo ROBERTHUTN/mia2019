@@ -1,8 +1,8 @@
 package mia.core.model.entities;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -16,7 +16,7 @@ public class UsuarioCursoModulo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USUARIO_CURSO_MODULO_IDUSUARIOCURSOMODULO_GENERATOR", sequenceName="SEQ_USUARIO_CURSO_MODULO",allocationSize = 1)
+	@SequenceGenerator(name="USUARIO_CURSO_MODULO_IDUSUARIOCURSOMODULO_GENERATOR", sequenceName="SEQ_USUARIO_CURSO_MODULO", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_CURSO_MODULO_IDUSUARIOCURSOMODULO_GENERATOR")
 	@Column(name="id_usuario_curso_modulo")
 	private long idUsuarioCursoModulo;
@@ -26,6 +26,22 @@ public class UsuarioCursoModulo implements Serializable {
 	private BigDecimal avance;
 
 	private Integer errores;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_fin_programada")
+	private Date fechaFinProgramada;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_fin_real")
+	private Date fechaFinReal;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_inicio_programada")
+	private Date fechaInicioProgramada;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_inicio_real")
+	private Date fechaInicioReal;
 
 	//bi-directional many-to-one association to CursoModulo
 	@ManyToOne
@@ -70,6 +86,38 @@ public class UsuarioCursoModulo implements Serializable {
 
 	public void setErrores(Integer errores) {
 		this.errores = errores;
+	}
+
+	public Date getFechaFinProgramada() {
+		return this.fechaFinProgramada;
+	}
+
+	public void setFechaFinProgramada(Date fechaFinProgramada) {
+		this.fechaFinProgramada = fechaFinProgramada;
+	}
+
+	public Date getFechaFinReal() {
+		return this.fechaFinReal;
+	}
+
+	public void setFechaFinReal(Date fechaFinReal) {
+		this.fechaFinReal = fechaFinReal;
+	}
+
+	public Date getFechaInicioProgramada() {
+		return this.fechaInicioProgramada;
+	}
+
+	public void setFechaInicioProgramada(Date fechaInicioProgramada) {
+		this.fechaInicioProgramada = fechaInicioProgramada;
+	}
+
+	public Date getFechaInicioReal() {
+		return this.fechaInicioReal;
+	}
+
+	public void setFechaInicioReal(Date fechaInicioReal) {
+		this.fechaInicioReal = fechaInicioReal;
 	}
 
 	public CursoModulo getCursoModulo() {

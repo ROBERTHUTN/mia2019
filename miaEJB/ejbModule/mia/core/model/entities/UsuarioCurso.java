@@ -1,7 +1,10 @@
 package mia.core.model.entities;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -22,6 +25,22 @@ public class UsuarioCurso implements Serializable {
 
 	private BigDecimal avance;
 
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_fin_programada")
+	private Date fechaFinProgramada;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_fin_real")
+	private Date fechaFinReal;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_inicio_programada")
+	private Date fechaInicioProgramada;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_inicio_real")
+	private Date fechaInicioReal;
+
 	private String modulorealizados;
 
 	//bi-directional many-to-one association to Curso
@@ -33,6 +52,19 @@ public class UsuarioCurso implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
+
+	//bi-directional many-to-one association to UsuarioCurso
+	@ManyToOne
+	@JoinColumn(name="id_padre_usuariocurso")
+	private UsuarioCurso usuarioCurso;
+
+	//bi-directional many-to-one association to UsuarioCurso
+	@OneToMany(mappedBy="usuarioCurso")
+	private List<UsuarioCurso> usuarioCursos;
+
+	//bi-directional many-to-one association to UsuarioCursoModulo
+	@OneToMany(mappedBy="usuarioCurso")
+	private List<UsuarioCursoModulo> usuarioCursoModulos;
 
 	public UsuarioCurso() {
 	}
@@ -51,6 +83,38 @@ public class UsuarioCurso implements Serializable {
 
 	public void setAvance(BigDecimal avance) {
 		this.avance = avance;
+	}
+
+	public Date getFechaFinProgramada() {
+		return this.fechaFinProgramada;
+	}
+
+	public void setFechaFinProgramada(Date fechaFinProgramada) {
+		this.fechaFinProgramada = fechaFinProgramada;
+	}
+
+	public Date getFechaFinReal() {
+		return this.fechaFinReal;
+	}
+
+	public void setFechaFinReal(Date fechaFinReal) {
+		this.fechaFinReal = fechaFinReal;
+	}
+
+	public Date getFechaInicioProgramada() {
+		return this.fechaInicioProgramada;
+	}
+
+	public void setFechaInicioProgramada(Date fechaInicioProgramada) {
+		this.fechaInicioProgramada = fechaInicioProgramada;
+	}
+
+	public Date getFechaInicioReal() {
+		return this.fechaInicioReal;
+	}
+
+	public void setFechaInicioReal(Date fechaInicioReal) {
+		this.fechaInicioReal = fechaInicioReal;
 	}
 
 	public String getModulorealizados() {
@@ -75,6 +139,58 @@ public class UsuarioCurso implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public UsuarioCurso getUsuarioCurso() {
+		return this.usuarioCurso;
+	}
+
+	public void setUsuarioCurso(UsuarioCurso usuarioCurso) {
+		this.usuarioCurso = usuarioCurso;
+	}
+
+	public List<UsuarioCurso> getUsuarioCursos() {
+		return this.usuarioCursos;
+	}
+
+	public void setUsuarioCursos(List<UsuarioCurso> usuarioCursos) {
+		this.usuarioCursos = usuarioCursos;
+	}
+
+	public UsuarioCurso addUsuarioCurso(UsuarioCurso usuarioCurso) {
+		getUsuarioCursos().add(usuarioCurso);
+		usuarioCurso.setUsuarioCurso(this);
+
+		return usuarioCurso;
+	}
+
+	public UsuarioCurso removeUsuarioCurso(UsuarioCurso usuarioCurso) {
+		getUsuarioCursos().remove(usuarioCurso);
+		usuarioCurso.setUsuarioCurso(null);
+
+		return usuarioCurso;
+	}
+
+	public List<UsuarioCursoModulo> getUsuarioCursoModulos() {
+		return this.usuarioCursoModulos;
+	}
+
+	public void setUsuarioCursoModulos(List<UsuarioCursoModulo> usuarioCursoModulos) {
+		this.usuarioCursoModulos = usuarioCursoModulos;
+	}
+
+	public UsuarioCursoModulo addUsuarioCursoModulo(UsuarioCursoModulo usuarioCursoModulo) {
+		getUsuarioCursoModulos().add(usuarioCursoModulo);
+		usuarioCursoModulo.setUsuarioCurso(this);
+
+		return usuarioCursoModulo;
+	}
+
+	public UsuarioCursoModulo removeUsuarioCursoModulo(UsuarioCursoModulo usuarioCursoModulo) {
+		getUsuarioCursoModulos().remove(usuarioCursoModulo);
+		usuarioCursoModulo.setUsuarioCurso(null);
+
+		return usuarioCursoModulo;
 	}
 
 }
