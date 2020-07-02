@@ -12,7 +12,6 @@ type="preRenderView"></f:event>
 	<link rel="icon" type="image/png" href="images/logo1.png" />
 	<style type="text/css">
 /** Demo **/
-
 .ui-outputlabel {
 	font-weight: bold;
 }
@@ -29,11 +28,11 @@ type="preRenderView"></f:event>
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-	
-				<p:menuitem value="Nueva Registro Curso" title="Registrarse en un curso"
-					icon=" fa fa-plus " onclick="PF('nuevaUserCurso').show();"></p:menuitem>
+
+				<p:menuitem value="Nueva Pregunta Módulo" title="Ingresar Nueva Pregunta Módulo"
+					icon=" fa fa-plus " onclick="PF('nuevaPregMod').show();"></p:menuitem>
 				<f:facet name="options">
-					<p:commandButton title="Datos del registro de curso" icon="fa fa-user"
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
 						value="#{beanLogin.login.nombres}" />
 					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
 						action="#{beanLogin.actionCerrarSesion()}" />
@@ -41,14 +40,13 @@ type="preRenderView"></f:event>
 			</p:menubar>
 		</h:form>
 	</div>
-	<div id="migajas" class="p-grid"  >
-	<p:breadCrumb>
-    <p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
-    <p:menuitem value="Registro Curso" url="/miaWeb/faces/usuario/inscripcioncurso.xhtml" />
-	
-	</p:breadCrumb>
- 	</div>
-	
+		<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Pregunta Módulo" url="/miaWeb/faces/administrador/preguntamodulo.xhtml" />
+		</p:breadCrumb>
+	</div>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
@@ -57,49 +55,44 @@ type="preRenderView"></f:event>
 	</p:messages>
 
 
-	<p:dialog header="Registrar Nuevo Curso" widgetVar='nuevaUserCurso'
-		id="nuevaUserCurso" modal="true" height="250" resizable="true"
+	<p:dialog header="Ingresar Nueva Pregunta Módulo" widgetVar="nuevaPregMod"
+		id="nuevaPregMod" modal="true" height="250" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		<h:form id="form1">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
- 					
-					<p:outputLabel value="usuario: " />
-					<p:inputText autoWidth="100%" required="true"
-						requiredMessage="Seleccione un Usuario"
-						value="#{beanLogin.login.nombres}" 
-						effect="fade" filter="true" filterMatchMode="startsWith" disabled="true">
+
+					<p:outputLabel value="Pregunta:" />
+					<p:inputText
+						value="#{beanAdministrradorCuestionario.pregunModIng.pregunta}"
+						required="true"
+						requiredMessage="Ingrese la pregunta"
+						maxlength="89">
 					</p:inputText>
-					
-					<p:outputLabel value="curso: " />
-					<p:selectOneMenu id="curso" autoWidth="100%" required="true"
-						requiredMessage="Seleccione un curso"
-						value="#{beanUserCurso.id_curso_fk}"
+
+					<p:outputLabel value="Módulos: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un módulo"
+						value="#{beanAdministrradorCuestionario.id_modulo_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione un Curso"
+						<f:selectItem itemLabel="Seleccione un módulo"
 							noSelectionOption="true" />
 						<f:selectItems
-							value="#{beanCurso.cursos}" var="reg"
-							itemLabel="#{reg.nombre}" itemValue="#{reg.idCurso}" />
+							value="#{beanAdministrradorCuestionario.listaModulos}" var="reg"
+							itemLabel="#{reg.nombre}" itemValue="#{reg.idModulo}" />
 					</p:selectOneMenu>
-					<p:message for="curso"></p:message>
-					
-					
-							
-					
+
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
-						ajax="false" validateClient="true"
-						actionListener="#{beanUserCurso.actionListenerIngresarUsuarioCurso()}"
-						oncomplete="nuevaUserCurso" update="form2" >
+						actionListener="#{beanAdministrradorCuestionario.actionIngresarPreguntamodulo()}"
+						oncomplete="nuevaPregMod" update="form2" ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
-						
-					
+
 
 				</p:panelGrid>
 			</div>
@@ -109,51 +102,55 @@ type="preRenderView"></f:event>
 
 
 
-
 	<h:form id="form2">
 		<div class="ui-fluid">
 
 			<p:dataTable var="e" widgetVar="tabla1"
-				value="#{beanUserCurso.usuarioCursos}" reflow="true"
-				rows="10" paginator="true"
+				value="#{beanAdministrradorCuestionario.listaPreMo}" sortBy="#{e.modulo.nombre}" expandableRowGroups="true" 
+			
+				 paginator="true" 
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
-				<f:facet name="header">
-					<p:outputLabel value="Lista de Cursos Suscripto"></p:outputLabel>
-				</f:facet>
+	 <p:headerRow>
+            <p:column colspan="3">
+                <h:outputText value="#{e.modulo.nombre}" />
+            </p:column>
+        </p:headerRow>
+				
 				<p:column headerText="Id" style="width:50px">
-					<h:outputText value="#{e.idUsuariocurso}" />
+					<h:outputText value="#{e.idPregunta}" />
 				</p:column>
-				<p:column headerText="Usuario" style="width:50px">
-					<h:outputText value="#{e.usuario.nombres}" />
+
+				<p:column headerText="Respuesta">
+					<h:outputText value="#{e.pregunta}" />
 				</p:column>
-				<p:column headerText="Curso" style="width:50px">
-					<h:outputText value="#{e.curso.nombre}" />
-				</p:column>
-				<p:column headerText="Avance" style="width:50px">
-					<h:outputText value="#{e.avance}" />
-				</p:column>
-				<p:column headerText="Módulos Realizados" style="width:50px">
-					<h:outputText value="#{e.modulorealizados}" />
-				</p:column>
-					
+			
+				<p:column headerText="Opciones" style="width:100px;">
+					<p:commandButton icon="fa fa-pencil"
+						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarPreguntamodulo(e)}"
+						onclick="PF('editardimension').show();" title="Editar"
+						update="form10"></p:commandButton>
+
 					<p:commandButton update="form2"
-						actionListener="#{beanUserCurso.actionListenerEliminarCurso(e.idUsuariocurso)}"
+						actionListener="#{beanAdministrradorCuestionario.actionListenerEliminarPreguntamodulo(e.idPregunta)}"
 						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
 						icon="fa fa-times">
 						<p:confirm header="Confirmación" message="Desea eliminar?"
 							icon="fa fa-times" />
 					</p:commandButton>
-				
-				<p:button> </p:button>
-				
+
+
+				</p:column>
+
+
+
 			</p:dataTable>
 		</div>
 	</h:form>
 
 
-	<p:dialog header="Editar curso" widgetVar="editardimensionpregunta"
-		id="editardimensionpregunta" modal="true" height="330" resizable="true"
+	<p:dialog header="Editar pregunta módulo" widgetVar="editardimension"
+		id="editardimension" modal="true" height="330" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		<h:form id="form10">
@@ -161,41 +158,34 @@ type="preRenderView"></f:event>
 				<p:panelGrid columns="1" layout="grid">
 					<p:outputLabel value="ID:" />
 					<p:inputText
-						value="#{beanAdministrradorCuestionario.dimenpreguntaE.idPreguntaDimension}"
+						value="#{beanAdministrradorCuestionario.pregunModE.idPregunta}"
 						required="true" disabled="true">
 					</p:inputText>
+					<p:outputLabel value="Pregunta:" />
+					<p:inputText
+						value="#{beanAdministrradorCuestionario.pregunModE.pregunta}"
+						required="true"
+						requiredMessage="Ingrese la pregunta"
+						maxlength="89">
+					</p:inputText>
 
-<p:outputLabel value="Dimension: " />
+					<p:outputLabel value="Módulos: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
-						requiredMessage="Seleccione una Dimension"
-						value="#{beanAdministrradorCuestionario.id_dimension_fk}"
+						requiredMessage="Seleccione un cuestionario"
+						value="#{beanAdministrradorCuestionario.id_modulo_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Dimension"
+						<f:selectItem itemLabel="Seleccione un módulo"
 							noSelectionOption="true" />
 						<f:selectItems
-							value="#{beanAdministrradorCuestionario.dimensiones}" var="reg"
-							itemLabel="#{reg.descripcion}" itemValue="#{reg.idDimension}" />
+							value="#{beanAdministrradorCuestionario.listaModulos}" var="reg"
+							itemLabel="#{reg.nombre} #{reg.idModulo}" itemValue="#{reg.idModulo}" />
 					</p:selectOneMenu>
-					
-					
-					<p:outputLabel value="Preguntas: " />
-					<p:selectOneMenu autoWidth="100%"  required="true"
-						requiredMessage="Seleccione una Pregunta"
-						value="#{beanAdministrradorCuestionario.id_pregunta_fk}"
-						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione la Pregunta"
-							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanAdministrradorCuestionario.preguntas}" var="reg"
-							itemLabel="#{reg.descripcion}" itemValue="#{reg.idPregunta}" />
-					</p:selectOneMenu>
-
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
-						actionListener="#{beanAdministrradorCuestionario.actionListenerEditarDimensionPregunta()}"
-						oncomplete="nuevaDimenPre" update="@form"  ajax="false">
+						actionListener="#{beanAdministrradorCuestionario.actionListenerEditarPreguntamodulo()}"
+						oncomplete="nuevaPregMod" update="@form"  ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />

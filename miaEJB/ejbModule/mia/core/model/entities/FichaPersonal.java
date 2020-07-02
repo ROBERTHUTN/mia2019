@@ -86,10 +86,6 @@ public class FichaPersonal implements Serializable {
 	@OneToMany(mappedBy="fichaPersonal")
 	private List<UsuarioInteresArea> usuarioInteresAreas;
 
-	//bi-directional many-to-one association to UsuarioProyecto
-	@OneToMany(mappedBy="fichaPersonal")
-	private List<UsuarioProyecto> usuarioProyectos;
-
 	public FichaPersonal() {
 	}
 
@@ -265,28 +261,6 @@ public class FichaPersonal implements Serializable {
 		usuarioInteresArea.setFichaPersonal(null);
 
 		return usuarioInteresArea;
-	}
-
-	public List<UsuarioProyecto> getUsuarioProyectos() {
-		return this.usuarioProyectos;
-	}
-
-	public void setUsuarioProyectos(List<UsuarioProyecto> usuarioProyectos) {
-		this.usuarioProyectos = usuarioProyectos;
-	}
-
-	public UsuarioProyecto addUsuarioProyecto(UsuarioProyecto usuarioProyecto) {
-		getUsuarioProyectos().add(usuarioProyecto);
-		usuarioProyecto.setFichaPersonal(this);
-
-		return usuarioProyecto;
-	}
-
-	public UsuarioProyecto removeUsuarioProyecto(UsuarioProyecto usuarioProyecto) {
-		getUsuarioProyectos().remove(usuarioProyecto);
-		usuarioProyecto.setFichaPersonal(null);
-
-		return usuarioProyecto;
 	}
 
 }

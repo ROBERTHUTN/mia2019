@@ -1,0 +1,45 @@
+-- SEQUENCE: public.seq_usuario_curso_modulo
+
+-- DROP SEQUENCE public.seq_usuario_curso_modulo;
+
+CREATE SEQUENCE public.seq_usuario_curso_modulo
+    INCREMENT 1
+    START 5
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER SEQUENCE public.seq_usuario_curso_modulo
+    OWNER TO postgres;
+-- Table: public.usuario_curso_modulo
+
+-- DROP TABLE public.usuario_curso_modulo;
+
+CREATE TABLE public.usuario_curso_modulo
+(
+    id_usuario_curso_modulo numeric NOT NULL,
+    id_curso_modulo numeric NOT NULL,
+    id_usuario_curso numeric NOT NULL,
+    avance numeric,
+    aciertos integer,
+    errores integer,
+    CONSTRAINT pk_id_usuario_curso_modulo PRIMARY KEY (id_usuario_curso_modulo),
+    CONSTRAINT fk_id_curso_modulo FOREIGN KEY (id_curso_modulo)
+        REFERENCES public.curso_modulo (id_curso_modulo) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_id_usuario_curso FOREIGN KEY (id_usuario_curso)
+        REFERENCES public.usuario_curso (id_usuariocurso) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.usuario_curso_modulo
+    OWNER to postgres;
+
+GRANT ALL ON TABLE public.usuario_curso_modulo TO postgres;
+
+GRANT ALL ON TABLE public.usuario_curso_modulo TO PUBLIC;

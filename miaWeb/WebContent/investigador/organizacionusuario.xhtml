@@ -85,7 +85,7 @@
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanInvestigador.listaOrganizaciones}" var="o"
-							itemLabel="#{o.nombreOrganizacion}" itemValue="#{o.idOrganizacion}" />
+							itemLabel="#{o.organizacion.nombreOrganizacion}" itemValue="#{o.organizacion.idOrganizacion}" />
 					</p:selectOneMenu>
  
  
@@ -126,10 +126,21 @@
 							<h:outputText value="#{r.organizacion.nombreOrganizacion}" />
 						</p:column>
 						
+						<p:column headerText="CI">
+							<h:outputText value="#{r.usuario.ci} " />
+						</p:column>
+						
 						<p:column headerText="Usuario">
 							<h:outputText value="#{r.usuario.nombres} #{r.usuario.apellidos}" />
 						</p:column>
-						
+
+							<p:column headerText="Correo">
+							<h:outputText value="#{r.usuario.correo}"  />
+						</p:column>
+						<p:column headerText="Celular">
+							<h:outputText value="#{r.usuario.fichaPersonals.get(0).celular}" />
+						</p:column>
+					
 						<p:column headerText="OPCIONES" style="width:100px;">
 							<p:commandButton icon="fa fa-pencil"
 								actionListener="#{beanInvestigador.actionListenerCargarOrganizacionFicha(r)}"
@@ -153,7 +164,16 @@
 					</p:dataTable>
 				</div>
 			</h:form>
-			
+ <!--			
+	<p:dialog header="Información Usuario" widgetVar="infoUsuario" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="userDetail" style="text-align:center;">
+            <p:panelGrid  columns="2"  columnClasses="label,value">
+            
+                <h:outputText value="Id:" />
+               </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>		
+			-->
 	<p:dialog header="Editar Organizacion Ficha" widgetVar="editarArea"
 		id="editarArea" modal="true" height="330" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
@@ -186,7 +206,7 @@
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanInvestigador.listaOrganizaciones}" var="o"
-							itemLabel="#{o.nombreOrganizacion}" itemValue="#{o.idOrganizacion}" />
+							itemLabel="#{o.organizacion.nombreOrganizacion}" itemValue="#{o.organizacion.idOrganizacion}" />
 					</p:selectOneMenu>
 				</p:panelGrid>
 				

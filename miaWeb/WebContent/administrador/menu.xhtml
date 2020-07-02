@@ -14,8 +14,6 @@
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
-
-
 	<!-- Estilos -->
 	<link rel="stylesheet" href="administrador/css/estilos.css" />
 	<title>menu Administrador</title>
@@ -48,6 +46,12 @@
 			</p:menubar>
 		</h:form>
 	</div>
+		<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+		</p:breadCrumb>
+	</div>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
@@ -55,20 +59,9 @@
 		<p:autoUpdate />
 	</p:messages>
 
-<div id="migajas" class="p-grid">
-		<p:breadCrumb>
-			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
-		</p:breadCrumb>
-	</div>
 	<div class="ui-fluid" align="center">
 		<p:panelGrid columns="4" layout="grid">
-			<p:panel id="sports" header="Lista de Preguntas">
-				<h:form>
-					<p:commandLink action="listapreguntas?faces-redirect=true">
-						<p:graphicImage value="images/listapreguntas.png" />
-					</p:commandLink>
-				</h:form>
-			</p:panel>
+		
 
 			<p:panel header="Usuarios">
 
@@ -91,24 +84,24 @@
 					<p:graphicImage value="images/rol.png" />
 				</p:commandLink>
 			</p:panel>
-			<p:panel header="Respuestas_Preguntas">
+			<p:panel header="Respuestas de Preguntas">
 
 				<p:commandLink action="respuestapregunta?faces-redirect=true">
-					<p:graphicImage value="images/usuarios.png" />
+					<p:graphicImage value="images/preguntasrespuesta.png" />
 				</p:commandLink>
 
 			</p:panel>
-	<p:panel header="Preguntas_Mòdulo">
+	<p:panel header="Preguntas del Mòdulo">
 
 				<p:commandLink action="preguntamodulo?faces-redirect=true">
-					<p:graphicImage value="images/usuarios.png" />
+					<p:graphicImage value="images/preguntafrecuentes.png" />
 				</p:commandLink>
 
 			</p:panel>
-				<p:panel header="Opciòn_Pregunta">
+				<p:panel header="Opciònes de Preguntas">
 
 				<p:commandLink action="opcionpregunta?faces-redirect=true">
-					<p:graphicImage value="images/usuarios.png" />
+					<p:graphicImage value="images/opciones.png" />
 				</p:commandLink>
 
 			</p:panel>
@@ -126,36 +119,8 @@
 					<p:graphicImage value="images/religion.png" />
 				</p:commandLink>
 			</p:panel>
-			<p:panel header="Dimensiones">
-
-				<p:commandLink action="dimension?faces-redirect=true">
-					<p:graphicImage value="images/dimension.png" />
-				</p:commandLink>
-			</p:panel>
-
-
-
-			<p:panel header="Opciones de Cuestionarios">
-
-				<p:commandLink action="opcion?faces-redirect=true">
-					<p:graphicImage value="images/opciones.png" />
-				</p:commandLink>
-			</p:panel>
-
-			<p:panel header="Dimensiones de las Preguntas">
-
-				<p:commandLink action="dimensionpregunta?faces-redirect=true">
-					<p:graphicImage value="images/dimensionpregunta.png" />
-				</p:commandLink>
-			</p:panel>
-
-			<p:panel header="Cuestionarios">
-
-				<p:commandLink action="cuestionario?faces-redirect=true">
-					<p:graphicImage value="images/pregunta.png" />
-				</p:commandLink>
-			</p:panel>
-
+			
+	
 			<p:panel header="Grado de Estudio">
 
 				<p:commandLink action="grado?faces-redirect=true">
@@ -169,33 +134,34 @@
 				</p:commandLink>
 			</p:panel>
 
-			<p:panel header="Asignar Investigador a Organización">
+			<p:panel header="Asignar Usuario a Proyectos">
 
 				<p:commandLink action="usuarioproyecto?faces-redirect=true">
-					<p:graphicImage value="images/userproyecto.png" />
+					<p:graphicImage value="images/proyeinves.png" />
 				</p:commandLink>
 			</p:panel>
 
 			<p:panel header="Registros de Cursos">
 
 				<p:commandLink action="cursoadmin?faces-redirect=true">
-					<p:graphicImage value="images/userproyecto.png" />
+					<p:graphicImage value="images/cursos1.png" />
 				</p:commandLink>
 			</p:panel>
 
 			<p:panel header="Registros de Módulo">
 
 				<p:commandLink action="modulo?faces-redirect=true">
-					<p:graphicImage value="images/userproyecto.png" />
+					<p:graphicImage value="images/modulo.png" />
 				</p:commandLink>
 			</p:panel>
 
 			<p:panel header="Asignar Módulo al Curso">
 
 				<p:commandLink action="cursomodulo?faces-redirect=true">
-					<p:graphicImage value="images/userproyecto.png" />
+					<p:graphicImage value="images/asignar.png" />
 				</p:commandLink>
 			</p:panel>
+
 
 			<div style="clear: both" />
 		</p:panelGrid>

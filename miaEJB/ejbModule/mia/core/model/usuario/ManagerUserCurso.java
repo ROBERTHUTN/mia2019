@@ -1,6 +1,7 @@
 package mia.core.model.usuario;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,11 +123,15 @@ public class ManagerUserCurso {
 		return usuaCursoMod;
 	}
 
-	public int obtenerResCorrectas(List<PreguntaModuloDTO> lp) {
+	public int obtenerResCorrectas(List<PreguntaModuloDTO> lp) throws Exception {
 
 		int respCorrectas = 0;
 
 		for (PreguntaModuloDTO pm : lp) {
+			if (pm.getRespuestacorrecta()==null) {
+				throw new Exception("El módulo "+pm.getModulo().getNombre()+" no tiene cargada las respuestas correctas \n Contáctese con el administrador") ;
+			}
+			System.out.println("pm.getRespuestacorrecta()"+pm.getRespuestacorrecta()+" pm.getRespuesta() "+pm.getRespuesta());
 			if (pm.getRespuestacorrecta().equals(pm.getRespuesta())) {
 				respCorrectas++;
 			}
@@ -268,20 +273,19 @@ public class ManagerUserCurso {
 	 */
 
 	public void editarAvanceCurso(UserCursoModuloDTO userCursoDto,UsuarioCursoModulo usuarioCursoModulo,List<PreguntaModuloDTO> preguntamoduloDTO) throws Exception {
-      
-		UsuarioCurso usercurseN = findUsuarioCursoById(userCursoDto.getIdUsuariocurso());
+	UsuarioCurso usercurseN = findUsuarioCursoById(userCursoDto.getIdUsuariocurso());
 		if (usercurseN == null) {
 			throw new Exception("Usuario Curso no existe en la base de datos!.");
 		}
 		porcentajeUsuarioCursoModulo(usuarioCursoModulo, preguntamoduloDTO);
 		String modulo = ConcatenarModulos(usercurseN, usuarioCursoModulo);
 		usercurseN.setModulorealizados(modulo);
-		
 		BigDecimal d=new BigDecimal(100);
-		if (Integer.parseInt(porcentajeAvanceCursoUsuario(usercurseN)+"")>100) {
+		if (Double.parseDouble(porcentajeAvanceCursoUsuario(usercurseN)+"")>100.00) {
 			usercurseN.setAvance(d);
 		}else {
 			usercurseN.setAvance(porcentajeAvanceCursoUsuario(usercurseN));
+		
 		}
 		em.merge(usercurseN);
 
@@ -290,16 +294,23 @@ public class ManagerUserCurso {
 		if (preguntamoduloDTO.isEmpty()) {
 			throw new Exception("Las respuestas del módulo están vacías!.");
 		}else {
+		
 			BigDecimal p=new BigDecimal(0);
 			double respuesta=0.0;
 			int totalPreguntas=preguntamoduloDTO.size();
+			
 			int respuestasCorrecta=obtenerResCorrectas(preguntamoduloDTO);
+		
 			int respuestasIncorrectas=totalPreguntas-respuestasCorrecta;
+		
 			respuesta=(respuestasCorrecta*100)/totalPreguntas;
+			DecimalFormat df=new DecimalFormat("#.00");
+			respuesta=Double.parseDouble(df.format(respuesta));
 			p=new BigDecimal(respuesta);
 			UsuarioCursoModulo uCM=findUsuarioCursoModuloById(usuarioCursoModulo.getIdUsuarioCursoModulo());
 			uCM.setAciertos(respuestasCorrecta);
 			uCM.setErrores(respuestasIncorrectas);
+		    p=p.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 			uCM.setAvance(p);
 			em.merge(uCM);
 		return p;
@@ -319,9 +330,9 @@ public class ManagerUserCurso {
 				respuesta=respuesta+Double.parseDouble(u.getAvance()+"");
 			}
 			if (respuesta>0.0) {
-
 				respuesta=respuesta/numMod;
 				bi=new BigDecimal(respuesta);
+				bi=bi.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 				return bi;
 			}
 			return bi;

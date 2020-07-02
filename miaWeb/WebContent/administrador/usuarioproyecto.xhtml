@@ -68,13 +68,13 @@
 						<p:outputLabel value="Usuario: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione un usuario"
-						value="#{beanAdministrador.id_ficha_fk}"
+						value="#{beanAdministrador.id_users_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione Usuario"
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanInvestigador.listaFichaUvoluntariado}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
+							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.usuario.idUsuario}" />
 					</p:selectOneMenu>
 
 			<p:outputLabel value="Proyecto: " />
@@ -95,7 +95,7 @@
 						requiredMessage="Seleccione una OrganizaciOn"
 						value="#{beanAdministrador.id_organizacion}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione una organizaciOn"
+						<f:selectItem itemLabel="Seleccione una organización"
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanAdministrador.organizaciones}" var="o"
@@ -139,7 +139,7 @@
 						</p:column>
 
 						<p:column headerText="Investigador">
-							<h:outputText value="#{r.fichaPersonal.usuario.nombres} #{r.fichaPersonal.usuario.apellidos}" />
+							<h:outputText value="#{r.usuario.nombres} #{r.usuario.apellidos}" />
 						</p:column>
 						
 						<p:column headerText="Proyecto">
@@ -198,13 +198,13 @@
 						<p:outputLabel value="Ficha: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione un Investigador"
-						value="#{beanAdministrador.id_ficha_fk}"
+						value="#{beanAdministrador.id_users_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione Investigador"
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanInvestigador.listaFichaU}" var="u"
-							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.idFicha}" />
+							itemLabel="#{u.usuario.nombres} #{u.usuario.apellidos}" itemValue="#{u.usuario.idUsuario}" />
 					</p:selectOneMenu>
 					
 					
@@ -227,7 +227,7 @@
 						value="#{beanAdministrador.id_organizacion}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione una organizaciOn"
-							noSelectionOption="true" />
+							noSelectionOption="true"/>
 						<f:selectItems
 							value="#{beanAdministrador.organizaciones}" var="o"
 							itemLabel="#{o.nombreOrganizacion}" itemValue="#{o.idOrganizacion}" />

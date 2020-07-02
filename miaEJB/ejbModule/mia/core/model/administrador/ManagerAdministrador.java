@@ -1,6 +1,7 @@
 package mia.core.model.administrador;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -124,6 +125,16 @@ public class ManagerAdministrador {
 		List<FichaPersonal> listaFichaPersonal = q.getResultList();
 		return listaFichaPersonal;
 	}
+	
+	public List<FichaPersonal> findAllFichaPersonalByIdUsuario(long id_user) {
+
+		Query q = em.createQuery("SELECT f FROM FichaPersonal f where f.usuario.idUsuario=?1");
+		q.setParameter(1, id_user);
+		@SuppressWarnings("unchecked")
+		List<FichaPersonal> listaFichaPersonal = new ArrayList<>();
+		 listaFichaPersonal = q.getResultList();
+		return listaFichaPersonal;
+	}
 	public List<Usuario> findAllUsuariosByRolUsuario() {
 
 		Query q = em.createQuery("SELECT DISTINCT u FROM Usuario u " + " where u.rol.idRol=?1",
@@ -148,7 +159,7 @@ public class ManagerAdministrador {
 		@SuppressWarnings("unchecked")
 		List<FichaPersonal> listaFichaPersonal = q.getResultList();
 		return listaFichaPersonal;
-	}
+	} 
 
 	public Rol findRolById(int id_rol) {
 		Rol rol = em.find(Rol.class, id_rol);
@@ -744,6 +755,7 @@ public class ManagerAdministrador {
 	
 	
 	
+	
 
 	public Organizacion findOrganizacionById(int id_organizacion) {
 		Organizacion organizacion = em.find(Organizacion.class, id_organizacion);
@@ -849,8 +861,19 @@ public class ManagerAdministrador {
 	}
 
 	public UsuarioProyecto findUsuarioProyectoById(long id_organizacionfichapersonal) {
+		
+		
 		UsuarioProyecto organizacionfichapersonal = em.find(UsuarioProyecto.class, id_organizacionfichapersonal);
 		return organizacionfichapersonal;
+
+	}
+	
+	public List<UsuarioProyecto> findUsuarioProyectoByIdUsuario(long id_usuario) {
+		Query q = em.createQuery("SELECT o FROM UsuarioProyecto o where o.usuario.idUsuario=?1 ", UsuarioProyecto.class);
+		q.setParameter(1, id_usuario);
+		@SuppressWarnings("unchecked")
+		List<UsuarioProyecto> listaUsuarioProyectoes = q.getResultList();
+		return listaUsuarioProyectoes ;
 
 	}
 
@@ -874,22 +897,42 @@ public class ManagerAdministrador {
 	 * 
 	 * }
 	 **/
-	public void ingresarUsuarioProyecto(UsuarioProyecto usuarioproyecto, long id_ficha_fk, long id_proyecto,
+	
+	
+	@SuppressWarnings("unchecked")
+	public boolean existeOrganizacionenUsuarioProyecto(int id_organizacion,long id_usuario,long id_proyecto) {
+		String JPQL = "SELECT o FROM UsuarioProyecto o WHERE o.organizacion.idOrganizacion="
+				+ id_organizacion+"and o.usuario.idUsuario="+id_usuario+" and o.proyectoInvestigacion.idProyectoInvestigacion="+ id_proyecto;
+		Query query = em.createQuery(JPQL, UsuarioProyecto.class);
+		List<UsuarioProyecto> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;	
+	}
+	
+	public void ingresarUsuarioProyecto(UsuarioProyecto usuarioproyecto, long id_usuario_fk, long id_proyecto,
 			int id_organizacion) throws Exception {
 
-		if (id_ficha_fk == 0 || id_proyecto == 0 || id_organizacion == 0) {
+		if (id_usuario_fk == 0 || id_proyecto == 0 || id_organizacion == 0) {
 			throw new Exception("Ingrese los datos del proyecto, encargado y organización.");
 		}
+		boolean existeOUP=existeOrganizacionenUsuarioProyecto(id_organizacion, id_usuario_fk ,id_proyecto);
+		if(existeOUP){
+			throw new Exception("Existe un investigador asignado al proyecto y organización.");
+		}
+		
 		/**
 		 * boolean existeAreaInteresFicha=existeOrganizacionFicha(id_area, id_ficha_fk);
 		 * if (existeAreaInteresFicha) { throw new Exception("Ya se encuentra el área
 		 * con el usuario"); }
 		 */
 		UsuarioProyecto nusuerproyecto = new UsuarioProyecto();
-		FichaPersonal ficha = findFichaPersonalById(id_ficha_fk);
+		Usuario usuario = findUsuarioById(id_usuario_fk);
 		Organizacion organizacion = findOrganizacionById(id_organizacion);
 		ProyectoInvestigacion proyecto = managerInvestigador.findProyectoInvestigacionById(id_proyecto);
-		nusuerproyecto.setFichaPersonal(ficha);
+		nusuerproyecto.setUsuario(usuario);		
 		nusuerproyecto.setOrganizacion(organizacion);
 		nusuerproyecto.setProyectoInvestigacion(proyecto);
 		nusuerproyecto.setFechaDe(usuarioproyecto.getFechaDe());
@@ -897,18 +940,18 @@ public class ManagerAdministrador {
 		em.persist(nusuerproyecto);
 	}
 
-	public void editarUsuarioProyecto(UsuarioProyecto usuarioproyectoA, long id_ficha_fk, long id_proyect,
+	public void editarUsuarioProyecto(UsuarioProyecto usuarioproyectoA, long id_usuario_fk, long id_proyect,
 			int id_organizacion) throws Exception {
 		UsuarioProyecto usuarioproyectoN = findUsuarioProyectoById(usuarioproyectoA.getIdUsuarioProyecto());
-		if (id_ficha_fk == 0 || id_organizacion == 0 || id_proyect == 0) {
+		if (id_usuario_fk == 0 || id_organizacion == 0 || id_proyect == 0) {
 			throw new Exception("Ingrese los datos del usuario y proyectos a editar.");
 		}
 
-		FichaPersonal ficha = findFichaPersonalById(id_ficha_fk);
+		Usuario usuario= findUsuarioById(id_usuario_fk);
 		Organizacion organizacion = findOrganizacionById(id_organizacion);
 		ProyectoInvestigacion proyecto = managerInvestigador.findProyectoInvestigacionById(id_proyect);
 		usuarioproyectoN.setOrganizacion(organizacion);
-		usuarioproyectoN.setFichaPersonal(ficha);
+		usuarioproyectoN.setUsuario(usuario);
 		usuarioproyectoN.setProyectoInvestigacion(proyecto);
 		usuarioproyectoN.setFechaDe(usuarioproyectoA.getFechaDe());
 		usuarioproyectoN.setFechaHasta(usuarioproyectoA.getFechaHasta());

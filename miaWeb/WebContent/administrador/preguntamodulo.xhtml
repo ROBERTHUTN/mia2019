@@ -106,24 +106,27 @@ type="preRenderView"></f:event>
 		<div class="ui-fluid">
 
 			<p:dataTable var="e" widgetVar="tabla1"
-				value="#{beanAdministrradorCuestionario.listaPreMo}" reflow="true"
-				rows="10" paginator="true"
+				value="#{beanAdministrradorCuestionario.listaPreMo}" sortBy="#{e.modulo.nombre}" expandableRowGroups="true" 
+				 paginator="true" 
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
 					<p:outputLabel value="Lista de Preguntas Módulos"></p:outputLabel>
 				</f:facet>
+					 <p:headerRow>
+            <p:column colspan="3">
+                <h:outputText value="#{e.modulo.nombre}" />
+            </p:column>
+        </p:headerRow>
+				
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{e.idPregunta}" />
 				</p:column>
 
 				<p:column headerText="Respuesta">
 					<h:outputText value="#{e.pregunta}" />
-				</p:column>
-					<p:column headerText="Módulo">
-					<h:outputText value="#{e.modulo.nombre}" />
-				</p:column>
-
+			</p:column>
+				
 				<p:column headerText="Opciones" style="width:100px;">
 					<p:commandButton icon="fa fa-pencil"
 						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarPreguntamodulo(e)}"
@@ -177,7 +180,7 @@ type="preRenderView"></f:event>
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanAdministrradorCuestionario.listaModulos}" var="reg"
-							itemLabel="#{reg.nombre}" itemValue="#{reg.idModulo}" />
+							itemLabel="#{reg.nombre} #{reg.idModulo}" itemValue="#{reg.idModulo}" />
 					</p:selectOneMenu>
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">

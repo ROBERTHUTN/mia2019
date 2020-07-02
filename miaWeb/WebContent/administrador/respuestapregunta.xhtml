@@ -107,7 +107,7 @@ type="preRenderView"></f:event>
 
 			<p:dataTable var="e" widgetVar="tabla1"
 				value="#{beanAdministrradorCuestionario.listaRespPreg}" reflow="true"
-				rows="10" paginator="true"
+			 paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
@@ -116,13 +116,13 @@ type="preRenderView"></f:event>
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{e.idRespuestapregunta}" />
 				</p:column>
-
+	<p:column headerText="Pregunta">
+					<h:outputText value="#{e.preguntamodulo.pregunta}" />
+				</p:column>
 				<p:column headerText="Respuesta">
 					<h:outputText value="#{e.respuesta}" />
 				</p:column>
-					<p:column headerText="Pregunta">
-					<h:outputText value="#{e.preguntamodulo.pregunta}" />
-				</p:column>
+				
 
 				<p:column headerText="Opciones" style="width:100px;">
 					<p:commandButton icon="fa fa-pencil"

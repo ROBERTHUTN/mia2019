@@ -79,6 +79,7 @@ public class BeanAdministrador implements Serializable {
 	 * revisar si se pueden llamar desde otra clase del investigador
 	 * */
    private long id_ficha_fk;
+   private long id_users_fk;
    private long id_proyecto;
    private int id_organizacion;
    private int reporte;
@@ -448,7 +449,7 @@ reporte=1;
 	 */
 	public void actionListenerIngresarUsuarioProyecto() {
 		try {
-			managerAdministrador.ingresarUsuarioProyecto( usuarioproyecto,id_ficha_fk, id_proyecto, id_organizacion);
+			managerAdministrador.ingresarUsuarioProyecto( usuarioproyecto,id_users_fk, id_proyecto, id_organizacion);
 			usuarioproyectos = managerAdministrador.findAllUsuarioProyectoes();
 			JSFUtil.crearMensajeInfo("Usuario y Proyecto creada correctamente");
 		} catch (Exception e) {
@@ -577,7 +578,7 @@ reporte=1;
 	public void actionListenerCargarUsuarioProyecto(UsuarioProyecto usuarioproyectoC) {
 		try {
 			usuarioproyectoE = usuarioproyectoC;
-			id_ficha_fk= usuarioproyectoC.getFichaPersonal().getIdFicha();
+			id_users_fk= usuarioproyectoC.getUsuario().getIdUsuario();
 			id_organizacion = usuarioproyectoC.getOrganizacion().getIdOrganizacion();
 			id_proyecto= usuarioproyectoC.getProyectoInvestigacion().getIdProyectoInvestigacion();
 		} catch (Exception e) {
@@ -954,6 +955,16 @@ reporte=1;
 
 	public void setListaOrgFi(List<OrganizacionFichapersonal> listaOrgFi) {
 		this.listaOrgFi = listaOrgFi;
+	}
+
+
+	public long getId_users_fk() {
+		return id_users_fk;
+	}
+
+
+	public void setId_users_fk(long id_users_fk) {
+		this.id_users_fk = id_users_fk;
 	}
 
 	

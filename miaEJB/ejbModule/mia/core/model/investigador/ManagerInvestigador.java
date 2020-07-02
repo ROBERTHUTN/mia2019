@@ -1,5 +1,6 @@
 package mia.core.model.investigador;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -148,7 +149,8 @@ public class ManagerInvestigador {
 		List<ProyectoInvestigacion> listaProyectoInvestigaciones = q.getResultList();
 		return listaProyectoInvestigaciones;
 	}
-
+	
+	
 	public ProyectoInvestigacion findProyectoInvestigacionById(long id_proyinvesti) {
 		ProyectoInvestigacion proyinvesti = em.find(ProyectoInvestigacion.class, id_proyinvesti);
 		return proyinvesti;
@@ -244,6 +246,24 @@ System.out.println(" 1");
 		Query q = em.createQuery("SELECT o FROM OrganizacionFichapersonal o", OrganizacionFichapersonal.class);
 		@SuppressWarnings("unchecked")
 		List<OrganizacionFichapersonal> listaOrganizacionFichapersonales = q.getResultList();
+		for (OrganizacionFichapersonal o : listaOrganizacionFichapersonales) {
+			List<FichaPersonal>fichas=managerAdministrador.findAllFichaPersonalByIdUsuario(o.getUsuario().getIdUsuario());
+			o.getUsuario().setFichaPersonals(fichas);;
+		}
+		return listaOrganizacionFichapersonales;
+	}
+	public List<OrganizacionFichapersonal> findAllOrganizacionFichapersonalesByOrganizacion(List<UsuarioProyecto>listaOrganizaciones) {
+		List<OrganizacionFichapersonal> listaOrganizacionFichapersonales = new ArrayList<>();
+		for (UsuarioProyecto u : listaOrganizaciones) {
+			Query q = em.createQuery("SELECT o FROM OrganizacionFichapersonal o where o.organizacion.idOrganizacion="
+		+u.getOrganizacion().getIdOrganizacion(), OrganizacionFichapersonal.class);
+			listaOrganizacionFichapersonales.addAll(q.getResultList());
+		}	
+	
+		for (OrganizacionFichapersonal o : listaOrganizacionFichapersonales) {
+			List<FichaPersonal>fichas=managerAdministrador.findAllFichaPersonalByIdUsuario(o.getUsuario().getIdUsuario());
+			o.getUsuario().setFichaPersonals(fichas);;
+		}
 		return listaOrganizacionFichapersonales;
 	}
 
@@ -272,7 +292,10 @@ System.out.println(" 1");
 
 	}
 
+	
+	
 	public void ingresarOrganizacionFichapersonal(long id_usuario_fk, int id_organizacion) throws Exception {
+	
 		if (id_usuario_fk == 0 || id_organizacion == 0) {
 			throw new Exception("Ingrese los datos del organizacion y la ficha personal.");
 		}

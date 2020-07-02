@@ -72,41 +72,156 @@ public class BeanReportePrePostEstadistico implements Serializable {
 		for (Reporteprepost rep: reporteUsuario) {
 			if(rep.getResAsesoriaEmocional().equals("Bajo"))
 			{
-				bgColor.add("rgba(255, 99, 132, 0.2)");
-			}else
-			{
-				bgColor.add("rgb(26,255, 26)");
+				if(rep.getAsesoriaEmocional()>=70)
+				{
+					bgColor.add("rgba(255, 99, 132, 0.2)");
+				}else{
+					if(rep.getAsesoriaEmocional()>=50 && rep.getAsesoriaEmocional()<70)
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}
+				}
+			}else if(rep.getResAsesoriaEmocional().equals("Alto")) {
+				
+				if(rep.getAsesoriaEmocional()>=70)
+				{
+					bgColor.add("rgb(26,255, 26)");
+				}else{
+					if(rep.getAsesoriaEmocional()>=50 && rep.getAsesoriaEmocional()<70)
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}
+				}
 			}
 			
 			if(rep.getResAutoconciencia().equals("Bajo"))
 			{
-				bgColor.add("rgba(255, 99, 132, 0.2)");
-			}else
-			{
-				bgColor.add("rgb(26,255, 26)");
+				if(rep.getAutoconciencia()>=70)
+				{
+					bgColor.add("rgba(255, 99, 132, 0.2)");
+				}else{
+					if(rep.getAutoconciencia()>=50 && rep.getAutoconciencia()<70)
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}
+				}
+			}else if(rep.getResAutoconciencia().equals("Alto")) {
+				
+				if(rep.getAutoconciencia()>=70)
+				{
+					bgColor.add("rgb(26,255, 26)");
+				}else{
+					if(rep.getAutoconciencia()>=50 && rep.getAutoconciencia()<70)
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}
+				}
 			}
+			
 			
 			if(rep.getResAutomotivacion().equals("Bajo"))
 			{
-				bgColor.add("rgba(255, 99, 132, 0.2)");
-			}else
-			{
-				bgColor.add("rgb(26,255, 26)");
+				if(rep.getAutomotivacion()>=70)
+				{
+					bgColor.add("rgba(255, 99, 132, 0.2)");
+				}else{
+					if(rep.getAutomotivacion()>=50 && rep.getAutomotivacion()<70)
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}
+				}
+			}else if(rep.getResAutomotivacion().equals("Alto")) {
+				
+				if(rep.getAutomotivacion()>=70)
+				{
+					bgColor.add("rgb(26,255, 26)");
+				}else{
+					if(rep.getAutomotivacion()>=50 && rep.getAutomotivacion()<70)
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}
+				}
 			}
+			
 			if(rep.getResControlEmocion().equals("Bajo"))
 			{
-				bgColor.add("rgba(255, 99, 132, 0.2)");
-			}else
-			{
-				bgColor.add("rgb(26,255, 26)");
+				if(rep.getControlEmocion()>=70)
+				{
+					bgColor.add("rgba(255, 99, 132, 0.2)");
+				}else{
+					if(rep.getControlEmocion()>=50 && rep.getControlEmocion()<70)
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}
+				}
+			}else if(rep.getResControlEmocion().equals("Alto")) {
+				
+				if(rep.getControlEmocion()>=70)
+				{
+					bgColor.add("rgb(26,255, 26)");
+				}else{
+					if(rep.getControlEmocion()>=50 && rep.getControlEmocion()<70)
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}
+				}
 			}
+			
+			
 			if(rep.getResInterpersonal().equals("Bajo"))
 			{
-				bgColor.add("rgba(255, 99, 132, 0.2)");
-			}else
-			{
-				bgColor.add("rgb(26,255, 26)");
+				if(rep.getInterpersonal()>=70)
+				{
+					bgColor.add("rgba(255, 99, 132, 0.2)");
+				}else{
+					if(rep.getInterpersonal()>=50 && rep.getInterpersonal()<70)
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}
+				}
+			}else if(rep.getResInterpersonal().equals("Alto")) {
+				
+				if(rep.getInterpersonal()>=70)
+				{
+					bgColor.add("rgb(26,255, 26)");
+				}else{
+					if(rep.getInterpersonal()>=50 && rep.getInterpersonal()<70)
+					{
+						bgColor.add("rgba(255, 196, 6, 0.2)");
+					}else
+					{
+						bgColor.add("rgba(255, 117, 6, 0.2)");
+					}
+				}
 			}
+			
 		}
 		dataSet.setBorderColor(bgColor);
 		dataSet.setBackgroundColor(bgColor);

@@ -14,6 +14,7 @@ import mia.core.model.entities.Organizacion;
 import mia.core.model.entities.OrganizacionFichapersonal;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioInteresArea;
+import mia.core.model.entities.UsuarioProyecto;
 import mia.core.model.investigador.ManagerInvestigador;
 import mia.core.model.login.view.controller.BeanLogin;
 import mia.modulos.view.util.JSFUtil;
@@ -52,9 +53,10 @@ public class BeanInvestigador implements Serializable {
 	private List<AreaInvestigacion> investigacionareas;
 	private List<OrganizacionFichapersonal> organizacionFichapersonales;
 	private List<FichaPersonal> listaFichaU;
+	private List<FichaPersonal> ListaFichaIduser;
 	private List<Usuario> listaUsuario;
 	private List<FichaPersonal> listaFichaUvoluntariado;
-	private List<Organizacion>listaOrganizaciones;
+	private List<UsuarioProyecto>listaOrganizaciones;
 	private List<UsuarioInteresArea> areainteres;
 	
 	@Inject 
@@ -66,9 +68,11 @@ public class BeanInvestigador implements Serializable {
 			investigacionareas= managerInvestigador.findAllAreaInvestigaciones();
 			listaFichaU=managerAdministrador.findAllFichaPersonalByRolUsuario();
 			 listaUsuario=managerAdministrador.findAllUsuariosByRolUsuario();
+			// ListaFichaIduser= managerAdministrador.findAllFichaPersonalByIdUsuario(id_usuario_f);
 			listaFichaUvoluntariado= managerAdministrador.findAllFichaPersonalVoluntariado();
-			listaOrganizaciones=managerAdministrador.findAllOrganizaciones();
-			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonales();
+			listaOrganizaciones=managerAdministrador.findUsuarioProyectoByIdUsuario(beanLogin.getLogin().getId_usuario());
+			// 
+			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonalesByOrganizacion(listaOrganizaciones);
 			areainteres=managerInvestigador.findAllUsuarioInteresAreaes();
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -311,13 +315,7 @@ public class BeanInvestigador implements Serializable {
 		this.listaFichaU = listaFichaU;
 	}
 
-	public List<Organizacion> getListaOrganizaciones() {
-		return listaOrganizaciones;
-	}
 
-	public void setListaOrganizaciones(List<Organizacion> listaOrganizaciones) {
-		this.listaOrganizaciones = listaOrganizaciones;
-	}
 
 	public long getId_ficha_fk() {
 		return id_ficha_fk;
@@ -381,6 +379,14 @@ public class BeanInvestigador implements Serializable {
 
 	public void setListaUsuario(List<Usuario> listaUsuario) {
 		this.listaUsuario = listaUsuario;
+	}
+
+	public List<UsuarioProyecto> getListaOrganizaciones() {
+		return listaOrganizaciones;
+	}
+
+	public void setListaOrganizaciones(List<UsuarioProyecto> listaOrganizaciones) {
+		this.listaOrganizaciones = listaOrganizaciones;
 	}
 	
 	

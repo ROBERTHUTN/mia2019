@@ -45,7 +45,7 @@
 			<p:tab id="IE0" title="Inteligencia Emocional">
 				<p:panel>
 			
-					<p:messages />
+				
 
 					<h:panelGrid columns="2" columnClasses="label, value">
  <h:outputText
@@ -63,14 +63,14 @@
 					header="Por favor en  cada frase, de la puntuación que crea es la más cercana, a su realidad.
 				 Teniendo en cuenta que 1 es menos y 7 más. Antes de responder hay que pensar en situaciones reales en las 
 				 que se ha usado dicha capacidad.">
-					<p:messages />
+			
 
-					<h:panelGrid columns="2" columnClasses="label, value">
+					<h:panelGrid columns="3" columnClasses="label, value">
 
 						<p:outputLabel for="uno"
 							value="1.Identifica cambios fisiológicos en su cuerpo al instante." />
 						<p:selectOneRadio id="uno" value="#{userWizard.user.uno}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 1">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -79,11 +79,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="uno"></p:message>
 
 						<p:outputLabel for="dos"
 							value="2.	Se relaja en situaciones de presión." />
 						<p:selectOneRadio id="dos" value="#{userWizard.user.dos}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 2">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -92,11 +93,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="dos"></p:message>
 
 						<p:outputLabel for="tres"
 							value="3. Puede actuar de modo productivo cuando se enfada" />
 						<p:selectOneRadio id="tres" value="#{userWizard.user.tres}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 3">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -105,11 +107,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="tres"></p:message>
 
 						<p:outputLabel for="cuatro"
 							value="4.	Actúa de modo productivo cuando se siente ansioso" />
 						<p:selectOneRadio id="cuatro" value="#{userWizard.user.cuatro}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 4">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -118,11 +121,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cuatro"></p:message>
 
 						<p:outputLabel for="cinco"
 							value="5. Cuando está enfadado puede tranquilizarse rápido" />
 						<p:selectOneRadio id="cinco" value="#{userWizard.user.cinco}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 5">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -131,11 +135,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cinco"></p:message>
 
 						<p:outputLabel for="seis"
 							value="6. Puede asociar diferentes estados físicos con las emociones que tiene." />
 						<p:selectOneRadio id="seis" value="#{userWizard.user.seis}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 6">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -144,11 +149,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="seis"></p:message>
 
 						<p:outputLabel for="siete"
 							value="7.Controlo mis estados emocionales usando mi diálogo interior" />
 						<p:selectOneRadio id="siete" value="#{userWizard.user.siete}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 7">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -157,11 +163,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="siete"></p:message>
 
 						<p:outputLabel for="ocho"
 							value="8. Puedo comunicar mis sentimientos fácilmente" />
 						<p:selectOneRadio id="ocho" value="#{userWizard.user.ocho}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 8">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -170,11 +177,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="ocho"></p:message>
 
 						<p:outputLabel for="nueve"
 							value="9. Tengo sentimientos negativos sin angustiarme." />
 						<p:selectOneRadio id="nueve" value="#{userWizard.user.nueve}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 9">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -183,11 +191,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="nueve"></p:message>
 
 						<p:outputLabel for="diez"
 							value="10. Mantengo la calma cuando soy parte  del enfado de otros." />
 						<p:selectOneRadio id="diez" value="#{userWizard.user.diez}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 10">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -196,6 +205,8 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="diez"></p:message>
+						
 
 					</h:panelGrid>
 				</p:panel>
@@ -205,13 +216,13 @@
 				<p:panel header="Por favor en  cada frase, de la puntuación que crea es la más cercana, a su realidad.
 				 Teniendo en cuenta que 1 es menos y 7 más. Antes de responder hay que pensar en situaciones reales en las 
 				 que se ha usado dicha capacidad.">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
+					
+					<h:panelGrid columns="3" columnClasses="label, value">
 
 						<p:outputLabel for="once"
 							value="11. Generalmente sé cuándo tengo pensamientos negativos" />
 						<p:selectOneRadio id="once" value="#{userWizard.user.once}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 11">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -220,11 +231,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="once"></p:message>
+						
 
 						<p:outputLabel for="doce"
 							value="12. Generalmente sé cuándo mi discurso interior es positivo" />
 						<p:selectOneRadio id="doce" value="#{userWizard.user.doce}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 12">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -233,12 +246,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="doce"></p:message>
 
 
 						<p:outputLabel for="trece"
 							value=" 13. Generalmente sé cuando empiezo a enfadarme" />
 						<p:selectOneRadio id="trece" value="#{userWizard.user.trece}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 13">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -247,11 +261,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="trece"></p:message>
 
 						<p:outputLabel for="catorce"
 							value=" 14. Generalmente sé cómo interpretar los acontecimientos " />
 						<p:selectOneRadio id="catorce" value="#{userWizard.user.catorce}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 14">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -260,11 +275,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="catorce"></p:message>
+						
 
 						<p:outputLabel for="quince"
 							value="15. Generalmente conozco qué sentimientos tengo." />
 						<p:selectOneRadio id="quince" value="#{userWizard.user.quince}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 15">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -273,12 +290,14 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="quince"></p:message>
+						
 
 						<p:outputLabel for="diesiceis"
 							value="16. Generalmente comunico con precisión lo que experimento" />
 						<p:selectOneRadio id="diesiceis"
 							value="#{userWizard.user.diesiceis}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 16">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -287,13 +306,15 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="diesiceis"></p:message>
+						
 
 
 						<p:outputLabel for="diecisiete"
 							value="17. Identifico la información que puede influir sobre mis interpretaciones." />
 						<p:selectOneRadio id="diecisiete"
 							value="#{userWizard.user.diecisiete}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 17">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -302,12 +323,14 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="diecisiete"></p:message>
+						
 
 						<p:outputLabel for="dieciocho"
 							value="18. Identifico mis cambios de humor" />
 						<p:selectOneRadio id="dieciocho"
 							value="#{userWizard.user.dieciocho}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 18">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -316,12 +339,14 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="dieciocho"></p:message>
+						
 
 						<p:outputLabel for="diecinueve"
 							value="19. Sé cuando puedo estar a la defensiva." />
 						<p:selectOneRadio id="diecinueve"
 							value="#{userWizard.user.diecinueve}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 19">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -330,11 +355,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="diecinueve"></p:message>
+						
 
 						<p:outputLabel for="veinte"
 							value="20. Medito el impacto que mi comportamiento tiene sobre los demás" />
 						<p:selectOneRadio id="veinte" value="#{userWizard.user.veinte}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 20">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -343,6 +370,8 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veinte"></p:message>
+						
 
 					</h:panelGrid>
 				</p:panel>
@@ -352,15 +381,15 @@
 				<p:panel header="Por favor en  cada frase, de la puntuación que crea es la más cercana, a su realidad.
 				 Teniendo en cuenta que 1 es menos y 7 más. Antes de responder hay que pensar en situaciones reales en las 
 				 que se ha usado dicha capacidad.">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
+				
+					<h:panelGrid columns="3" columnClasses="label, value">
 
 
 						<p:outputLabel for="veintiuno"
 							value="21.	Cuando no me he comunicado bien, me doy cuenta." />
 						<p:selectOneRadio id="veintiuno"
 							value="#{userWizard.user.veintiuno}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 21">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -369,12 +398,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veintiuno"></p:message>
 
 						<p:outputLabel for="veintidos"
 							value="22. Puedo detenerme proseguir cuando desee." />
 						<p:selectOneRadio id="veintidos"
 							value="#{userWizard.user.veintidos}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 22">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -383,13 +413,14 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veintidos"></p:message>
 
 
 						<p:outputLabel for="veintitres"
 							value="23. Me recupero rápido después de un contratiempo." />
 						<p:selectOneRadio id="veintitres"
 							value="#{userWizard.user.veintitres}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 23">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -398,12 +429,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veintitres"></p:message>
 
 						<p:outputLabel for="veinticuatro"
 							value="24. Completo tareas complejas dentro del tiempo previsto." />
 						<p:selectOneRadio id="veinticuatro"
 							value="#{userWizard.user.veinticuatro}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 24">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -412,12 +444,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veinticuatro"></p:message>
 
 						<p:outputLabel for="veinticinco"
 							value="25.	Puedo generar  energía positiva cuando realizo un trabajo poco interesante." />
 						<p:selectOneRadio id="veinticinco"
 							value="#{userWizard.user.veinticinco}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 25">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -426,12 +459,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veinticinco"></p:message>
 
 						<p:outputLabel for="veintiseis"
 							value="26. Soy Capaz de abandonar o cambiar hábitos inútiles." />
 						<p:selectOneRadio id="veintiseis"
 							value="#{userWizard.user.veintiseis}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 26">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -440,13 +474,14 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veintiseis"></p:message>
 
 
 						<p:outputLabel for="veintisiete"
 							value="27.	Puedo desarrollar nuevas pautas de conducta más productivas." />
 						<p:selectOneRadio id="veintisiete"
 							value="#{userWizard.user.veintisiete}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 27">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -455,11 +490,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veintisiete"></p:message>
 
 						<p:outputLabel for="veintiocho" value="28. Cumplo con mi palabra." />
 						<p:selectOneRadio id="veintiocho"
 							value="#{userWizard.user.veintiocho}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 28">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -468,12 +504,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veintiocho"></p:message>
 
 						<p:outputLabel for="veintinueve"
 							value="29.	Resuelvo conflictos con facilidad." />
 						<p:selectOneRadio id="veintinueve"
 							value="#{userWizard.user.veintinueve}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 29">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -482,11 +519,12 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="veintinueve"></p:message>
 
 						<p:outputLabel for="treinta"
 							value="30.	Logro consensos con los demás con facilidad." />
 						<p:selectOneRadio id="treinta" value="#{userWizard.user.treinta}"
-							required="true" unselectable="true">
+							required="true" unselectable="true" requiredMessage="Seleccione un item de pregunta 30">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -495,6 +533,7 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treinta"></p:message>
 
 
 					</h:panelGrid>
@@ -505,15 +544,15 @@
 				<p:panel header="Por favor en  cada frase, de la puntuación que crea es la más cercana, a su realidad.
 				 Teniendo en cuenta que 1 es menos y 7 más. Antes de responder hay que pensar en situaciones reales en las 
 				 que se ha usado dicha capacidad.">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
+	
+					<h:panelGrid columns="3" columnClasses="label, value">
 
 
 						<p:outputLabel for="treintayuno"
 							value="31.	Puedo mediar en los conflictos con los demás." />
 						<p:selectOneRadio id="treintayuno"
 							value="#{userWizard.user.treintayuno}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 31">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -522,12 +561,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
-
+						<p:message for="treintayuno"></p:message>
+		
 						<p:outputLabel for="treintaydos"
 							value="32.	Utilizo técnicas de comunicación eficaces." />
 						<p:selectOneRadio id="treintaydos"
 							value="#{userWizard.user.treintaydos}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 32">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -536,13 +576,14 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintaydos"></p:message>
 
 
 						<p:outputLabel for="treintaytres"
 							value="33. Expreso los pensamientos de mi grupo." />
 						<p:selectOneRadio id="treintaytres"
 							value="#{userWizard.user.treintaytres}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 33">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -551,12 +592,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintaytres"></p:message>
 
 						<p:outputLabel for="treintaycuatro"
 							value=" 34. Soy capaz de influir sobre los demás de forma directa o indirecta" />
 						<p:selectOneRadio id="treintaycuatro"
 							value="#{userWizard.user.treintaycuatro}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 34">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -565,12 +607,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintaycuatro"></p:message>
 
 						<p:outputLabel for="treintaycinco"
 							value="35. Fomento la confianza con los demás." />
 						<p:selectOneRadio id="treintaycinco"
 							value="#{userWizard.user.treintaycinco}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 35">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -579,12 +622,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintaycinco"></p:message>
 
 						<p:outputLabel for="treintayseis"
 							value="36. Construyo grupos de apoyo." />
 						<p:selectOneRadio id="treintayseis"
 							value="#{userWizard.user.treintayseis}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 36">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -593,13 +637,14 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintayseis"></p:message>
 
 
 						<p:outputLabel for="treintaysiete"
 							value="37. Hago que los demás se sientan bien." />
 						<p:selectOneRadio id="treintaysiete"
 							value="#{userWizard.user.treintaysiete}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 37">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -608,12 +653,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintaysiete"></p:message>
 
 						<p:outputLabel for="treintayocho"
 							value="38. Proporciono apoyo y consejos a los demás cuando es necesario." />
 						<p:selectOneRadio id="treintayocho"
 							value="#{userWizard.user.treintayocho}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 38">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -622,12 +668,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintayocho"></p:message>
 
 						<p:outputLabel for="treintaynueve"
 							value="39. Determino con facilidad  los sentimientos de las personas." />
 						<p:selectOneRadio id="treintaynueve"
 							value="#{userWizard.user.treintaynueve}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 39">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -636,12 +683,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="treintaynueve"></p:message>
 
 						<p:outputLabel for="cuarenta"
 							value="40. Me doy cuenta de la angustia de los demás." />
 						<p:selectOneRadio id="cuarenta"
 							value="#{userWizard.user.cuarenta}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 40">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -650,6 +698,7 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cuarenta"></p:message>
 
 
 					</h:panelGrid>
@@ -660,14 +709,14 @@
 				<p:panel header="Por favor en  cada frase, de la puntuación que crea es la más cercana, a su realidad.
 				 Teniendo en cuenta que 1 es menos y 7 más. Antes de responder hay que pensar en situaciones reales en las 
 				 que se ha usado dicha capacidad.">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
+					
+					<h:panelGrid columns="3" columnClasses="label, value">
 
 						<p:outputLabel for="cuarentayuno"
 							value="41. Ayudo a los demás a controlar sus emociones." />
 						<p:selectOneRadio id="cuarentayuno"
 							value="#{userWizard.user.cuarentayuno}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 41">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -676,12 +725,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cuarentayuno"></p:message>
 
 						<p:outputLabel for="cuarentaydos"
 							value="42. Muestro comprensión hacia los demás." />
 						<p:selectOneRadio id="cuarentaydos"
 							value="#{userWizard.user.cuarentaydos}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 42">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -690,12 +740,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cuarentaydos"></p:message>
 
 						<p:outputLabel for="cuarentaytres"
 							value="43. Puedo  entablar conversaciones íntimas con otras personas." />
 						<p:selectOneRadio id="cuarentaytres"
 							value="#{userWizard.user.cuarentaytres}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 43">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -704,12 +755,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cuarentaytres"></p:message>
 
 						<p:outputLabel for="cuarentaycuatro"
 							value="44.	Soy capaz de ayudar a un grupo a controlar sus emociones." />
 						<p:selectOneRadio id="cuarentaycuatro"
 							value="#{userWizard.user.cuarentaycuatro}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 44">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -718,12 +770,13 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cuarentaycuatro"></p:message>
 
 						<p:outputLabel for="cuarentaycinco"
 							value="45. Soy capaz de detectar incongruencias entre las emociones o sentimientos de los demás y sus conductas." />
 						<p:selectOneRadio id="cuarentaycinco"
 							value="#{userWizard.user.cuarentaycinco}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 45">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
@@ -732,6 +785,7 @@
 							<f:selectItem itemLabel="6" itemValue="6" />
 							<f:selectItem itemLabel="7" itemValue="7" />
 						</p:selectOneRadio>
+						<p:message for="cuarentaycinco"></p:message>
 
 					</h:panelGrid>
 				</p:panel>
@@ -740,7 +794,6 @@
 						<p:tab id="NE0" title="Nivel Estrés">
 				<p:panel>
 			
-					<p:messages />
 
 					<h:panelGrid columns="2" columnClasses="label, value">
  <h:outputText
@@ -758,68 +811,73 @@
 					<p:tab id="NE1" title="Parte 1">
 				<p:panel header="De la puntuación que crea es la más cercana,
 					  a su realidad. Con valores es 1 Siempre, 2 Casi Siempre, 3 Frecuentemente, 4 Casi Nunca, 5 Nunca.">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
+				
+					<h:panelGrid columns="3" columnClasses="label, value">
 
 						<p:outputLabel for="cuarentayseis"
 							value="46. Al menos cuatro noches a la semana duermo de siete a ocho horas." />
 						<p:selectOneRadio id="cuarentayseis"
 							value="#{userWizard.user.cuarentayseis}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 46">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+						<p:message for="cuarentayseis"></p:message>
 
 						<p:outputLabel for="cuarentaysiete"
 							value="47. En 50 kilómetros a la redonda poseo por lo menos una familia en que pueda confiar." />
 						<p:selectOneRadio id="cuarentaysiete"
 							value="#{userWizard.user.cuarentaysiete}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 47">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+						<p:message for="cuarentaysiete"></p:message>
 
 						<p:outputLabel for="cuarentayocho"
 							value="48.Por lo menos 2 veces por semana hago ejercicios hasta sudar." />
 				<p:selectOneRadio id="cuarentayocho"
 							value="#{userWizard.user.cuarentayocho}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 48">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+						<p:message for="cuarentayocho"></p:message>
 
 						<p:outputLabel for="cuarentaynueve"
 							value="49. Fumo menos de media cajetilla de cigarrillos al día." />
 						<p:selectOneRadio id="cuarentaynueve"
 							value="#{userWizard.user.cuarentaynueve}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 49">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+						<p:message for="cuarentaynueve"></p:message>
 
 						<p:outputLabel for="cincuenta"
 							value="50.Tomo menos de cinco tragos (de bebidas alcohólicas) a la semana." />
 						<p:selectOneRadio id="cincuenta"
 							value="#{userWizard.user.cincuenta}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 50">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+						<p:message for="cincuenta"></p:message>
 
 
 					
@@ -827,61 +885,66 @@
 							value="51. Tengo el peso apropiado para mi estatura." />
 						<p:selectOneRadio id="cincuentayuno"
 							value="#{userWizard.user.cincuentayuno}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 51">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentayuno"></p:message>
 
 						<p:outputLabel for="cincuentaydos"
 							value="52. Mis ingresos satisfacen mis gastos fundamentales." />
 						<p:selectOneRadio id="cincuentaydos"
 							value="#{userWizard.user.cincuentaydos}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 52">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentaydos"></p:message>
 
 						<p:outputLabel for="cincuentaytres"
 							value="53.Asisto regularmente a actividades sociales." />
 				<p:selectOneRadio id="cincuentaytres"
 							value="#{userWizard.user.cincuentaytres}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 53">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentaytres"></p:message>
 
 						<p:outputLabel for="cincuentaycuatro"
 							value="54. Tengo una red (grupo) de amigos conocidos." />
 						<p:selectOneRadio id="cincuentaycuatro"
 							value="#{userWizard.user.cincuentaycuatro}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 54">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentaycuatro"></p:message>
 
 						<p:outputLabel for="cincuentaycinco"
 							value="55.Tengo uno o más amigos a quienes puedo confiarle, mis problemas personales." />
 						<p:selectOneRadio id="cincuentaycinco"
 							value="#{userWizard.user.cincuentaycinco}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 55">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentaycinco"></p:message>
 					
 					</h:panelGrid>
 				</p:panel>
@@ -891,384 +954,397 @@
 				<p:panel header="
 				De la puntuación que crea es la más cercana,
 					  a su realidad. Con valores es 1 Siempre, 2 Casi Siempre, 3 Frecuentemente, 4 Casi Nunca, 5 Nunca.">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
+				
+					<h:panelGrid columns="3" columnClasses="label, value">
 
 						<p:outputLabel for="cincuentayseis"
 							value="56. Tengo buena salud (es decir, mi vista, oído, dentadura, están en buenas condiciones)." />
 						<p:selectOneRadio id="cincuentayseis"
 							value="#{userWizard.user.cincuentayseis}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 56">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentayseis"></p:message>
 
 						<p:outputLabel for="cincuentaysiete"
 							value="57. Converso regularmente sobre problemas domésticos(es decir, sobre tareas del hogar,   dinero, problemas de la vida cotidiana) con las personas que conviven conmigo." />
 						<p:selectOneRadio id="cincuentaysiete"
 							value="#{userWizard.user.cincuentaysiete}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 57">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentaysiete"></p:message>
 
 						<p:outputLabel for="cincuentayocho"
 							value="58.Por lo menos una vez a la semana hago algo para divertirme." />
 				<p:selectOneRadio id="cincuentayocho"
 							value="#{userWizard.user.cincuentayocho}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 58">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentayocho"></p:message>
 
 						<p:outputLabel for="cincuentaynueve"
 							value="59. Soy capaz de organizar efectivamente  mi tiempo." />
 						<p:selectOneRadio id="cincuentaynueve"
 							value="#{userWizard.user.cincuentaynueve}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 59">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="cincuentaynueve"></p:message>
 
 						<p:outputLabel for="sesenta"
 							value="60.Tomo al menos tres tazas de café, té o refrescos al día." />
 						<p:selectOneRadio id="sesenta"
 							value="#{userWizard.user.sesenta}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 60">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+							<p:message for="sesenta"></p:message>
 
 					
 						<p:outputLabel for="sesentayuno"
 							value="61.Durante el día me dedico a mí mismo, al menos un rato de tranquilidad." />
 						<p:selectOneRadio id="sesentayuno"
 							value="#{userWizard.user.sesentayuno}" required="true"
-							unselectable="true">
+							unselectable="true" requiredMessage="Seleccione un item de pregunta 61">
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
 						</p:selectOneRadio>
+						<p:message for="sesentayuno"></p:message>
 					
 					</h:panelGrid>
 				</p:panel>
 			</p:tab>
 				
 
-			<p:tab id="confirm" title="Confirmation">
-				<p:panel header="Confirmation">
-					<h:panelGrid id="confirmation" columns="8"
-						columnClasses="grid,grid,grid,grid,grid,grid,grid,grid">
+			<p:tab id="confirm" title="Confirmación">
+				<p:panel header="Respuestas del Nivel de estrés y Inteligencia Emocional ">
+					<h:panelGrid id="confirmation" columns="6"
+						columnClasses="grid,grid,grid,grid,grid,grid">
 
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="uno: " />
+						<h:panelGrid columns="2" columnClasses="label, value"   layout="grid" styleClass="showcase-text-align-center">
+							<h:outputText value=" Item uno:"/>
 							<h:outputText value="#{userWizard.user.uno}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="dos: " />
+							<h:outputText value="Item dos: " />
 							<h:outputText value="#{userWizard.user.dos}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="tres: " />
+							<h:outputText value="Item tres: " />
 							<h:outputText value="#{userWizard.user.tres}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="cuatro: " />
+							<h:outputText value="Item cuatro: " />
 							<h:outputText value="#{userWizard.user.cuatro}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="cinco: " />
+							<h:outputText value="Item cinco: " />
 							<h:outputText value="#{userWizard.user.cinco}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="seis: " />
+							<h:outputText value="Item seis: " />
 							<h:outputText value="#{userWizard.user.seis}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="siete: " />
+							<h:outputText value="Item siete: " />
 							<h:outputText value="#{userWizard.user.siete}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="ocho: " />
+							<h:outputText value="Item ocho: " />
 							<h:outputText value="#{userWizard.user.ocho}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="nueve: " />
+							<h:outputText value="Item nueve: " />
 							<h:outputText value="#{userWizard.user.nueve}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="diez: " />
+							<h:outputText value="Item diez: " />
 							<h:outputText value="#{userWizard.user.diez}"
 								styleClass="outputLabel" />
 						</h:panelGrid>
-
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="once: " />
+					
+						
+						<h:panelGrid columns="2" columnClasses="label, value"  layout="grid" styleClass="showcase-text-align-center">
+							<h:outputText value="Item once: " />
 							<h:outputText value="#{userWizard.user.once}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="doce: " />
+							<h:outputText value="Item doce: " />
 							<h:outputText value="#{userWizard.user.doce}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="trece: " />
+							<h:outputText value="Item trece: " />
 							<h:outputText value="#{userWizard.user.trece}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="catorce: " />
+							<h:outputText value="Item catorce: " />
 							<h:outputText value="#{userWizard.user.catorce}"
 								styleClass="outputLabel" />
 
-							<h:outputText value=" quince: " />
+							<h:outputText value="Item quince: " />
 							<h:outputText value="#{userWizard.user.quince}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="diesiceis: " />
+							<h:outputText value="Item diesiceis: " />
 							<h:outputText value="#{userWizard.user.diesiceis}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="diecisiete: " />
+							<h:outputText value=" Item diecisiete: " />
 							<h:outputText value="#{userWizard.user.diecisiete}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="dieciocho: " />
+							<h:outputText value="Item dieciocho: " />
 							<h:outputText value="#{userWizard.user.dieciocho}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="diecinueve: " />
+							<h:outputText value="Item diecinueve: " />
 							<h:outputText value="#{userWizard.user.diecinueve}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veinte: " />
+							<h:outputText value="Item veinte: " />
 							<h:outputText value="#{userWizard.user.veinte}"
 								styleClass="outputLabel" />
+								
+								</h:panelGrid>
 
-
-						</h:panelGrid>
-
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="veintiuno: " />
+				
+						
+						<h:panelGrid columns="2" columnClasses="label, value"  layout="grid" styleClass="showcase-text-align-center">
+							<h:outputText value="Item veintiuno: " />
 							<h:outputText value="#{userWizard.user.veintiuno}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veintidos: " />
+							<h:outputText value="Item veintidos: " />
 							<h:outputText value="#{userWizard.user.veintidos}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veintitres: " />
+							<h:outputText value="Item veintitres: " />
 							<h:outputText value="#{userWizard.user.veintitres}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veinticuatro: " />
+							<h:outputText value=" Item veinticuatro: " />
 							<h:outputText value="#{userWizard.user.veinticuatro}"
 								styleClass="outputLabel" />
 
-							<h:outputText value=" veinticinco: " />
+							<h:outputText value=" Item veinticinco: " />
 							<h:outputText value="#{userWizard.user.veinticinco}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veintiseis: " />
+							<h:outputText value="Item veintiseis: " />
 							<h:outputText value="#{userWizard.user.veintiseis}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veinticiete: " />
+							<h:outputText value="Item veinticiete: " />
 							<h:outputText value="#{userWizard.user.veintisiete}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veintiocho: " />
+							<h:outputText value="Item veintiocho: " />
 							<h:outputText value="#{userWizard.user.veintiocho}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="veintinueve: " />
+							<h:outputText value=" Item veintinueve: " />
 							<h:outputText value="#{userWizard.user.veintinueve}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treinta: " />
+							<h:outputText value="Item treinta: " />
 							<h:outputText value="#{userWizard.user.treinta}"
 								styleClass="outputLabel" />
 
 
 						</h:panelGrid>
 
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="treintayuno: " />
+						<h:panelGrid columns="2" columnClasses="label, value"  layout="grid" styleClass="showcase-text-align-center">
+							<h:outputText value=" Item treintayuno: " />
 							<h:outputText value="#{userWizard.user.treintayuno}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treintaydos: " />
+							<h:outputText value=" Item treintaydos: " />
 							<h:outputText value="#{userWizard.user.treintaydos}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treintaytres: " />
+							<h:outputText value="Item treintaytres: " />
 							<h:outputText value="#{userWizard.user.treintaytres}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treintaycuatro: " />
+							<h:outputText value="Item treintaycuatro: " />
 							<h:outputText value="#{userWizard.user.treintaycuatro}"
 								styleClass="outputLabel" />
 
-							<h:outputText value=" treintaycinco: " />
+							<h:outputText value="Item treintaycinco: " />
 							<h:outputText value="#{userWizard.user.treintaycinco}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treintayseis: " />
+							<h:outputText value="Item treintayseis: " />
 							<h:outputText value="#{userWizard.user.treintayseis}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treintaysiete: " />
+							<h:outputText value="Item treintaysiete: " />
 							<h:outputText value="#{userWizard.user.treintaysiete}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treintayocho: " />
+							<h:outputText value="Item treintayocho: " />
 							<h:outputText value="#{userWizard.user.treintayocho}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="treintaynueve: " />
+							<h:outputText value="Item treintaynueve: " />
 							<h:outputText value="#{userWizard.user.treintaynueve}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="cuarenta: " />
+							<h:outputText value="Item cuarenta: " />
 							<h:outputText value="#{userWizard.user.cuarenta}"
 								styleClass="outputLabel" />
 
 
 						</h:panelGrid>
 
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="cuarentayuno: " />
+						<h:panelGrid columns="2" columnClasses="label, value"  layout="grid" styleClass="showcase-text-align-center">
+							<h:outputText value="Item cuarentayuno: " />
 							<h:outputText value="#{userWizard.user.cuarentayuno}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="cuarentaydos: " />
+							<h:outputText value="Item cuarentaydos: " />
 							<h:outputText value="#{userWizard.user.cuarentaydos}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="cuarentaytres: " />
+							<h:outputText value="Item cuarentaytres: " />
 							<h:outputText value="#{userWizard.user.cuarentaytres}"
 								styleClass="outputLabel" />
 
-							<h:outputText value="cuarentaycuatro: " />
+							<h:outputText value="Item cuarentaycuatro: " />
 							<h:outputText value="#{userWizard.user.cuarentaycuatro}"
 								styleClass="outputLabel" />
 
-							<h:outputText value=" cuarentaycinco: " />
+							<h:outputText value="Item cuarentaycinco: " />
 							<h:outputText value="#{userWizard.user.cuarentaycinco}"
 								styleClass="outputLabel" />
 								
-							<h:outputText value=" cuarentayseis: " />
+							<h:outputText value="Item cuarentayseis: " />
 							<h:outputText value="#{userWizard.user.cuarentayseis}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cuarentaysiete: " />
+							<h:outputText value=" Item cuarentaysiete: " />
 							<h:outputText value="#{userWizard.user.cuarentaysiete}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cuarentayocho: " />
+							<h:outputText value="Item cuarentayocho: " />
 							<h:outputText value="#{userWizard.user.cuarentayocho}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cuarentaynueve: " />
+							<h:outputText value="Item cuarentaynueve: " />
 							<h:outputText value="#{userWizard.user.cuarentaynueve}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuenta: " />
+							<h:outputText value="Item cincuenta: " />
 							<h:outputText value="#{userWizard.user.cincuenta}"
 								styleClass="outputLabel" />
 								
+								</h:panelGrid>
+								
+								<h:panelGrid columns="2" columnClasses="label, value"  layout="flex" styleClass="showcase-text-align-center">
 							
-							<h:outputText value=" cincuentayuno: " />
+							<h:outputText value="Item cincuentayuno: " />
 							<h:outputText value="#{userWizard.user.cincuentayuno}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentaydos: " />
+							<h:outputText value="Item cincuentaydos: " />
 							<h:outputText value="#{userWizard.user.cincuentaydos}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentaytres: " />
+							<h:outputText value="Item cincuentaytres: " />
 							<h:outputText value="#{userWizard.user.cincuentaytres}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentaycuatro: " />
+							<h:outputText value="Item cincuentaycuatro: " />
 							<h:outputText value="#{userWizard.user.cincuentaycuatro}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentaycinco: " />
+							<h:outputText value="Item cincuentaycinco: " />
 							<h:outputText value="#{userWizard.user.cincuentaycinco}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentayseis: " />
+							<h:outputText value="Item cincuentayseis: " />
 							<h:outputText value="#{userWizard.user.cincuentayseis}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentaysiete: " />
+							<h:outputText value="Item cincuentaysiete: " />
 							<h:outputText value="#{userWizard.user.cincuentaysiete}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentayocho: " />
+							<h:outputText value="Item cincuentayocho: " />
 							<h:outputText value="#{userWizard.user.cincuentayocho}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" cincuentaynueve: " />
+							<h:outputText value="Item cincuentaynueve: " />
 							<h:outputText value="#{userWizard.user.cincuentaynueve}"
 								styleClass="outputLabel" />
 								
 								
-							<h:outputText value=" sesenta: " />
+							<h:outputText value="Item sesenta: " />
 							<h:outputText value="#{userWizard.user.sesenta}"
 								styleClass="outputLabel" />
 								
 
-							<h:outputText value=" sesentayuno: " />
+							<h:outputText value="Item sesentayuno: " />
 							<h:outputText value="#{userWizard.user.sesentayuno}"
 								styleClass="outputLabel" />
 								
 						</h:panelGrid>
 						
-					</h:panelGrid>
+					</h:panelGrid>	
 
 
 				</p:panel>
 
+				<div align="center">
 				<p:commandButton value="Realizar Encuesta" action="#{userWizard.save()}"
-					update="growl" process="@this" style="border:#FC1F0D;background-color:	#008000" />
+					update="growl" process="@this" style="border:#FC1F0D; background-color:#32CD32"  /></div>
 
 			</p:tab>
+			
 		</p:wizard>
 	
 <div align="left">
-<p:commandButton style="border:#FC1F0D;background-color:	#008000"  value="Atras" onclick="PF('wiz').back();"/>
+<p:commandButton style="border:#FC1F0D;background-color:#32CD32"  value="Atras" onclick="PF('wiz').back();"/>
 </div>	
 <div align="right">
-<p:commandButton  style="border:#FC1F0D;  background-color:	#008000" value="Siguiente" onclick="PF('wiz').next();"></p:commandButton>
+<p:commandButton  style="border:#FC1F0D;  background-color:#32CD32" value="Siguiente" onclick="PF('wiz').next();"></p:commandButton>
 </div>	
 	</h:form>
 

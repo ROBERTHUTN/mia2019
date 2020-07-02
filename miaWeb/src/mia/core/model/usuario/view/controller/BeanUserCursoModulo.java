@@ -56,6 +56,7 @@ public class BeanUserCursoModulo implements Serializable {
 	@SuppressWarnings("unused")
 	public String actionContestarModulo() {
 		try {
+			System.out.println("entdhdhddINIT");
 			PreguntaModuloDTO preguntaOpcionRespuestaDTO = new PreguntaModuloDTO();
 			List<Preguntamodulo> preguntamodul = managerCuestionario
 					.findAllPreguntamodulobymodulo(cursoMod.getModulo().getIdModulo());
@@ -71,6 +72,13 @@ public class BeanUserCursoModulo implements Serializable {
 
 	public String cargarModulo(UsuarioCursoModulo m) {
 		try {
+			
+			if(m.getCursoModulo().getOrdenCurso()==null)
+			{
+				System.out.println("entdhdhdd");
+				JSFUtil.crearMensajeError("El módulo no tiene un orden \n Contáctese con el administrador ");
+				return "";
+			}
 			usuarioCursoModuloC=m;
 			numeroModulo=m.getCursoModulo().getOrdenCurso();
 			cursoMod=m.getCursoModulo();

@@ -29,11 +29,6 @@ public class UsuarioProyecto implements Serializable {
 	@Column(name="fecha_hasta")
 	private Date fechaHasta;
 
-	//bi-directional many-to-one association to FichaPersonal
-	@ManyToOne
-	@JoinColumn(name="id_ficha")
-	private FichaPersonal fichaPersonal;
-
 	//bi-directional many-to-one association to Organizacion
 	@ManyToOne
 	@JoinColumn(name="id_organizacion")
@@ -43,6 +38,11 @@ public class UsuarioProyecto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_proyecto_investigacion")
 	private ProyectoInvestigacion proyectoInvestigacion;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
 
 	public UsuarioProyecto() {
 	}
@@ -71,14 +71,6 @@ public class UsuarioProyecto implements Serializable {
 		this.fechaHasta = fechaHasta;
 	}
 
-	public FichaPersonal getFichaPersonal() {
-		return this.fichaPersonal;
-	}
-
-	public void setFichaPersonal(FichaPersonal fichaPersonal) {
-		this.fichaPersonal = fichaPersonal;
-	}
-
 	public Organizacion getOrganizacion() {
 		return this.organizacion;
 	}
@@ -93,6 +85,14 @@ public class UsuarioProyecto implements Serializable {
 
 	public void setProyectoInvestigacion(ProyectoInvestigacion proyectoInvestigacion) {
 		this.proyectoInvestigacion = proyectoInvestigacion;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

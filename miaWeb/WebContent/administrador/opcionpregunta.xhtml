@@ -106,13 +106,19 @@ type="preRenderView"></f:event>
 		<div class="ui-fluid">
 
 			<p:dataTable var="e" widgetVar="tabla1"
-				value="#{beanAdministrradorCuestionario.listaOpcPre}" reflow="true"
-				rows="10" paginator="true"
+				value="#{beanAdministrradorCuestionario.listaOpcPre}" sortBy="#{e.preguntamodulo.pregunta}" expandableRowGroups="true" 
+				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
 					<p:outputLabel value="Lista de Opciones preguntas"></p:outputLabel>
 				</f:facet>
+				
+				 <p:headerRow>
+            <p:column colspan="3">
+                <h:outputText value="#{e.preguntamodulo.pregunta}" />
+            </p:column>
+        </p:headerRow>
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{e.idOpcionpregunta}" />
 				</p:column>
@@ -120,11 +126,8 @@ type="preRenderView"></f:event>
 				<p:column headerText="Opciòn">
 					<h:outputText value="#{e.opcion}" />
 				</p:column>
-					<p:column headerText="Pregunta">
-					<h:outputText value="#{e.preguntamodulo.pregunta}" />
-				</p:column>
-
-				<p:column headerText="Dimensiones" style="width:100px;">
+			
+				<p:column headerText="Opciones" style="width:100px;">
 					<p:commandButton icon="fa fa-pencil"
 						actionListener="#{beanAdministrradorCuestionario.actionListenerCargarOpcionpregunta(e)}"
 						onclick="PF('editardimension').show();" title="Editar"

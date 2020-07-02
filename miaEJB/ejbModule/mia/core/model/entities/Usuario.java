@@ -61,6 +61,10 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<UsuarioCurso> usuarioCursos;
 
+	//bi-directional many-to-one association to UsuarioProyecto
+	@OneToMany(mappedBy="usuario")
+	private List<UsuarioProyecto> usuarioProyectos;
+
 	public Usuario() {
 	}
 
@@ -258,6 +262,28 @@ public class Usuario implements Serializable {
 		usuarioCurso.setUsuario(null);
 
 		return usuarioCurso;
+	}
+
+	public List<UsuarioProyecto> getUsuarioProyectos() {
+		return this.usuarioProyectos;
+	}
+
+	public void setUsuarioProyectos(List<UsuarioProyecto> usuarioProyectos) {
+		this.usuarioProyectos = usuarioProyectos;
+	}
+
+	public UsuarioProyecto addUsuarioProyecto(UsuarioProyecto usuarioProyecto) {
+		getUsuarioProyectos().add(usuarioProyecto);
+		usuarioProyecto.setUsuario(this);
+
+		return usuarioProyecto;
+	}
+
+	public UsuarioProyecto removeUsuarioProyecto(UsuarioProyecto usuarioProyecto) {
+		getUsuarioProyectos().remove(usuarioProyecto);
+		usuarioProyecto.setUsuario(null);
+
+		return usuarioProyecto;
 	}
 
 }

@@ -116,45 +116,31 @@ msm=nameArr[0]+'\n \n'+nameArr[1];
 						<p:graphicImage value="images/curso.png" />
 				</p:commandLink>
 				<p:commandLink rendered="#{beanUserCurso.dias gt 0}" >
-						<p:graphicImage value="images/curso.png" onclick="return myFunction('#{beanUserCurso.mensajeDias}') " />
+						<p:graphicImage value="images/pregunta.png" onclick="return myFunction('#{beanUserCurso.mensajeDias}') " />
 				</p:commandLink>		
 				   
 				</h:form>
 			</p:panel>
 
-			<p:panel id="weather" header="Curso de Metodología">
-				<h:form>
-					<p:commandLink action="curso?faces-redirect=true">
-						<p:graphicImage value="images/curso.png" />
-					</p:commandLink>
-				</h:form>
-			</p:panel>
-
-			<p:panel id="inscripcion" header="Inscripción Curso">
+		
+			<p:panel id="inscripcion" header="Inscripción Curso y Lista de Cursos">
 				<h:form>
 					<p:commandLink action="inscripcioncurso?faces-redirect=true">
-						<p:graphicImage value="images/curso.png" />
+						<p:graphicImage value="images/cursos.png" />
 					</p:commandLink>
 				</h:form>
 			</p:panel>
 
 
-			<p:panel id="userCurso" header="Cursos">
-				<h:form>
-					<p:commandLink action="moduloCurso?faces-redirect=true">
-						<p:graphicImage value="images/curso.png" />
-					</p:commandLink>
-				</h:form>
-			</p:panel>
-
+		
 			<p:panel id="resultado" header="Resultado Diagnostico">
 				<h:form>
 					<p:commandLink action="resultadoTest2?faces-redirect=true">
-						<p:graphicImage value="images/curso.png" />
+						<p:graphicImage value="images/estadistica.png" />
 					</p:commandLink>
 				</h:form>
 			</p:panel>
-
+<!-- 
 			<p:panel id="pruebas" header="Pruebas ">
 				<h:form>
 					<p:commandLink action="inteligenciaEmocional?faces-redirect=true">
@@ -162,6 +148,7 @@ msm=nameArr[0]+'\n \n'+nameArr[1];
 					</p:commandLink>
 				</h:form>
 			</p:panel>
+			 -->
 
 			<div style="clear: both" />
 		</p:panelGrid>

@@ -114,22 +114,23 @@ type="preRenderView"></f:event>
 	<h:form id="form2">
 		<div class="ui-fluid">
 
-			<p:dataTable var="e" widgetVar="tabla1"
-				value="#{beanCurso.cursomodulos}" reflow="true"
-				rows="10" paginator="true"
+			<p:dataTable var="e" widgetVar="tabla1" sortBy="#{e.curso.nombre}" expandableRowGroups="true" 
+				value="#{beanCurso.cursomodulos}" 
+				 paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
 					<p:outputLabel value="Lista de curso y Módulo "></p:outputLabel>
 				</f:facet>
+				 <p:headerRow>
+            <p:column colspan="4">
+                <h:outputText value="#{e.curso.nombre}" />
+            </p:column>
+        </p:headerRow>
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{e.idCursoModulo}" />
 				</p:column>
 
-				<p:column headerText="Curso">
-					<h:outputText value="#{e.curso.nombre}" />
-				</p:column>
-				
 				<p:column headerText="Módulo">
 					<h:outputText value="#{e.modulo.nombre}" />
 				</p:column>
@@ -199,6 +200,10 @@ type="preRenderView"></f:event>
 							value="#{beanCurso.modulos}" var="reg"
 							itemLabel="#{reg.nombre}" itemValue="#{reg.idModulo}" />
 					</p:selectOneMenu>
+					
+				<p:column headerText="Orden ">
+					<h:outputText value="#{beanCurso.orden}" />
+				</p:column>
 
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">

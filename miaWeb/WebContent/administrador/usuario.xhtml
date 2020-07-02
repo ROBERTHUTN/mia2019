@@ -166,14 +166,18 @@
 <h:form id="form2">
 <div class="ui-fluid" style="margin-top: 10px; ">
 
-			<p:dataTable var="r" widgetVar="tabla1" rendered="#{!beanAdministrador.usuarioOrganizacion}"
-				value="#{beanAdministrador.usuarios}" reflow="true" rows="10"
+			<p:dataTable var="r" widgetVar="tabla1" rendered="#{!beanAdministrador.usuarioOrganizacion}" sortBy="#{r.rol.nombreRol}" expandableRowGroups="true"
+				value="#{beanAdministrador.usuarios}" 
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
-				<f:facet name="header">
-					<p:outputLabel value="Lista de Usuarios"></p:outputLabel>
-				</f:facet>
+					 <p:headerRow>
+            <p:column colspan="7">
+                <h:outputText value="#{r.rol.nombreRol}" />
+            </p:column>
+        </p:headerRow>
+				
+				
 				<p:column headerText="Id" style="width:50px">
 					<h:outputText value="#{r.idUsuario}" />
 				</p:column>
@@ -190,9 +194,7 @@
 				<p:column headerText="Correo">
 					<h:outputText value="#{r.correo}" />
 				</p:column>
-				<p:column headerText="Rol" style="width:100px">
-					<h:outputText value="#{r.rol.nombreRol}" />
-				</p:column>
+				
 				<p:column headerText="Activo" style="width:50px">
 					<h:outputText value="#{r.activo}" />
 				</p:column>
