@@ -14,6 +14,7 @@ import mia.core.model.cuestionario.dto.CuestionarioDTO;
 import mia.core.model.cuestionario.dto.DimensionDTO;
 import mia.core.model.cuestionario.dto.InicioDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
+import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.DimensionPregunta;
@@ -45,7 +46,7 @@ public class BeanAdministrradorCuestionario implements Serializable {
 	private int contador;
 private long id_modulo_fk;
 private long id_pregunta_modulo_fk;
-
+ private Preguntamodulo preguntaModuloE;
 	private Date fechaRealizacion;
 	private Opcionpregunta opcionPreIng= new Opcionpregunta();
 	private Opcionpregunta opcionPreE= new Opcionpregunta();
@@ -57,7 +58,9 @@ private long id_pregunta_modulo_fk;
 //OPCIONPREGUNTA
 private 	List<Respuestapregunta> listaRespPreg;
 private 	List<Preguntamodulo> listaPreMo;
+private 	List<Preguntamodulo> listaPreguntasSinRespuesta;
 private 	List<Opcionpregunta> listaOpcPre;
+private 	List<Opcionpregunta> listaOpcPreE;
 
 //FICHA_
 	
@@ -113,6 +116,7 @@ private 	List<Opcionpregunta> listaOpcPre;
 			listaOpcPre=managerCuestionario.findAllOpcionpregunta();
 			listaRespPreg=managerCuestionario.findAllRespuestapregunta();
 			listaPreMo=managerCuestionario.findAllPreguntamodulo();
+		   listaPreguntasSinRespuesta=managerCuestionario.findAllPreguntamodulo();
 			cuestionarios = managerCuestionario.findAllCuestionarioes();
 			cuestionarioDto = managerCuestionario.cargarCuestionarios(cuestionarios);
 			inicioDTO.setListaCuestionariosDto(cuestionarioDto);
@@ -126,7 +130,13 @@ private 	List<Opcionpregunta> listaOpcPre;
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
-
+public void actionListenercargarOpcionesPreguntas() {
+	listaOpcPreE=managerCuestionario.findAllOpcionpreguntabypregunta(id_pregunta_modulo_fk)	;
+	if (listaOpcPreE.isEmpty()) {
+		JSFUtil.crearMensajeError("Las opciones de la pregunta no existen \n"
+				+ " Contáctese con el administrador");
+	}
+}
 	public void regresarAtras() {
 		listaDimensionesDto.set(contador, listaDimensionActualDto.get(0));
 		contador--;
@@ -296,8 +306,11 @@ private 	List<Opcionpregunta> listaOpcPre;
 
 	}
 	public void actionListenerCargarRespuestapregunta(Respuestapregunta resPreg) {
+		
 		respPregE=resPreg;
+		preguntaModuloE=resPreg.getPreguntamodulo();
 		id_pregunta_modulo_fk=resPreg.getPreguntamodulo().getIdPregunta();
+		listaOpcPreE=managerCuestionario.findAllOpcionpreguntabypregunta(id_pregunta_modulo_fk)	;
 	}
 	public void actionListenerEditarPreguntamodulo() {
 		try {
@@ -485,7 +498,6 @@ listaPreMo=managerCuestionario.findAllPreguntamodulo();
 	}
 	public String actionIngresarRespuestaPregunta() {
 		try {
-
 			managerCuestionario.ingresarRespuestapregunta(respPregIng,id_pregunta_modulo_fk);
 			listaRespPreg=managerCuestionario.findAllRespuestapregunta();
 			JSFUtil.crearMensajeInfo("Respuesta pregunta creada correctamente");
@@ -1083,6 +1095,28 @@ listaPreMo=managerCuestionario.findAllPreguntamodulo();
 
 	public void setId_pregunta_modulo_fk(long id_pregunta_modulo_fk) {
 		this.id_pregunta_modulo_fk = id_pregunta_modulo_fk;
+	}
+
+	public List<Preguntamodulo> getListaPreguntasSinRespuesta() {
+		return listaPreguntasSinRespuesta;
+	}
+
+	public void setListaPreguntasSinRespuesta(List<Preguntamodulo> listaPreguntasSinRespuesta) {
+		this.listaPreguntasSinRespuesta = listaPreguntasSinRespuesta;
+	}
+
+	public Preguntamodulo getPreguntaModuloE() {
+		return preguntaModuloE;
+	}
+
+	public void setPreguntaModuloE(Preguntamodulo preguntaModuloE) {
+		this.preguntaModuloE = preguntaModuloE;
+	}
+	public List<Opcionpregunta> getListaOpcPreE() {
+		return listaOpcPreE;
+	}
+	public void setListaOpcPreE(List<Opcionpregunta> listaOpcPreE) {
+		this.listaOpcPreE = listaOpcPreE;
 	}
 	
 

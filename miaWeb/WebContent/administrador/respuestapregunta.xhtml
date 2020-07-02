@@ -62,26 +62,23 @@ type="preRenderView"></f:event>
 		<h:form id="form1">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
-
-					<p:outputLabel value="Respuesta:" />
-					<p:inputText
-						value="#{beanAdministrradorCuestionario.respPregIng.respuesta}"
-						required="true"
-						requiredMessage="Ingrese la respuesta"
-						maxlength="69">
-					</p:inputText>
-
-					<p:outputLabel value="Preguntas módulos: " />
+	<p:outputLabel value="Preguntas módulos: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione la pregunta módulo"
 						value="#{beanAdministrradorCuestionario.id_pregunta_modulo_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
+						<p:ajax listener="#{beanAdministrradorCuestionario.actionListenercargarOpcionesPreguntas()}" update="city" />
 						<f:selectItem itemLabel="Seleccione Pregunta moódulo"
 							noSelectionOption="true" />
 						<f:selectItems
 							value="#{beanAdministrradorCuestionario.listaPreMo}" var="reg"
 							itemLabel="#{reg.pregunta}" itemValue="#{reg.idPregunta}" />
 					</p:selectOneMenu>
+			 <p:outputLabel for="city" value="Opciones de la pregunta: " />
+            <p:selectOneMenu id="city" value="#{beanAdministrradorCuestionario.respPregIng.respuesta}" required="true" requiredMessage="Seleccione una opción">
+                <f:selectItem itemLabel="Seleccione una opción de la pregunta" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{beanAdministrradorCuestionario.listaOpcPreE}" var="r" itemValue="#{r.opcion}" itemLabel="#{r.opcion}" />
+            </p:selectOneMenu>
 
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
@@ -149,36 +146,21 @@ type="preRenderView"></f:event>
 
 
 	<p:dialog header="Editar Respuesta Pregunta" widgetVar="editardimension"
-		id="editardimension" modal="true" height="330" resizable="true"
+		id="editardimension" modal="true" height="270" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		<h:form id="form10">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
-					<p:outputLabel value="ID:" />
-					<p:inputText
-						value="#{beanAdministrradorCuestionario.respPregE.idRespuestapregunta}"
-						required="true" disabled="true">
-					</p:inputText>
+					
 					<p:outputLabel value="Respuesta:" />
-					<p:inputText
-						value="#{beanAdministrradorCuestionario.respPregE.respuesta}"
-						required="true"
-						requiredMessage="Ingrese la respuesta"
-						maxlength="69">
-					</p:inputText>
+            <p:selectOneMenu id="city" value="#{beanAdministrradorCuestionario.respPregE.respuesta}" required="true" requiredMessage="Seleccione una opción">
+                <f:selectItem itemLabel="Seleccione una opción de la pregunta" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{beanAdministrradorCuestionario.listaOpcPreE}" var="r" itemValue="#{r.opcion}" itemLabel="#{r.opcion}" />
+            </p:selectOneMenu>
 
 					<p:outputLabel value="Pregunta módulo: " />
-					<p:selectOneMenu autoWidth="100%" required="true"
-						requiredMessage="Seleccione una pregunta módulo"
-						value="#{beanAdministrradorCuestionario.id_pregunta_modulo_fk}"
-						effect="fade" filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione Respuesta Pregunta"
-							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanAdministrradorCuestionario.listaPreMo}" var="reg"
-							itemLabel="#{reg.pregunta}" itemValue="#{reg.idPregunta}" />
-					</p:selectOneMenu>
+			<p:inputTextarea value="#{beanAdministrradorCuestionario.preguntaModuloE.pregunta}" disabled="true" ></p:inputTextarea>
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"

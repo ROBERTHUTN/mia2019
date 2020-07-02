@@ -83,7 +83,13 @@ public class ManagerCuestionario {
 		}
 		return d;
 	}
-	
+	public List<Preguntamodulo> findAllPreguntamodulo() {
+
+		Query q = em.createQuery("SELECT p FROM Preguntamodulo p", Preguntamodulo.class);
+		@SuppressWarnings("unchecked")
+		List<Preguntamodulo> listaPreguntamodulo = q.getResultList();
+		return listaPreguntamodulo;
+	}
 	public List<Opcion> findAllOpciones() {
 
 		Query q = em.createQuery("SELECT o FROM Opcion o", Opcion.class);
@@ -199,7 +205,7 @@ public class ManagerCuestionario {
 		return listaRespuestapregunta;
 	}
 
-	public List<Preguntamodulo> findAllPreguntamodulo() {
+	public List<Preguntamodulo> findAllPreguntamoduloSinResponder() {
 
 		Query q = em.createQuery("SELECT p FROM Preguntamodulo p", Preguntamodulo.class);
 		@SuppressWarnings("unchecked")
@@ -522,6 +528,20 @@ return r;
 		} else
 			return true;
 	}
+	@SuppressWarnings("unchecked")
+	public boolean preguntaContestada(long idPregunta) {
+
+		String JPQL = "SELECT r FROM Respuestapregunta r "
+				+ "WHERE " + "r.preguntamodulo.idPregunta=?1";
+		Query query = em.createQuery(JPQL, Respuestapregunta.class);
+		query.setParameter(1, idPregunta);
+		List<Respuestapregunta> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public boolean existeNombrePreguntaModulo(long idModulo, String pregunta) {
@@ -625,9 +645,14 @@ System.out.println("ENTRA");
 		if (existeRespuestaPregunta) {
 			throw new Exception("La respuesta pregunta " + respuestaPregunta.getRespuesta()+ " ya existe");
 		}
+		boolean existeRespuesta=preguntaContestada(id_pregunta_modulo_fk);
 
 		Preguntamodulo preMo = managerCuestionario
 				.findPreguntamoduloById(id_pregunta_modulo_fk);
+		if (existeRespuesta) {
+			throw new Exception("La pregunta " + preMo.getPregunta()+ " ya tiene una respuesta");
+		}
+
 		Respuestapregunta resPreg= new Respuestapregunta();
 		resPreg.setRespuesta(respuestaPregunta.getRespuesta());
 		resPreg.setPreguntamodulo(preMo);
