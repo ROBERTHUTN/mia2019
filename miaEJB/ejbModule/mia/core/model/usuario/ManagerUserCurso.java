@@ -131,7 +131,6 @@ public class ManagerUserCurso {
 			if (pm.getRespuestacorrecta()==null) {
 				throw new Exception("El módulo "+pm.getModulo().getNombre()+" no tiene cargada las respuestas correctas \n Contáctese con el administrador") ;
 			}
-			System.out.println("pm.getRespuestacorrecta()"+pm.getRespuestacorrecta()+" pm.getRespuesta() "+pm.getRespuesta());
 			if (pm.getRespuestacorrecta().equals(pm.getRespuesta())) {
 				respCorrectas++;
 			}
@@ -277,6 +276,7 @@ public class ManagerUserCurso {
 		if (usercurseN == null) {
 			throw new Exception("Usuario Curso no existe en la base de datos!.");
 		}
+
 		porcentajeUsuarioCursoModulo(usuarioCursoModulo, preguntamoduloDTO);
 		String modulo = ConcatenarModulos(usercurseN, usuarioCursoModulo);
 		usercurseN.setModulorealizados(modulo);
@@ -303,9 +303,7 @@ public class ManagerUserCurso {
 		
 			int respuestasIncorrectas=totalPreguntas-respuestasCorrecta;
 		
-			respuesta=(respuestasCorrecta*100)/totalPreguntas;
-			DecimalFormat df=new DecimalFormat("#.00");
-			respuesta=Double.parseDouble(df.format(respuesta));
+			respuesta=Math.round((respuestasCorrecta*100)/totalPreguntas);
 			p=new BigDecimal(respuesta);
 			UsuarioCursoModulo uCM=findUsuarioCursoModuloById(usuarioCursoModulo.getIdUsuarioCursoModulo());
 			uCM.setAciertos(respuestasCorrecta);
