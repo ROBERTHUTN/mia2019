@@ -2,28 +2,34 @@ package mia.core.model.investigador.view.controller;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.RowEditEvent;
+
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.entities.AreaInvestigacion;
-
+import mia.core.model.entities.Curso;
 import mia.core.model.entities.FichaPersonal;
-import mia.core.model.entities.Organizacion;
 import mia.core.model.entities.OrganizacionFichapersonal;
 import mia.core.model.entities.Usuario;
+import mia.core.model.entities.UsuarioCurso;
+import mia.core.model.entities.UsuarioCursoModulo;
 import mia.core.model.entities.UsuarioInteresArea;
 import mia.core.model.entities.UsuarioProyecto;
 import mia.core.model.investigador.ManagerInvestigador;
 import mia.core.model.login.view.controller.BeanLogin;
+import mia.core.model.usuario.ManagerUserCurso;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class BeanInvestigador implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -38,6 +44,13 @@ public class BeanInvestigador implements Serializable {
 	private AreaInvestigacion areaInvestigacionE;
 	private OrganizacionFichapersonal organizacionFichapersonalE;
 	private UsuarioInteresArea UsuarioInteresAreaE; 
+	private UsuarioCurso usuarioCursoIng=new UsuarioCurso();
+	private UsuarioCurso usuarioCursoAct=new UsuarioCurso();
+	private UsuarioCurso usuarioCursoEdit=new UsuarioCurso();
+	private List<UsuarioCurso> listaUsuariosCursos;
+	private List<UsuarioCursoModulo> listaUsuariosCursosModulos=new ArrayList<UsuarioCursoModulo>();;
+	private boolean ingresadoModulos;
+	private UsuarioCursoModulo usuarioCursoModuloE;
 	
 //claves foraneas
 	private int id_rol_fk;
@@ -49,6 +62,8 @@ public class BeanInvestigador implements Serializable {
 	private ManagerAdministrador managerAdministrador ;	
 	@EJB
 	private ManagerInvestigador managerInvestigador;
+	@EJB
+	private ManagerUserCurso managerUserCurso; 
 //ROLES
 	private List<AreaInvestigacion> investigacionareas;
 	private List<OrganizacionFichapersonal> organizacionFichapersonales;
@@ -58,13 +73,17 @@ public class BeanInvestigador implements Serializable {
 	private List<FichaPersonal> listaFichaUvoluntariado;
 	private List<UsuarioProyecto>listaOrganizaciones;
 	private List<UsuarioInteresArea> areainteres;
-	
+	private List<Curso>listaCursos;
+	private int fk_id_curso;
 	@Inject 
 	private BeanLogin beanLogin;
 	
 	@PostConstruct
 	public void init() {
 		try {
+	
+			listaCursos=managerAdministrador.findAllCursos();
+			System.out.println(listaCursos.size());
 			investigacionareas= managerInvestigador.findAllAreaInvestigaciones();
 			listaFichaU=managerAdministrador.findAllFichaPersonalByRolUsuario();
 			 listaUsuario=managerAdministrador.findAllUsuariosByRolUsuario();
@@ -74,9 +93,45 @@ public class BeanInvestigador implements Serializable {
 			// 
 			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonalesByOrganizacion(listaOrganizaciones);
 			areainteres=managerInvestigador.findAllUsuarioInteresAreaes();
+			listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
+	}
+    public void onRowEdit(RowEditEvent event) {
+    	//ingresadoModulos
+     	try {
+    	
+    
+    	UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
+   
+			listaUsuariosCursosModulos= managerInvestigador.ListaUserCM(listaUsuariosCursosModulos, mo);
+			JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+    	
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+    	UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
+    	JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
+    }
+
+	public void actionListenerIngresarUsuarioCursoInvestigador() {
+		try {
+			usuarioCursoAct=managerUserCurso.ingresarUsuarioCursoInvestigador(beanLogin.getLogin().getId_usuario(), fk_id_curso,usuarioCursoIng);
+			ingresadoModulos=true;
+			listaUsuariosCursosModulos=new ArrayList<UsuarioCursoModulo>();
+			listaUsuariosCursosModulos=	managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCurso(usuarioCursoAct.getIdUsuariocurso());
+			listaUsuariosCursos= managerUserCurso.findAllUsuarioCursoesbyUser(beanLogin.getLogin().getId_usuario());
+			JSFUtil.crearMensajeInfo("creada correctamente");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+
 	}
 
 	public void actionListenerIngresarAreaInvestigacion() {
@@ -121,6 +176,18 @@ public class BeanInvestigador implements Serializable {
 		}
 
 	}
+	public void actionListenerEditarFechaIniFin(long id_ucm, Date fechaIni, Date fechaFin) {
+		try {
+			usuarioCursoModuloE= managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCursoModulo(id_ucm);
+			managerInvestigador.editarfechaIniFin(usuarioCursoModuloE, fechaIni, fechaFin);
+			JSFUtil.crearMensajeInfo("Fecha de inicio y fin módulo editado correctamente");
+		} catch (Exception e) {
+			//investigacionareas = managerInvestigador.findAllAreaInvestigaciones();
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+
+	}
+	
 	
 	public void actionListenerIngresarOrganizacionFichapersonal() {
 		try {
@@ -388,8 +455,84 @@ public class BeanInvestigador implements Serializable {
 	public void setListaOrganizaciones(List<UsuarioProyecto> listaOrganizaciones) {
 		this.listaOrganizaciones = listaOrganizaciones;
 	}
-	
-	
-	
+
+	public List<Curso> getListaCursos() {
+		return listaCursos;
+	}
+
+	public void setListaCursos(List<Curso> listaCursos) {
+		this.listaCursos = listaCursos;
+	}
+
+	public int getFk_id_curso() {
+		return fk_id_curso;
+	}
+
+	public void setFk_id_curso(int fk_id_curso) {
+		this.fk_id_curso = fk_id_curso;
+	}
+
+	public UsuarioCurso getUsuarioCursoIng() {
+		return usuarioCursoIng;
+	}
+
+	public void setUsuarioCursoIng(UsuarioCurso usuarioCursoIng) {
+		this.usuarioCursoIng = usuarioCursoIng;
+	}
+
+	public UsuarioCurso getUsuarioCursoEdit() {
+		return usuarioCursoEdit;
+	}
+
+	public void setUsuarioCursoEdit(UsuarioCurso usuarioCursoEdit) {
+		this.usuarioCursoEdit = usuarioCursoEdit;
+	}
+
+	public List<FichaPersonal> getListaFichaIduser() {
+		return ListaFichaIduser;
+	}
+
+	public void setListaFichaIduser(List<FichaPersonal> listaFichaIduser) {
+		ListaFichaIduser = listaFichaIduser;
+	}
+
+	public List<UsuarioCurso> getListaUsuariosCursos() {
+		return listaUsuariosCursos;
+	}
+
+	public void setListaUsuariosCursos(List<UsuarioCurso> listaUsuariosCursos) {
+		this.listaUsuariosCursos = listaUsuariosCursos;
+	}
+
+	public UsuarioCurso getUsuarioCursoAct() {
+		return usuarioCursoAct;
+	}
+
+	public void setUsuarioCursoAct(UsuarioCurso usuarioCursoAct) {
+		this.usuarioCursoAct = usuarioCursoAct;
+	}
+
+	public boolean isIngresadoModulos() {
+		return ingresadoModulos;
+	}
+
+	public void setIngresadoModulos(boolean ingresadoModulos) {
+		this.ingresadoModulos = ingresadoModulos;
+	}
+
+	public List<UsuarioCursoModulo> getListaUsuariosCursosModulos() {
+		return listaUsuariosCursosModulos;
+	}
+
+	public void setListaUsuariosCursosModulos(List<UsuarioCursoModulo> listaUsuariosCursosModulos) {
+		this.listaUsuariosCursosModulos = listaUsuariosCursosModulos;
+	}
+	public UsuarioCursoModulo getUsuarioCursoModuloE() {
+		return usuarioCursoModuloE;
+	}
+	public void setUsuarioCursoModuloE(UsuarioCursoModulo usuarioCursoModuloE) {
+		this.usuarioCursoModuloE = usuarioCursoModuloE;
+	}
+
 
 }

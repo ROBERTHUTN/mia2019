@@ -166,7 +166,33 @@ public class ManagerUserCurso {
 		} else
 			return true;
 	}
+	public UsuarioCurso ingresarUsuarioCursoInvestigador(long id_user, Integer id_curso,UsuarioCurso userCurso) throws Exception {
 
+		boolean existecurso = existeUsuarioAndCursoenUserCur(id_curso, id_user);
+		if (id_user == 0) {
+			throw new Exception("Usuario no logeado");
+		}
+		if (id_curso == 0) {
+			throw new Exception("Curso no seleccionado");
+		}
+		if (existecurso) {
+			throw new Exception("Ya está inscrito en este curso");
+		}
+		Curso curso = managerCurso.findCursoById(id_curso);
+		Usuario user = managerUsuario.findUsuarioById(id_user);
+
+		BigDecimal num = new BigDecimal(0);
+		UsuarioCurso nusercurso = new UsuarioCurso();
+		nusercurso.setCurso(curso);
+		nusercurso.setUsuario(user);
+		nusercurso.setFechaInicioProgramada(userCurso.getFechaInicioProgramada());
+		nusercurso.setFechaFinProgramada(userCurso.getFechaFinProgramada());
+		nusercurso.setModulorealizados("0");
+		nusercurso.setAvance(num);
+		em.persist(nusercurso);
+		ingresarUsuarioCursoModulo(nusercurso, curso);
+		return nusercurso;
+	}
 	public void ingresarUsuarioCurso(long id_user, Integer id_curso) throws Exception {
 
 		boolean existecurso = existeUsuarioAndCursoenUserCur(id_curso, id_user);
@@ -186,7 +212,7 @@ public class ManagerUserCurso {
 		UsuarioCurso nusercurso = new UsuarioCurso();
 		nusercurso.setCurso(curso);
 		nusercurso.setUsuario(user);
-		nusercurso.setModulorealizados("0");
+		nusercurso.setModulorealizados("");
 		nusercurso.setAvance(num);
 		em.persist(nusercurso);
 		ingresarUsuarioCursoModulo(nusercurso, curso);

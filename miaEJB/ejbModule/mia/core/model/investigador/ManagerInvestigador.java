@@ -1,6 +1,7 @@
 package mia.core.model.investigador;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,6 +20,8 @@ import mia.core.model.entities.OrganizacionFichapersonal;
 import mia.core.model.entities.ProyectoInvestigacion;
 import mia.core.model.entities.Rol;
 import mia.core.model.entities.Usuario;
+import mia.core.model.entities.UsuarioCurso;
+import mia.core.model.entities.UsuarioCursoModulo;
 import mia.core.model.entities.UsuarioInteresArea;
 import mia.core.model.entities.UsuarioProyecto;
 
@@ -42,6 +45,80 @@ public class ManagerInvestigador {
 		List<AreaInvestigacion> listaAreaInvestigaciones = q.getResultList();
 		return listaAreaInvestigaciones;
 	}
+	
+	
+	public List<UsuarioCurso> findAllUsuariosCursosByIdUsuario(long id_usuario) {
+
+		Query q = em.createQuery("SELECT u FROM UsuarioCurso u "
+				+ " where u.usuario.idUsuario=?1", UsuarioCurso.class);
+		q.setParameter(1, id_usuario);
+		@SuppressWarnings("unchecked")
+		List<UsuarioCurso> listaUsuariosCursos= q.getResultList();
+		return listaUsuariosCursos;
+	}
+	public List<UsuarioCursoModulo> findAllUsuariosCursosModulosByIdUsuarioCurso(long id_usuario_curso) {
+
+		Query q = em.createQuery("SELECT u FROM UsuarioCursoModulo u "
+				+ " where u.usuarioCurso.idUsuariocurso=?1 order by u.cursoModulo.ordenCurso ", UsuarioCursoModulo.class);
+		q.setParameter(1, id_usuario_curso);
+		@SuppressWarnings("unchecked")
+		List<UsuarioCursoModulo> listaUsuariosCursosModulos= q.getResultList();
+		return listaUsuariosCursosModulos;
+	}	
+	
+	
+	
+	public UsuarioCursoModulo findAllUsuariosCursosModulosByIdUsuarioCursoModulo(long id_usuario_curso_modulo) {
+		UsuarioCursoModulo ucm = em.find(UsuarioCursoModulo.class, id_usuario_curso_modulo);
+		return ucm;
+
+	}
+	
+	
+
+	public void editarfechaIniFin(UsuarioCursoModulo ucmA, Date fechaIni, Date FechaFin) throws Exception {
+		UsuarioCursoModulo ucmN= findAllUsuariosCursosModulosByIdUsuarioCursoModulo(ucmA.getIdUsuarioCursoModulo());
+		if (ucmN == null) {
+			throw new Exception("Error al cargar el Usuario con el curo y el módulo");
+		}
+		
+		
+		ucmN.setFechaInicioProgramada(fechaIni);
+		ucmN.setFechaFinProgramada(FechaFin);
+		em.merge(ucmN);
+	}
+	
+	
+	public List<UsuarioCursoModulo> ListaUserCM( List< UsuarioCursoModulo> listaucm, UsuarioCursoModulo ucm) throws Exception {
+		
+		if(listaucm.isEmpty()){
+			throw new Exception("La lista es vacia.");
+		}else {
+			
+			for (UsuarioCursoModulo ucmv : listaucm) {
+				if(ucmv.getIdUsuarioCursoModulo()== ucm.getIdUsuarioCursoModulo()) {
+				
+				
+					ucmv.setFechaFinProgramada(ucm.getFechaFinProgramada());
+					System.out.println("si entra usuario curso modulo"+ ucmv.getIdUsuarioCursoModulo());
+				}
+					
+				if(ucmv.getCursoModulo().getOrdenCurso()>ucm.getCursoModulo().getOrdenCurso())
+				{
+					ucmv.setFechaInicioProgramada(ucm.getFechaFinProgramada());
+					System.out.println("si entra orden"+ ucmv.getFechaFinProgramada());
+				}
+				
+				
+			}
+		}
+		
+		return listaucm;
+	}
+	
+
+	
+	
 
 	public AreaInvestigacion findAreaInvestigacionById(int id_area) {
 		AreaInvestigacion area = em.find(AreaInvestigacion.class, id_area);

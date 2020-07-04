@@ -14,6 +14,7 @@ import javax.persistence.Query;
 
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
 import mia.core.model.entities.AreaInvestigacion;
+import mia.core.model.entities.Curso;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.Etnia;
 import mia.core.model.entities.FichaPersonal;
@@ -64,7 +65,14 @@ public class ManagerAdministrador {
 		List<Etnia> listaEtnia = q.getResultList();
 		return listaEtnia;
 	}
+	
+		public List<Curso> findAllCursos() {
 
+			Query q = em.createQuery("SELECT c FROM Curso c", Curso.class);
+			@SuppressWarnings("unchecked")
+			List<Curso> listaCursos= q.getResultList();
+			return listaCursos;
+		}
 	// Método que me devuelve la Lista de PAISES_ESTADO
 	public List<PaisEstado> findOnlyPais() {
 
