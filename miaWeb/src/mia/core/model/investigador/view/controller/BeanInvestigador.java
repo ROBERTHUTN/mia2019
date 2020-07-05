@@ -101,10 +101,8 @@ public class BeanInvestigador implements Serializable {
     public void onRowEdit(RowEditEvent event) {
     	//ingresadoModulos
      	try {
-    	
     
-    	UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
-   
+     		UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
 			listaUsuariosCursosModulos= managerInvestigador.ListaUserCM(listaUsuariosCursosModulos, mo);
 			JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
 		} catch (Exception e) {
@@ -176,10 +174,10 @@ public class BeanInvestigador implements Serializable {
 		}
 
 	}
-	public void actionListenerEditarFechaIniFin(long id_ucm, Date fechaIni, Date fechaFin) {
+	public void actionListenerEditarFechaIniFin(UsuarioCursoModulo r) {
 		try {
-			usuarioCursoModuloE= managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCursoModulo(id_ucm);
-			managerInvestigador.editarfechaIniFin(usuarioCursoModuloE, fechaIni, fechaFin);
+			usuarioCursoModuloE= managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCursoModulo(r.getIdUsuarioCursoModulo());
+			managerInvestigador.editarfechaIniFin(usuarioCursoModuloE,r.getFechaInicioProgramada(), r.getFechaFinProgramada());
 			JSFUtil.crearMensajeInfo("Fecha de inicio y fin módulo editado correctamente");
 		} catch (Exception e) {
 			//investigacionareas = managerInvestigador.findAllAreaInvestigaciones();

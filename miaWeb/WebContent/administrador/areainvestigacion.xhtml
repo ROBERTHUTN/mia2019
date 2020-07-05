@@ -117,18 +117,10 @@
 						
 						<p:column headerText="OPCIONES" style="width:100px;">
 							<p:commandButton icon="fa fa-pencil"
-								actionListener="#{beanInvestigador.actionListenerCargar(r)}"
+								actionListener="#{beanInvestigador.actionListenerCargarAreaInvestigacion(r)}"
 								onclick="PF('editarArea').show();" title="Editar" 
 								update="form10"></p:commandButton>
-								
-						<!-- 	<p:commandButton update="@form"
-							actionListener="#{beanInvestigador.actionListenerEliminarAreaInvestigacion(r.areaId)}"
-								style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
-								icon="fa fa-times">
-								
-								<p:confirm header="Confirmación" message="Desea eliminar?"
-									icon="fa fa-times" />
-							</p:commandButton> -->
+						
 
 
 						</p:column>
@@ -152,7 +144,7 @@
 					</p:inputText>
 					<p:outputLabel value="Nombre:" />
 					<p:inputText
-						value="#{beanInvestigador.areaInvestigacionE.nombreInvestigacion}" required="true" disabled="true">
+						value="#{beanInvestigador.areaInvestigacionE.nombreInvestigacion}" required="true" >
 					</p:inputText>
 					
 					<p:outputLabel value="Descripción:" />
@@ -161,6 +153,8 @@
 						requiredMessage="Ingrese la descripción del rol" maxlength="500">
 					</p:inputTextarea>
 				</p:panelGrid>
+				
+				
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"

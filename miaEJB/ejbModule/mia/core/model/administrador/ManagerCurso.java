@@ -271,12 +271,6 @@ public class ManagerCurso {
 				throw new Exception("Ya existe un Curso con el módulo asignado.");	
 		}
 		
-		/**
-		boolean existeCurso = existeCursoModulo(id_curso);
-		if (existeCurso) {
-			throw new Exception("Ya existe el Curso.");
-		}*/
-
 		Modulo modulo= findModuloById(id_modulo);
 		
 		Curso curso_id=findCursoById(id_curso);
@@ -288,28 +282,59 @@ public class ManagerCurso {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	public boolean existeOrdenModulo(int curso, int orden) {
+		String JPQL = "SELECT c FROM CursoModulo c WHERE c.curso.idCurso=?1 and ordenCurso=?2 ";
+		Query query = em.createQuery(JPQL, CursoModulo.class);
+		query.setParameter(1, curso);
+		query.setParameter(2, orden);
+		List<CursoModulo> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+
+	
 	public void editarCursoModulo(CursoModulo cursomoduloA,int id_curso,long id_modulo) throws Exception {
 		CursoModulo cursomoduloN = findCursoModuloById(cursomoduloA.getIdCursoModulo());
 		if (cursomoduloN == null) {
-			throw new Exception("Error al cargar el Curso y Módulo  a editar");
+			throw new Exception("Error al cargar el Curso y Módulo  al editar");
 		}
 		
-		boolean existeNombreCursoModulo = existeCursoModulo(cursomoduloA.getCurso().getIdCurso(), cursomoduloA.getModulo().getIdModulo());
+		boolean existeOrdenCurs= existeOrdenModulo(id_curso, cursomoduloA.getOrdenCurso());
+		if (existeOrdenCurs) {
+			throw new Exception("Ya se ha establecido el orden "+ cursomoduloA.getOrdenCurso()+" a otro módulo.");
+		}
 		
-		if (existeNombreCursoModulo) {
-				throw new Exception("Ya existe un Curso con el módulo asignado.");
+		
+		boolean existeNombreCursoModulo1 = existeCursoModulo(cursomoduloA.getCurso().getIdCurso(), cursomoduloA.getModulo().getIdModulo());
+		
+		if (existeNombreCursoModulo1) {
+			Modulo modulo= findModuloById(id_modulo);
+			
+			Curso curso_id=findCursoById(id_curso);
+		
+			System.out.println("orden"+cursomoduloA.getOrdenCurso());
+			cursomoduloN.setCurso(curso_id);
+			cursomoduloN.setModulo(modulo);
+			cursomoduloN.setOrdenCurso(cursomoduloA.getOrdenCurso());
 			
 		}
 		
-		cursomoduloN.setCurso(cursomoduloA.getCurso());
-		cursomoduloN.setModulo(cursomoduloA.getModulo());
+		
 		em.merge(cursomoduloN);
 	}
-
+	
+	
+	
+	
 	public void eliminarCursoModulo(int id_modulo) throws Exception {
 		CursoModulo moduloN = findCursoModuloById(id_modulo);
+		
 		if (moduloN == null) {
-			throw new Exception("Error al cargar el mÃ³dulo.");
+			throw new Exception("Error al cargar el módulo.");
 		}
 
 		em.remove(moduloN);

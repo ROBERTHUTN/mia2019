@@ -224,7 +224,8 @@ reporte=1;
 			managerAdministrador.ingresarPais(paisEstado, 0);
 			JSFUtil.crearMensajeInfo("Pais creado correctamente");
 		} catch (Exception e) {
-
+			JSFUtil.crearMensajeError(e.getMessage());
+			
 		}
 
 	}

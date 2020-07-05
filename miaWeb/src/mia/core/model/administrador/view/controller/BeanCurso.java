@@ -211,8 +211,10 @@ System.out.println(""+listaModCur.size());
 	}
 	public void actionListenerEditarCursoModulo() {
 		try {
+			System.out.println("si entra");
 			managerCurso.editarCursoModulo(cursomoduloE,id_curso,id_modulo);
 			JSFUtil.crearMensajeInfo("CursoModulo editado correctamente");
+			
 		} catch (Exception e) {
 			cursomodulos = managerCurso.findAllCursoModuloes();
 			JSFUtil.crearMensajeError(e.getMessage());
