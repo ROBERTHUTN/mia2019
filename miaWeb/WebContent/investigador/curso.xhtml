@@ -89,26 +89,17 @@
 							<h:outputText value="#{r.fechaInicioProgramada}" />
 						</p:column>
 						<p:column headerText="Fecha Fin">
-							<h:outputText value="#{r.fechaInicioProgramada}" />
+							<h:outputText value="#{r.fechaFinProgramada}" />
 						</p:column>
 						
 						
-						<p:column headerText="OPCIONES" style="width:100px;">
-							<p:commandButton icon="fa fa-pencil"
-								actionListener="#{beanInvestigador.actionListenerCargarAreaFicha(r)}"
-								onclick="PF('editarArea').show();" title="Editar" 
-								update="form10"></p:commandButton>
+						<p:column headerText="SEGUIMIENTO" style="width:100px;">
+							<p:commandButton icon="fa fa-check" value="Ver Usuarios"
 								
-							<p:commandButton update="@form"
-							actionListener="#{beanInvestigador.actionListenerEliminarUsuarioInteresArea(r.idInteresArea)}"
-								style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
-								icon="fa fa-times">
+								 title="Seguimiento de los Usuarios" 
+								update="form2"></p:commandButton>
 								
-								<p:confirm header="Confirmación" message="Desea eliminar?"
-									icon="fa fa-times" />
-							</p:commandButton>
-
-
+							
 						</p:column>
 
 

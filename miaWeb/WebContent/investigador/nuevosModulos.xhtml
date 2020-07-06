@@ -80,56 +80,75 @@
 	
 	<p:growl autoUpdate="true"></p:growl>
 	
-	<h:form id="form1">
-		<p:panel header="Nuevo Curso" 	>
+	
+		<p:panel header="Módulos del curso" 	>
 			<div class="ui-fluid">
-				<p:panelGrid columns="3" layout="grid" 
-					styleClass="ui-panelgrid-blank ui-fluid">
-
-					<p:outputLabel value="Curso: " />
-					<p:selectOneMenu id="curso" autoWidth="100%" required="true"
-						requiredMessage="Seleccione un curso"
-						value="#{beanInvestigador.fk_id_curso}" effect="fade"
-						filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione un curso"
-							noSelectionOption="true" />
-						<f:selectItems value="#{beanInvestigador.listaCursos}" var="a"
-							itemLabel="#{a.nombre}" itemValue="#{a.idCurso}" />
-					</p:selectOneMenu>
-					<p:message for="curso"></p:message>
-
-
-					<p:outputLabel value="Fecha Inicio: " />
-					<p:datePicker id="fechaInicio" required="true" showButtonPanel="true"
-               readonlyInput="true"
-						requiredMessage="Seleccione una fecha Inicio"
-						value="#{beanInvestigador.usuarioCursoIng.fechaInicioProgramada}"
-						showIcon="true" >
-						 <p:ajax event="dateSelect" update="end-date" />
-						</p:datePicker>
-					<p:message for="fechaInicio"></p:message>
-					<p:outputLabel value="Fecha Fin: " />
-					<p:datePicker id="end-date" required="true" 
-						requiredMessage="Seleccione una fecha Fin" showButtonPanel="true"
-               readonlyInput="true"
-						value="#{beanInvestigador.usuarioCursoIng.fechaFinProgramada}"
-						showIcon="true" />
-					<p:message for="end-date"></p:message>
-
-
-					<p:commandButton ajax="true" value="Registrar curso"
-						icon="fa fa-update"
-						action="#{beanInvestigador.actionListenerIngresarUsuarioCursoInvestigador()}"
-						update="form1" validateClient="true"></p:commandButton>
-
-				</p:panelGrid>
-				</div>
 				
+				<h:form id="form2">
+				<p:dataTable id="tabla1" var="r" widgetVar="tabla1"
+					value="#{beanInvestigador.listaUsuariosCursosModulos}"
+					editable="true" style="margin-bottom:20px"  emptyMessage="No ha creado cursos">
+					<f:facet name="header">
+						<p:outputLabel
+							value="Módulos del cuestionario #{beanInvestigador.usuarioCursoAct.curso.nombre}"></p:outputLabel>
+					</f:facet>
+					 <p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit}" update="tabla1"  />
+                   <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
+				
+				
+					<p:column >
+					<p:commandButton value="Módulo #{r.cursoModulo.ordenCurso}"></p:commandButton>
+					</p:column>
+				
+					<p:column headerText="Nombre Módulo">
+						<h:outputText value="#{r.cursoModulo.modulo.nombre}" />
+					</p:column>
+					
+					<p:column headerText="Fecha Inicio">
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:calendar disabled="true" value="#{r.fechaInicioProgramada}" locale="es"/>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar mindate="#{beanInvestigador.usuarioCursoAct.fechaInicioProgramada}" maxdate="#{beanInvestigador.usuarioCursoAct.fechaFinProgramada}" value="#{r.fechaInicioProgramada}" locale="es"/>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Fecha Fin">
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:calendar disabled="true"  value="#{r.fechaFinProgramada}" locale="es"></p:calendar>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar mindate="#{beanInvestigador.usuarioCursoAct.fechaInicioProgramada}" maxdate="#{beanInvestigador.usuarioCursoAct.fechaFinProgramada}" value="#{r.fechaFinProgramada}" locale="es"></p:calendar>
+								
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					
+					
+					
+					<p:column style="width:35px">
+						<p:rowEditor />
+					</p:column>
+
+
+				</p:dataTable>
+				
+					 <div class="ui-g">
+         <div class="ui-g-12">
+             <p:commandButton value="Finalizar"  styleClass="ui-priority-primary" process="@this" 
+                   action="#{beanInvestigador.actionListenerredireccionarCurso()}"           />
+        </div>
+        </div>
+        </h:form>
+   </div>
 			</p:panel>
 
 		
 	
-	</h:form>
+	
 
 
 

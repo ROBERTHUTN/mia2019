@@ -2,7 +2,10 @@ package mia.core.model.usuario;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -68,8 +71,8 @@ public class ManagerUserCurso {
 
 	// lista de usuarios y cursos
 	public List<CursoModulo> findAllUsuarioCursoByIdCurso(int idCurso) {
-
-		Query q = em.createQuery("SELECT u FROM CursoModulo u where u.curso.idCurso=" + idCurso, CursoModulo.class);
+	Query q = em.createQuery("SELECT u FROM CursoModulo u where u.curso.idCurso=" + idCurso +""
+				+ " order by u.ordenCurso ", CursoModulo.class);
 		@SuppressWarnings("unchecked")
 		List<CursoModulo> listaUsuarioCursos = q.getResultList();
 		return listaUsuarioCursos;
@@ -167,7 +170,11 @@ public class ManagerUserCurso {
 			return true;
 	}
 	public UsuarioCurso ingresarUsuarioCursoInvestigador(long id_user, Integer id_curso,UsuarioCurso userCurso) throws Exception {
-
+		
+		if (userCurso.getFechaInicioProgramada().after(userCurso.getFechaFinProgramada())) {
+	throw new Exception("Las fechas ingresadas son incorrectas: \n"
+			+ "Fecha final menor a la ficha inicial");
+}
 		boolean existecurso = existeUsuarioAndCursoenUserCur(id_curso, id_user);
 		if (id_user == 0) {
 			throw new Exception("Usuario no logeado");
@@ -187,10 +194,13 @@ public class ManagerUserCurso {
 		nusercurso.setUsuario(user);
 		nusercurso.setFechaInicioProgramada(userCurso.getFechaInicioProgramada());
 		nusercurso.setFechaFinProgramada(userCurso.getFechaFinProgramada());
-		nusercurso.setModulorealizados("0");
+		nusercurso.setModulorealizados("");
 		nusercurso.setAvance(num);
+		List<CursoModulo>listaCursosModulos=new ArrayList<CursoModulo>();
+		listaCursosModulos=findAllUsuarioCursoByIdCurso(id_curso);
+	int dias=	calculardiasParaCadaModulo(nusercurso.getFechaInicioProgramada(),nusercurso.getFechaFinProgramada(), listaCursosModulos.size());
 		em.persist(nusercurso);
-		ingresarUsuarioCursoModulo(nusercurso, curso);
+		ingresarUsuarioCursoModulo(nusercurso, curso,dias);
 		return nusercurso;
 	}
 	public void ingresarUsuarioCurso(long id_user, Integer id_curso) throws Exception {
@@ -215,10 +225,9 @@ public class ManagerUserCurso {
 		nusercurso.setModulorealizados("");
 		nusercurso.setAvance(num);
 		em.persist(nusercurso);
-		ingresarUsuarioCursoModulo(nusercurso, curso);
 	}
 	
-	public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur) throws Exception {
+	public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) throws Exception {
 		
 		if (useC==null) {
 			throw new Exception("Usuario curso vacío");	
@@ -226,20 +235,66 @@ public class ManagerUserCurso {
 		
 		List<CursoModulo>listaCursosModulos=new ArrayList<CursoModulo>();
 		listaCursosModulos=findAllUsuarioCursoByIdCurso(cur.getIdCurso());
+		int tamanioL=0 ,aux=0;
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(useC.getFechaInicioProgramada());
+		double d=dias/listaCursosModulos.size();
+		dias=(int) Math.round(d);
 		for (CursoModulo c : listaCursosModulos) {
+			
 			UsuarioCursoModulo uCMod=new UsuarioCursoModulo();
-			uCMod.setAciertos(0);
-			BigDecimal r=new BigDecimal(0);
-			uCMod.setAvance(r);
-			uCMod.setCursoModulo(c);
-			uCMod.setErrores(0);
-			uCMod.setUsuarioCurso(useC);
-			em.persist(uCMod);
+	        if (aux==0) {
+	        	uCMod.setAciertos(0);
+				BigDecimal r=new BigDecimal(0);
+				uCMod.setFechaInicioProgramada(calendar.getTime());
+			System.out.println(":"+uCMod.getFechaInicioProgramada()+" DIASS: "+dias);
+			      calendar.add(Calendar.DAY_OF_YEAR, dias);  
+			    uCMod.setFechaFinProgramada(calendar.getTime()); 
+				System.out.println(":"+calendar.getTime());
+				uCMod.setAvance(r);
+				uCMod.setCursoModulo(c);
+				uCMod.setErrores(0);
+				uCMod.setUsuarioCurso(useC);
+				em.persist(uCMod);
+			}else {
+				uCMod.setAciertos(0);
+				BigDecimal r=new BigDecimal(0);
+				  calendar.add(Calendar.DAY_OF_YEAR, 1);  
+				uCMod.setFechaInicioProgramada(calendar.getTime());
+			System.out.println(":"+uCMod.getFechaInicioProgramada()+" DIASS: "+dias);
+			      calendar.add(Calendar.DAY_OF_YEAR, dias);  
+			    uCMod.setFechaFinProgramada(calendar.getTime()); 
+				System.out.println(":"+calendar.getTime());
+				uCMod.setAvance(r);
+				uCMod.setCursoModulo(c);
+				uCMod.setErrores(0);
+				uCMod.setUsuarioCurso(useC);
+				em.persist(uCMod);
+	
+			}
+	        aux++;
 		}
 		
 		
 	}
-
+	public int calculardiasParaCadaModulo(Date fechaInicio, Date fechaFin,int numModulos) throws Exception {
+		int res=0;
+		double r = 0;
+		Date fechaActual = new Date();
+		long fechaInicioU, fechaFinU, diasTranscurridos;
+		fechaInicioU=fechaInicio.getTime();
+		fechaFinU=fechaFin.getTime();
+		diasTranscurridos = (fechaFinU - fechaInicioU) / (1000 * 60 * 60 * 24);
+		r = Double.parseDouble(diasTranscurridos + "");
+		System.out.println(": "+r+" : "+numModulos);
+		res=(int)diasTranscurridos;
+		if (res<numModulos) {
+			throw new Exception("Error: almenos debe existir un día para cada módulo vuelva a seleccionar las fechas \n "
+					+ " Existen "+numModulos+" módulos "+" para que sean realizados en "+res +" días");
+		}
+		return res;
+	}
+	
 
 	@SuppressWarnings("unused")
 	public String ConcatenarModulos(UsuarioCurso usuercurse, UsuarioCursoModulo usuarioCursoModulo) {
