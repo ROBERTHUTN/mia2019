@@ -276,6 +276,15 @@ public class ManagerUserCurso {
 		List<UsuarioCurso> listaUsuarioCursos = query.getResultList();
 		return listaUsuarioCursos;
 	}
+	public List<UsuarioCurso> findAllUsuarioCursoHijos(long id_user_curso_pa) {
+
+		String JPQL = "SELECT u FROM UsuarioCurso u WHERE u.usuarioCurso.idUsuariocurso=?1";
+		Query query = em.createQuery(JPQL, UsuarioCurso.class);
+		query.setParameter(1, id_user_curso_pa);
+		@SuppressWarnings("unchecked")
+		List<UsuarioCurso> listaUsuarioCursos = query.getResultList();
+		return listaUsuarioCursos;
+	}
 
 	// lista de usuario y cursos
 	public List<UsuarioCursoModulo> findAllUsuarioCursoModulobyUserCusro(long id_user_curso) {
