@@ -132,9 +132,8 @@ public class BeanInvestigador implements Serializable {
     }
 	public String actionListenerredireccionarCurso() {
 		try {
-			
-	
-		listaUsuariosCursos= managerUserCurso.findAllUsuarioCursoesbyUser(beanLogin.getLogin().getId_usuario());
+	listaUsuariosCursos= managerUserCurso.findAllUsuarioCursoesbyUser(beanLogin.getLogin().getId_usuario());
+	listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
 		JSFUtil.crearMensajeInfo("Cursos realizados correctamente.");
 		return"curso.xhtml?faces-redirect=true";
 		} catch (Exception e) {
