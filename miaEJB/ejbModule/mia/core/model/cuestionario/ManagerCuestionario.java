@@ -257,6 +257,7 @@ public class ManagerCuestionario {
 		for (Preguntamodulo pr : listapm) {
 			PreguntaModuloDTO pmdto= new PreguntaModuloDTO();
 			pmdto.setIdPregunta(pr.getIdPregunta());
+			System.out.println("concatenar"+pr.getModulo());
 			pmdto.setModulo(pr.getModulo());
 			Respuestapregunta rp= new Respuestapregunta();
 			rp= findRespuestapreguntaByIdPreguntaModulo(pr.getIdPregunta());
@@ -872,7 +873,7 @@ System.out.println("ENTRA");
 		}
 		boolean existePregunta = existePreguntaenDimPre(id_preg);
 		if (existePregunta) {
-			throw new Exception("La Pregunta estï¿½ siendo utilizada en dimensiï¿½n");
+			throw new Exception("La Pregunta está siendo utilizada en dimensión");
 		}
 		em.remove(pregN);
 	}
@@ -898,7 +899,7 @@ System.out.println("ENTRA");
 	}
 
 	public List<CursoModulo> findAllModulosByIdCurso(long id_curso) {
-		Query q = em.createQuery("SELECT c FROM CursoModulo c WHERE c.curso.idCurso=" + id_curso, CursoModulo.class);
+		Query q = em.createQuery("SELECT c FROM CursoModulo c WHERE c.curso.idCurso=" + id_curso+" order by c.ordenCurso ", CursoModulo.class);
 		@SuppressWarnings("unchecked")
 		List<CursoModulo> ListaCursoModulos = q.getResultList();
 

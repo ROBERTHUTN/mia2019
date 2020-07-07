@@ -27,14 +27,29 @@
 		<h:outputScript name="js/styles2.js" />
 		<h:outputScript name="js/validator.js" />
 	</f:facet>
+	
+	
 	<style type="text/css">
+	.greenBar.ui-progressbar .ui-progressbar-value {
+   background: green;
+}
+
+.yellowBar.ui-progressbar .ui-progressbar-value {
+   background: yellow;
+}
+
+.redBar.ui-progressbar .ui-progressbar-value {
+   background: red;
+}
+
+//js
 .value {
 	font-weight: bold;
 }
 
 .myProgress {
 	width: 100%;
-	background-color: silver;
+	background-color: orange;
 }
 
 .myBarBlue {
@@ -54,6 +69,12 @@
  
  
 </style>
+
+<script type="text/javascript">
+   
+     
+       
+</script>
 </h:head>
 <body style="background-color: #3b83bd;">
 	<div id="menu">
@@ -98,13 +119,26 @@
 						
 						<p:column>
 							<p:outputLabel style="alight:center;font-weight: bold"
-								value="Avance #{beanUserCursoModulo.usuariocursoCarDTO.avance}%" />
+								value="Avance Real #{beanUserCursoModulo.usuariocursoCarDTO.avance}%" />
 							<div class="myProgress" >
 								<p:outputPanel title="% Ejecutado" >
 									<div class="myBarBlue"
 										style="width:#{beanUserCursoModulo.usuariocursoCarDTO.avance}%;"></div>
 								</p:outputPanel>
 							</div>
+						</p:column>
+						
+						<p:column>
+							<p:outputLabel style="alight:center;font-weight: bold"
+								value="Avance Planificado #{beanUserCursoModulo.usuariocursoCarDTO.avancePlanificado}%" />
+							<div class="myProgress" >
+								<p:outputPanel title="% Planificado" >
+									<div class="myBarBlue"
+										style="width:#{beanUserCursoModulo.usuariocursoCarDTO.avancePlanificado}%;"></div>
+								</p:outputPanel>
+							</div>
+
+          			
 						</p:column>
 						<p:column>
 							<h:outputText  value="Módulos realizados" style="font-weight: bold" />
@@ -147,9 +181,11 @@
 
 			<p:column headerText="Avance">
 				<h:outputText value="Avance #{car.avance}%" />
+			
 				<div class="myProgress">
 					<p:outputPanel title="% Ejecutado">
 						<div class="myBarBlue" style="width:#{car.avance}%;"></div>
+					
 					</p:outputPanel>
 				</div>
 
@@ -157,9 +193,11 @@
 			</p:column>
 				<p:column headerText="Avance Planificado">
 				<h:outputText value="Avance #{car.avancePlanificado}%" />
+				
 				<div class="myProgress">
 					<p:outputPanel title="% Ejecutado">
-						<div class="myBarBlue" style="width:#{car.avance}%;"></div>
+						<div class="myBarBlue" style="width:#{car.avancePlanificado}%;"></div>
+						 
 					</p:outputPanel>
 				</div>
 
