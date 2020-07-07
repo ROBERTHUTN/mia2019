@@ -92,10 +92,7 @@
 						<p:outputLabel
 							value="Módulos del cuestionario #{beanInvestigador.usuarioCursoAct.curso.nombre}"></p:outputLabel>
 					</f:facet>
-					 <p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit}" update="tabla1"  />
-                   <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
-				
-				
+			
 					<p:column >
 					<p:commandButton value="Módulo #{r.cursoModulo.ordenCurso}"></p:commandButton>
 					</p:column>
@@ -127,6 +124,10 @@
 						</p:cellEditor>
 					</p:column>
 					
+					<p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit(r)}" update="tabla1"  />
+                   <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
+				
+				
 					
 					
 					<p:column style="width:35px">

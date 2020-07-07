@@ -109,6 +109,7 @@ public class BeanInvestigador implements Serializable {
          
      	try {
      		System.out.println(mo.getFechaFinProgramada());
+     		 managerInvestigador.editarfechaIniFin(mo, mo.getFechaInicioProgramada(), mo.getFechaFinProgramada());
 			listaUsuariosCursosModulos= managerInvestigador.ListaUserCM(listaUsuariosCursosModulos, mo);
 			JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
 		} catch (Exception e) {
