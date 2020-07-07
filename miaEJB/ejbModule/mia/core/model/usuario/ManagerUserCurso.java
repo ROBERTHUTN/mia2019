@@ -1,8 +1,6 @@
 package mia.core.model.usuario;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.print.attribute.standard.Fidelity;
 
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.core.model.administrador.ManagerCurso;
@@ -105,6 +104,15 @@ public class ManagerUserCurso {
 		List<UsuarioCurso> listaUsuarioCursos = query.getResultList();
 		return listaUsuarioCursos;
 	}
+	// lista de usuario y cursos
+	public List<UsuarioCurso> findAllUsuarioCursoPadre() {
+
+		String JPQL = "SELECT u FROM UsuarioCurso u WHERE u.usuarioCurso=null";
+		Query query = em.createQuery(JPQL, UsuarioCurso.class);
+		@SuppressWarnings("unchecked")
+		List<UsuarioCurso> listaUsuarioCursos = query.getResultList();
+		return listaUsuarioCursos;
+	}
 
 	// lista de usuario y cursos
 	public List<UsuarioCursoModulo> findAllUsuarioCursoModulobyUserCusro(long id_user_curso) {
@@ -169,6 +177,21 @@ public class ManagerUserCurso {
 		} else
 			return true;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean existeUsuarioInscritoCurso(long id_curso_usuario, long id_user) {
+
+		String JPQL = "SELECT u FROM UsuarioCurso u WHERE u.usuarioCurso.idUsuariocurso=?1 and u.usuario.idUsuario=" + id_user;
+		Query query = em.createQuery(JPQL, UsuarioCurso.class);
+		query.setParameter(1, id_curso_usuario);
+		List<UsuarioCurso> lista;
+		lista = query.getResultList();
+		if (lista.isEmpty()) {
+			return false;
+		} else
+			return true;
+	}
+	
 	public UsuarioCurso ingresarUsuarioCursoInvestigador(long id_user, Integer id_curso,UsuarioCurso userCurso) throws Exception {
 		
 		if (userCurso.getFechaInicioProgramada().after(userCurso.getFechaFinProgramada())) {
@@ -203,6 +226,66 @@ public class ManagerUserCurso {
 		ingresarUsuarioCursoModulo(nusercurso, curso,dias);
 		return nusercurso;
 	}
+	
+	public UsuarioCurso inscripcionUsuarioCurso(long id_user_curso_pa,long id_user) throws Exception {
+   UsuarioCurso userC=findUsuarioCursoById(id_user_curso_pa);
+	Usuario u=managerUsuario.findUsuarioById(id_user);
+	if (u==null) {
+		throw new Exception("Error: Null en el usuario");
+	}
+	System.out.println("dd");
+   if (userC==null) {
+		throw new Exception("Error: El curso no existe ");
+	}else {
+		System.out.println("dd0877");		
+	boolean	existeUsuarioCurso=existeUsuarioInscritoCurso(id_user_curso_pa,id_user);
+		if (existeUsuarioCurso) {
+			throw new Exception("Error: Ya se encuentra registrado en el curso "+userC.getCurso().getNombre()+" del"
+					+ " investigador "+userC.getUsuario().getApellidos()+" "+userC.getUsuario().getNombres());
+		}else {
+	
+			UsuarioCurso useNCurso=new UsuarioCurso();
+			useNCurso.setAvance(userC.getAvance());
+			useNCurso.setCurso(userC.getCurso());
+			useNCurso.setFechaFinProgramada(userC.getFechaFinProgramada());
+			useNCurso.setFechaInicioProgramada(userC.getFechaInicioProgramada());
+			useNCurso.setModulorealizados(userC.getModulorealizados());
+			useNCurso.setUsuario(u);
+			useNCurso.setUsuarioCurso(userC);
+			em.persist(useNCurso);
+		
+			inscripcionModulosUsuario(id_user_curso_pa, useNCurso.getIdUsuariocurso());
+			
+		}
+		
+	}
+		return userC;
+	}
+	public void inscripcionModulosUsuario(long id_user_curso_pa,long id_user_cur_hijo) throws Exception {
+
+		if (id_user_curso_pa==0) {
+			throw new Exception("Error: Usuario curso padre no existe");	
+		}
+		if (id_user_cur_hijo==0) {
+			throw new Exception("Error: Usuario curso hijo no existe");	
+		}
+		UsuarioCurso usuHijo=findUsuarioCursoById(id_user_cur_hijo);
+		List<UsuarioCursoModulo> listaUserCurMod=findAllUsuarioCursoModulobyUserCusro(id_user_curso_pa);
+	
+for (UsuarioCursoModulo u  : listaUserCurMod) {
+			UsuarioCursoModulo uCH=new UsuarioCursoModulo();
+			uCH.setAciertos(u.getAciertos());
+			uCH.setAvance(u.getAvance());
+			uCH.setCursoModulo(u.getCursoModulo());
+			uCH.setErrores(u.getErrores());
+			uCH.setFechaFinProgramada(u.getFechaFinProgramada());
+			uCH.setFechaInicioProgramada(u.getFechaInicioProgramada());
+			uCH.setUsuarioCurso(usuHijo);
+			em.persist(uCH);
+		}
+		
+	}
+	
 	public void ingresarUsuarioCurso(long id_user, Integer id_curso) throws Exception {
 
 		boolean existecurso = existeUsuarioAndCursoenUserCur(id_curso, id_user);

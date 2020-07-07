@@ -72,28 +72,25 @@ type="preRenderView"></f:event>
 						effect="fade" filter="true" filterMatchMode="startsWith" disabled="true">
 					</p:inputText>
 					
-					<p:outputLabel value="curso: " />
+					<p:outputLabel value="Curso Usuario: " />
 					<p:selectOneMenu id="curso" autoWidth="100%" required="true"
 						requiredMessage="Seleccione un curso"
-						value="#{beanUserCurso.id_curso_fk}"
+						value="#{beanUserCurso.id_usuario_curso_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione un Curso"
 							noSelectionOption="true" />
 						<f:selectItems
-							value="#{beanCurso.cursos}" var="reg"
-							itemLabel="#{reg.nombre}" itemValue="#{reg.idCurso}" />
+							value="#{beanUserCurso.listaUsuariosCursos}" var="reg"
+							itemLabel="#{reg.curso.nombre} #{reg.usuario.apellidos} #{reg.usuario.nombres}" itemValue="#{reg.idUsuariocurso}" />
 					</p:selectOneMenu>
-					<p:message for="curso"></p:message>
-					
-					
-							
+					<p:message for="curso"></p:message>			
 					
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						ajax="false" validateClient="true"
-						actionListener="#{beanUserCurso.actionListenerIngresarUsuarioCurso()}"
+						actionListener="#{beanUserCurso.actionListenerInscripcionCurso()}"
 						oncomplete="nuevaUserCurso" update="form2" >
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"

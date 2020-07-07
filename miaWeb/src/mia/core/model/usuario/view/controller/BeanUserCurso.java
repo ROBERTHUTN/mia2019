@@ -39,14 +39,17 @@ public class BeanUserCurso implements Serializable {
 	  	private UsuarioCurso usuarioCurso = new UsuarioCurso();
 	  	private UsuarioCurso usuarioCursoE;
 	//claves foraneas
+	  	private long id_usuario_curso_fk;
 	  	private long id_usercurso;
 	  	private int id_curso_fk;
 	  	private long id_user_fk;
 		private String modulos_res;
 		private String avance_curso;
 		private String mensajeDias;
+		private UsuarioCurso usuarioCursoPa;
 private UsuarioCurso usuarioFinalizado;
 private List<Reporteprepost> listaReporteTest;
+private List<UsuarioCurso>listaUsuariosCursos;
 private int dias;
 	  	private List<UsuarioCurso> usuarioCursos;
 	 
@@ -54,6 +57,7 @@ private int dias;
 		@PostConstruct
 		public void init() {  
 			try {
+				listaUsuariosCursos=managerUserCurso.findAllUsuarioCursoPadre();
 				usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
 				listaReporteTest=managerCuestionario.ultimoReporte(login.getLogin().getId_usuario());
 			if (!listaReporteTest.isEmpty()) {
@@ -71,7 +75,15 @@ private int dias;
 			} 
 		}
 			
-		
+		public void actionListenerInscripcionCurso() {
+			try {
+				UsuarioCurso user=	managerUserCurso.inscripcionUsuarioCurso(id_usuario_curso_fk,login.getLogin().getId_usuario());
+			 usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
+				JSFUtil.crearMensajeInfo("Se ha inscrito en el curso "+user.getCurso().getNombre()+" "+" del investigador"+" "+user.getUsuario().getApellidos()+" "+user.getUsuario().getNombres());
+			} catch (Exception e) {
+				
+			}
+		}
 		
 		public void actionListenerIngresarUsuarioCurso() {
 			try {
@@ -301,10 +313,32 @@ private int dias;
 		}
 
 
-		
-		
 
-	
+		public List<UsuarioCurso> getListaUsuariosCursos() {
+			return listaUsuariosCursos;
+		}
+
+
+
+		public void setListaUsuariosCursos(List<UsuarioCurso> listaUsuariosCursos) {
+			this.listaUsuariosCursos = listaUsuariosCursos;
+		}
+
+		public long getId_usuario_curso_fk() {
+			return id_usuario_curso_fk;
+		}
+
+		public void setId_usuario_curso_fk(long id_usuario_curso_fk) {
+			this.id_usuario_curso_fk = id_usuario_curso_fk;
+		}
+
+		public UsuarioCurso getUsuarioCursoPa() {
+			return usuarioCursoPa;
+		}
+
+		public void setUsuarioCursoPa(UsuarioCurso usuarioCursoPa) {
+			this.usuarioCursoPa = usuarioCursoPa;
+		}
 
 
 } 
