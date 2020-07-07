@@ -80,10 +80,11 @@ private int dias;
 		public void actionListenerInscripcionCurso() {
 			try {
 				UsuarioCurso user=	managerUserCurso.inscripcionUsuarioCurso(id_usuario_curso_fk,login.getLogin().getId_usuario());
-			 usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
+				usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
+				listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(usuarioCursos);
 				JSFUtil.crearMensajeInfo("Se ha inscrito en el curso "+user.getCurso().getNombre()+" "+" del investigador"+" "+user.getUsuario().getApellidos()+" "+user.getUsuario().getNombres());
 			} catch (Exception e) {
-				
+				JSFUtil.crearMensajeError(e.getMessage());
 			}
 		}
 		

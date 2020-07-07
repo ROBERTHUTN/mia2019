@@ -13,7 +13,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.print.attribute.standard.Fidelity;
 
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.core.model.usuario.dto.UsuarioCursoDTO;
@@ -60,10 +59,7 @@ public class ManagerUserCurso {
 
 			for (UsuarioCurso u : listaUsuariosCursos) {
 				UsuarioCursoDTO uDTO = new UsuarioCursoDTO();
-				uDTO.setAvance(u.getAvance());
-				BigDecimal avancePla = calcularavanceplanificado(u.getFechaInicioProgramada(),
-						u.getFechaFinProgramada());
-				uDTO.setAvancePlanificado(avancePla);
+				
 				uDTO.setCurso(u.getCurso());
 				uDTO.setFechaFinProgramada(u.getFechaFinProgramada());
 				uDTO.setFechaFinReal(u.getFechaFinReal());
@@ -72,12 +68,24 @@ public class ManagerUserCurso {
 				uDTO.setIdUsuariocurso(u.getIdUsuariocurso());
 				List<UsuarioCursoModulo> listaUcM = new ArrayList<UsuarioCursoModulo>();
 				listaUcM = findAllUsuarioCursoModulobyUserCusro(u.getIdUsuariocurso());
-				System.out.println("sss"+listaUcM.size());
 				List<UserCursoModuloDTO> lista = cargarListaUsuarioCursoModulosDTOs(listaUcM);
+				System.out.println("EL TAMAÑO ES "+lista.size());
 				uDTO.setListaCursosModulosDTO(lista);
-				uDTO.setModulorealizados(u.getModulorealizados());
-				BigDecimal retraso = calcularaRetraso(uDTO.getAvance(), uDTO.getAvancePlanificado());
+				//AVANCE RETRASO PLANIFICADO SEGÚN LOS MÓDULOS
+				double[] programadoRetrasoEjecutado = cargarAvanceProgramadoEjecutadoRetraso(lista);
+				BigDecimal programado, ejecutado, retraso;
+				programado = transformarDoubleaDecimal(programadoRetrasoEjecutado[0]);
+				retraso = transformarDoubleaDecimal(programadoRetrasoEjecutado[1]);
+				ejecutado = transformarDoubleaDecimal(programadoRetrasoEjecutado[2]);
+				programado = programado.setScale(2, BigDecimal.ROUND_HALF_UP);
+				retraso = retraso.setScale(2, BigDecimal.ROUND_HALF_UP);
+				ejecutado = ejecutado.setScale(2, BigDecimal.ROUND_HALF_UP);
+				//ENVIAR RESULTADOS
+				uDTO.setAvance(ejecutado);
+				uDTO.setAvancePlanificado(programado);
 				uDTO.setRetrasoPlanificado(retraso);
+				
+				uDTO.setModulorealizados(u.getModulorealizados());
 				uDTO.setUsuario(u.getUsuario());
 				uDTO.setUsuarioCurso(u.getUsuarioCurso());
 				uDTO.setUsuarioCursoModulos(u.getUsuarioCursoModulos());
@@ -88,25 +96,76 @@ public class ManagerUserCurso {
 		}
 
 	}
+	public double[] cargarAvanceProgramadoEjecutadoRetraso(List<UserCursoModuloDTO> lista) {
+		double[] programadoRetrasoEjecutado = new double[3];
+		double porcentajeProgramado = 0.0, porcentajeRetraso = 0.0, porcentajeEjecutado = 0.0;
+		int numeroModulos;
+		programadoRetrasoEjecutado[0] = 0.0;
+		programadoRetrasoEjecutado[1] = 0.0;
+		programadoRetrasoEjecutado[2] = 0.0;
+		if (!lista.isEmpty()) {
+			numeroModulos= lista.size();
+			for (UserCursoModuloDTO adto : lista) {
+				porcentajeProgramado += Double.parseDouble(adto.getAvancePlanificado()+"");
+				porcentajeRetraso += Double.parseDouble(adto.getRetrasoPlanificado()+"");
+				porcentajeEjecutado += Double.parseDouble(adto.getAvance() + "");
+			}
+			porcentajeProgramado = porcentajeProgramado / numeroModulos;
+			porcentajeEjecutado = porcentajeEjecutado / numeroModulos;
+			porcentajeRetraso = porcentajeProgramado - porcentajeEjecutado;
+			porcentajeEjecutado=redondearDecimalesControlar(porcentajeEjecutado);
+			porcentajeProgramado=redondearDecimalesControlar(porcentajeProgramado);
+			porcentajeRetraso=redondearDecimalesControlar(porcentajeRetraso);
+			
+			programadoRetrasoEjecutado[0] = porcentajeProgramado;
+			programadoRetrasoEjecutado[1] = porcentajeRetraso;
+			programadoRetrasoEjecutado[2] = porcentajeEjecutado;
+		}
+		return programadoRetrasoEjecutado;
+	}
+	
+	public double redondearDecimalesControlar(double porcentaje) {
+		double r=0.00, rM=100.00;
+		if (porcentaje<0.00) {
+			return r;
+		}
+		if (porcentaje>rM) {
+			return rM;
+		}
+		return porcentaje;
+	}
+	public BigDecimal transformarDoubleaDecimal(double numero) {
+		BigDecimal resultado = new BigDecimal(numero);
+		resultado = resultado.setScale(2, BigDecimal.ROUND_HALF_UP);
+		return resultado;
+	}
 
 	public UsuarioCursoDTO cargarUsuarioCursoDTO(UsuarioCursoDTO user) throws ParseException {
 		UsuarioCursoDTO uDTO = new UsuarioCursoDTO();
-		UsuarioCurso u = findUsuarioCursoById(user.getIdUsuariocurso());
-		uDTO.setAvance(u.getAvance());
-		BigDecimal avancePla = calcularavanceplanificado(u.getFechaInicioProgramada(), u.getFechaFinProgramada());
-		uDTO.setAvancePlanificado(avancePla);
+		UsuarioCurso u = findUsuarioCursoById(user.getIdUsuariocurso());	
 		uDTO.setCurso(u.getCurso());
 		uDTO.setFechaFinProgramada(u.getFechaFinProgramada());
 		uDTO.setFechaFinReal(u.getFechaFinReal());
 		uDTO.setFechaInicioProgramada(u.getFechaInicioProgramada());
 		uDTO.setFechaInicioReal(u.getFechaInicioReal());
 		uDTO.setIdUsuariocurso(u.getIdUsuariocurso());
+		uDTO.setModulorealizados(u.getModulorealizados());
 		List<UsuarioCursoModulo> listaUcM = new ArrayList<UsuarioCursoModulo>();
 		listaUcM = findAllUsuarioCursoModulobyUserCusro(u.getIdUsuariocurso());
 		List<UserCursoModuloDTO> lista = cargarListaUsuarioCursoModulosDTOs(listaUcM);
 		uDTO.setListaCursosModulosDTO(lista);
-		uDTO.setModulorealizados(u.getModulorealizados());
-		BigDecimal retraso = calcularaRetraso(uDTO.getAvance(), uDTO.getAvancePlanificado());
+		//AVANCE RETRASO PLANIFICADO SEGÚN LOS MÓDULOS
+		double[] programadoRetrasoEjecutado = cargarAvanceProgramadoEjecutadoRetraso(lista);
+		BigDecimal programado, ejecutado, retraso;
+		programado = transformarDoubleaDecimal(programadoRetrasoEjecutado[0]);
+		retraso = transformarDoubleaDecimal(programadoRetrasoEjecutado[1]);
+		ejecutado = transformarDoubleaDecimal(programadoRetrasoEjecutado[2]);
+		programado = programado.setScale(2, BigDecimal.ROUND_HALF_UP);
+		retraso = retraso.setScale(2, BigDecimal.ROUND_HALF_UP);
+		ejecutado = ejecutado.setScale(2, BigDecimal.ROUND_HALF_UP);
+		//ENVIAR RESULTADOS
+		uDTO.setAvance(ejecutado);
+		uDTO.setAvancePlanificado(programado);
 		uDTO.setRetrasoPlanificado(retraso);
 		uDTO.setUsuario(u.getUsuario());
 		uDTO.setUsuarioCurso(u.getUsuarioCurso());
@@ -354,7 +413,7 @@ public class ManagerUserCurso {
 
 	@SuppressWarnings("unchecked")
 	public boolean existeUsuarioInscritoCurso(long id_curso_usuario, long id_user) {
-
+System.out.println("id:curs"+id_curso_usuario+" USU"+id_user);
 		String JPQL = "SELECT u FROM UsuarioCurso u WHERE u.usuarioCurso.idUsuariocurso=?1 and u.usuario.idUsuario="
 				+ id_user;
 		Query query = em.createQuery(JPQL, UsuarioCurso.class);
@@ -496,7 +555,7 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 		
 		List<CursoModulo>listaCursosModulos=new ArrayList<CursoModulo>();
 		listaCursosModulos=findAllUsuarioCursoByIdCurso(cur.getIdCurso());
-		int tamanioL=0 ,aux=0;
+		int aux=0;
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(useC.getFechaInicioProgramada());
 		double d=dias/listaCursosModulos.size();
@@ -555,7 +614,6 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 	public int calculardiasParaCadaModulo(Date fechaInicio, Date fechaFin, int numModulos) throws Exception {
 		int res = 0;
 		double r = 0;
-		Date fechaActual = new Date();
 		long fechaInicioU, fechaFinU, diasTranscurridos;
 		fechaInicioU = fechaInicio.getTime();
 		fechaFinU = fechaFin.getTime();
@@ -577,7 +635,7 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 		String modulo = usuercurse.getModulorealizados();
 		char[] caracteres;
 		if (modulo.equals(" ") || modulo.length() == 0) {
-			modulo = "";
+			modulo = ""+usuarioCursoModulo.getCursoModulo().getOrdenCurso() + "";
 			return modulo;
 		} else {
 			String[] parts = modulo.split(",");

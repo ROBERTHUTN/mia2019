@@ -21,6 +21,7 @@
 	<f:facet name="middle">
 		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
 		<h:outputStylesheet name="css/styles.css" />
+		<h:outputStylesheet name="css/style2.css" />
 	</f:facet>
 	<f:facet name="last">
 		<h:outputScript name="bootstrap/js/bootstrap.js" />
@@ -31,28 +32,6 @@
 .value {
 	font-weight: bold;
 }
-
-.myProgress {
-	width: 100%;
-	background-color: silver;
-}
-
-.myBarBlue {
-	height: 20px;
-	background-color: #099910;
-}
-
-.myBarYellow {
-	height: 20px;
-	background-color: orange;
-}
-
-.myBarRed {
-	height: 20px;
-	background-color: red !important;
-}
- 
- 
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -85,40 +64,67 @@
 	</p:growl>
 
 	<h:form id="form2">
-			
 
-				
-					<p:panel
-				header="Curso #{beanUserCursoModulo.usuariocursoCarDTO.curso.nombre}">
-			<p:panelGrid columns="4" layout="grid" styleClass="showcase-text-align-center" columnClasses="ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3">
- 
-						<p:column>
-						<p:outputLabel value="Avance del curso" style="font-weight: bold"></p:outputLabel>
-						</p:column>
-						
-						<p:column>
-							<p:outputLabel style="alight:center;font-weight: bold"
-								value="Avance #{beanUserCursoModulo.usuariocursoCarDTO.avance}%" />
-							<div class="myProgress" >
-								<p:outputPanel title="% Ejecutado" >
-									<div class="myBarBlue"
-										style="width:#{beanUserCursoModulo.usuariocursoCarDTO.avance}%;"></div>
-								</p:outputPanel>
-							</div>
-						</p:column>
-						<p:column>
-							<h:outputText  value="Módulos realizados" style="font-weight: bold" />
-						</p:column>
-						<p:column>
-						<h:outputText
-								value="#{beanUserCursoModulo.usuariocursoCarDTO.modulorealizados}" />
-						</p:column>
 
-				</p:panelGrid>
 
-			</p:panel>
+		<p:panel
+			header="Curso #{beanUserCursoModulo.usuariocursoCarDTO.curso.nombre}">
+			<p:panelGrid columns="3" layout="grid"
+				styleClass="showcase-text-align-center"
+				columnClasses="ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3">
 
-			<div class="col-lg-5"></div>
+
+
+				<p:column>
+					<p:outputLabel style="alight:center;font-weight: bold"
+						value="Avance Planificado #{beanUserCursoModulo.usuariocursoCarDTO.avancePlanificado}%" />
+					<div class="myProgress">
+						<p:outputPanel title="% Planificado">
+							<div class="myBarBlue"
+								style="width:#{beanUserCursoModulo.usuariocursoCarDTO.avancePlanificado}%;"></div>
+						</p:outputPanel>
+					</div>
+				</p:column>
+
+				<p:column>
+
+					<h:outputText value="Fecha Inicio"
+						style="alight:center;font-weight: bold" />
+					<p:spacer></p:spacer>
+					<p:outputLabel
+						value="#{beanUserCursoModulo.usuariocursoCarDTO.fechaInicioProgramada}"></p:outputLabel>
+				</p:column>
+				<p:column>
+
+					<h:outputText value="Fecha Fin"
+						style="alight:center;font-weight: bold" />
+					<p:spacer></p:spacer>
+					<p:outputLabel
+						value="#{beanUserCursoModulo.usuariocursoCarDTO.fechaFinProgramada}"></p:outputLabel>
+				</p:column>
+				<p:column>
+					<p:outputLabel style="alight:center;font-weight: bold"
+						value="Avance Ejecutado #{beanUserCursoModulo.usuariocursoCarDTO.avance}%" />
+					<div class="myProgress">
+						<p:outputPanel title="% Ejecutado">
+							<div class="myBarBlue"
+								style="width:#{beanUserCursoModulo.usuariocursoCarDTO.avance}%;"></div>
+						</p:outputPanel>
+					</div>
+				</p:column>
+
+				<p:column>
+					<h:outputText value="Módulos realizados" style="font-weight: bold" />
+					<p:spacer></p:spacer>
+					<p:outputLabel
+						value="#{beanUserCursoModulo.usuariocursoCarDTO.modulorealizados}"></p:outputLabel>
+
+				</p:column>
+			</p:panelGrid>
+
+		</p:panel>
+
+		<div class="col-lg-5"></div>
 		<br />
 
 		<p:dataTable var="car"
@@ -138,10 +144,10 @@
 			<p:column headerText="Errores">
 				<p:outputLabel value="#{car.errores}"></p:outputLabel>
 			</p:column>
-					<p:column headerText="Fecha Inicio">
+			<p:column headerText="Fecha Inicio">
 				<p:outputLabel value="#{car.fechaInicioProgramada}"></p:outputLabel>
 			</p:column>
-				<p:column headerText="Fecha Fin">
+			<p:column headerText="Fecha Fin">
 				<p:outputLabel value="#{car.fechaFinProgramada}"></p:outputLabel>
 			</p:column>
 
@@ -155,11 +161,11 @@
 
 
 			</p:column>
-				<p:column headerText="Avance Planificado">
+			<p:column headerText="Avance Planificado">
 				<h:outputText value="Avance #{car.avancePlanificado}%" />
 				<div class="myProgress">
-					<p:outputPanel title="% Ejecutado">
-						<div class="myBarBlue" style="width:#{car.avance}%;"></div>
+					<p:outputPanel title="% Planificado">
+						<div class="myBarBlue" style="width:#{car.avancePlanificado}%;"></div>
 					</p:outputPanel>
 				</div>
 
@@ -171,7 +177,7 @@
 
 			<p:column style="width:100px" headerText="Módulos">
 
-				<p:commandButton  value="Módulo #{car.cursoModulo.ordenCurso}"
+				<p:commandButton value="Módulo #{car.cursoModulo.ordenCurso}"
 					action="#{beanUserCursoModulo.cargarModulo(car)}"></p:commandButton>
 
 

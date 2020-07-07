@@ -7,6 +7,7 @@ body,html{
 	height: 100%;
 	position: relative;
 }
+
 .login{
 	
 	padding: 17px;
@@ -20,4 +21,24 @@ body,html{
 	.login{
 	witdth:90%;
 	}
+}
+
+.myProgress {
+	width: 100%;
+	background-color: silver;
+}
+
+.myBarBlue {
+	height: 20px;
+	background-color: #099910;
+}
+
+.myBarYellow {
+	height: 20px;
+	background-color: orange;
+}
+
+.myBarRed {
+	height: 20px;
+	background-color: red !important;
 }

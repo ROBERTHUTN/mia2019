@@ -5,14 +5,17 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
-type="preRenderView"></f:event>
+	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
+	<title>MIA</title>
 	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<f:facet name="middle">
+		<h:outputStylesheet name="css/style2.css" />
+	</f:facet>
 	<style type="text/css">
 /** Demo **/
-
 .ui-outputlabel {
 	font-weight: bold;
 }
@@ -29,26 +32,28 @@ type="preRenderView"></f:event>
 				<p:menuitem>
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
-	
-				<p:menuitem value="Nueva Registro Curso" title="Registrarse en un curso"
-					icon=" fa fa-plus " onclick="PF('nuevaUserCurso').show();"></p:menuitem>
+
+				<p:menuitem value="Nueva Registro Curso"
+					title="Registrarse en un curso" icon=" fa fa-plus "
+					onclick="PF('nuevaUserCurso').show();"></p:menuitem>
 				<f:facet name="options">
-					<p:commandButton title="Datos del registro de curso" icon="fa fa-user"
-						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Datos del registro de curso"
+						icon="fa fa-user" value="#{beanLogin.login.nombres}" />
 					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
 						action="#{beanLogin.actionCerrarSesion()}" />
 				</f:facet>
 			</p:menubar>
 		</h:form>
 	</div>
-	<div id="migajas" class="p-grid"  >
-	<p:breadCrumb>
-    <p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
-    <p:menuitem value="Registro Curso" url="/miaWeb/faces/usuario/inscripcioncurso.xhtml" />
-	
-	</p:breadCrumb>
- 	</div>
-	
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+			<p:menuitem value="Registro Curso"
+				url="/miaWeb/faces/usuario/inscripcioncurso.xhtml" />
+
+		</p:breadCrumb>
+	</div>
+
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
@@ -64,39 +69,39 @@ type="preRenderView"></f:event>
 		<h:form id="form1">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
- 					
+
 					<p:outputLabel value="usuario: " />
 					<p:inputText autoWidth="100%" required="true"
 						requiredMessage="Seleccione un Usuario"
-						value="#{beanLogin.login.nombres}" 
-						effect="fade" filter="true" filterMatchMode="startsWith" disabled="true">
+						value="#{beanLogin.login.nombres}" effect="fade" filter="true"
+						filterMatchMode="startsWith" disabled="true">
 					</p:inputText>
-					
+
 					<p:outputLabel value="Curso Usuario: " />
 					<p:selectOneMenu id="curso" autoWidth="100%" required="true"
 						requiredMessage="Seleccione un curso"
-						value="#{beanUserCurso.id_usuario_curso_fk}"
-						effect="fade" filter="true" filterMatchMode="startsWith">
+						value="#{beanUserCurso.id_usuario_curso_fk}" effect="fade"
+						filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione un Curso"
 							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanUserCurso.listaUsuariosCursos}" var="reg"
-							itemLabel="#{reg.curso.nombre} #{reg.usuario.apellidos} #{reg.usuario.nombres}" itemValue="#{reg.idUsuariocurso}" />
+						<f:selectItems value="#{beanUserCurso.listaUsuariosCursos}"
+							var="reg"
+							itemLabel="#{reg.curso.nombre} #{reg.usuario.apellidos} #{reg.usuario.nombres}"
+							itemValue="#{reg.idUsuariocurso}" />
 					</p:selectOneMenu>
-					<p:message for="curso"></p:message>			
-					
+					<p:message for="curso"></p:message>
+
 				</p:panelGrid>
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
-						style="width:100%"
-						ajax="false" validateClient="true"
+						style="width:100%" ajax="false" validateClient="true"
 						actionListener="#{beanUserCurso.actionListenerInscripcionCurso()}"
-						oncomplete="nuevaUserCurso" update="form2" >
+						oncomplete="nuevaUserCurso" update="form2">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
-						
-					
+
+
 
 				</p:panelGrid>
 			</div>
@@ -118,44 +123,115 @@ type="preRenderView"></f:event>
 				<f:facet name="header">
 					<p:outputLabel value="Lista de Cursos Suscripto"></p:outputLabel>
 				</f:facet>
-				<p:column headerText="Id" style="width:50px">
-					<h:outputText value="#{e.idUsuariocurso}" />
-				</p:column>
-				<p:column headerText="Usuario" style="width:50px">
+				<p:column headerText="Módulos" style="width:16px">
+            <p:rowToggler />
+        </p:column>
+				<p:column headerText="Usuario" style="width:100px">
 					<h:outputText value="#{e.usuario.nombres}" />
 				</p:column>
-				<p:column headerText="Curso" style="width:50px">
+				<p:column headerText="Curso" style="width:100px">
 					<h:outputText value="#{e.curso.nombre}" />
 				</p:column>
-				<p:column headerText="Avance Ejecutado" style="width:50px">
-					<h:outputText value="#{e.avance}" />
+				<p:column headerText="Fechas" style="width:100px">
+					<h:outputText value="Fecha Inicio " />
+					<p:spacer></p:spacer>
+					<h:outputText value="#{e.fechaInicioProgramada}" />
+			<p></p>
+					<h:outputText value="Fecha Fin " />
+					<p:spacer></p:spacer>
+					<h:outputText value="#{e.fechaFinProgramada}" />
+					
 				</p:column>
-				<p:column headerText="Avance Planificado" style="width:50px">
-					<h:outputText value="#{e.avancePlanificado}" />
+				<p:column headerText="Avances" style="width:100px">
+					<p:outputLabel value="Avance Planificado #{e.avancePlanificado}"></p:outputLabel>
+					<div class="myProgress">
+						<p:outputPanel title="% Planificado">
+							<div class="myBarBlue" style="width:#{e.avancePlanificado}%;"></div>
+						</p:outputPanel>
+					</div>
+					<p:spacer></p:spacer>
+				<p:outputLabel value="Avance Ejecutado #{e.avance}"></p:outputLabel>
+					<div class="myProgress">
+						<p:outputPanel title="% Ejecutado">
+							<div class="myBarBlue" style="width:#{e.avance}%;"></div>
+						</p:outputPanel>
+					</div>
 				</p:column>
 				<p:column headerText="Módulos Realizados" style="width:50px">
-					<h:outputText value="#{e.modulorealizados}" />
+					<h:outputText value="#{e.modulorealizados}" rendered="#{not empty e.modulorealizados}" />
+					<h:outputText value="No ha realizado nigún módulo" rendered="#{empty e.modulorealizados}" />
 				</p:column>
-					
-					<p:commandButton update="form2"
-						actionListener="#{beanUserCurso.actionListenerEliminarCurso(e.idUsuariocurso)}"
-						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
-						icon="fa fa-times">
-						<p:confirm header="Confirmación" message="Desea eliminar?"
-							icon="fa fa-times" />
-					</p:commandButton>
-				
-				<p:button> </p:button>
-				
+
+				<p:commandButton update="form2"
+					actionListener="#{beanUserCurso.actionListenerEliminarCurso(e.idUsuariocurso)}"
+					style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
+					icon="fa fa-times">
+					<p:confirm header="Confirmación" message="Desea eliminar?"
+						icon="fa fa-times" />
+				</p:commandButton>
+    <p:rowExpansion>
+      <p:dataTable var="d"
+			value="#{e.listaCursosModulosDTO}">
+			<f:facet name="header">
+				<p:outputLabel value="Lista de módulos del Curso "></p:outputLabel>
+			</f:facet>
+<p:column style="width:100px" headerText="Módulos">
+
+				<p:commandButton value="Módulo #{d.cursoModulo.ordenCurso}"
+					></p:commandButton>
+			</p:column>
+			<p:column headerText="Nombres ">
+				<p:outputLabel value="#{d.cursoModulo.modulo.nombre}"></p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Aciertos">
+				<p:outputLabel value="#{d.aciertos}"></p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Errores">
+				<p:outputLabel value="#{d.errores}"></p:outputLabel>
+			</p:column>
+			<p:column headerText="Fecha Inicio">
+				<p:outputLabel value="#{d.fechaInicioProgramada}"></p:outputLabel>
+			</p:column>
+			<p:column headerText="Fecha Fin">
+				<p:outputLabel value="#{d.fechaFinProgramada}"></p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Avance">
+				<h:outputText value="Avance #{d.avance}%" />
+				<div class="myProgress">
+					<p:outputPanel title="% Ejecutado">
+						<div class="myBarBlue" style="width:#{d.avance}%;"></div>
+					</p:outputPanel>
+				</div>
+
+
+			</p:column>
+			<p:column headerText="Avance Planificado">
+				<h:outputText value="Avance #{d.avancePlanificado}%" />
+				<div class="myProgress">
+					<p:outputPanel title="% Planificado">
+						<div class="myBarBlue" style="width:#{d.avancePlanificado}%;"></div>
+					</p:outputPanel>
+				</div>
+
+
+			</p:column>
+
+		</p:dataTable>
+        </p:rowExpansion>
+			
+
 			</p:dataTable>
 		</div>
 	</h:form>
 
 
 	<p:dialog header="Editar curso" widgetVar="editardimensionpregunta"
-		id="editardimensionpregunta" modal="true" height="330" resizable="true"
-		responsive="true" minimizable="true" maximizable="true"
-		appendTo="@(body)">
+		id="editardimensionpregunta" modal="true" height="330"
+		resizable="true" responsive="true" minimizable="true"
+		maximizable="true" appendTo="@(body)">
 		<h:form id="form10">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
@@ -165,7 +241,7 @@ type="preRenderView"></f:event>
 						required="true" disabled="true">
 					</p:inputText>
 
-<p:outputLabel value="Dimension: " />
+					<p:outputLabel value="Dimension: " />
 					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione una Dimension"
 						value="#{beanAdministrradorCuestionario.id_dimension_fk}"
@@ -176,18 +252,18 @@ type="preRenderView"></f:event>
 							value="#{beanAdministrradorCuestionario.dimensiones}" var="reg"
 							itemLabel="#{reg.descripcion}" itemValue="#{reg.idDimension}" />
 					</p:selectOneMenu>
-					
-					
+
+
 					<p:outputLabel value="Preguntas: " />
-					<p:selectOneMenu autoWidth="100%"  required="true"
+					<p:selectOneMenu autoWidth="100%" required="true"
 						requiredMessage="Seleccione una Pregunta"
 						value="#{beanAdministrradorCuestionario.id_pregunta_fk}"
 						effect="fade" filter="true" filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Seleccione la Pregunta"
 							noSelectionOption="true" />
-						<f:selectItems
-							value="#{beanAdministrradorCuestionario.preguntas}" var="reg"
-							itemLabel="#{reg.descripcion}" itemValue="#{reg.idPregunta}" />
+						<f:selectItems value="#{beanAdministrradorCuestionario.preguntas}"
+							var="reg" itemLabel="#{reg.descripcion}"
+							itemValue="#{reg.idPregunta}" />
 					</p:selectOneMenu>
 
 				</p:panelGrid>
@@ -195,7 +271,7 @@ type="preRenderView"></f:event>
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						actionListener="#{beanAdministrradorCuestionario.actionListenerEditarDimensionPregunta()}"
-						oncomplete="nuevaDimenPre" update="@form"  ajax="false">
+						oncomplete="nuevaDimenPre" update="@form" ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
