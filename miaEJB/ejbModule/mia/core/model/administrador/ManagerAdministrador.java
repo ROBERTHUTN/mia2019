@@ -91,6 +91,8 @@ public class ManagerAdministrador {
 		return lista;
 	}
 
+	
+	
 // Método que me devuelve la Lista de ROLES
 	public List<Religion> findAllReligion() {
 

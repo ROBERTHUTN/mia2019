@@ -479,56 +479,70 @@ public class ManagerUserCurso {
 		em.persist(nusercurso);
 	}
 
-	public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur, int dias) throws Exception {
-
-		if (useC == null) {
-			throw new Exception("Usuario curso vacío");
+public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) throws Exception {
+		
+		if (useC==null) {
+			throw new Exception("Usuario curso vacío");	
 		}
-
-		List<CursoModulo> listaCursosModulos = new ArrayList<CursoModulo>();
-		listaCursosModulos = findAllUsuarioCursoByIdCurso(cur.getIdCurso());
-		int tamanioL = 0, aux = 0;
+		
+		List<CursoModulo>listaCursosModulos=new ArrayList<CursoModulo>();
+		listaCursosModulos=findAllUsuarioCursoByIdCurso(cur.getIdCurso());
+		int tamanioL=0 ,aux=0;
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(useC.getFechaInicioProgramada());
-		double d = dias / listaCursosModulos.size();
-		dias = (int) Math.round(d);
+		double d=dias/listaCursosModulos.size();
+		dias=(int) Math.round(d);
 		for (CursoModulo c : listaCursosModulos) {
-
-			UsuarioCursoModulo uCMod = new UsuarioCursoModulo();
-			if (aux == 0) {
-				uCMod.setAciertos(0);
-				BigDecimal r = new BigDecimal(0);
+			
+			UsuarioCursoModulo uCMod=new UsuarioCursoModulo();
+	        if (aux==0) {
+	        	uCMod.setAciertos(0);
+				BigDecimal r=new BigDecimal(0);
+				
 				uCMod.setFechaInicioProgramada(calendar.getTime());
-				System.out.println(":" + uCMod.getFechaInicioProgramada() + " DIASS: " + dias);
-				calendar.add(Calendar.DAY_OF_YEAR, dias);
-				uCMod.setFechaFinProgramada(calendar.getTime());
-				System.out.println(":" + calendar.getTime());
+			System.out.println(":"+uCMod.getFechaInicioProgramada()+" DIASS: "+dias);
+			      calendar.add(Calendar.DAY_OF_YEAR, dias);  
+			      if(calendar.getTime().compareTo(useC.getFechaFinProgramada())>0 || calendar.getTime().compareTo(useC.getFechaFinProgramada())==0  ) {
+				    	
+				    	 uCMod.setFechaFinProgramada(useC.getFechaFinProgramada()); 
+				     }else {
+				    	 uCMod.setFechaFinProgramada(calendar.getTime());  
+				     }
+			      
+			    uCMod.setFechaFinProgramada(calendar.getTime()); 
+				System.out.println(":"+calendar.getTime());
 				uCMod.setAvance(r);
 				uCMod.setCursoModulo(c);
 				uCMod.setErrores(0);
 				uCMod.setUsuarioCurso(useC);
 				em.persist(uCMod);
-			} else {
+			}else {
 				uCMod.setAciertos(0);
-				BigDecimal r = new BigDecimal(0);
-				calendar.add(Calendar.DAY_OF_YEAR, 1);
+				BigDecimal r=new BigDecimal(0);
+				
 				uCMod.setFechaInicioProgramada(calendar.getTime());
-				System.out.println(":" + uCMod.getFechaInicioProgramada() + " DIASS: " + dias);
-				calendar.add(Calendar.DAY_OF_YEAR, dias);
-				uCMod.setFechaFinProgramada(calendar.getTime());
-				System.out.println(":" + calendar.getTime());
+			System.out.println(":"+uCMod.getFechaInicioProgramada()+" DIASS: "+dias);
+			calendar.add(Calendar.DAY_OF_YEAR, dias);
+			 if(calendar.getTime().compareTo(useC.getFechaFinProgramada())>0 || calendar.getTime().compareTo(useC.getFechaFinProgramada())==0  ) {
+		    	 uCMod.setFechaFinProgramada(useC.getFechaFinProgramada()); 
+		     }else {
+		    	 uCMod.setFechaFinProgramada(calendar.getTime());  
+		     }
+			    System.out.println(":"+calendar.getTime());
 				uCMod.setAvance(r);
 				uCMod.setCursoModulo(c);
 				uCMod.setErrores(0);
 				uCMod.setUsuarioCurso(useC);
 				em.persist(uCMod);
-
+	
 			}
-			aux++;
+	        aux++;
 		}
-
+		
+		
 	}
-
+	
+	
 	public int calculardiasParaCadaModulo(Date fechaInicio, Date fechaFin, int numModulos) throws Exception {
 		int res = 0;
 		double r = 0;
