@@ -241,7 +241,7 @@ public class ManagerUserCurso {
 	// lista de usuarios y cursos
 	public CursoModulo findCursoModuloByCursoAndModulo(int idCurso, long idModulo) {
 		CursoModulo cm = new CursoModulo();
-		Query q = em.createQuery("SELECT u FROM CursoModulo u where u.curso.idCurso=?1" + " and u.modulo.idModulo=?2",
+		Query q = em.createQuery("SELECT u FROM CursoModulo u where u.curso.idCurso=?1" + " and u.modulo.idModulo=?2 order by u.ordenCurso",
 				CursoModulo.class);
 		q.setParameter(1, idCurso);
 		q.setParameter(2, idModulo);
@@ -270,7 +270,7 @@ public class ManagerUserCurso {
 	// lista de usuario y cursos
 	public List<UsuarioCurso> findAllUsuarioCursoPadre() {
 
-		String JPQL = "SELECT u FROM UsuarioCurso u WHERE u.usuarioCurso=null";
+		String JPQL = "SELECT u FROM UsuarioCurso u WHERE u.usuarioCurso=null ";
 		Query query = em.createQuery(JPQL, UsuarioCurso.class);
 		@SuppressWarnings("unchecked")
 		List<UsuarioCurso> listaUsuarioCursos = query.getResultList();
