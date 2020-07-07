@@ -94,8 +94,6 @@ public class BeanUserCursoModulo implements Serializable {
 
 	public String actionIngresarCambio() {
 		try {
-			//usuarioCursoModuloDto;
-			//usuarioCursoModuloC;usuarioCursoModuloC,usuarioCursoModuloDto,preguntamoduloDTO
 			managerUserCurso.editarAvanceCurso(usuariocursoCarDTO, usuarioCursoModuloC, preguntamoduloDTO);
 			usuariocursoCarDTO = managerUserCurso.cargarUsuarioCursoDTO(usuariocursoCarDTO);
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");

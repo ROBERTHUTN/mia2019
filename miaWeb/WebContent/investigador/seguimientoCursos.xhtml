@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<style type="text/css">
+/** Demo **/
+
+.ui-outputlabel {
+	font-weight: bold;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+	
+				<p:menuitem value="Nueva Registro Curso" title="Registrarse en un curso"
+					icon=" fa fa-plus " onclick="PF('nuevaUserCurso').show();"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Datos del registro de curso" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<div id="migajas" class="p-grid"  >
+	<p:breadCrumb>
+    <p:menuitem value="Menu" url="/miaWeb/faces/usuario/menu.xhtml" />
+    <p:menuitem value="Registro Curso" url="/miaWeb/faces/usuario/inscripcioncurso.xhtml" />
+	
+	</p:breadCrumb>
+ 	</div>
+	
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+
+
+
+	<h:form id="form2">
+		<div class="ui-fluid">
+
+			<p:dataTable var="e" widgetVar="tabla1"
+				value="#{beanInvestigador.listaUsuariosCursoDTO}" reflow="true"
+				rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<p:outputLabel value="Lista de Cursos Suscripto"></p:outputLabel>
+				</f:facet>
+
+				<p:column headerText="Usuario" style="width:50px">
+					<h:outputText value="#{e.usuario.nombres}" />
+				</p:column>
+				<p:column headerText="Curso" style="width:50px">
+					<h:outputText value="#{e.curso.nombre}" />
+				</p:column>
+				<p:column headerText="Avance Ejecutado" style="width:50px">
+					<h:outputText value="#{e.avance}" />
+				</p:column>
+				<p:column headerText="Avance Planificado" style="width:50px">
+					<h:outputText value="#{e.avancePlanificado}" />
+				</p:column>
+				<p:column headerText="Módulos Realizados" style="width:50px">
+					<h:outputText value="#{e.modulorealizados}" />
+				</p:column>
+				<p:column headerText="Fecha Programadas" style="width:50px">
+					<h:outputText value="Fecha Inicio: #{e.fechaInicioProgramada}" />
+					<p:spacer></p:spacer>
+					<p:spacer></p:spacer>
+					<h:outputText value="Fecha Fin:#{e.fechaFinProgramada}" />
+				</p:column>
+				<p:column headerText="Fechas Reales" style="width:50px">
+					<h:outputText value="Fecha Inicio: #{e.fechaInicioReal}" />
+					<p:spacer></p:spacer>
+					<p:spacer></p:spacer>
+					<h:outputText value="Fecha Fin:#{e.fechaFinReal}" />
+				</p:column>
+				<p:column headerText="Módulos Realizados" style="width:50px">
+					<h:outputText value="#{e.modulorealizados}" />
+				</p:column>
+					
+					<p:commandButton update="form2"
+						actionListener="#{beanUserCurso.actionListenerEliminarCurso(e.idUsuariocurso)}"
+						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
+						icon="fa fa-times">
+						<p:confirm header="Confirmación" message="Desea eliminar?"
+							icon="fa fa-times" />
+					</p:commandButton>
+				
+				<p:button> </p:button>
+				
+			</p:dataTable>
+		</div>
+	</h:form>
+
+
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+
+</body>
+
+
+</html>

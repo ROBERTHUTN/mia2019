@@ -18,9 +18,12 @@ import mia.core.model.entities.UsuarioProyecto;
 import mia.core.model.investigador.ManagerInvestigador;
 import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.usuario.ManagerUserCurso;
+import mia.core.model.usuario.dto.UserCursoModuloDTO;
+import mia.core.model.usuario.dto.UsuarioCursoDTO;
 import mia.modulos.view.util.JSFUtil;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,6 +49,7 @@ public class BeanInvestigador implements Serializable {
 	private UsuarioCurso usuarioCursoAct=new UsuarioCurso();
 	private UsuarioCurso usuarioCursoEdit=new UsuarioCurso();
 	private List<UsuarioCurso> listaUsuariosCursos;
+	private List<UsuarioCursoDTO> listaUsuariosCursosDTO;
 	private List<UsuarioCursoModulo> listaUsuariosCursosModulos=new ArrayList<UsuarioCursoModulo>();;
 	private boolean ingresadoModulos;
 	private UsuarioCursoModulo usuarioCursoModuloE;
@@ -72,6 +76,8 @@ public class BeanInvestigador implements Serializable {
 	private List<UsuarioProyecto>listaOrganizaciones;
 	private List<UsuarioInteresArea> areainteres;
 	private List<Curso>listaCursos;
+	private List<UserCursoModuloDTO> listaUserCursoModuloDTOs;
+	private List<UsuarioCursoDTO> listaUsuariosCursoDTO;
 	private int fk_id_curso;
 	@Inject 
 	private BeanLogin beanLogin;
@@ -79,32 +85,38 @@ public class BeanInvestigador implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
-			Date t=new Date();
-			 Calendar calendar = Calendar.getInstance();
-		      calendar.setTime(t); 
-		      for (int i = 0; i < 5; i++) {
-		    	  System.out.println("---: "+calendar.getTime());
-		    	   calendar.add(Calendar.DAY_OF_YEAR, 5);  
-			}
-		   
-	
-			listaCursos=managerAdministrador.findAllCursos();
-			System.out.println(listaCursos.size());
+		    listaCursos=managerAdministrador.findAllCursos();
 			investigacionareas= managerInvestigador.findAllAreaInvestigaciones();
 			listaFichaU=managerAdministrador.findAllFichaPersonalByRolUsuario();
 			 listaUsuario=managerAdministrador.findAllUsuariosByRolUsuario();
 			// ListaFichaIduser= managerAdministrador.findAllFichaPersonalByIdUsuario(id_usuario_f);
 			listaFichaUvoluntariado= managerAdministrador.findAllFichaPersonalVoluntariado();
 			listaOrganizaciones=managerAdministrador.findUsuarioProyectoByIdUsuario(beanLogin.getLogin().getId_usuario());
-			// 
 			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonalesByOrganizacion(listaOrganizaciones);
 			areainteres=managerInvestigador.findAllUsuarioInteresAreaes();
 			listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
+			listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
 	}
 	
+	public String actionSeguimientoUsuariosCurso(UsuarioCursoDTO u) {
+		try {
+		List<UsuarioCurso>lista=new ArrayList<UsuarioCurso>();
+		lista=managerUserCurso.findAllUsuarioCursoHijos(u.getIdUsuariocurso());
+			listaUsuariosCursoDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(lista);
+		     return "seguimientoCursos.xhtml?faces-redirect=true";
+		} catch (ParseException e) {
+			e.printStackTrace();
+			JSFUtil.crearMensajeError(e.getMessage());
+			return"";
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
+		}
+ 
+		
+	}
 	public void onRowEdit(UsuarioCursoModulo mo) {
          
      	try {
@@ -552,6 +564,30 @@ public class BeanInvestigador implements Serializable {
 	}
 	public void setUsuarioCursoModuloE(UsuarioCursoModulo usuarioCursoModuloE) {
 		this.usuarioCursoModuloE = usuarioCursoModuloE;
+	}
+
+	public List<UsuarioCursoDTO> getListaUsuariosCursosDTO() {
+		return listaUsuariosCursosDTO;
+	}
+
+	public void setListaUsuariosCursosDTO(List<UsuarioCursoDTO> listaUsuariosCursosDTO) {
+		this.listaUsuariosCursosDTO = listaUsuariosCursosDTO;
+	}
+
+	public List<UserCursoModuloDTO> getListaUserCursoModuloDTOs() {
+		return listaUserCursoModuloDTOs;
+	}
+
+	public void setListaUserCursoModuloDTOs(List<UserCursoModuloDTO> listaUserCursoModuloDTOs) {
+		this.listaUserCursoModuloDTOs = listaUserCursoModuloDTOs;
+	}
+
+	public List<UsuarioCursoDTO> getListaUsuariosCursoDTO() {
+		return listaUsuariosCursoDTO;
+	}
+
+	public void setListaUsuariosCursoDTO(List<UsuarioCursoDTO> listaUsuariosCursoDTO) {
+		this.listaUsuariosCursoDTO = listaUsuariosCursoDTO;
 	}
 
 
