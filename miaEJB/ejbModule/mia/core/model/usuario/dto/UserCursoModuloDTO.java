@@ -1,116 +1,130 @@
 package mia.core.model.usuario.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Date;
 
-import mia.core.model.entities.Curso;
-import mia.core.model.entities.Usuario;
+import mia.core.model.entities.CursoModulo;
 import mia.core.model.entities.UsuarioCurso;
 import mia.core.model.entities.UsuarioCursoModulo;
 
-public class UserCursoModuloDTO extends UsuarioCurso {
+public class UserCursoModuloDTO extends UsuarioCursoModulo {
 
 	private static final long serialVersionUID = 1L;
-	List<UsuarioCursoModulo> listaUsuarioCurMod;
-
+	private BigDecimal retrasoPlanificado;
+	private BigDecimal avancePlanificado;
 	@Override
-	public long getIdUsuariocurso() {
-
-		return super.getIdUsuariocurso();
+	public long getIdUsuarioCursoModulo() {
+		 
+		return super.getIdUsuarioCursoModulo();
 	}
-
 	@Override
-	public void setIdUsuariocurso(long idUsuariocurso) {
-
-		super.setIdUsuariocurso(idUsuariocurso);
+	public void setIdUsuarioCursoModulo(long idUsuarioCursoModulo) {
+		 
+		super.setIdUsuarioCursoModulo(idUsuarioCursoModulo);
 	}
-
+	@Override
+	public Integer getAciertos() {
+		 
+		return super.getAciertos();
+	}
+	@Override
+	public void setAciertos(Integer aciertos) {
+		 
+		super.setAciertos(aciertos);
+	}
 	@Override
 	public BigDecimal getAvance() {
-
+		 
 		return super.getAvance();
 	}
-
 	@Override
 	public void setAvance(BigDecimal avance) {
-
+		 
 		super.setAvance(avance);
 	}
-
 	@Override
-	public String getModulorealizados() {
-
-		return super.getModulorealizados();
+	public Integer getErrores() {
+		 
+		return super.getErrores();
 	}
-
 	@Override
-	public void setModulorealizados(String modulorealizados) {
-
-		super.setModulorealizados(modulorealizados);
+	public void setErrores(Integer errores) {
+		 
+		super.setErrores(errores);
 	}
-
 	@Override
-	public Curso getCurso() {
-
-		return super.getCurso();
+	public Date getFechaFinProgramada() {
+		 
+		return super.getFechaFinProgramada();
 	}
-
 	@Override
-	public void setCurso(Curso curso) {
-
-		super.setCurso(curso);
+	public void setFechaFinProgramada(Date fechaFinProgramada) {
+		 
+		super.setFechaFinProgramada(fechaFinProgramada);
 	}
-
 	@Override
-	public Usuario getUsuario() {
-
-		return super.getUsuario();
+	public Date getFechaFinReal() {
+		 
+		return super.getFechaFinReal();
 	}
-
 	@Override
-	public void setUsuario(Usuario usuario) {
-
-		super.setUsuario(usuario);
+	public void setFechaFinReal(Date fechaFinReal) {
+		 
+		super.setFechaFinReal(fechaFinReal);
 	}
-
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
-
-		return super.clone();
+	public Date getFechaInicioProgramada() {
+		 
+		return super.getFechaInicioProgramada();
 	}
-
 	@Override
-	public boolean equals(Object obj) {
-
-		return super.equals(obj);
+	public void setFechaInicioProgramada(Date fechaInicioProgramada) {
+		 
+		super.setFechaInicioProgramada(fechaInicioProgramada);
 	}
-
 	@Override
-	protected void finalize() throws Throwable {
-
-		super.finalize();
+	public Date getFechaInicioReal() {
+		 
+		return super.getFechaInicioReal();
 	}
-
 	@Override
-	public int hashCode() {
-
-		return super.hashCode();
+	public void setFechaInicioReal(Date fechaInicioReal) {
+		 
+		super.setFechaInicioReal(fechaInicioReal);
 	}
-
 	@Override
-	public String toString() {
-
-		return super.toString();
+	public CursoModulo getCursoModulo() {
+		 
+		return super.getCursoModulo();
+	}
+	@Override
+	public void setCursoModulo(CursoModulo cursoModulo) {
+		 
+		super.setCursoModulo(cursoModulo);
+	}
+	@Override
+	public UsuarioCurso getUsuarioCurso() {
+		 
+		return super.getUsuarioCurso();
+	}
+	@Override
+	public void setUsuarioCurso(UsuarioCurso usuarioCurso) {
+	 
+		super.setUsuarioCurso(usuarioCurso);
 	}
 
-	public List<UsuarioCursoModulo> getListaUsuarioCurMod() {
-		return listaUsuarioCurMod;
+	public BigDecimal getRetrasoPlanificado() {
+		return retrasoPlanificado;
 	}
-
-	public void setListaUsuarioCurMod(List<UsuarioCursoModulo> listaUsuarioCurMod) {
-		this.listaUsuarioCurMod = listaUsuarioCurMod;
+	public void setRetrasoPlanificado(BigDecimal retrasoPlanificado) {
+		this.retrasoPlanificado = retrasoPlanificado;
 	}
-
-
+	public BigDecimal getAvancePlanificado() {
+		return avancePlanificado;
+	}
+	public void setAvancePlanificado(BigDecimal avancePlanificado) {
+		this.avancePlanificado = avancePlanificado;
+	}
+	
 
 }

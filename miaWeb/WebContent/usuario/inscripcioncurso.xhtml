@@ -111,7 +111,7 @@ type="preRenderView"></f:event>
 		<div class="ui-fluid">
 
 			<p:dataTable var="e" widgetVar="tabla1"
-				value="#{beanUserCurso.usuarioCursos}" reflow="true"
+				value="#{beanUserCurso.listaUsuariosCursosDTO}" reflow="true"
 				rows="10" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -127,8 +127,11 @@ type="preRenderView"></f:event>
 				<p:column headerText="Curso" style="width:50px">
 					<h:outputText value="#{e.curso.nombre}" />
 				</p:column>
-				<p:column headerText="Avance" style="width:50px">
+				<p:column headerText="Avance Ejecutado" style="width:50px">
 					<h:outputText value="#{e.avance}" />
+				</p:column>
+				<p:column headerText="Avance Planificado" style="width:50px">
+					<h:outputText value="#{e.avancePlanificado}" />
 				</p:column>
 				<p:column headerText="Módulos Realizados" style="width:50px">
 					<h:outputText value="#{e.modulorealizados}" />

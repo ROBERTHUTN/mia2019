@@ -15,9 +15,9 @@ import mia.core.model.entities.Modulo;
 import mia.core.model.entities.Preguntamodulo;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
-import mia.core.model.entities.UsuarioCursoModulo;
 import mia.core.model.usuario.ManagerUserCurso;
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
+import mia.core.model.usuario.dto.UsuarioCursoDTO;
 import mia.modulos.view.util.JSFUtil;
 
 @Named
@@ -47,7 +47,8 @@ public class BeanUserCursoModulo implements Serializable {
 	private List<CursoModulo> cursomoduloID;
 	private List<UsuarioCurso> usuariocursoID;
 	private UsuarioCurso usuariocursoCar;
-	private UsuarioCursoModulo usuarioCursoModuloC;
+	private UsuarioCursoDTO usuariocursoCarDTO;
+	private UserCursoModuloDTO usuarioCursoModuloC;
 	@PostConstruct
 	public void init() {
 
@@ -56,7 +57,7 @@ public class BeanUserCursoModulo implements Serializable {
 	@SuppressWarnings("unused")
 	public String actionContestarModulo() {
 		try {
-			System.out.println("entdhdhddINIT");
+
 			PreguntaModuloDTO preguntaOpcionRespuestaDTO = new PreguntaModuloDTO();
 			List<Preguntamodulo> preguntamodul = managerCuestionario
 					.findAllPreguntamodulobymodulo(cursoMod.getModulo().getIdModulo());
@@ -70,12 +71,11 @@ public class BeanUserCursoModulo implements Serializable {
 		return "";
 	}
 
-	public String cargarModulo(UsuarioCursoModulo m) {
+	public String cargarModulo(UserCursoModuloDTO m) {
 		try {
 			
 			if(m.getCursoModulo().getOrdenCurso()==null)
 			{
-				System.out.println("entdhdhdd");
 				JSFUtil.crearMensajeError("El módulo no tiene un orden \n Contáctese con el administrador ");
 				return "";
 			}
@@ -95,9 +95,9 @@ public class BeanUserCursoModulo implements Serializable {
 	public String actionIngresarCambio() {
 		try {
 			//usuarioCursoModuloDto;
-			//usuarioCursoModuloC;
-			managerUserCurso.editarAvanceCurso(usuarioCursoModuloDto,usuarioCursoModuloC,preguntamoduloDTO);
-			usuarioCursoModuloDto = managerUserCurso.cargarListaUserCurso(usuariocursoCar);
+			//usuarioCursoModuloC;usuarioCursoModuloC,usuarioCursoModuloDto,preguntamoduloDTO
+			managerUserCurso.editarAvanceCurso(usuariocursoCarDTO, usuarioCursoModuloC, preguntamoduloDTO);
+			usuariocursoCarDTO = managerUserCurso.cargarUsuarioCursoDTO(usuariocursoCarDTO);
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
 			
 			return "modulos?faces-redirect=true";
@@ -131,10 +131,9 @@ public class BeanUserCursoModulo implements Serializable {
 		}
 	}
 
-	public String actionCursoModulosbyUserCurso(UsuarioCurso userCurso) {
+	public String actionCursoModulosbyUserCurso(UsuarioCursoDTO userCursoDTO) {
 	try {
-			usuariocursoCar = userCurso;
-			usuarioCursoModuloDto = managerUserCurso.cargarListaUserCurso(userCurso);
+			usuariocursoCarDTO = userCursoDTO;
 			JSFUtil.crearMensajeInfo("Felicidades a finalizado el módulo");
 			return "modulos?faces-redirect=true";
 		} catch (Exception e) {
@@ -263,11 +262,19 @@ public class BeanUserCursoModulo implements Serializable {
 		this.cursoMod = cursoMod;
 	}
 
-	public UsuarioCursoModulo getUsuarioCursoModuloC() {
+	public UsuarioCursoDTO getUsuariocursoCarDTO() {
+		return usuariocursoCarDTO;
+	}
+
+	public void setUsuariocursoCarDTO(UsuarioCursoDTO usuariocursoCarDTO) {
+		this.usuariocursoCarDTO = usuariocursoCarDTO;
+	}
+
+	public UserCursoModuloDTO getUsuarioCursoModuloC() {
 		return usuarioCursoModuloC;
 	}
 
-	public void setUsuarioCursoModuloC(UsuarioCursoModulo usuarioCursoModuloC) {
+	public void setUsuarioCursoModuloC(UserCursoModuloDTO usuarioCursoModuloC) {
 		this.usuarioCursoModuloC = usuarioCursoModuloC;
 	}
 	

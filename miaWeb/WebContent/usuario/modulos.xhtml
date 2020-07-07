@@ -89,7 +89,7 @@
 
 				
 					<p:panel
-				header="Curso #{beanUserCursoModulo.usuarioCursoModuloDto.curso.nombre}">
+				header="Curso #{beanUserCursoModulo.usuariocursoCarDTO.curso.nombre}">
 			<p:panelGrid columns="4" layout="grid" styleClass="showcase-text-align-center" columnClasses="ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6 ui-lg-3">
  
 						<p:column>
@@ -98,11 +98,11 @@
 						
 						<p:column>
 							<p:outputLabel style="alight:center;font-weight: bold"
-								value="Avance #{beanUserCursoModulo.usuarioCursoModuloDto.avance}%" />
+								value="Avance #{beanUserCursoModulo.usuariocursoCarDTO.avance}%" />
 							<div class="myProgress" >
 								<p:outputPanel title="% Ejecutado" >
 									<div class="myBarBlue"
-										style="width:#{beanUserCursoModulo.usuarioCursoModuloDto.avance}%;"></div>
+										style="width:#{beanUserCursoModulo.usuariocursoCarDTO.avance}%;"></div>
 								</p:outputPanel>
 							</div>
 						</p:column>
@@ -111,7 +111,7 @@
 						</p:column>
 						<p:column>
 						<h:outputText
-								value="#{beanUserCursoModulo.usuarioCursoModuloDto.modulorealizados}" />
+								value="#{beanUserCursoModulo.usuariocursoCarDTO.modulorealizados}" />
 						</p:column>
 
 				</p:panelGrid>
@@ -122,7 +122,7 @@
 		<br />
 
 		<p:dataTable var="car"
-			value="#{beanUserCursoModulo.usuarioCursoModuloDto.listaUsuarioCurMod}">
+			value="#{beanUserCursoModulo.usuariocursoCarDTO.listaCursosModulosDTO}">
 			<f:facet name="header">
 				<p:outputLabel value="Lista de módulos del Curso "></p:outputLabel>
 			</f:facet>
@@ -138,9 +138,25 @@
 			<p:column headerText="Errores">
 				<p:outputLabel value="#{car.errores}"></p:outputLabel>
 			</p:column>
+					<p:column headerText="Fecha Inicio">
+				<p:outputLabel value="#{car.fechaInicioProgramada}"></p:outputLabel>
+			</p:column>
+				<p:column headerText="Fecha Fin">
+				<p:outputLabel value="#{car.fechaFinProgramada}"></p:outputLabel>
+			</p:column>
 
 			<p:column headerText="Avance">
 				<h:outputText value="Avance #{car.avance}%" />
+				<div class="myProgress">
+					<p:outputPanel title="% Ejecutado">
+						<div class="myBarBlue" style="width:#{car.avance}%;"></div>
+					</p:outputPanel>
+				</div>
+
+
+			</p:column>
+				<p:column headerText="Avance Planificado">
+				<h:outputText value="Avance #{car.avancePlanificado}%" />
 				<div class="myProgress">
 					<p:outputPanel title="% Ejecutado">
 						<div class="myBarBlue" style="width:#{car.avance}%;"></div>

@@ -17,6 +17,7 @@ import mia.core.model.entities.Reporteprepost;
 import mia.core.model.entities.UsuarioCurso;
 import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.usuario.ManagerUserCurso;
+import mia.core.model.usuario.dto.UsuarioCursoDTO;
 import mia.modulos.view.util.JSFUtil;
 @Named
 @ViewScoped
@@ -34,7 +35,7 @@ public class BeanUserCurso implements Serializable {
 	private ManagerUserCurso managerUserCurso; 
 	@EJB
 	private ManagerCuestionario managerCuestionario; 
-	
+	private List<UsuarioCursoDTO>listaUsuariosCursosDTO;
 	//FICHA_
 	  	private UsuarioCurso usuarioCurso = new UsuarioCurso();
 	  	private UsuarioCurso usuarioCursoE;
@@ -59,6 +60,7 @@ private int dias;
 			try {
 				listaUsuariosCursos=managerUserCurso.findAllUsuarioCursoPadre();
 				usuarioCursos= managerUserCurso.findAllUsuarioCursoesbyUser(login.getLogin().getId_usuario());
+				listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(usuarioCursos);
 				listaReporteTest=managerCuestionario.ultimoReporte(login.getLogin().getId_usuario());
 			if (!listaReporteTest.isEmpty()) {
 				Reporteprepost re=listaReporteTest.get(0);
@@ -338,6 +340,14 @@ private int dias;
 
 		public void setUsuarioCursoPa(UsuarioCurso usuarioCursoPa) {
 			this.usuarioCursoPa = usuarioCursoPa;
+		}
+
+		public List<UsuarioCursoDTO> getListaUsuariosCursosDTO() {
+			return listaUsuariosCursosDTO;
+		}
+
+		public void setListaUsuariosCursosDTO(List<UsuarioCursoDTO> listaUsuariosCursosDTO) {
+			this.listaUsuariosCursosDTO = listaUsuariosCursosDTO;
 		}
 
 
