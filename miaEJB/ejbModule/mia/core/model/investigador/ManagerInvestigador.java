@@ -79,7 +79,7 @@ private ManagerUserCurso managerUserCurso;
 	
 
 	public void editarfechaIniFin(UsuarioCursoModulo ucmA, Date fechaIni, Date FechaFin) throws Exception {
-	if (fechaIni.after(FechaFin)) {
+	if (fechaIni.after(FechaFin)||fechaIni.compareTo(FechaFin)==0) {
 		throw new Exception("La fecha incio no debe ser mayor a la fecha fin");
 	}
 		UsuarioCursoModulo ucmN= findAllUsuariosCursosModulosByIdUsuarioCursoModulo(ucmA.getIdUsuarioCursoModulo());
