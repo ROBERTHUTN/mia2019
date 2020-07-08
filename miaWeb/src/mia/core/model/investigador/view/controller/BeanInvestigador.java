@@ -224,7 +224,8 @@ public class BeanInvestigador implements Serializable {
 	public void actionListenerIngresarOrganizacionFichapersonal() {
 		try {
 			managerInvestigador.ingresarOrganizacionFichapersonal(id_usuario_fk, id_organizacion);
-			organizacionFichapersonales = managerInvestigador.findAllOrganizacionFichapersonales();
+			listaOrganizaciones=managerAdministrador.findUsuarioProyectoByIdUsuario(beanLogin.getLogin().getId_usuario());
+			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonalesByOrganizacion(listaOrganizaciones);
 			JSFUtil.crearMensajeInfo("Usuario creado en la organización correctamente");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -236,7 +237,8 @@ public class BeanInvestigador implements Serializable {
 	public void actionListenerEliminarOrganizacionFichapersonal(int id_organizacion_ficha) {
 		try {
 			managerInvestigador.eliminarOrganizacionFichapersonal(id_organizacion_ficha);
-			organizacionFichapersonales = managerInvestigador.findAllOrganizacionFichapersonales();
+			listaOrganizaciones=managerAdministrador.findUsuarioProyectoByIdUsuario(beanLogin.getLogin().getId_usuario());
+			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonalesByOrganizacion(listaOrganizaciones);
 			JSFUtil.crearMensajeInfo("Usuario eliminado correctamente de la organización.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -255,7 +257,8 @@ public class BeanInvestigador implements Serializable {
 		try {
 			managerInvestigador.editarOrganizacionFichapersonal(organizacionFichapersonalE, id_usuario_fk, id_organizacion);
 			
-			organizacionFichapersonales = managerInvestigador.findAllOrganizacionFichapersonales();
+			listaOrganizaciones=managerAdministrador.findUsuarioProyectoByIdUsuario(beanLogin.getLogin().getId_usuario());
+			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonalesByOrganizacion(listaOrganizaciones);
 			JSFUtil.crearMensajeInfo("Usuario editado correctamente en la organización");
 		} catch (Exception e) {
 			
