@@ -24,6 +24,7 @@ import mia.core.model.entities.UsuarioCurso;
 import mia.core.model.entities.UsuarioCursoModulo;
 import mia.core.model.entities.UsuarioInteresArea;
 import mia.core.model.entities.UsuarioProyecto;
+import mia.core.model.usuario.ManagerUserCurso;
 
 @Stateless
 @LocalBean
@@ -33,7 +34,8 @@ public class ManagerInvestigador {
 
 	@EJB
 	private ManagerAdministrador managerAdministrador;
-
+@EJB
+private ManagerUserCurso managerUserCurso;
 	public ManagerInvestigador() {
 	}
 
@@ -77,7 +79,12 @@ public class ManagerInvestigador {
 	
 
 	public void editarfechaIniFin(UsuarioCursoModulo ucmA, Date fechaIni, Date FechaFin) throws Exception {
+	if (fechaIni.after(FechaFin)) {
+		throw new Exception("La fecha incio no debe ser mayor a la fecha fin");
+	}
 		UsuarioCursoModulo ucmN= findAllUsuariosCursosModulosByIdUsuarioCursoModulo(ucmA.getIdUsuarioCursoModulo());
+		List<UsuarioCursoModulo>lista=new ArrayList<UsuarioCursoModulo>();
+		lista=managerUserCurso.findAllUsuarioCursoModulobyUserCusroandOrdenCurso(ucmA.getUsuarioCurso().getIdUsuariocurso(), ucmA.getCursoModulo().getOrdenCurso()); 
 		if (ucmN == null) {
 			throw new Exception("Error al cargar el Usuario con el curo y el módulo");
 		}
@@ -86,6 +93,11 @@ public class ManagerInvestigador {
 		ucmN.setFechaInicioProgramada(fechaIni);
 		ucmN.setFechaFinProgramada(FechaFin);
 		em.merge(ucmN);
+		if (!lista.isEmpty()) {
+			UsuarioCursoModulo u=lista.get(0);
+			u.setFechaInicioProgramada(FechaFin);
+		em.merge(u);
+		}
 	}
 	
 	

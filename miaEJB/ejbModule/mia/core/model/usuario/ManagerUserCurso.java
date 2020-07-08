@@ -355,6 +355,19 @@ public class ManagerUserCurso {
 		List<UsuarioCursoModulo> listaUsuarioCursosModulos = query.getResultList();
 		return listaUsuarioCursosModulos;
 	}
+	// lista de usuario y cursos
+	public List<UsuarioCursoModulo> findAllUsuarioCursoModulobyUserCusroandOrdenCurso(long id_user_curso,int orden_curso) {
+
+		String JPQL = "SELECT u FROM UsuarioCursoModulo u WHERE u.usuarioCurso.idUsuariocurso=?1 "
+				+ "and u.cursoModulo.ordenCurso>?2"
+				+ " order by u.cursoModulo.ordenCurso";
+		Query query = em.createQuery(JPQL, UsuarioCursoModulo.class);
+		query.setParameter(1, id_user_curso);
+		query.setParameter(2, orden_curso);
+		@SuppressWarnings("unchecked")
+		List<UsuarioCursoModulo> listaUsuarioCursosModulos = query.getResultList();
+		return listaUsuarioCursosModulos;
+	}
 
 	public UsuarioCurso findUsuarioCursoById(long id_user_curso) {
 		UsuarioCurso curso = em.find(UsuarioCurso.class, id_user_curso);
@@ -578,7 +591,6 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 				     }
 			      
 			    uCMod.setFechaFinProgramada(calendar.getTime()); 
-				System.out.println(":"+calendar.getTime());
 				uCMod.setAvance(r);
 				uCMod.setCursoModulo(c);
 				uCMod.setErrores(0);
@@ -589,14 +601,13 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 				BigDecimal r=new BigDecimal(0);
 				
 				uCMod.setFechaInicioProgramada(calendar.getTime());
-			System.out.println(":"+uCMod.getFechaInicioProgramada()+" DIASS: "+dias);
 			calendar.add(Calendar.DAY_OF_YEAR, dias);
 			 if(calendar.getTime().compareTo(useC.getFechaFinProgramada())>0 || calendar.getTime().compareTo(useC.getFechaFinProgramada())==0  ) {
 		    	 uCMod.setFechaFinProgramada(useC.getFechaFinProgramada()); 
 		     }else {
 		    	 uCMod.setFechaFinProgramada(calendar.getTime());  
 		     }
-			    System.out.println(":"+calendar.getTime());
+			  ;
 				uCMod.setAvance(r);
 				uCMod.setCursoModulo(c);
 				uCMod.setErrores(0);

@@ -53,7 +53,7 @@ public class BeanInvestigador implements Serializable {
 	private List<UsuarioCursoModulo> listaUsuariosCursosModulos=new ArrayList<UsuarioCursoModulo>();;
 	private boolean ingresadoModulos;
 	private UsuarioCursoModulo usuarioCursoModuloE;
-	
+	private boolean error;
 //claves foraneas
 	private int id_rol_fk;
 	private long id_ficha_fk;
@@ -121,12 +121,17 @@ public class BeanInvestigador implements Serializable {
 	public void onRowEdit(UsuarioCursoModulo mo) {
          
      	try {
+     		error=false;
      		System.out.println(mo.getFechaFinProgramada());
      		 managerInvestigador.editarfechaIniFin(mo, mo.getFechaInicioProgramada(), mo.getFechaFinProgramada());
-			listaUsuariosCursosModulos= managerInvestigador.ListaUserCM(listaUsuariosCursosModulos, mo);
+     		listaUsuariosCursosModulos=	managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCurso(usuarioCursoAct.getIdUsuariocurso());
+			
+     		// listaUsuariosCursosModulos= managerInvestigador.ListaUserCM(listaUsuariosCursosModulos, mo);
+			
 			JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
 		} catch (Exception e) {
-		
+			error=true;
+		JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
 		}
     	
@@ -591,6 +596,14 @@ public class BeanInvestigador implements Serializable {
 
 	public void setListaUsuariosCursoDTO(List<UsuarioCursoDTO> listaUsuariosCursoDTO) {
 		this.listaUsuariosCursoDTO = listaUsuariosCursoDTO;
+	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
 	}
 
 

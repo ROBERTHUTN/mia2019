@@ -76,7 +76,7 @@
 		</p:breadCrumb>
 	</div>
 	
-	<p:growl autoUpdate="true"></p:growl>
+	<p:growl autoUpdate="true" ></p:growl>
 	
 	
 		<p:panel header="Módulos del curso" 	>
@@ -87,6 +87,7 @@
 					value="#{beanInvestigador.listaUsuariosCursosModulos}"
 					editable="true" style="margin-bottom:20px"  emptyMessage="No ha creado cursos">
 					<f:facet name="header">
+					
 						<p:outputLabel
 							value="Módulos del cuestionario #{beanInvestigador.usuarioCursoAct.curso.nombre}"></p:outputLabel>
 					</f:facet>
@@ -99,12 +100,12 @@
 						<h:outputText value="#{r.cursoModulo.modulo.nombre}" />
 					</p:column>
 					
-					<p:column headerText="Fecha Inicio">
+					<p:column headerText="Fecha Inicio" id="nuevo" >
 						<p:cellEditor>
 							<f:facet name="output">
-								<p:calendar disabled="true" value="#{r.fechaInicioProgramada}" locale="es"/>
+								<p:calendar  disabled="true" value="#{r.fechaInicioProgramada}" locale="es"/>
 							</f:facet>
-							<f:facet name="input">
+							<f:facet name="input"  >
 								<p:calendar mindate="#{beanInvestigador.usuarioCursoAct.fechaInicioProgramada}" maxdate="#{beanInvestigador.usuarioCursoAct.fechaFinProgramada}" value="#{r.fechaInicioProgramada}" locale="es"/>
 							</f:facet>
 						</p:cellEditor>
@@ -122,8 +123,6 @@
 						</p:cellEditor>
 					</p:column>
 					
-					<p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit(r)}" update="tabla1"  />
-                   <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
 				
 				
 					
@@ -131,34 +130,35 @@
 					<p:column style="width:35px">
 						<p:rowEditor />
 					</p:column>
+		
 
+					<p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit(r)}"  oncomplete="location.reload()" />
+                   <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
 
 				</p:dataTable>
-				
+				   <div class="ui-g">
+  
+    <div class="ui-g-12 ui-md-3">
+        <p:staticMessage severity="error"  summary="ERROR!" detail="La fecha inicial debe ser menor a la fecha final" rendered="#{beanInvestigador.error}" />
+    </div>
+    
+</div>
 					 <div class="ui-g">
          <div class="ui-g-12">
              <p:commandButton value="Finalizar"  styleClass="ui-priority-primary" process="@this" 
                    action="#{beanInvestigador.actionListenerredireccionarCurso()}"           />
         </div>
         </div>
+        
+        
         </h:form>
+       
    </div>
+
 			</p:panel>
 
 		
-	
-	
 
-
-
-
-	<!--  -->
-	<p:growl>
-		<p:autoUpdate />
-	</p:growl>
-	<p:messages>
-		<p:autoUpdate />
-	</p:messages>
 
 
 
