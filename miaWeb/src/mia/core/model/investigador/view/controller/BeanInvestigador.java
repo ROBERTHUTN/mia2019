@@ -93,7 +93,8 @@ public class BeanInvestigador implements Serializable {
 			listaFichaUvoluntariado= managerAdministrador.findAllFichaPersonalVoluntariado();
 			listaOrganizaciones=managerAdministrador.findUsuarioProyectoByIdUsuario(beanLogin.getLogin().getId_usuario());
 			organizacionFichapersonales=managerInvestigador.findAllOrganizacionFichapersonalesByOrganizacion(listaOrganizaciones);
-			areainteres=managerInvestigador.findAllUsuarioInteresAreaes();
+		
+			areainteres=managerInvestigador.findAllUsuarioInteresAreaesByIdLogin(beanLogin.getLogin().getId_usuario());
 			listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
 			listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
 		} catch (Exception e) {
