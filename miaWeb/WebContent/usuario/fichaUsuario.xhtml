@@ -173,7 +173,7 @@
 						value="#{beanUsuario.fichaPersonal.telefono}"
 						required="true" requiredMessage="Ingrese el número telefónico"
 						maxlength="100">
-						<f:validateRegex pattern="([0][0-9]{3})[0-9]{3}[0-9]{2,14}"></f:validateRegex>
+						<f:validateRegex pattern="[0-9]{1,10}"></f:validateRegex>
 					</p:inputText>
 					<p:message for="telefono"></p:message>
 
