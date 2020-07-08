@@ -91,12 +91,12 @@ type="preRenderView"></f:event>
 					<h:outputText value="#{e.fechaFinProgramada}" />
 					
 				</p:column>
-				<p:column headerText="Avances" style="width:100px">
+				<p:column headerText="Avances1" style="width:100px">
 					<p:outputLabel value="Avance Planificado #{e.avancePlanificado}"></p:outputLabel>
 					<div class="myProgress">
-						<p:outputPanel title="% Planificado">
-							<div class="myBarBlue" style="width:#{e.avancePlanificado}%;"></div>
-						</p:outputPanel>
+					<p:outputLabel title="% Planificado"> 
+						<div class="myBarBlue" style="width:#{e.avancePlanificado}%;"></div>
+					 </p:outputLabel>
 					</div>
 					<p:spacer></p:spacer>
 				<p:outputLabel value="Avance Ejecutado #{e.avance}"></p:outputLabel>
