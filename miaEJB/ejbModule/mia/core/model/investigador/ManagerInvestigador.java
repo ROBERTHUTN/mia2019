@@ -464,13 +464,31 @@ System.out.println(" 1");
 	 * List<OrganizacionFichapersonal> lista; lista = query.getResultList(); if
 	 * (lista.isEmpty()) { return false; } else return true; }
 	 */
-
+	@SuppressWarnings("unchecked")
 	public List<UsuarioInteresArea> findAllUsuarioInteresAreaes() {
 
 		Query q = em.createQuery("SELECT o FROM UsuarioInteresArea o", UsuarioInteresArea.class);
-		@SuppressWarnings("unchecked")
+		
 		List<UsuarioInteresArea> listaUsuarioInteresAreaes = q.getResultList();
 		return listaUsuarioInteresAreaes;
+	}
+	@SuppressWarnings("unchecked")
+	public List<UsuarioInteresArea> findAllUsuarioInteresAreaesByIdLogin(long id_user) {
+		List<UsuarioInteresArea> listaUsuarioInteresAreaes = new ArrayList<UsuarioInteresArea>();
+		if (id_user==0) {
+			return listaUsuarioInteresAreaes;
+		}else {
+			List<FichaPersonal>fichas=managerAdministrador.findAllFichaPersonalByIdUsuario(id_user);
+			if (fichas.isEmpty()) {
+				return listaUsuarioInteresAreaes;
+			}else {
+				FichaPersonal ficha=new FichaPersonal();
+				ficha=fichas.get(0);
+		Query q = em.createQuery("SELECT o FROM UsuarioInteresArea o where o.fichaPersonal.idFicha="+ficha.getIdFicha(), UsuarioInteresArea.class);
+		listaUsuarioInteresAreaes = q.getResultList();
+		return listaUsuarioInteresAreaes;
+			}
+		}
 	}
 	
 	public List<UsuarioInteresArea> findAllUsuarioInteresAreaesbyIduser(long id_user) {
@@ -519,9 +537,9 @@ System.out.println(" 1");
 		long id_ficha_fk = fi.getIdFicha();
 
 		if (id_ficha_fk == 0 || id_area == 0) {
-			throw new Exception("Ingrese los datos del area de interes del usuario");
+			throw new Exception("Ingrese los datos del área de interes del usuario");
 		}
-		boolean existeAreaInteresFicha = existeOrganizacionFicha(id_area, id_ficha_fk);
+		boolean existeAreaInteresFicha = existeAreaInteres(id_area, id_ficha_fk);
 		if (existeAreaInteresFicha) {
 			throw new Exception("Ya se encuentra el área con el usuario");
 		}
