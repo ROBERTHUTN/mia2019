@@ -75,8 +75,6 @@ private ManagerUserCurso managerUserCurso;
 		return ucm;
 
 	}
-	
-	
 
 	public void editarfechaIniFin(UsuarioCursoModulo ucmA, Date fechaIni, Date FechaFin) throws Exception {
 	if (fechaIni.after(FechaFin)||fechaIni.compareTo(FechaFin)==0) {
