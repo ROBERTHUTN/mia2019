@@ -658,6 +658,21 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 		}
 	}
 
+	
+	public void editarfecharealIni(long id_usercursomodulo) throws Exception {
+		UsuarioCursoModulo usercurseN = findUsuarioCursoModuloById(id_usercursomodulo);
+		if (usercurseN == null) {
+			throw new Exception("Error al cargar el Usuario y Curso");
+		}
+		
+		
+		Date fechaInicio= new Date();
+		System.out.println("fechaInicio en la tabla usercursomodulo"+fechaInicio);
+		usercurseN.setFechaInicioReal(fechaInicio);
+		
+		em.merge(usercurseN);
+	}
+
 	public void editarCurso(UsuarioCurso usercurseA, int id_curso, long id_user) throws Exception {
 		UsuarioCurso usercurseN = findUsuarioCursoById(usercurseA.getIdUsuariocurso());
 		if (usercurseN == null) {

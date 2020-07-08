@@ -80,6 +80,7 @@ public class BeanUserCursoModulo implements Serializable {
 				return "";
 			}
 			usuarioCursoModuloC=m;
+			managerUserCurso.editarfecharealIni(m.getIdUsuarioCursoModulo());
 			numeroModulo=m.getCursoModulo().getOrdenCurso();
 			cursoMod=m.getCursoModulo();
 			JSFUtil.crearMensajeInfo("Módulo cargado correctamente.");
@@ -92,6 +93,8 @@ public class BeanUserCursoModulo implements Serializable {
 		return "";
 	}
 
+	
+	
 	public String actionIngresarCambio() {
 		try {
 			managerUserCurso.editarAvanceCurso(usuariocursoCarDTO, usuarioCursoModuloC, preguntamoduloDTO);

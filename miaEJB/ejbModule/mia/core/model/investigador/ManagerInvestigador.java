@@ -472,6 +472,18 @@ System.out.println(" 1");
 		List<UsuarioInteresArea> listaUsuarioInteresAreaes = q.getResultList();
 		return listaUsuarioInteresAreaes;
 	}
+	
+	public List<UsuarioInteresArea> findAllUsuarioInteresAreaesbyIduser(long id_user) {
+
+		Query q = em.createQuery("SELECT o FROM UsuarioInteresArea o where", UsuarioInteresArea.class);
+		q.setParameter(1, id_user);
+		@SuppressWarnings("unchecked")
+		List<UsuarioInteresArea> listaUsuarioInteresAreaes = q.getResultList();
+		return listaUsuarioInteresAreaes;
+	}
+	
+	
+	
 
 	public UsuarioInteresArea findUsuarioInteresAreaById(long id_organizacionfichapersonal) {
 		UsuarioInteresArea organizacionfichapersonal = em.find(UsuarioInteresArea.class, id_organizacionfichapersonal);
