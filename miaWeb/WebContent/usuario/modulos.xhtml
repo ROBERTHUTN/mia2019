@@ -87,21 +87,20 @@
 					</div>
 				</p:column>
 
-				<p:column>
+				<p:column  >
 
-					<h:outputText value="Fecha Inicio"
+					<h:outputText value="Fecha Inicio: "
 						style="alight:center;font-weight: bold" />
-					<p:spacer></p:spacer>
+					<p></p>
 					<p:outputLabel
 						value="#{beanUserCursoModulo.usuariocursoCarDTO.fechaInicioProgramada}"></p:outputLabel>
 				</p:column>
-				<p:column>
+		<p:column>
+					<h:outputText value="Módulos realizados" style="font-weight: bold" />
+	<p></p>	
+		<p:outputLabel
+						value="#{beanUserCursoModulo.usuariocursoCarDTO.modulorealizados}"></p:outputLabel>
 
-					<h:outputText value="Fecha Fin"
-						style="alight:center;font-weight: bold" />
-					<p:spacer></p:spacer>
-					<p:outputLabel
-						value="#{beanUserCursoModulo.usuariocursoCarDTO.fechaFinProgramada}"></p:outputLabel>
 				</p:column>
 				<p:column>
 					<p:outputLabel style="alight:center;font-weight: bold"
@@ -114,12 +113,19 @@
 					</div>
 				</p:column>
 
-				<p:column>
-					<h:outputText value="Módulos realizados" style="font-weight: bold" />
-					<p:spacer></p:spacer>
-					<p:outputLabel
-						value="#{beanUserCursoModulo.usuariocursoCarDTO.modulorealizados}"></p:outputLabel>
+				
+					<p:column>
 
+					<h:outputText value="Fecha Fin: "
+						style="alight:center;font-weight: bold" />
+					<p></p>
+					<p:outputLabel
+						value="#{beanUserCursoModulo.usuariocursoCarDTO.fechaFinProgramada}"></p:outputLabel>
+				</p:column>
+				<p:column>
+				<h:outputText value="Investigador Responsable" style="alight:center;font-weight: bold"/>
+				<p></p>
+				<h:outputText value="#{beanUserCursoModulo.usuariocursoCarDTO.usuario.nombres} #{beanUserCursoModulo.usuariocursoCarDTO.usuario.apellidos}" />
 				</p:column>
 			</p:panelGrid>
 
@@ -152,7 +158,7 @@
 				<p:outputLabel value="#{car.fechaFinProgramada}"></p:outputLabel>
 			</p:column>
 
-			<p:column headerText="Avance">
+			<p:column headerText="Avance Ejecutado">
 				<h:outputText value="Avance #{car.avance}%" />
 				<div class="myProgress">
 					<p:outputPanel title="% Ejecutado">

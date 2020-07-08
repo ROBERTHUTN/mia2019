@@ -69,7 +69,6 @@ public class ManagerUserCurso {
 				List<UsuarioCursoModulo> listaUcM = new ArrayList<UsuarioCursoModulo>();
 				listaUcM = findAllUsuarioCursoModulobyUserCusro(u.getIdUsuariocurso());
 				List<UserCursoModuloDTO> lista = cargarListaUsuarioCursoModulosDTOs(listaUcM);
-				System.out.println("EL TAMAÑO ES "+lista.size());
 				uDTO.setListaCursosModulosDTO(lista);
 				//AVANCE RETRASO PLANIFICADO SEGÚN LOS MÓDULOS
 				double[] programadoRetrasoEjecutado = cargarAvanceProgramadoEjecutadoRetraso(lista);
@@ -348,7 +347,8 @@ public class ManagerUserCurso {
 	// lista de usuario y cursos
 	public List<UsuarioCursoModulo> findAllUsuarioCursoModulobyUserCusro(long id_user_curso) {
 
-		String JPQL = "SELECT u FROM UsuarioCursoModulo u WHERE u.usuarioCurso.idUsuariocurso=?1";
+		String JPQL = "SELECT u FROM UsuarioCursoModulo u WHERE u.usuarioCurso.idUsuariocurso=?1 "
+				+ " order by u.cursoModulo.ordenCurso";
 		Query query = em.createQuery(JPQL, UsuarioCursoModulo.class);
 		query.setParameter(1, id_user_curso);
 		@SuppressWarnings("unchecked")
