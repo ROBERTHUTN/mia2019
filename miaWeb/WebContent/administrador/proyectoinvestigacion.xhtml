@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{beanLogin.actionComprobarSessionLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="icon" type="image/png" href="images/logo1.png" />
+	<style type="text/css">
+/** Demo **/
+.ui-outputlabel {
+	font-weight: bold;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+</style>
+</h:head>
+<body style="background-color: #3b83bd;">
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem>
+					<p:graphicImage value="images/logo1.png"></p:graphicImage>
+				</p:menuitem>
+
+
+				<p:menuitem value="Nueva Proyecto" title="Ingresar Nuevo Proyecto"
+					icon=" fa fa-plus " onclick="PF('nuevoProyecto').show();"></p:menuitem>
+
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="fa fa-user"
+						value="#{beanLogin.login.nombres}" />
+					<p:commandButton title="Cerrar sesión" icon="fa fa-power-off"
+						action="#{beanLogin.actionCerrarSesion()}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<div id="migajas" class="p-grid">
+		<p:breadCrumb>
+			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
+			<p:menuitem value="Proyectos de Investigación"
+				url="/miaWeb/faces/administrador/proyectoinvestigacion.xhtml" />
+		</p:breadCrumb>
+	</div>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+	<p:dialog header="Ingresar Nuevo Proyecto" widgetVar="nuevoProyecto"
+		id="nuevoProyecto" modal="true" height="250" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form1">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+
+					<p:outputLabel value="Proyecto:" />
+					<p:inputText
+						value="#{beanProyectoInvestigacion.proyectoInvestigacion.nombreProyecto}"
+						required="true" requiredMessage="Ingrese el Proyecto"
+						maxlength="90">
+					</p:inputText>
+
+					<p:outputLabel value="Descripción:" />
+					<p:inputTextarea
+						value="#{beanProyectoInvestigacion.proyectoInvestigacion.proyectoDescripcion}"
+						required="true"
+						requiredMessage="Ingrese la descripción del proyecto"
+						maxlength="500">
+					</p:inputTextarea>
+
+
+					<p:outputLabel value="Áres de Investigación: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un área"
+						value="#{beanProyectoInvestigacion.id_area_fk}" effect="fade"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione un área."
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanProyectoInvestigacion.areaInvestigaciones}"
+							var="reg" itemLabel="#{reg.nombreInvestigacion}"
+							itemValue="#{reg.areaId}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Estado Activo" />
+					<p:selectBooleanButton id="activo" required="true"
+						requiredMessage="Se encuentra activo."
+						value="#{beanProyectoInvestigacion.proyectoInvestigacion.estadoProyecto}" onLabel="Si"
+						offLabel="No" />
+					<p:message for="activo"></p:message>
+
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanProyectoInvestigacion.actionListenerIngresarProyectoInvestigacion()}"
+						oncomplete="nuevoProyecto" update="form2" ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+
+
+	<h:form id="form2">
+		<div class="ui-fluid">
+
+			<p:dataTable var="r" widgetVar="tabla1"
+				value="#{beanProyectoInvestigacion.proyectoInvestigaciones}"
+				reflow="true" rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<p:outputLabel
+						value="Lista de Proyectos de Investigación y organización"></p:outputLabel>
+				</f:facet>
+				<p:column headerText="Id" style="width:50px">
+					<h:outputText value="#{r.idProyectoInvestigacion}" />
+				</p:column>
+
+				<p:column headerText="Nombres Proyecto">
+					<h:outputText value="#{r.nombreProyecto}" />
+				</p:column>
+
+				<p:column headerText="Descripción">
+					<h:outputText value="#{r.proyectoDescripcion}" />
+				</p:column>
+
+
+				<p:column headerText="Nombre Área">
+					<h:outputText value="#{r.areaInvestigacion.nombreInvestigacion}" />
+				</p:column>
+
+				<p:column headerText="Estado Proyecto">
+					<h:outputText value="#{r.estadoProyecto}" />
+				</p:column>
+
+			<p:column headerText="Opciones" style="width:100px;">
+					<p:commandButton icon="fa fa-pencil"
+						actionListener="#{beanProyectoInvestigacion.actionListenerCargar(r)}"
+						onclick="PF('editarproyectoinves').show();" title="Editar"
+						update="form10"></p:commandButton>
+
+					<p:commandButton update="form2"
+						actionListener="#{beanProyectoInvestigacion.actionListenerEliminarProyectoInvestigacion(r.idProyectoInvestigacion)}"
+						style="border:#FC1F0D;background-color:#FC1F0D" title="Eliminar"
+						icon="fa fa-times">
+						<p:confirm header="Confirmación" message="Desea eliminar?"
+							icon="fa fa-times" />
+					</p:commandButton>
+
+
+				</p:column>
+
+			</p:dataTable>
+		</div>
+	</h:form>
+	
+	<p:dialog header="Editar Proyecto" widgetVar="editarproyectoinves"
+		id="editarproyectoinves" modal="true" height="330" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form10">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+					<p:outputLabel value="ID:" />
+					<p:inputText
+						value="#{beanProyectoInvestigacion.proyectoInvestigacionE.idProyectoInvestigacion}"
+						required="true" disabled="true">
+					</p:inputText>
+					<p:outputLabel value="Nombre del Proyecto :" />
+					<p:inputText
+						value="#{beanProyectoInvestigacion.proyectoInvestigacionE.nombreProyecto}"
+						required="true"
+						requiredMessage="Ingrese el Nombre del Proyecto."
+						maxlength="89">
+					</p:inputText>
+
+										<p:outputLabel value="Descripción:" />
+					<p:inputTextarea
+						value="#{beanProyectoInvestigacion.proyectoInvestigacionE.proyectoDescripcion}"
+						required="true"
+						requiredMessage="Ingrese la descripción del proyecto"
+						maxlength="500">
+					</p:inputTextarea>
+
+
+					<p:outputLabel value="Áres de Investigación: " />
+					<p:selectOneMenu autoWidth="100%" required="true"
+						requiredMessage="Seleccione un área"
+						value="#{beanProyectoInvestigacion.id_area_fk}" effect="fade"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione un área."
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{beanProyectoInvestigacion.areaInvestigaciones}"
+							var="reg" itemLabel="#{reg.nombreInvestigacion}"
+							itemValue="#{reg.areaId}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Estado Activo" />
+					<p:selectBooleanButton id="activo" required="true"
+						requiredMessage="Se encuentra activo."
+						value="#{beanProyectoInvestigacion.proyectoInvestigacionE.estadoProyecto}" onLabel="Si"
+						offLabel="No" />
+					<p:message for="activo"></p:message>
+					
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanProyectoInvestigacion.actionListenerEditarProyectoInvestigacion()}"
+						oncomplete="nuevaPregMod" update="@form"  ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+	
+
+
+
+</body>
+</html>

@@ -111,20 +111,23 @@
 				<div class="ui-fluid">
 
 					<p:dataTable var="r" widgetVar="tabla1"
-						value="#{beanInvestigador.organizacionFichapersonales}" reflow="true" rows="10"
+						value="#{beanInvestigador.organizacionFichapersonales}" sortBy="#{r.organizacion.nombreOrganizacion}" expandableRowGroups="true" 
 						paginator="true"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15">
 						<f:facet name="header">
 							<p:outputLabel value="Lista de organización y usuarios"></p:outputLabel>
 						</f:facet>
+						<p:headerRow>
+						<p:column colspan="6">
+							<h:outputText value="#{r.organizacion.nombreOrganizacion}" />
+						</p:column>
+						
+						</p:headerRow>
 						<p:column headerText="Id" style="width:50px">
 							<h:outputText value="#{r.idOrganizacionFicha}" />
 						</p:column>
 
-						<p:column headerText="Organnización">
-							<h:outputText value="#{r.organizacion.nombreOrganizacion}" />
-						</p:column>
 						
 						<p:column headerText="CI">
 							<h:outputText value="#{r.usuario.ci} " />

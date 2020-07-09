@@ -29,6 +29,7 @@ public class BeanProyectoInvestigacion implements Serializable {
 //claves foraneas
 	private int id_area_fk;
 	
+	
 	@EJB
 	private ManagerInvestigador managerInvestigador;
 
@@ -84,6 +85,7 @@ public class BeanProyectoInvestigacion implements Serializable {
 	public void actionListenerEditarProyectoInvestigacion() {
 		try {
 			managerInvestigador.editarProyectoInvestigacion(proyectoInvestigacionE, id_area_fk);
+			proyectoInvestigaciones = managerInvestigador.findAllProyectoInvestigaciones();
 			JSFUtil.crearMensajeInfo("Proyecto de Investigación editado correctamente");
 		} catch (Exception e) {
 			proyectoInvestigaciones = managerInvestigador.findAllProyectoInvestigaciones();

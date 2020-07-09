@@ -30,8 +30,8 @@
 					<p:graphicImage value="images/logo1.png"></p:graphicImage>
 				</p:menuitem>
 					
-				<p:menuitem value="Nueva Religión" title="Ingresar Nueva Religion"
-					icon=" fa fa-plus " onclick="PF('nuevoReligion').show();"></p:menuitem>
+				<p:menuitem value="Nueva País y estado" title="Ingresar Nueva Religion"
+					icon=" fa fa-plus " onclick="PF('nuevoPais').show();"></p:menuitem>
 				<f:facet name="options">
 					<p:commandButton title="Datos de usuario" icon="fa fa-user"
 						value="#{beanLogin.login.nombres}" />
@@ -45,7 +45,7 @@
 		<p:breadCrumb>
 			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
 			<p:menuitem value="Menu" url="/miaWeb/faces/administrador/menu.xhtml" />
-			<p:menuitem value="Religión" url="/miaWeb/faces/administrador/usuario.xhtml" />
+			<p:menuitem value="Religión" url="/miaWeb/faces/administrador/paisestado.xhtml" />
 		</p:breadCrumb>
 	</div>
 	<p:growl>
@@ -56,8 +56,8 @@
 	</p:messages>
 
 
-	<p:dialog header="Ingresar nuevo Pais" widgetVar="nuevoReligion"
-		id="nuevoReligion" modal="true" height="150" resizable="true"
+	<p:dialog header="Ingresar nuevo Pais" widgetVar="nuevoPais"
+		id="nuevoPais" modal="true" height="150" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
 		appendTo="@(body)">
 		<h:form id="form1">
@@ -70,11 +70,13 @@
 						requiredMessage="Ingrese la descripción del Religion" maxlength="100">
 					</p:inputText>
 				</p:panelGrid>
+				
+				
 				<p:panelGrid columns="2" layout="grid">
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						actionListener="#{beanAdministrador.actionListenerIngresarReligion()}"
-						oncomplete="nuevoReligion" update="@form" ajax="false">
+						oncomplete="nuevoPais" update="@form" ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />
@@ -133,7 +135,7 @@
 		<h:form id="form10">
 			<div class="ui-fluid">
 				<p:panelGrid columns="1" layout="grid">
-<p:outputLabel value="ID:" />
+		<p:outputLabel value="ID:" />
 					<p:inputText
 						value="#{beanAdministrador.religionE.idReligion}" required="true" disabled="true">
 					</p:inputText>
@@ -149,7 +151,7 @@
 					<p:commandButton value="INGRESAR" icon="fa fa-arrow-circle-right"
 						style="width:100%"
 						actionListener="#{beanAdministrador.actionListenerEditarReligion()}"
-						oncomplete="nuevoReligion" update="@form" ajax="false">
+						oncomplete="nuevoPais" update="@form" ajax="false">
 					</p:commandButton>
 					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
 						dismiss="modal" />

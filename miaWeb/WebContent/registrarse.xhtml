@@ -88,7 +88,7 @@
 					<p:column style="font-weight: bold;">
 						<p:outputLabel for="correoU" value="Correo:" />
 					
-						<p:inputText id="correoU" accesskey="true"
+						<p:inputText id="correo" accesskey="true"
 							value="#{beanLogin.registroUsuario.correo}" required="true"
 							requiredMessage="Ingrese un correo " maxlength="50"
 							validatorMessage="Ingrese un correo válido ejemplo: buitrongonzaga@gmail.com">
@@ -96,7 +96,7 @@
 								pattern="(^[^@]+@[^@]+\.[a-zA-Z]{2,}$)"></f:validateRegex>
 						</p:inputText>
 					
-						<p:message for="correoU"></p:message>
+						<p:message for="correo"></p:message>
 					</p:column>
 				</p:row>
 				<p:row>
