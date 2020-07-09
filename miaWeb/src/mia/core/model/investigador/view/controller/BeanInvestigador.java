@@ -79,6 +79,7 @@ public class BeanInvestigador implements Serializable {
 	private List<Curso>listaCursos;
 	private List<UserCursoModuloDTO> listaUserCursoModuloDTOs;
 	private List<UsuarioCursoDTO> listaUsuariosCursoDTO;
+	private String mensaje;
 	private int fk_id_curso;
 	@Inject 
 	private BeanLogin beanLogin;
@@ -131,12 +132,12 @@ public class BeanInvestigador implements Serializable {
      		listaUsuariosCursosModulos=	managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCurso(usuarioCursoAct.getIdUsuariocurso());
 			
      		// listaUsuariosCursosModulos= managerInvestigador.ListaUserCM(listaUsuariosCursosModulos, mo);
-			
+			mensaje=mo.getCursoModulo().getModulo().getNombre()+" ha sido modificado correctamente";
 			JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
 		} catch (Exception e) {
 			error=true;
 			listaUsuariosCursosModulos=	managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCurso(usuarioCursoAct.getIdUsuariocurso());
-			
+			mensaje=e.getMessage();
 		JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -610,6 +611,14 @@ UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
 
 	public void setError(boolean error) {
 		this.error = error;
+	}
+
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
 
 

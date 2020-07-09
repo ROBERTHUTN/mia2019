@@ -13,12 +13,10 @@ import javax.persistence.Query;
 
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.entities.AreaInvestigacion;
-import mia.core.model.entities.Etnia;
 import mia.core.model.entities.FichaPersonal;
 import mia.core.model.entities.Organizacion;
 import mia.core.model.entities.OrganizacionFichapersonal;
 import mia.core.model.entities.ProyectoInvestigacion;
-import mia.core.model.entities.Rol;
 import mia.core.model.entities.Usuario;
 import mia.core.model.entities.UsuarioCurso;
 import mia.core.model.entities.UsuarioCursoModulo;
@@ -76,26 +74,52 @@ private ManagerUserCurso managerUserCurso;
 
 	}
 
+	@SuppressWarnings("unused")
 	public void editarfechaIniFin(UsuarioCursoModulo ucmA, Date fechaIni, Date FechaFin) throws Exception {
 	if (fechaIni.after(FechaFin)||fechaIni.compareTo(FechaFin)==0) {
 		throw new Exception("La fecha incio no debe ser mayor a la fecha fin");
 	}
 		UsuarioCursoModulo ucmN= findAllUsuariosCursosModulosByIdUsuarioCursoModulo(ucmA.getIdUsuarioCursoModulo());
-		List<UsuarioCursoModulo>lista=new ArrayList<UsuarioCursoModulo>();
-		lista=managerUserCurso.findAllUsuarioCursoModulobyUserCusroandOrdenCurso(ucmA.getUsuarioCurso().getIdUsuariocurso(), ucmA.getCursoModulo().getOrdenCurso()); 
+	if (fechaIni.equals(ucmN.getFechaInicioProgramada())&&FechaFin.equals(ucmN.getFechaFinProgramada())) {
+       return;
+	}else {
+		
+		if (!fechaIni.equals(ucmN.getFechaInicioProgramada())) {
+			List<UsuarioCursoModulo>listaMenor=new ArrayList<UsuarioCursoModulo>();	
+			listaMenor=managerUserCurso.findAllUsuarioCursoModulobyUserCusroandOrdenCursoMenor(ucmA.getUsuarioCurso().getIdUsuariocurso(), ucmA.getCursoModulo().getOrdenCurso()); 			
+			if (!listaMenor.isEmpty()) {
+				UsuarioCursoModulo u=listaMenor.get(0);
+				if (u.getFechaInicioProgramada().after(fechaIni)||(u.getFechaInicioProgramada().equals(fechaIni))){
+					throw new Exception("La fecha debe ser mayor a la fecha Inicio del módulo: "+u.getCursoModulo().getModulo().getNombre());	
+				}else {
+					u.setFechaFinProgramada(fechaIni);
+					em.merge(u);
+				}
+		}
+		}
+		
+		if (!FechaFin.equals(ucmN.getFechaFinProgramada())) {
+			List<UsuarioCursoModulo>lista=new ArrayList<UsuarioCursoModulo>();
+			lista=managerUserCurso.findAllUsuarioCursoModulobyUserCusroandOrdenCurso(ucmA.getUsuarioCurso().getIdUsuariocurso(), ucmA.getCursoModulo().getOrdenCurso()); 
+			if (!lista.isEmpty()) {
+				UsuarioCursoModulo u=lista.get(0);
+				if (u.getFechaFinProgramada().before(FechaFin)||(u.getFechaFinProgramada().equals(FechaFin))){
+					throw new Exception("La fecha debe ser menor a la fecha fin del módulo: "+u.getCursoModulo().getModulo().getNombre());	
+				}else {
+					u.setFechaInicioProgramada(FechaFin);
+					em.merge(u);
+				}
+		}
+		}
 		if (ucmN == null) {
 			throw new Exception("Error al cargar el Usuario con el curo y el módulo");
+		}else {
+			ucmN.setFechaInicioProgramada(fechaIni);
+			ucmN.setFechaFinProgramada(FechaFin);
+			em.merge(ucmN);
 		}
-		
-		
-		ucmN.setFechaInicioProgramada(fechaIni);
-		ucmN.setFechaFinProgramada(FechaFin);
-		em.merge(ucmN);
-		if (!lista.isEmpty()) {
-			UsuarioCursoModulo u=lista.get(0);
-			u.setFechaInicioProgramada(FechaFin);
-		em.merge(u);
-		}
+	}
+	
 	}
 	
 	
