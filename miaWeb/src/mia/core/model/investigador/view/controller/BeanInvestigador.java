@@ -5,6 +5,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.event.RowEditEvent;
+
 import mia.core.model.administrador.ManagerAdministrador;
 import mia.core.model.entities.AreaInvestigacion;
 import mia.core.model.entities.Curso;
@@ -25,8 +28,6 @@ import mia.modulos.view.util.JSFUtil;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Named
@@ -118,9 +119,12 @@ public class BeanInvestigador implements Serializable {
  
 		
 	}
-	public void onRowEdit(UsuarioCursoModulo mo) {
+	public void onRowEdit(RowEditEvent event) {
          
      	try {
+     		
+     		UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
+     		System.out.println(mo.getIdUsuarioCursoModulo());
      		error=false;
      		System.out.println(mo.getFechaFinProgramada());
      		 managerInvestigador.editarfechaIniFin(mo, mo.getFechaInicioProgramada(), mo.getFechaFinProgramada());
@@ -131,6 +135,8 @@ public class BeanInvestigador implements Serializable {
 			JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
 		} catch (Exception e) {
 			error=true;
+			listaUsuariosCursosModulos=	managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCurso(usuarioCursoAct.getIdUsuariocurso());
+			
 		JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
 		}
@@ -149,8 +155,8 @@ public class BeanInvestigador implements Serializable {
 		}
 		return"";
 	}
-	public void onRowCancel(UsuarioCursoModulo mo) {
-
+	public void onRowCancel(RowEditEvent event) {
+UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
     	JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
     }
 

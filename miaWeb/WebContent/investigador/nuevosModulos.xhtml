@@ -132,7 +132,7 @@
 					</p:column>
 		
 
-					<p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit(r)}"  oncomplete="location.reload()" />
+					<p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit}"  oncomplete="location.reload()" />
                    <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
 
 				</p:dataTable>
