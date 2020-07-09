@@ -363,6 +363,7 @@ System.out.println(" 1");
 		}
 		return listaOrganizacionFichapersonales;
 	}
+	@SuppressWarnings("unchecked")
 	public List<OrganizacionFichapersonal> findAllOrganizacionFichapersonalesByOrganizacion(List<UsuarioProyecto>listaOrganizaciones) {
 		List<OrganizacionFichapersonal> listaOrganizacionFichapersonales = new ArrayList<>();
 		for (UsuarioProyecto u : listaOrganizaciones) {

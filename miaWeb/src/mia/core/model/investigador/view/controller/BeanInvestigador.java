@@ -125,9 +125,8 @@ public class BeanInvestigador implements Serializable {
      	try {
      		
      		UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
-     		System.out.println(mo.getIdUsuarioCursoModulo());
-     		error=false;
-     		System.out.println(mo.getFechaFinProgramada());
+            error=false;
+     	
      		 managerInvestigador.editarfechaIniFin(mo, mo.getFechaInicioProgramada(), mo.getFechaFinProgramada());
      		listaUsuariosCursosModulos=	managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCurso(usuarioCursoAct.getIdUsuariocurso());
 			

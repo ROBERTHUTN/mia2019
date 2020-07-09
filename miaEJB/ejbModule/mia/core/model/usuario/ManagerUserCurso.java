@@ -373,7 +373,7 @@ public class ManagerUserCurso {
 
 		String JPQL = "SELECT u FROM UsuarioCursoModulo u WHERE u.usuarioCurso.idUsuariocurso=?1 "
 				+ "and u.cursoModulo.ordenCurso<?2"
-				+ " order by u.cursoModulo.ordenCurso";
+				+ " order by u.cursoModulo.ordenCurso desc";
 		Query query = em.createQuery(JPQL, UsuarioCursoModulo.class);
 		query.setParameter(1, id_user_curso);
 		query.setParameter(2, orden_curso);
@@ -586,8 +586,7 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 		calendar.setTime(useC.getFechaInicioProgramada());
 		double d=dias/listaCursosModulos.size();
 		dias=(int) Math.round(d);
-		for (CursoModulo c : listaCursosModulos) {
-			
+		for (CursoModulo c : listaCursosModulos) {			
 			UsuarioCursoModulo uCMod=new UsuarioCursoModulo();
 	        if (aux==0) {
 	        	uCMod.setAciertos(0);
@@ -595,14 +594,7 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 				
 				uCMod.setFechaInicioProgramada(calendar.getTime());
 			System.out.println(":"+uCMod.getFechaInicioProgramada()+" DIASS: "+dias);
-			      calendar.add(Calendar.DAY_OF_YEAR, dias);  
-			      if(calendar.getTime().compareTo(useC.getFechaFinProgramada())>0 || calendar.getTime().compareTo(useC.getFechaFinProgramada())==0  ) {
-				    	
-				    	 uCMod.setFechaFinProgramada(useC.getFechaFinProgramada()); 
-				     }else {
-				    	 uCMod.setFechaFinProgramada(calendar.getTime());  
-				     }
-			      
+			    calendar.add(Calendar.DAY_OF_YEAR, dias);  //aumenta los días
 			    uCMod.setFechaFinProgramada(calendar.getTime()); 
 				uCMod.setAvance(r);
 				uCMod.setCursoModulo(c);
@@ -615,12 +607,12 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 				
 				uCMod.setFechaInicioProgramada(calendar.getTime());
 			calendar.add(Calendar.DAY_OF_YEAR, dias);
-			 if(calendar.getTime().compareTo(useC.getFechaFinProgramada())>0 || calendar.getTime().compareTo(useC.getFechaFinProgramada())==0  ) {
-		    	 uCMod.setFechaFinProgramada(useC.getFechaFinProgramada()); 
+			 if(aux==listaCursosModulos.size()-1) {
+		    	 System.out.println(" "+calendar.getTime()+" "+" "+useC.getFechaFinProgramada()+"");
+				 uCMod.setFechaFinProgramada(useC.getFechaFinProgramada()); 
 		     }else {
 		    	 uCMod.setFechaFinProgramada(calendar.getTime());  
 		     }
-			  ;
 				uCMod.setAvance(r);
 				uCMod.setCursoModulo(c);
 				uCMod.setErrores(0);
