@@ -10,8 +10,8 @@
 		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
-	
-<link rel="icon" type="image/png" href="images/logo1.png" />
+
+	<link rel="icon" type="image/png" href="images/logo1.png" />
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
@@ -46,10 +46,11 @@
 			</p:menubar>
 		</h:form>
 	</div>
-		<div id="migajas" class="p-grid">
+	<div id="migajas" class="p-grid">
 		<p:breadCrumb>
 			<p:menuitem value="Menu" url="/miaWeb/faces/investigador/menu.xhtml" />
-			<p:menuitem value="Cursos" url="/miaWeb/faces/investigador/curso.xhtml" />
+			<p:menuitem value="Cursos"
+				url="/miaWeb/faces/investigador/curso.xhtml" />
 		</p:breadCrumb>
 	</div>
 	<p:growl>
@@ -60,62 +61,145 @@
 	</p:messages>
 
 
-	
+
 	<h:form id="form2">
-				<div class="ui-fluid">
+		<div class="ui-fluid">
 
-					<p:dataTable var="r" widgetVar="tabla1"
-						value="#{beanInvestigador.listaUsuariosCursosDTO}" reflow="true" rows="10"
-						paginator="true"
-						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15" emptyMessage="No ha creado cursos">
+			<p:dataTable var="r" widgetVar="tabla1"
+				value="#{beanInvestigador.listaUsuariosCursosDTO}" reflow="true"
+				rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="No ha creado cursos">
+				<f:facet name="header">
+					<p:outputLabel
+						value="Lista de usuarios con interes de investigación"></p:outputLabel>
+				</f:facet>
+				<p:column headerText="Módulos" style="width:50px">
+					<p:rowToggler />
+				</p:column>
+
+				<p:column headerText="Curso">
+					<h:outputText value="#{r.curso.nombre}" />
+				</p:column>
+
+				<p:column headerText="Responsable">
+					<h:outputText value="#{r.usuario.apellidos} #{r.usuario.nombres}" />
+				</p:column>
+
+
+				<p:column headerText="Fecha Inicio">
+					<h:outputText value="#{r.fechaInicioProgramada}" />
+				</p:column>
+				<p:column headerText="Fecha Fin">
+					<h:outputText value="#{r.fechaFinProgramada}" />
+				</p:column>
+				<p:column headerText="Editar " style="width:80px;">
+					<p:commandButton onclick="PF('editarModulo').show();"
+						oncomplete="nuevoModulo" update="form10" title="Editar"
+						value="Fechas" icon="fa fa-pencil"
+						actionListener="#{beanInvestigador.actionListenerCargarFechaInicioFechaFin(r)}"></p:commandButton>
+				</p:column>
+
+
+
+				<p:column headerText="SEGUIMIENTO" style="width:100px;">
+					<p:commandButton icon="fa fa-check" value="Ver Usuarios"
+						action="#{beanInvestigador.actionSeguimientoUsuariosCurso(r)}"
+						title="Seguimiento de los Usuarios" update="form2"></p:commandButton>
+
+
+				</p:column>
+				<p:rowExpansion>
+					<p:dataTable var="d" value="#{r.listaCursosModulosDTO}">
 						<f:facet name="header">
-							<p:outputLabel value="Lista de usuarios con interes de investigación"></p:outputLabel>
+							<p:outputLabel value="Lista de módulos del Curso "></p:outputLabel>
 						</f:facet>
-						<p:column headerText="Id" style="width:50px">
-							<h:outputText value="#{r.idUsuariocurso}" />
+						<p:column style="width:100px" headerText="Orden">
+
+							<p:commandButton value="Módulo #{d.cursoModulo.ordenCurso}"></p:commandButton>
+						</p:column>
+						<p:column headerText="Módulos ">
+							<h:outputLabel value="#{d.cursoModulo.modulo.nombre}"></h:outputLabel>
 						</p:column>
 
-						<p:column headerText="Curso">
-							<h:outputText value="#{r.curso.nombre}" />
-						</p:column>
-						
-						<p:column headerText="Responsable">
-							<h:outputText value="#{r.usuario.apellidos} #{r.usuario.nombres}" />
-						</p:column>
-			
-			
 						<p:column headerText="Fecha Inicio">
-							<h:outputText value="#{r.fechaInicioProgramada}" />
+							<h:outputLabel value="#{d.fechaInicioProgramada}"></h:outputLabel>
 						</p:column>
 						<p:column headerText="Fecha Fin">
-							<h:outputText value="#{r.fechaFinProgramada}" />
+							<h:outputLabel value="#{d.fechaFinProgramada}"></h:outputLabel>
 						</p:column>
+						<f:facet name="footer">
+											 <div class="ui-g">
+         <div class="ui-g-12" align="center">
+							<p:panelGrid columns="1" style="width:200px" >
+				
+								<p:commandButton value="Editar fechas "
+									styleClass="ui-priority-primary" process="@this"
+									action="#{beanInvestigador.actionRedireccionarEditarModulos(r)}"
+									 />
 						
-						
-						
-						<p:column headerText="SEGUIMIENTO" style="width:100px;">
-							<p:commandButton icon="fa fa-check" value="Ver Usuarios"
-								action="#{beanInvestigador.actionSeguimientoUsuariosCurso(r)}"
-								 title="Seguimiento de los Usuarios" 
-								update="form2"></p:commandButton>
-								
-							
-						</p:column>
-
-
-
+							</p:panelGrid>
+		</div>
+								</div>
+						</f:facet>
 					</p:dataTable>
-				</div>
-			</h:form>
-	
-	
+				</p:rowExpansion>
+
+
+			</p:dataTable>
+		</div>
+	</h:form>
+	<p:dialog header="Editar módulo" widgetVar="editarModulo"
+		id="editarModulo" modal="true" height="400" resizable="true"
+		responsive="true" minimizable="true" maximizable="true"
+		appendTo="@(body)">
+		<h:form id="form10">
+			<div class="ui-fluid">
+				<p:panelGrid columns="1" layout="grid">
+					<p:outputLabel value="ID:" />
+					<p:inputText value="#{beanInvestigador.useCDTO.idUsuariocurso}"
+						required="true" disabled="true">
+					</p:inputText>
+
+					<p:outputLabel value="Curso:" />
+					<p:inputText disabled="true"
+						value="#{beanInvestigador.useCDTO.curso.nombre}" required="true"
+						requiredMessage="Ingrese el nombre del curso" maxlength="100">
+					</p:inputText>
+
+					<p:outputLabel value="Fecha Inicio:" />
+					<p:datePicker required="true"
+						requiredMessage="Seleccione una fecha Inicio"
+						showButtonPanel="true" readonlyInput="true"
+						value="#{beanInvestigador.useCDTO.fechaInicioProgramada}"
+						showIcon="true" />
+
+					<p:outputLabel value="Fecha Fin:" />
+					<p:datePicker required="true"
+						requiredMessage="Seleccione una fecha Fin" showButtonPanel="true"
+						readonlyInput="true"
+						value="#{beanInvestigador.useCDTO.fechaFinProgramada}"
+						showIcon="true" />
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton value="ACTUALIZAR" icon="fa fa-arrow-circle-right"
+						style="width:100%"
+						actionListener="#{beanInvestigador.actionListenerEditarFechasUsuarioCursoInvestigador()}"
+						update="@form" ajax="false">
+					</p:commandButton>
+					<p:button value="CANCELAR" style="width:100%" icon="fa fa-times"
+						dismiss="modal" />
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 		<p:commandButton value="Sí" type="button"
 			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
 		<p:commandButton value="No" type="button"
 			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
 	</p:confirmDialog>
-			
+
 </body>
 </html>

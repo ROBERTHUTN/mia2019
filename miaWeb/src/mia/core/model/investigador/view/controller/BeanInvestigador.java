@@ -55,6 +55,8 @@ public class BeanInvestigador implements Serializable {
 	private boolean ingresadoModulos;
 	private UsuarioCursoModulo usuarioCursoModuloE;
 	private boolean error;
+	private UserCursoModuloDTO useMDTO;
+	private UsuarioCursoDTO  useCDTO;
 //claves foraneas
 	private int id_rol_fk;
 	private long id_ficha_fk;
@@ -79,6 +81,7 @@ public class BeanInvestigador implements Serializable {
 	private List<Curso>listaCursos;
 	private List<UserCursoModuloDTO> listaUserCursoModuloDTOs;
 	private List<UsuarioCursoDTO> listaUsuariosCursoDTO;
+	private UsuarioCursoDTO userCursoDtoEdit;
 	private String mensaje;
 	private int fk_id_curso;
 	@Inject 
@@ -104,6 +107,23 @@ public class BeanInvestigador implements Serializable {
 		}
 	}
 	
+	public String actionEditarTodosLosModulos() {
+		try {
+			
+	System.out.println("BEAN");
+	   managerInvestigador.editarFechasModulosByPadre(userCursoDtoEdit);
+		listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
+		listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
+
+	   JSFUtil.crearMensajeInfo("Módulos editados correctamente");
+	    return "curso.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return"";
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
+		}
+	}
 	public String actionSeguimientoUsuariosCurso(UsuarioCursoDTO u) {
 		try {
 		List<UsuarioCurso>lista=new ArrayList<UsuarioCurso>();
@@ -120,6 +140,55 @@ public class BeanInvestigador implements Serializable {
  
 		
 	}
+	public void actionListenerCargarFechaInicioFechaFin(UsuarioCursoDTO u) {
+		try {
+			useCDTO=u;
+		} catch (Exception e) {
+		JSFUtil.crearMensajeError(e.getMessage());
+		}
+
+		
+	}
+	public String actionRedireccionarEditarModulos(UsuarioCursoDTO uDTO) {
+		try {
+			userCursoDtoEdit=uDTO;
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+		return "editarModulos.xhtml?faces-redirect=true";
+		
+	}
+
+	public void onRowEditModulos(RowEditEvent event) {
+        
+     	try {
+     		
+     		UsuarioCursoModulo mo=(UserCursoModuloDTO)event.getObject();
+            error=false;
+        	UsuarioCursoModulo m=managerInvestigador.findAllUsuariosCursosModulosByIdUsuarioCursoModulo(mo.getIdUsuarioCursoModulo());
+     		 managerInvestigador.editarfechaIniFin(m, mo.getFechaInicioProgramada(), mo.getFechaFinProgramada());
+     		listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
+     		listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
+     		userCursoDtoEdit=managerUserCurso.findUsuarioCursoDTO(listaUsuariosCursosDTO, userCursoDtoEdit);
+     		mensaje=mo.getCursoModulo().getModulo().getNombre()+" ha sido modificado correctamente";
+			JSFUtil.crearMensajeInfo(mo.getCursoModulo().getModulo().getNombre());
+		} catch (Exception e) {
+			error=true;
+			listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
+     		try {
+			listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
+			userCursoDtoEdit=managerUserCurso.findUsuarioCursoDTO(listaUsuariosCursosDTO, userCursoDtoEdit);
+     		
+     		} catch (ParseException e1) {
+	
+				e1.printStackTrace();
+			}
+		     mensaje=e.getMessage();
+		JSFUtil.crearMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+    	
+    }
 	public void onRowEdit(RowEditEvent event) {
          
      	try {
@@ -142,6 +211,19 @@ public class BeanInvestigador implements Serializable {
 		}
     	
     }
+	public String actionListenerredireccionarCursoEditar() {
+		try {
+	listaUsuariosCursos= managerUserCurso.findAllUsuarioCursoesbyUser(beanLogin.getLogin().getId_usuario());
+	listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
+		JSFUtil.crearMensajeInfo("Cursos realizados correctamente.");
+		return"curso.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+			
+		}finally {
+			JSFUtil.crearMensajeFastFinal();
+		}
+		return"";
+	}
 	public String actionListenerredireccionarCurso() {
 		try {
 	listaUsuariosCursos= managerUserCurso.findAllUsuarioCursoesbyUser(beanLogin.getLogin().getId_usuario());
@@ -173,6 +255,27 @@ UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
 			JSFUtil.crearMensajeError(e.getMessage());
 			e.printStackTrace();
 			return"";
+		}
+
+	}
+	public void actionListenerEditarFechasUsuarioCursoInvestigador() {
+		try {
+			//a
+			usuarioCursoEdit=useCDTO;
+			managerUserCurso.editarUsuarioCursoeHijos(useCDTO);
+			listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
+			listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
+			JSFUtil.crearMensajeInfo("Curso "+useCDTO.getCurso().getNombre()+" modificado correctamente");
+		} catch (Exception e) {
+			listaUsuariosCursos=managerInvestigador.findAllUsuariosCursosByIdUsuario(beanLogin.getLogin().getId_usuario());
+			try {
+				listaUsuariosCursosDTO=managerUserCurso.cargarListaUsuarioCursoDTOs(listaUsuariosCursos);
+			} catch (ParseException e1) {		
+				e1.printStackTrace();
+			}
+		
+			JSFUtil.crearMensajeError(e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
@@ -618,6 +721,30 @@ UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+
+	public UserCursoModuloDTO getUseMDTO() {
+		return useMDTO;
+	}
+
+	public void setUseMDTO(UserCursoModuloDTO useMDTO) {
+		this.useMDTO = useMDTO;
+	}
+
+	public UsuarioCursoDTO getUseCDTO() {
+		return useCDTO;
+	}
+
+	public void setUseCDTO(UsuarioCursoDTO useCDTO) {
+		this.useCDTO = useCDTO;
+	}
+
+	public UsuarioCursoDTO getUserCursoDtoEdit() {
+		return userCursoDtoEdit;
+	}
+
+	public void setUserCursoDtoEdit(UsuarioCursoDTO userCursoDtoEdit) {
+		this.userCursoDtoEdit = userCursoDtoEdit;
 	}
 
 

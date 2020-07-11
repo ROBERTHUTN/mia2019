@@ -70,67 +70,29 @@
 	</div>
 	<div id="migajas" class="p-grid">
 		<p:breadCrumb>
-			<p:menuitem value="Menu" url="/miaWeb/faces/investigador/menu.xhtml" />
-			<p:menuitem value="Cursos"
-				url="/miaWeb/faces/investigador/curso.xhtml" />
-			<p:menuitem value="Nuevo curso"
-				url="/miaWeb/faces/investigador/nuevoCurso.xhtml" />
+			<p:menuitem value="Menu" url="/miaWeb/faces/investigador/nuevosModulos.xhtml" />
+			<p:menuitem value="Cursos" url="/miaWeb/faces/investigador/curso.xhtml"		 />
+				<p:menuitem value="Nuevos módulos" url="/miaWeb/faces/investigador/nuevosModulos.xhtml" />
 		</p:breadCrumb>
 	</div>
 	
-	<p:growl autoUpdate="true"></p:growl>
+		<p:growl>
+		<p:autoUpdate />
+	</p:growl>
 	
-	<h:form id="form1">
-		<p:panel header="Nuevo Curso" 	>
+		<p:panel header="Módulos del curso #{beanInvestigador.userCursoDtoEdit.curso.nombre}">
 			<div class="ui-fluid">
-				<p:panelGrid columns="3" layout="grid" rendered="#{!beanInvestigador.ingresadoModulos}"
-					styleClass="ui-panelgrid-blank ui-fluid">
-
-					<p:outputLabel value="Curso: " />
-					<p:selectOneMenu id="curso" autoWidth="100%" required="true"
-						requiredMessage="Seleccione un curso"
-						value="#{beanInvestigador.fk_id_curso}" effect="fade"
-						filter="true" filterMatchMode="startsWith">
-						<f:selectItem itemLabel="Seleccione un curso"
-							noSelectionOption="true" />
-						<f:selectItems value="#{beanInvestigador.listaCursos}" var="a"
-							itemLabel="#{a.nombre}" itemValue="#{a.idCurso}" />
-					</p:selectOneMenu>
-					<p:message for="curso"></p:message>
-
-
-					<p:outputLabel value="Fecha Inicio: " />
-					<p:datePicker id="fechaInicio" required="true"
-						requiredMessage="Seleccione una fecha Inicio"
-						value="#{beanInvestigador.usuarioCursoIng.fechaInicioProgramada}"
-						showIcon="true" />
-					<p:message for="fechaInicio"></p:message>
-					<p:outputLabel value="Fecha Fin: " />
-					<p:datePicker id="fechaFin" required="true"
-						requiredMessage="Seleccione una fecha Fin"
-						value="#{beanInvestigador.usuarioCursoIng.fechaFinProgramada}"
-						showIcon="true" />
-					<p:message for="fechaFin"></p:message>
-
-
-					<p:commandButton ajax="true" value="Registrar curso"
-						icon="fa fa-update"
-						actionListener="#{beanInvestigador.actionListenerIngresarUsuarioCursoInvestigador()}"
-						update="form1" validateClient="true"></p:commandButton>
-
-				</p:panelGrid>
+				
+				<h:form id="form2">
 				<p:dataTable id="tabla1" var="r" widgetVar="tabla1"
-					rendered="#{beanInvestigador.ingresadoModulos}"
-					value="#{beanInvestigador.listaUsuariosCursosModulos}"
+					value="#{beanInvestigador.userCursoDtoEdit.listaCursosModulosDTO}"
 					editable="true" style="margin-bottom:20px"  emptyMessage="No ha creado cursos">
 					<f:facet name="header">
+					
 						<p:outputLabel
 							value="Módulos del cuestionario #{beanInvestigador.usuarioCursoAct.curso.nombre}"></p:outputLabel>
 					</f:facet>
-					 <p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEdit}" update="form1"  />
-                   <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
-				
-				
+			
 					<p:column >
 					<p:commandButton value="Módulo #{r.cursoModulo.ordenCurso}"></p:commandButton>
 					</p:column>
@@ -139,13 +101,13 @@
 						<h:outputText value="#{r.cursoModulo.modulo.nombre}" />
 					</p:column>
 					
-					<p:column headerText="Fecha Inicio">
+					<p:column headerText="Fecha Inicio" id="nuevo" >
 						<p:cellEditor>
 							<f:facet name="output">
-								<p:calendar disabled="true" value="#{beanInvestigador.usuarioCursoIng.fechaInicioProgramada}" locale="es"/>
+								<p:calendar  disabled="true" value="#{r.fechaInicioProgramada}" locale="es"/>
 							</f:facet>
-							<f:facet name="input">
-								<p:calendar mindate="#{beanInvestigador.usuarioCursoAct.fechaInicioProgramada}" maxdate="#{beanInvestigador.usuarioCursoAct.fechaFinProgramada}" value="#{beanInvestigador.usuarioCursoIng.fechaInicioProgramada}" locale="es"/>
+							<f:facet name="input"  >
+								<p:calendar mindate="#{beanInvestigador.usuarioCursoAct.fechaInicioProgramada}" maxdate="#{beanInvestigador.usuarioCursoAct.fechaFinProgramada}" value="#{r.fechaInicioProgramada}" locale="es"/>
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
@@ -153,46 +115,54 @@
 					<p:column headerText="Fecha Fin">
 						<p:cellEditor>
 							<f:facet name="output">
-								<p:calendar disabled="true"  value="#{beanInvestigador.usuarioCursoIng.fechaFinProgramada}" locale="es"></p:calendar>
+								<p:calendar disabled="true"  value="#{r.fechaFinProgramada}" locale="es"></p:calendar>
 							</f:facet>
 							<f:facet name="input">
-								<p:calendar mindate="#{beanInvestigador.usuarioCursoAct.fechaInicioProgramada}" maxdate="#{beanInvestigador.usuarioCursoAct.fechaFinProgramada}" value="#{beanInvestigador.usuarioCursoIng.fechaFinProgramada}" locale="es"></p:calendar>
+								<p:calendar mindate="#{beanInvestigador.usuarioCursoAct.fechaInicioProgramada}" maxdate="#{beanInvestigador.usuarioCursoAct.fechaFinProgramada}" value="#{r.fechaFinProgramada}" locale="es"></p:calendar>
 								
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
 					
+				
+				
 					
 					
 					<p:column style="width:35px">
 						<p:rowEditor />
 					</p:column>
+		
 
+					<p:ajax event="rowEdit" listener="#{beanInvestigador.onRowEditModulos}"  oncomplete="location.reload()" />
+                   <p:ajax event="rowEditCancel" listener="#{beanInvestigador.onRowCancel}"  />
 
 				</p:dataTable>
-				</div>
-					 <div class="ui-g">
+				   <div class="ui-g">
+  
+    <div class="ui-g-12 ui-md-3">
+        <p:staticMessage severity="error"  summary="ERROR!" detail="#{beanInvestigador.mensaje}" rendered="#{beanInvestigador.error}" />
+    </div>
+    
+</div>
+		
+        
+        
+        </h:form>
+       
+       			 <div class="ui-g">
          <div class="ui-g-12">
-             <p:commandButton value="Finalizar" styleClass="ui-priority-primary" process="@this" 
-                rendered="#{beanInvestigador.ingresadoModulos}"               />
-         </div>
-     </div>
+         <h:form>
+             <p:commandButton value="Finalizar"  styleClass="ui-priority-primary" process="@this" 
+                   action="#{beanInvestigador.actionEditarTodosLosModulos()}"           />
+                   </h:form>
+        </div>
+        </div>
+   </div>
+
 			</p:panel>
 
 		
-	
-	</h:form>
 
-
-
-
-	<!--  -->
-	<p:growl>
-		<p:autoUpdate />
-	</p:growl>
-	<p:messages>
-		<p:autoUpdate />
-	</p:messages>
 
 
 

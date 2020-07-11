@@ -23,6 +23,8 @@ import mia.core.model.entities.UsuarioCursoModulo;
 import mia.core.model.entities.UsuarioInteresArea;
 import mia.core.model.entities.UsuarioProyecto;
 import mia.core.model.usuario.ManagerUserCurso;
+import mia.core.model.usuario.dto.UserCursoModuloDTO;
+import mia.core.model.usuario.dto.UsuarioCursoDTO;
 
 @Stateless
 @LocalBean
@@ -37,6 +39,29 @@ private ManagerUserCurso managerUserCurso;
 	public ManagerInvestigador() {
 	}
 
+	
+	public void editarFechasModulosByPadre(UsuarioCursoDTO userC) {
+		System.out.println("	public void editarFechasMANA");
+		List<UsuarioCurso>lista=managerUserCurso.findAllUsuarioCursoHijos(userC.getIdUsuariocurso());
+if (!lista.isEmpty()) {
+	for (UsuarioCurso uC : lista) {
+		List<UsuarioCursoModulo>listaU=managerUserCurso.findAllUsuarioCursoModulobyUserCusro(uC.getIdUsuariocurso());
+for (UsuarioCursoModulo uN : listaU) {
+	for (UserCursoModuloDTO uDTo: userC.getListaCursosModulosDTO()) {
+		if (uDTo.getCursoModulo().getOrdenCurso()==uN.getCursoModulo().getOrdenCurso()) {
+			uN.setFechaInicioProgramada(uDTo.getFechaInicioProgramada());
+			uN.setFechaFinProgramada(uDTo.getFechaFinProgramada());
+			userC.getListaCursosModulosDTO().remove(uDTo);
+			break;
+		}
+	}
+}
+	}
+}else {
+	return;
+}
+	
+	}
 	// Método que me devuelve la Lista de ROLES
 	public List<AreaInvestigacion> findAllAreaInvestigaciones() {
 

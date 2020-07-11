@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import jdk.nashorn.internal.ir.ContinueNode;
 import mia.core.model.usuario.dto.UserCursoModuloDTO;
 import mia.core.model.usuario.dto.UsuarioCursoDTO;
 import mia.core.model.administrador.ManagerCurso;
@@ -50,6 +51,20 @@ public class ManagerUserCurso {
 	/*
 	 * CARGAR LISTA DE USUARIOS CURSOS DTO
 	 */
+	
+	
+	
+	public UsuarioCursoDTO findUsuarioCursoDTO(List<UsuarioCursoDTO>lista, UsuarioCursoDTO usua) {
+	UsuarioCursoDTO u=new UsuarioCursoDTO();
+	for (UsuarioCursoDTO uDTO : lista) {
+		if (uDTO.getIdUsuariocurso()==usua.getIdUsuariocurso()) {
+		u=uDTO;
+		return u;
+		}
+	}
+		return u;
+	}
+	
 	public List<UsuarioCursoDTO> cargarListaUsuarioCursoDTOs(List<UsuarioCurso> listaUsuariosCursos)
 			throws ParseException {
 		List<UsuarioCursoDTO> listaNueva = new ArrayList<UsuarioCursoDTO>();
@@ -451,11 +466,91 @@ System.out.println("id:curs"+id_curso_usuario+" USU"+id_user);
 		} else
 			return true;
 	}
+	public void editarUsuarioCursoeHijos(UsuarioCursoDTO uDTO) throws Exception {
+		UsuarioCurso usu=findUsuarioCursoById(uDTO.getIdUsuariocurso());
+		editarUsuarioCursoInvestigador(uDTO);
+	
+		List<UsuarioCurso>lista=findAllUsuarioCursoHijos(uDTO.getIdUsuariocurso());
+	System.out.println("TAMAÑO: "+lista.size());
+		for (UsuarioCurso c : lista) {
+			System.out.println("HIJOS");
+			editarUsuarioCursoInvestigadorHijo(uDTO, c);
+		
+		}
+	}
 
+	public void editarUsuarioCursoInvestigadorHijo( UsuarioCursoDTO uDTO, UsuarioCurso user)
+			throws Exception {
+		System.out.println("PADRE");
+		if (uDTO==null) {
+			throw new Exception("Error al cargar el usuario Curso");
+		}	
+		if (uDTO.getIdUsuariocurso()==0) {
+			throw new Exception("Error al cargar el usuario Cssurso");
+		}	
+UsuarioCurso u=findUsuarioCursoById(user.getIdUsuariocurso());
+	
+System.out.println("5");
+if (uDTO.getFechaInicioProgramada().after(uDTO.getFechaFinProgramada())||uDTO.getFechaInicioProgramada().equals(uDTO.getFechaFinProgramada())) {
+			throw new Exception("Las fechas ingresadas son incorrectas: \n" + "Fecha final menor a la ficha inicial");
+		}
+
+		u.setFechaInicioProgramada(uDTO.getFechaInicioProgramada());
+		u.setFechaFinProgramada(uDTO.getFechaFinProgramada());
+		List<CursoModulo> listaCursosModulos = new ArrayList<CursoModulo>();
+		listaCursosModulos = findAllUsuarioCursoByIdCurso(u.getCurso().getIdCurso());
+		int dias = calculardiasParaCadaModulo(uDTO.getFechaInicioProgramada(), uDTO.getFechaFinProgramada(),
+				listaCursosModulos.size());
+		em.merge(u);
+		editarUsuarioCursoModulo(u, dias);
+		
+	}
+	public void editarUsuarioCursoInvestigador( UsuarioCursoDTO uDTO)
+			throws Exception {
+		if (uDTO==null) {
+			throw new Exception("Error al cargar el usuario Curso");
+		}	
+		if (uDTO.getIdUsuariocurso()==0) {
+			throw new Exception("Error al cargar el usuario Cssurso");
+		}	
+		List<CursoModulo> listaCursosModulos1 = new ArrayList<CursoModulo>();
+		listaCursosModulos1 = findAllUsuarioCursoByIdCurso(uDTO.getCurso().getIdCurso());
+		int dias1 = calculardiasParaCadaModulo(uDTO.getFechaInicioProgramada(), uDTO.getFechaFinProgramada(),
+		listaCursosModulos1.size());
+	if (dias1==-1) {
+		throw new Exception(
+				"Error: almenos debe existir un día para cada módulo vuelva a seleccionar las fechas \n "
+						+ " Existen " + listaCursosModulos1.size() + " módulos " );
+		
+	}
+		
+UsuarioCurso u=findUsuarioCursoById(uDTO.getIdUsuariocurso());
+if (uDTO.getFechaInicioProgramada().before(uDTO.getFechaFinProgramada())) {
+	System.out.println("NO ENTRA AL ERROR");
+	u.setFechaInicioProgramada(uDTO.getFechaInicioProgramada());
+	u.setFechaFinProgramada(uDTO.getFechaFinProgramada());
+	List<CursoModulo> listaCursosModulos = new ArrayList<CursoModulo>();
+	listaCursosModulos = findAllUsuarioCursoByIdCurso(u.getCurso().getIdCurso());
+	int dias = calculardiasParaCadaModulo(uDTO.getFechaInicioProgramada(), uDTO.getFechaFinProgramada(),
+	listaCursosModulos.size());
+if (dias==-1) {
+	throw new Exception(
+			"Error: almenos debe existir un día para cada módulo vuelva a seleccionar las fechas \n "
+					+ " Existen " + listaCursosModulos.size() + " módulos " );
+}else {
+em.merge(u);
+	editarUsuarioCursoModulo(u, dias);
+}
+}else {
+
+	throw new Exception("Las fechas ingresadas son incorrectas: \n" + "Fecha final menor a la ficha inicial");		
+		}
+	}
+	
 	public UsuarioCurso ingresarUsuarioCursoInvestigador(long id_user, Integer id_curso, UsuarioCurso userCurso)
 			throws Exception {
 
-		if (userCurso.getFechaInicioProgramada().after(userCurso.getFechaFinProgramada())) {
+		if (userCurso.getFechaInicioProgramada().after(userCurso.getFechaFinProgramada())||userCurso.getFechaInicioProgramada().equals(userCurso.getFechaFinProgramada())) {
 			throw new Exception("Las fechas ingresadas son incorrectas: \n" + "Fecha final menor a la ficha inicial");
 		}
 		boolean existecurso = existeUsuarioAndCursoenUserCur(id_curso, id_user);
@@ -572,7 +667,47 @@ System.out.println("id:curs"+id_curso_usuario+" USU"+id_user);
 		nusercurso.setAvance(num);
 		em.persist(nusercurso);
 	}
-
+public void editarUsuarioCursoModulo(UsuarioCurso useC, int dias) throws Exception {
+	System.out.println("editarUsuarioCursoModulo(UsuarioCur");
+		if (useC==null) {
+			throw new Exception("Usuario curso vacío");	
+		}
+		
+		List<UsuarioCursoModulo>listaCursosModulos=new ArrayList<UsuarioCursoModulo>();
+		listaCursosModulos=findAllUsuarioCursoModulobyUserCusro(useC.getIdUsuariocurso());
+		int aux=0;
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(useC.getFechaInicioProgramada());
+		double d=dias/listaCursosModulos.size();
+		dias=(int) Math.round(d);
+		for (UsuarioCursoModulo c : listaCursosModulos) {
+	        if (aux==0) {
+	        c.setFechaInicioProgramada(calendar.getTime());
+			System.out.println(":"+c.getFechaInicioProgramada()+" DIASS: "+dias);
+			    calendar.add(Calendar.DAY_OF_YEAR, dias);  //aumenta los días
+			    c.setFechaFinProgramada(calendar.getTime()); 
+				em.merge(c);
+			}else {
+				
+				
+				c.setFechaInicioProgramada(calendar.getTime());
+			calendar.add(Calendar.DAY_OF_YEAR, dias);
+			 if(aux==listaCursosModulos.size()-1) {
+		    	 System.out.println(" "+calendar.getTime()+" "+" "+useC.getFechaFinProgramada()+"");
+				 c.setFechaFinProgramada(useC.getFechaFinProgramada()); 
+		     }else {
+		    	c.setFechaFinProgramada(calendar.getTime());  
+		     }
+			 
+				em.merge(c);
+	
+			}
+	        aux++;
+		}
+		
+		
+	}
+	
 public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) throws Exception {
 		
 		if (useC==null) {
@@ -638,9 +773,7 @@ public void ingresarUsuarioCursoModulo(UsuarioCurso useC, Curso cur,int dias) th
 		System.out.println(": " + r + " : " + numModulos);
 		res = (int) diasTranscurridos;
 		if (res < numModulos) {
-			throw new Exception(
-					"Error: almenos debe existir un día para cada módulo vuelva a seleccionar las fechas \n "
-							+ " Existen " + numModulos + " módulos " + " para que sean realizados en " + res + " días");
+return -1;
 		}
 		return res;
 	}
