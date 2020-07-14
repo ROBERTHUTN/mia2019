@@ -81,6 +81,15 @@ public class ManagerAdministrador {
 		List<PaisEstado> listaPaisEstado = q.getResultList();
 		return listaPaisEstado;
 	}
+	
+	public List<PaisEstado> findAllEstadoPais() {
+		Query q = em.createQuery("SELECT p FROM PaisEstado p where p.paisEstado is not null", PaisEstado.class);
+		@SuppressWarnings("unchecked")
+		List<PaisEstado> listaPaisEstado = q.getResultList();
+		return listaPaisEstado;
+	}
+	
+	
 
 	public List<PaisEstado> findPaisEstado(int pasiest) {
 
@@ -408,6 +417,74 @@ public class ManagerAdministrador {
 		em.persist(paisEstad);
 		return;
 	}
+	
+	public int id_paisesta() {
+		
+		int id=0;
+		
+		String JPQL = "SELECT MAX(p.idPaisEstado) FROM PaisEstado p ";
+		Query query= em.createQuery(JPQL);
+		id= (int) query.getSingleResult();
+		id=id+1;
+		return id;
+	}
+	
+	
+	
+
+	public void ingresarEstadobyPais(PaisEstado paisEstado, int id_padre_pais) throws Exception {
+		if (paisEstado == null) {
+			throw new Exception("No ha ingresado datos en el País");
+		}
+
+		if (id_padre_pais == 0) {
+			throw new Exception("Error al seleccionar el pais");
+		}
+		boolean paisE = existePais(paisEstado.getNombre());
+		if (paisE) {
+
+			throw new Exception("Error ya existe un País o estado registrado con ese nombre");
+		}
+
+		
+		PaisEstado paisEstad = new PaisEstado();
+		PaisEstado pais= findPaisEstadoById(id_padre_pais);
+		paisEstad.setIdPaisEstado(id_paisesta());
+		paisEstad.setNombre(paisEstado.getNombre());
+		paisEstad.setPaisEstado(pais);
+		em.persist(paisEstad);
+	
+	}
+	
+	
+	
+	public void editarEstadobyPais(PaisEstado paisEstadoA, int id_padre_pais) throws Exception {
+		PaisEstado paisEstadN= findPaisEstadoById(paisEstadoA.getIdPaisEstado());
+	
+		if (paisEstadoA == null) {
+			throw new Exception("No ha ingresado datos en el País");
+		}
+
+		if (id_padre_pais == 0) {
+			throw new Exception("Error al seleccionar el pais");
+		}
+		boolean paisE = existePais(paisEstadoA.getNombre());
+		if (paisE) {
+
+			throw new Exception("Error ya existe un País o estado registrado con ese nombre");
+		}
+
+		
+		PaisEstado paisEstad = new PaisEstado();
+		PaisEstado pais= findPaisEstadoById(id_padre_pais);
+		paisEstadN.setIdPaisEstado(paisEstadoA.getIdPaisEstado());
+		paisEstadN.setNombre(paisEstadoA.getNombre());
+		paisEstadN.setPaisEstado(pais);
+	
+		em.persist(paisEstadN);
+	
+	}
+	
 
 //MÃ©todo que me ingresa la ficha personal
 	public void ingresarFichaPersonal(FichaPersonal fichaPersonal, int id_religion, int id_etnia, int id_pais,

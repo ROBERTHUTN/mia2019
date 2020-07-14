@@ -60,6 +60,8 @@ public class BeanAdministrador implements Serializable {
 	private UsuarioProyecto usuarioproyectoE;
 	private Usuario usuarioE;
 	private AreaInvestigacion areaE;
+	private PaisEstado paisEstadoE;
+	
 	
 //claves foraneas
 	private Date fechaNacimiento;
@@ -119,6 +121,7 @@ public class BeanAdministrador implements Serializable {
 			etnias = managerAdministrador.findAllEtnia();
 			religiones = managerAdministrador.findAllReligion();
 			paises = managerAdministrador.findOnlyPais();
+			estados= managerAdministrador.findAllEstadoPais();			
 			usuarios = managerAdministrador.findAllUsuario();
 			grados = managerUsuario.findAllGrado();
 			organizaciones = managerAdministrador.findAllOrganizaciones();
@@ -229,6 +232,42 @@ reporte=1;
 		}
 
 	}
+	
+	public String actionIngresarEstadobyPais() {
+		try {
+		
+			managerAdministrador.ingresarEstadobyPais(paisEstado, id_pais_fk);
+			JSFUtil.crearMensajeInfo("Estado creado correctamente");
+			estados= managerAdministrador.findAllEstadoPais();		
+			return "paisestado.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			return "";
+		}	
+
+	}
+	
+	public void actionListenerEditarPaisEstado() {
+		try {
+			managerAdministrador.editarEstadobyPais(paisEstadoE, id_pais_fk);
+			JSFUtil.crearMensajeInfo("País y Estado editado correctamente");
+		} catch (Exception e) {
+			estados= managerAdministrador.findAllEstadoPais();
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+
+	}
+	
+	public void actionListenerCargarPaisEstado(PaisEstado paisEstadoC) {
+		try {
+		paisEstadoE = paisEstadoC;
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+
+	}
+	
+
 
 	public String actionIngresarFichaPersonal() {
 		try {
@@ -966,6 +1005,26 @@ reporte=1;
 
 	public void setId_users_fk(long id_users_fk) {
 		this.id_users_fk = id_users_fk;
+	}
+
+
+	public AreaInvestigacion getAreaE() {
+		return areaE;
+	}
+
+
+	public void setAreaE(AreaInvestigacion areaE) {
+		this.areaE = areaE;
+	}
+
+
+	public PaisEstado getPaisEstadoE() {
+		return paisEstadoE;
+	}
+
+
+	public void setPaisEstadoE(PaisEstado paisEstadoE) {
+		this.paisEstadoE = paisEstadoE;
 	}
 
 	

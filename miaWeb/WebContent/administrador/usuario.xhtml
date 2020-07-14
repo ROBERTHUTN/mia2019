@@ -56,7 +56,7 @@
 	<p:dialog header="Ingresar Nuevo Usuario" widgetVar="nuevoUsuario"
 		id="nuevoUsuario" modal="true" height="500" width="500" resizable="true"
 		responsive="true" minimizable="true" maximizable="true"
-		appendTo="@(body)">
+		appendTo="@(body)"  >
 		<h:form id="form1">
 			<div class="ui-fluid">
 				<p:panelGrid columns="3" layout="grid">
@@ -168,7 +168,10 @@
 				value="#{beanAdministrador.usuarios}" 
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15">
+				rowsPerPageTemplate="5,10,15" >
+				 <f:facet name="header">
+        </f:facet>
+				
 					 <p:headerRow>
             <p:column colspan="7">
                 <h:outputText value="#{r.rol.nombreRol}" />
