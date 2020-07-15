@@ -72,6 +72,7 @@ public class BeanInvestigador implements Serializable {
 //ROLES
 	private List<AreaInvestigacion> investigacionareas;
 	private List<OrganizacionFichapersonal> organizacionFichapersonales;
+	private List<OrganizacionFichapersonal> filteredorganizacionFichapersonales;
 	private List<FichaPersonal> listaFichaU;
 	private List<FichaPersonal> ListaFichaIduser;
 	private List<Usuario> listaUsuario;
@@ -745,6 +746,15 @@ UsuarioCursoModulo mo=(UsuarioCursoModulo)event.getObject();
 
 	public void setUserCursoDtoEdit(UsuarioCursoDTO userCursoDtoEdit) {
 		this.userCursoDtoEdit = userCursoDtoEdit;
+	}
+
+	public List<OrganizacionFichapersonal> getFilteredorganizacionFichapersonales() {
+		return filteredorganizacionFichapersonales;
+	}
+
+	public void setFilteredorganizacionFichapersonales(
+			List<OrganizacionFichapersonal> filteredorganizacionFichapersonales) {
+		this.filteredorganizacionFichapersonales = filteredorganizacionFichapersonales;
 	}
 
 

@@ -3,7 +3,6 @@ package mia.core.model.administrador.view.controller;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
@@ -14,7 +13,6 @@ import mia.core.model.cuestionario.dto.CuestionarioDTO;
 import mia.core.model.cuestionario.dto.DimensionDTO;
 import mia.core.model.cuestionario.dto.InicioDTO;
 import mia.core.model.cuestionario.dto.PreguntaDimensionDTO;
-import mia.core.model.cuestionario.dto.PreguntaModuloDTO;
 import mia.core.model.entities.Cuestionario;
 import mia.core.model.entities.Dimension;
 import mia.core.model.entities.DimensionPregunta;
@@ -25,13 +23,10 @@ import mia.core.model.entities.Pregunta;
 import mia.core.model.entities.Preguntamodulo;
 import mia.core.model.entities.Respuestapregunta;
 import mia.core.model.entities.Usuario;
-import mia.core.model.login.view.controller.BeanLogin;
 import mia.core.model.reporte.ManagerReporte;
 import mia.modulos.view.util.JSFUtil;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Named
@@ -47,7 +42,6 @@ public class BeanAdministrradorCuestionario implements Serializable {
 private long id_modulo_fk;
 private long id_pregunta_modulo_fk;
  private Preguntamodulo preguntaModuloE;
-	private Date fechaRealizacion;
 	private Opcionpregunta opcionPreIng= new Opcionpregunta();
 	private Opcionpregunta opcionPreE= new Opcionpregunta();
 	private Respuestapregunta respPregIng= new Respuestapregunta();
@@ -57,9 +51,12 @@ private long id_pregunta_modulo_fk;
 	private List<Modulo>listaModulos;
 //OPCIONPREGUNTA
 private 	List<Respuestapregunta> listaRespPreg;
+private 	List<Respuestapregunta> filteredlistaRespPreg;
 private 	List<Preguntamodulo> listaPreMo;
+ private 	List<Preguntamodulo> filteredlistaPreMo;
 private 	List<Preguntamodulo> listaPreguntasSinRespuesta;
 private 	List<Opcionpregunta> listaOpcPre;
+private 	List<Opcionpregunta> filteredlistaOpcPre;
 private 	List<Opcionpregunta> listaOpcPreE;
 
 //FICHA_
@@ -104,8 +101,6 @@ private 	List<Opcionpregunta> listaOpcPreE;
 
 	@EJB
 	private ManagerReporte managerReporte;
-	@Inject
-	private BeanLogin login;
 
 	private List<Usuario> usuarios;
 
@@ -124,7 +119,6 @@ private 	List<Opcionpregunta> listaOpcPreE;
 			opciones = managerCuestionario.findAllOpciones();
 			preguntas = managerCuestionario.findAllPreguntaes();
 			dimensionpreguntas = managerCuestionario.findAllDimensionPreguntaes();
-			fechaRealizacion = managerAdministrador.fechaActual();
 
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -1117,6 +1111,24 @@ listaPreMo=managerCuestionario.findAllPreguntamodulo();
 	}
 	public void setListaOpcPreE(List<Opcionpregunta> listaOpcPreE) {
 		this.listaOpcPreE = listaOpcPreE;
+	}
+	public List<Preguntamodulo> getFilteredlistaPreMo() {
+		return filteredlistaPreMo;
+	}
+	public void setFilteredlistaPreMo(List<Preguntamodulo> filteredlistaPreMo) {
+		this.filteredlistaPreMo = filteredlistaPreMo;
+	}
+	public List<Respuestapregunta> getFilteredlistaRespPreg() {
+		return filteredlistaRespPreg;
+	}
+	public void setFilteredlistaRespPreg(List<Respuestapregunta> filteredlistaRespPreg) {
+		this.filteredlistaRespPreg = filteredlistaRespPreg;
+	}
+	public List<Opcionpregunta> getFilteredlistaOpcPre() {
+		return filteredlistaOpcPre;
+	}
+	public void setFilteredlistaOpcPre(List<Opcionpregunta> filteredlistaOpcPre) {
+		this.filteredlistaOpcPre = filteredlistaOpcPre;
 	}
 	
 

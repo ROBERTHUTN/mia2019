@@ -20,6 +20,30 @@
 .ui-orderlist .ui-orderlist-list {
 	height: auto;
 }
+  .ui-datatable {
+        margin-bottom: 25px
+    }
+ 
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+ 
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+ 
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+ 
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+ 
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -126,36 +150,39 @@
 			<h:form id="form2">
 				<div class="ui-fluid">
 
-					<p:dataTable var="r" widgetVar="tabla1"
+					<p:dataTable id="globalFilter" var="r" widgetVar="tabla1"
 						value="#{beanAdministrador.usuarioproyectos}" reflow="true" rows="10"
-						paginator="true"
+						paginator="true" filteredValue="#{beanAdministrador.filteredusuarioproyectos}"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15">
-						<f:facet name="header">
-							<p:outputLabel value="Lista de organización y Investigador"></p:outputLabel>
-						</f:facet>
-						<p:column headerText="Id" style="width:50px">
+									 <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Filtro de búsqueda:" />
+                <p:inputText id="globalFilter" onkeyup="PF('tabla1').filter()" style="width:150px" placeholder="Ingrese un carácter"/>
+            </p:outputPanel>
+        </f:facet>
+						<p:column headerText="Id" style="width:50px" filterBy="#{r.idUsuarioProyecto}">
 							<h:outputText value="#{r.idUsuarioProyecto}" />
 						</p:column>
 
-						<p:column headerText="Investigador">
+						<p:column headerText="Investigador" filterBy="#{r.usuario.nombres} #{r.usuario.apellidos}">
 							<h:outputText value="#{r.usuario.nombres} #{r.usuario.apellidos}" />
 						</p:column>
 						
-						<p:column headerText="Proyecto">
+						<p:column headerText="Proyecto" filterBy="#{r.proyectoInvestigacion.nombreProyecto}">
 							<h:outputText value="#{r.proyectoInvestigacion.nombreProyecto} " />
 						</p:column>
 						
 
-						<p:column headerText="Organización">
+						<p:column headerText="Organización" filterBy="#{r.organizacion.nombreOrganizacion}">
 							<h:outputText value="#{r.organizacion.nombreOrganizacion}" />
 						</p:column>
 						
-						<p:column headerText="Fecha de Inicio">
+						<p:column headerText="Fecha de Inicio" filterBy="#{r.fechaDe}">
 							<h:outputText value="#{r.fechaDe}" />
 						</p:column>
 						
-						<p:column headerText="Fecha Fin">
+						<p:column headerText="Fecha Fin" filterBy="#{r.fechaHasta}">
 							<h:outputText value="#{r.fechaHasta}" />
 						</p:column>
 						

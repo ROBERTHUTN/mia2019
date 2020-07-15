@@ -3,10 +3,8 @@ package mia.core.model.administrador.view.controller;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import mia.core.model.administrador.ManagerCurso;
 import mia.core.model.entities.Curso;
 import mia.core.model.entities.CursoModulo;
@@ -42,6 +40,7 @@ public class BeanCurso implements Serializable {
 	
 	private List<Curso> cursos;
 	private List<Modulo> modulos;
+	private List<Modulo> filteredmodulos1;
 	private List<CursoModulo> listaModCur;
 	private List<CursoModulo> cursomodulos;
 
@@ -221,7 +220,6 @@ System.out.println(""+listaModCur.size());
 		}
 
 	}
-
 
 
 	public long getId_modulo() {
@@ -429,6 +427,16 @@ System.out.println(""+listaModCur.size());
 
 	public void setId_curso(int id_curso) {
 		this.id_curso = id_curso;
+	}
+
+
+	public List<Modulo> getFilteredmodulos1() {
+		return filteredmodulos1;
+	}
+
+
+	public void setFilteredmodulos1(List<Modulo> filteredmodulos1) {
+		this.filteredmodulos1 = filteredmodulos1;
 	}
 
 	

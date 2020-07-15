@@ -99,6 +99,7 @@ public class BeanAdministrador implements Serializable {
 	private List<GradoEstudio> grados;
 	private List<Organizacion> organizaciones;
 	private List<UsuarioProyecto> usuarioproyectos;
+	private List<UsuarioProyecto> filteredusuarioproyectos;
 	private List<AreaInvestigacion> areas;
 	private boolean usuarioOrganizacion;
 	private List<OrganizacionFichapersonal>listaOrgFi;
@@ -109,6 +110,7 @@ public class BeanAdministrador implements Serializable {
 	private BeanLogin beanLogin;
 
 	private List<Usuario> usuarios;
+	private List<Usuario> filteredusuarios;
 
 	@PostConstruct
 	public void init() {
@@ -1025,6 +1027,26 @@ reporte=1;
 
 	public void setPaisEstadoE(PaisEstado paisEstadoE) {
 		this.paisEstadoE = paisEstadoE;
+	}
+
+
+	public List<Usuario> getFilteredusuarios() {
+		return filteredusuarios;
+	}
+
+
+	public void setFilteredusuarios(List<Usuario> filteredusuarios) {
+		this.filteredusuarios = filteredusuarios;
+	}
+
+
+	public List<UsuarioProyecto> getFilteredusuarioproyectos() {
+		return filteredusuarioproyectos;
+	}
+
+
+	public void setFilteredusuarioproyectos(List<UsuarioProyecto> filteredusuarioproyectos) {
+		this.filteredusuarioproyectos = filteredusuarioproyectos;
 	}
 
 	

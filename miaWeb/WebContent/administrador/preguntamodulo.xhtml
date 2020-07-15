@@ -19,6 +19,30 @@ type="preRenderView"></f:event>
 .ui-orderlist .ui-orderlist-list {
 	height: auto;
 }
+  .ui-datatable {
+        margin-bottom: 25px
+    }
+ 
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+ 
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+ 
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+ 
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+ 
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -105,14 +129,17 @@ type="preRenderView"></f:event>
 	<h:form id="form2">
 		<div class="ui-fluid">
 
-			<p:dataTable var="e" widgetVar="tabla1"
+			<p:dataTable var="e" id="globalFilter" widgetVar="carsTable1" filteredValue="#{beanAdministrradorCuestionario.filteredlistaPreMo}"
 				value="#{beanAdministrradorCuestionario.listaPreMo}" sortBy="#{e.modulo.nombre}" expandableRowGroups="true" 
 				 paginator="true" 
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15">
-				<f:facet name="header">
-					<p:outputLabel value="Lista de Preguntas Módulos"></p:outputLabel>
-				</f:facet>
+				rowsPerPageTemplate="15,10,5">
+			  <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Filtro de búsqueda por módulo:" />
+                <p:inputText id="globalFilter" onkeyup="PF('carsTable1').filter()" style="width:150px" placeholder="Ingrese un carácter"/>
+            </p:outputPanel>
+        </f:facet>
 					 <p:headerRow>
             <p:column colspan="3">
                 <h:outputText value="#{e.modulo.nombre}" />
@@ -123,7 +150,7 @@ type="preRenderView"></f:event>
 					<h:outputText value="#{e.idPregunta}" />
 				</p:column>
 
-				<p:column headerText="Respuesta">
+				<p:column headerText="Módulos" filterBy="#{e.modulo.nombre}">
 					<h:outputText value="#{e.pregunta}" />
 			</p:column>
 				

@@ -11,7 +11,7 @@
 </f:metadata>
 <h:head>
 	<link rel="icon" type="image/png" href="images/logo1.png" />
-	<style type="text/css">
+<style type="text/css">
 /** Demo **/
 .ui-outputlabel {
 	font-weight: bold;
@@ -20,6 +20,30 @@
 .ui-orderlist .ui-orderlist-list {
 	height: auto;
 }
+  .ui-datatable {
+        margin-bottom: 25px
+    }
+ 
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+ 
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+ 
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+ 
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+ 
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -110,37 +134,40 @@
 			<h:form id="form2">
 				<div class="ui-fluid">
 
-					<p:dataTable var="r" widgetVar="tabla1"
+					<p:dataTable id="globalFilter" var="r" widgetVar="tabla1"
 						value="#{beanInvestigador.organizacionFichapersonales}" sortBy="#{r.organizacion.nombreOrganizacion}" expandableRowGroups="true" 
-						paginator="true"
+						paginator="true" filteredValue="#{beanInvestigador.filteredorganizacionFichapersonales}"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15">
-						<f:facet name="header">
-							<p:outputLabel value="Lista de organización y usuarios"></p:outputLabel>
-						</f:facet>
+													 <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Filtro de búsqueda:" />
+                <p:inputText id="globalFilter" onkeyup="PF('tabla1').filter()" style="width:150px" placeholder="Ingrese un carácter"/>
+            </p:outputPanel>
+        </f:facet>
 						<p:headerRow>
-						<p:column colspan="6">
+						<p:column colspan="6" filterBy="#{r.organizacion.nombreOrganizacion}">
 							<h:outputText value="#{r.organizacion.nombreOrganizacion}" />
 						</p:column>
 						
 						</p:headerRow>
-						<p:column headerText="Id" style="width:50px">
+						<p:column headerText="Id" style="width:50px" filterBy="#{r.idOrganizacionFicha}">
 							<h:outputText value="#{r.idOrganizacionFicha}" />
 						</p:column>
 
 						
-						<p:column headerText="CI">
+						<p:column headerText="CI" filterBy="#{r.usuario.ci}">
 							<h:outputText value="#{r.usuario.ci} " />
 						</p:column>
 						
-						<p:column headerText="Usuario">
+						<p:column headerText="Usuario" filterBy="#{r.usuario.nombres} #{r.usuario.apellidos}">
 							<h:outputText value="#{r.usuario.nombres} #{r.usuario.apellidos}" />
 						</p:column>
 
-							<p:column headerText="Correo">
+							<p:column headerText="Correo" filterBy="#{r.usuario.correo}">
 							<h:outputText value="#{r.usuario.correo}"  />
 						</p:column>
-						<p:column headerText="Celular">
+						<p:column headerText="Celular" filterBy="#{r.usuario.fichaPersonals.get(0).celular}">
 							<h:outputText value="#{r.usuario.fichaPersonals.get(0).celular}" />
 						</p:column>
 					

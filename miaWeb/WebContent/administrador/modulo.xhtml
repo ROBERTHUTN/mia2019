@@ -10,6 +10,7 @@
 		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
+<title>MIA</title>
 	<link rel="icon" type="image/png" href="images/logo1.png" />
 	<style type="text/css">
 /** Demo **/
@@ -20,6 +21,31 @@
 .ui-orderlist .ui-order list-list {
 	height: auto;
 }
+  .ui-datatable {
+        margin-bottom: 25px
+    }
+ 
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+ 
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+ 
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+ 
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+ 
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
+    }
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -100,29 +126,33 @@
 			<h:form id="form2">
 				<div class="ui-fluid">
 
-					<p:dataTable var="r" widgetVar="tabla1"
+					<p:dataTable id="globalFilter" var="r" widgetVar="carsTable1"
 						value="#{beanCurso.modulos}" reflow="true" rows="10"
 						paginator="true"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15">
-						<f:facet name="header">
-							<p:outputLabel value="Lista de Módulos"></p:outputLabel>
-						</f:facet>
-						<p:column headerText="Id" style="width:50px">
+						rowsPerPageTemplate="5,10,15" filteredValue="#{beanCurso.filteredmodulos1}">
+					
+  <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Filtro de búsqueda:" />
+                <p:inputText id="globalFilter" onkeyup="PF('carsTable1').filter()" style="width:150px" placeholder="Ingrese un carácter"/>
+            </p:outputPanel>
+        </f:facet>
+						<p:column  filterBy="#{r.idModulo}" headerText="Id"  style="width:50px">
 							<h:outputText value="#{r.idModulo}" />
 						</p:column>
 
-						<p:column headerText="Nombre">
+						<p:column filterBy="#{r.nombre}" headerText="Nombre">
 							<h:outputText value="#{r.nombre}" />
 						</p:column>
 						
 						
-						<p:column headerText="Descripcion">
+						<p:column filterBy="#{r.descripcion}" headerText="Descripcion">
 							<h:outputText value="#{r.descripcion}" />
 						</p:column>
 						
 						
-						<p:column headerText="Enlace">
+						<p:column headerText="Enlace" filterBy="#{r.direccion}">
 							<h:outputText value="#{r.direccion}" />
 						</p:column>
 						

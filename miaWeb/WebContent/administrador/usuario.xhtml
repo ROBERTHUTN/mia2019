@@ -20,6 +20,30 @@
 .ui-orderlist .ui-orderlist-list {
 	height: auto;
 }
+  .ui-datatable {
+        margin-bottom: 25px
+    }
+ 
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+ 
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+ 
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+ 
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+ 
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
 </style>
 </h:head>
 <body style="background-color: #3b83bd;">
@@ -164,39 +188,43 @@
 <h:form id="form2">
 <div class="ui-fluid" style="margin-top: 10px; ">
 
-			<p:dataTable var="r" widgetVar="tabla1" rendered="#{!beanAdministrador.usuarioOrganizacion}" sortBy="#{r.rol.nombreRol}" expandableRowGroups="true"
-				value="#{beanAdministrador.usuarios}" 
+			<p:dataTable id="globalFilter" var="r" widgetVar="tabla1" rendered="#{!beanAdministrador.usuarioOrganizacion}" sortBy="#{r.rol.nombreRol}" expandableRowGroups="true"
+				value="#{beanAdministrador.usuarios}" filteredValue="#{beanAdministrador.filteredusuarios}"
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15" >
-				 <f:facet name="header">
+					 <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Filtro de búsqueda:" />
+                <p:inputText id="globalFilter" onkeyup="PF('tabla1').filter()" style="width:150px" placeholder="Ingrese un carácter"/>
+            </p:outputPanel>
         </f:facet>
 				
 					 <p:headerRow>
-            <p:column colspan="7">
+            <p:column colspan="7" filterBy="#{r.rol.nombreRol}">
                 <h:outputText value="#{r.rol.nombreRol}" />
             </p:column>
         </p:headerRow>
 				
 				
-				<p:column headerText="Id" style="width:50px">
+				<p:column headerText="Id" style="width:50px" filterBy="#{r.idUsuario}">
 					<h:outputText value="#{r.idUsuario}" />
 				</p:column>
 
-				<p:column headerText="Nombres">
+				<p:column headerText="Nombres" filterBy="#{r.nombres}">
 					<h:outputText value="#{r.nombres}" />
 				</p:column>
-				<p:column headerText="Apellidos">
+				<p:column headerText="Apellidos" filterBy="#{r.apellidos}">
 					<h:outputText value="#{r.apellidos}" />
 				</p:column>
-				<p:column headerText="Cédula" style="width:90px">
+				<p:column headerText="Cédula" style="width:90px" filterBy="#{r.ci}">
 					<h:outputText value="#{r.ci}" />
 				</p:column>
-				<p:column headerText="Correo">
+				<p:column headerText="Correo" filterBy="#{r.correo}">
 					<h:outputText value="#{r.correo}" />
 				</p:column>
 				
-				<p:column headerText="Activo" style="width:50px">
+				<p:column headerText="Activo" style="width:50px" filterBy="#{r.activo}">
 					<h:outputText value="#{r.activo}" />
 				</p:column>
 
